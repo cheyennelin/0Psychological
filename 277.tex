@@ -1,0 +1,224 @@
+\documentclass[sigconf]{acmart}
+
+\usepackage{booktabs} 
+\usepackage{amsmath}
+\usepackage[linesnumbered,boxed]{algorithm2e}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{algorithm2e}
+
+\setcopyright{none}
+
+\begin{document}
+
+\title{A Psychological Model for Early Consumption Prediction}
+
+
+\author{Paper 277}
+
+
+\begin{abstract}
+The study of consumer psychology reveals two category of procedures used by consumers to make consumption related choices: compensatory rules and non compensatory rules. Existing recommendation models such as matrix factorization assume the consumers follow the compensatory rules, which is to make decisions based on a weighted or summated score over different attributes. In this paper, we present a novel model which adopts non-compensatory decision rules. The selected item is superior on the most  important attribute and beyond the minimally acceptable level on other attributes. Furthermore, we incorporate other psychological mechanisms including ordinal utility and attention.  We explore the application of such a psychological model in early consumption prediction for click sessions. We experimentally demonstrate that this model outperforms state-of-the-art methods.
+\end{abstract}
+
+\keywords{consumer psychology, non-compensatory decision rules, ordinal utility, early prediction}
+
+\maketitle
+\section{Introduction}\label{sec:introduction}
+%recommendation: importance
+Recommender system is an bustling topic of research in recent years. Recommender system benefits both enterprises and consumers, as it boosts sales and enhances user experiences. Researchers are also attracted as recommender system is believed to be the key solution to information overload.   
+  
+ %recommendation: approaches
+A recommender system is often modeled as a rating regression problem~\cite{Bobadilla2013Recommender} or a ranking prediction problem~\cite{Rendle2009BPR}. For any given user, the former targets on forcasting the numerical ratings for items; the latter works on estimating the order of preferences over items. The two types are connected. On one hand, aiming to locate future consumptions, recommender system desires for relevant difference, instead of the absolute values of ratings for various items. On the other hand, a ranking based recommender system is usually dependent on a numerical core -- numerical model parameters that capture the relationships between users and items.         
+
+In both rating based and ranking based recommender systems, some sort of user preferences are assumed to reveal among items with different historical behaviors (i.e. purchase v.s. non-purchase, high rating v.s. low rating). Most recommender systems follow the matrix factorization framework~\cite{Koren2009Matrix}, in which user preference is modeled as a weighted aggregation over several aspects. To be specific, the user preference is expressed as a numerical vector over aspects, item feature is also represented as a vector of the same dimension, and the preference is functioned as the inner product of the two vectors defined above. Although such a framework is powerful and expressive in theory, it is not clear whether users do make consumption decisions in this manner in reality.  
+
+%example
+Let's look into an example and explore the patterns for a decision making process. \textit{Alice is looking for hotels in her travel destination. There are thousands of hotels that distinguish in price, service, location and comfortness. Since Alice is a student, she chooses a hotel that is not bad in terms of service, location and comfortness, compared to other alternatives, but with lowest price.} In other words, Alice conducts decision making process similar to a skyline query. The choice is a skyline object, which is superior in her favorite aspect, in the meantime, it cannot be dominated by any other objects in the rest aspects. 
+
+%model
+In this paper, our basic assumption is that, preferred items are skyline objects. Viewing preferred items as skyline objects is not only intuitive, but also provides more information to infer user preferences. We propose a generative model to describe the decision making process, where user preferences and item features are treated as hidden variables. The probability of yielding an observed skyline object is modeled by a Bradley-Terry Model~\cite{Hunter2004MM}, which is frequently adopted to interpretate social choices. 
+
+Skyline queries are extensively studied in the database community~\cite{Pei2007Probabilistic}. In these early works, skyline computation was considered an algorithmic problem. (To the best of our knowledge), we are the first to regard the skyline concept as a learning objective. Our model is novel in the sense that it offers an original viewpoint to make sense of the recommending process. Compared with previous recommender systems which assume the preferred item is better in the form of average performance over all aspects, the skyline assumption is more strict, as it holds for every aspect. Thus it limits the space of model parameters, and thus generates more accurate results. 
+
+Apparently, the most suitable scenario is session recommender systems. In a typical session recommender system, the input data includes clicks and purchases within a session. In such case, the skyline assumption seems to be straightforward and reasonable, since the purchase wins as a result of multiple intentional comparisons. However, when we want to extend the skyline assumption to traditional recommender systems, a natural problem may appear: is the winning item (higher rated or purchased) a skyline object? The problem arises because users usually have very limited access to the item universe. It is impossible that the winning item is an ideal skyline object, with respect to all other items. The crutial point here is to restrict the range of comparisons. 
+
+Without the availability of implicit feedback data, a straightforward approach is to sample items for comparisons, at the risk of bringing noise. A better approach is to estabish a probabilistic framework to include neccessary comparisons. We present an extended model for general recommender systems. Random variables are introduced to portait the likability of user response. We further consider random and not random mechanisms, and several factors that affects the possibility of response.       
+
+%skyline assumption: importance
+The skyline assumption is not only intuitive, but also it is a better fit for empirically observed purchase distribution. Many empirical studies report that the purchases of items are long tailed, e.g. following a power law distribution. We show that if we model the consumption processes as skyline operations, then the purchases of items will approximate to a power law distribution. 
+
+\section{Related Work}
+\subsection{Rank Aggregation}
+Due to its wide applications in ecomonics, biomedicines and social science, rank aggregation has been studied extensively in those communities. Researchers within these communities are often asked to find a consensus ranking, given a set of individual rankings over different alternatives. Consider a voting process in social science, each voter demonstrates a preferece list over political candidates, the goal is to achieve an optimal ranking to which each voter agrees in a sense.  In completing such a goal, there are usually two types of methods in literature. The first type is directly based on the ordinal data. Most commonly, the ordinal data is employed to construct a graph over alternatives, and a permutation of alternative positions can be achieved explicitly by finding the minimum feedback arc set~\cite{Alon2006Ranking}, in which case the resulting ranking has minimal Kendall Tau distance to all inputs; or by finding the stationary access distribution in a random walk framework~\cite{Negahban2012Iterative}, in which case the result approximates the MLE estimator of the BTL model. The second type is driven by random utility theory, as it assumes that a real-valued utility score is associated with each alternate, and the individual ranking is regarded as noisy observation of the ground truth ranking, which is the ordering of utility scores. The objective is thus transformed to inferencing the utility scores.         
+%statistical models for generating rankings: pairwise, listwise and parameter estimation methods
+
+In social choice and biomedical communities, popular random utility models include the Bradley-Terry-Luce model (BTL for short)~\cite{Hunter2004MM}, the Plackett-Luce model (PL)~\cite{AzariSoufiani2013Generalized}, Mallows models ~\cite{Lu2011Learning}, and so on. In the BTL model, suppose each individual is assigned a score $s_i$, the probability of pair-wise comparison $i>j$ is $p(i>j)=\frac{s_i}{s_j}$. In the PL model, the probability for a ranking $r=s_1 \succ s_2 \cdots \succ s_M$ is $ p(r|s)=\frac{s_1}{\Sigma_{l=1}^{M} s_l} \times \frac{s_2}{\Sigma_{l=2}{M} s_l} \cdots \times \frac{s_{M-1}}{s_{M-1}+s_{M}}$. The pairwise comparison probability is further studied in~\cite{Gleich2011Rank}. BTL can be regarded as a special case of PL via mrginalization. In the mallows model, the probability of ranking $p(r|\sigma,\phi)=\frac{1}{Z} e^{-\lambda d(r,\sigma)}$, where $\sigma$ is the hidden true ranking, $\lambda$ is the negative lognomial of a dispersion parameter, and $Z$ is the normalizer. Other extensions are also proposed under the random utility assumption, e.g. exponential distribution family is introduced in \cite{Parkes2012Random}.
+
+We should notice that usually there is only one single ranking as output. It is believed that any rank aggregation requires some degree of compromise. The group nature of individual rankings is brought to attention in a recent study ~\cite{Wu2015Clustering}. In this study, a two stage strategy is adopted, where the inputs are clustered in a projected space, and then the true state is inferred in each cluster.
+
+
+
+\subsection{Recommendation}
+
+
+
+\section{Basic Model}\label{sec:model1}
+
+Suppose we have the item universe $V=\{v_1,\cdots,v_M\}$ of $M$ items, the user universe $U=\{u_1,\cdots,u_N\}$ of $N$ users, input data $D={d}$ consists of buying sessions, each of which is a pair of a winning item and a set of losing items, $d=<W^d,L^d=\{v_1,v_2,\cdots,v_l\}>$. We use subscripts to denote the elements in each vector, i.e. the preference value of user $u$ in the $k-$th aspect is $u_k$. 
+
+Imagine that there are $K$ underlying aspects, the user preferences and item features are both quantified in the aspects. Therefore we assign a $k-$dimensional vector for each user as the user preference vector. Without ambiguity, we use the same notion $u_i$. We do the same to each item. The consumption session $d$ for user $u_d$ is a generative process:
+
+
+\begin{itemize}
+	\item Choose a favorite aspect $a$ according to $u_d$
+	
+	\begin{itemize}
+		\item Generate $d$ according to Equ.~\ref{equ:skyline}  
+	\end{itemize}
+\end{itemize}
+  
+As mentioned in Sec.~\ref{sec:introduction}, the winning item $w\in W^d$ is a skyline object. To define the probability of skyline events, we turn to the BTL model~\cite{Hunter2004MM} in social sience. In the BTL model, a ranking $i \succ j$ is likely to happen if the latent utility score $s_i$ is relevantly larger than $s_j$. To be specific, we have define $p(i \succ j), p(i \prec j)$ as follows to guarantee $p(i \succ j)+ p(i \prec j) =1$
+
+
+\begin{align*}
+	p(i \succ j)=\frac{s_i}{s_i+ s_j} \\
+	p(i \prec j)=\frac{s_j}{s_j+ s_i} \\
+\end{align*}
+  
+If the favorite aspect in current session is $k$, then following the definition of skyline object, $w\in W^d$ is superior in the favorite aspect,  and is not worse than other items in other aspects. $w\in W^d$ ranks higher than item $v\in L^d$ in the aspect $k$ is $p^k(w \succ v)=\frac{w_k}{w_k+\theta v_k}$; the probability of item $w\in W^d$ ranks not lower than item $v\in L^d$ in the aspect $k'!=k$. Under the extended BTL model, we have$p^{k'}(w = v)=(\theta^2-1)\frac{w_{k'}v_{k'}}{[w_{k'}+\theta v_{k'}][\theta w_{k'}+ v_{k'}]}$. Therefore, $p^{k'}(w \succeq v)=1- p^{k'} (v \succ w) = \frac{\theta w_{k'}}{v_{k'}+\theta w_{k'}}$. Suppose $g$ is a $K-$dim vector, with one and only one component to be equal to $1$, for each pair, $p(<w,v>|g_k=1) = p^k(w\succ v) \times \Pi_{k'\neq k} p^{k'}(w \succeq v)$. then the probability of generating a session observation $d$ given the hidden aspect $a$ is defined as:  
+
+\begin{align}\label{equ:skyline}
+		p(d|g,\theta,V,U) %& =\Pi_{w\in W^d, v\in L^d} [ p^a(w\succ v) \times \Pi_{a'\neq a} p^{a'}(w \succeq v)]\\
+		=\Pi_{w\in W^d, v\in L^d} \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta v_k}}^{g_k} { \frac{\theta w_{k}}{v_{k}+\theta w_{k}}}^{1-g_k}]
+\end{align}
+
+The parameter $\theta>1$ plays as a tolerance threshold. If the absolute difference between the winning item and the losing item in aspect $a$ is not significant to the user, $|w_a-v_a|\leq \theta$, then the consumer will tolerate such a difference and calls a tie. Again, the property $p(w_a \succ v_a) + p(v_a \succ w_a) + p( w_a = v_a) =1$ is guaranteed for any aspect and item.
+ 
+
+
+
+The model parameters are denoted as $\Theta=\{\theta,v\in V, u\in U)\}$, which include user preferences $u$, item features $v$ and tolerance threshold $\theta$. To inference the model parameters, we present the following EM algorithm to maximize the log-likelihood $\ln p(D|u,v,\theta)$. 
+
+First, let's use $\gamma(d,k,\Theta^t)$ to denote the conditional probability $p(g_k=1|d,\Theta^t)$ given parameters in the $t-$th round, when the current session specific favorite aspect is $g_k=1$, defined as follows
+
+\begin{align}\label{equ:conditional}
+\gamma(d,k,\Theta^t) &=\frac{p(d,g|\Theta^t)}{\Sigma_g p(d,g|\Theta^t)} = \frac{p(g|\Theta^t)p(d|\Theta^t,g)}{\Sigma_g p(g|\Theta^t)p(d|\Theta^t,g)}\\\nonumber
+&=\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}
+\end{align}
+
+Note that $\forall d, \Sigma_k \gamma(d,k,\Theta^t)=1$.
+
+In the E-step of $t-$th  EM round, compute the expectation $Q(\Theta^t)=E_{G} \ln p(D,G|\Theta) $
+
+\begin{align}\label{equ:estep}
+E_{G} \ln p(D,G|\Theta) & = \Sigma_d \Sigma_{k=1}^K \gamma(d,k,\Theta^t) \ln p(d,g|\Theta)\\\nonumber
+& = \Sigma_d \Sigma_{k=1}^K \gamma(d,k,\Theta^t) \{ \ln u_k \\ \nonumber
+&+ \Sigma_{w\in W_d, v\in V_d} [\ln \frac{w_k}{w_k +\theta v_k} +\Sigma_{k'\neq k} \ln \frac{\theta w_{k'}}{v_{k'}+\theta w_{k'}}]\}
+\end{align}
+
+In the M-step, we first maximize $Q(\Theta^t)$ with respect to $U$. For each $u \in U$, eliminating constant terms, we have:
+
+\begin{align}\label{equ:Lu}
+\min -\Sigma_{u(d)=u} \Sigma_{k=1}^K \gamma(d,k,\Theta^t) \ln u_k\\ \nonumber
+w.r.t \Sigma_k u_k =1
+\end{align}
+ 
+Solving the above Lagrange function Equ.~\ref{equ:Lu}, we get 
+
+\begin{equation}\label{equ:u}
+u_k =\frac{\Sigma_{u(d)=u}\gamma(d,k,\Theta^t)}{\Sigma_{s=1}^K \Sigma_{u(d)=u}\gamma(d,s,\Theta^t)}
+\end{equation}
+
+By applying $\ln v_k - \ln (v_k + \theta^t v'_k) \geq \ln v_k + 1 - \ln (v_k^t + \theta^t {v'}_k^t) - \frac{v_k + \theta^t v'_k}{v_k^t + \theta^t {v'}_k^t}$, we obtain a minorization function of $\tilde{Q}(\Theta^t)$.
+
+\begin{align}\label{equ:minorization}
+\tilde{Q}(\Theta^t) &= \Sigma_d \Sigma_{k=1}^K \gamma(d,k,\Theta^t)  \Sigma_{w\in W_d, v\in L_d} \\\nonumber
+& \{ [\ln w_k + 1 - \ln (w_k^t + \theta^t v_k^t) - \frac{w_k+\theta v_k}{w_k^t + \theta^tv_k^t}]+\\\nonumber
+&\Sigma_{k'\neq k} [\ln (\theta w_{k'}) + 1 - \ln (v_{k'}^t + \theta^t w_{k'}^t) -  \frac{v_{k'}+\theta w_{k'}}{v_{k'}^t + \theta^tw_{k'}^t}]
+\}
+\end{align}
+
+One advantage of $\tilde{Q}(\Theta^t)$ is that it can be seperated for each item $v$. Considering only the $k-$th component $v_k$, $\tilde{Q}(v_k,\Theta^t)$ involves two terms, one of which is relevant to observations $d\in W(v)$ where $v$ acts as skyline object, the other is relevant to observations $d \in L(v)$ where $v$ acts as comparisons, $\tilde{Q}(v_k,\Theta^t)=\tilde{Q}^1(v_k,\Theta^t)+\tilde{Q}^2(v_k,\Theta^t)$. Removing all constants and irrelevant terms for $v_k$, we have the following minorizing function:
+
+\begin{align*}%\label{equ:Lv}
+\tilde{Q}^1(v_k,\Theta^t) & = \Sigma_{d\in W(v)} |L_d| \ln v_k \\\nonumber
+& -v_k\Sigma_{d\in W(v)}\Sigma_{v'\in L_d} [\frac{\gamma(d,k,\Theta^t)}{ \alpha(v,v',k,\Theta^t)} +\Sigma_{k'\neq k}\frac{\theta^t\gamma(d,k',\Theta^t)}{\alpha(v',v,k,\Theta^t)}]\\ \nonumber
+\tilde{Q}^2(v_k,\Theta^t) & = -v_k \Sigma_{d\in L(v)}\Sigma_{v'\in W_d} [\frac{\theta^t \gamma(d,k,\Theta^t)}{\alpha(v',v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{\gamma(d,k',\Theta^t)}{\alpha(v,v',k,\Theta^t)}] 
+\end{align*}
+
+where $|L_d|$ is the number of objects being dominanted in $d$, $\alpha(v,v',k,\Theta^t)=v_k^t + \theta^t {v'}_k^t$. By setting the partial derivative of $\frac{\partial \tilde{Q}(v_k,\Theta^t)}{\partial v_k}=0$, we have:
+\begin{align}\label{equ:v}
+\frac{1}{v_k}= &\frac{\Sigma_{d\in W(v)}\Sigma_{v'\in L_d} [\frac{\gamma(d,k,\Theta^t)}{ \alpha(v,v',k,\Theta^t)} +\Sigma_{k'\neq k}\frac{\theta^t\gamma(d,k',\Theta^t)}{\alpha(v',v,k,\Theta^t)}]}{\Sigma_{d\in W(v)}|L_d|}\\\nonumber
+ & + \frac{\Sigma_{d\in L(v)}\Sigma_{v'\in W_d} [\frac{\theta^t \gamma(d,k,\Theta^t)}{\alpha(v',v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{\gamma(d,k',\Theta^t)}{\alpha(v,v',k,\Theta^t)}] }{\Sigma_{d\in W(v)}|L_d|}
+\end{align}
+
+Fix $v \in V$ and $u \in U$, rearranging Equ.\ref{equ:minorization}, we have the solution for $\frac{\partial \tilde{Q}(\Theta^t)}{\partial \theta}=0$ as:
+
+\begin{equation}\label{equ:theta}
+\theta = \frac{(K-1)\Sigma_d |W_d| |L_d|}{\Sigma_d \Sigma_k \gamma(d,k,\Theta^t)\Sigma_{w,v} [\frac{v_k}{\alpha(w,v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{w_{k'}}{\alpha(v,w,k',\Theta^t)}]}
+\end{equation}
+
+Finally, the EM algorithm is summarized below:
+
+\begin{algorithm}
+\KwIn{A set $D = \{d\}$ of sessions, where $u(d)=u$ and $d=\{<w,v>, w \in W_d, v\in L_d\}$ is a set of skyline objects $w$ and normal objects $v$}
+\KwOut{Model parameters $u \in U,v \in V, \theta$}
+Randomly initialize $u \in U, v \in V, \theta >1$\;
+\For{$t \gets 1$ \textbf{and} not converge}{
+$\gamma(d,k,\Theta^t)=\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}$\;
+\For{$u \in U$}{
+\For {$k \gets 1 $ \textbf{to} $K$}{
+Compute $u_k$ by Equ.~\ref{equ:u}\;
+}
+}
+\For{$v \in V$}{
+\For {$k \gets 1 $ \textbf{to} $K$}{
+Compute $v_k$ by Equ.~\ref{equ:v}\;
+}
+}
+Normalize $V$\;
+$\theta^{t+1} = \frac{\Sigma_d |W_d| [\Sigma_{v\in L_d} |v^{t+1}|]}{\Sigma_d (|W_d||L_d|)}$\;
+}
+
+\Return{$\Theta=\{\theta,U,V\}$}\;
+\caption{EM algorithm for Model}
+\label{algo:EM}
+\end{algorithm}
+
+\section{Discussion}
+
+In this section, we prove that under the skyline assumption, the purchases over the item space will have a long tail distribution. To simplify the argument, let $\theta=0$ and each session to be of length $|V|$ where only one skyline object is selected. Then the probability of item $v$ being selected in an arbitary session would be 
+
+\begin{equation*}
+p(v)=\Pi_k v_k
+\end{equation*}
+
+Suppose for each item, the feature specific value $v_k$ is drawn independently and identically from an arbitary probability distribution. Applying the central limit theorem in the log domain, we know that for large $K$, the above probability will be a log-normal distribution, say $p(x)=\frac{1}{{(2\pi\sigma^2)}{1/2}}\exp{-\frac{{(\ln x - \mu)}^2}{2\sigma^2}}$. The probability of item $v$ being purchased for $k$ times, is defined as 
+
+\begin{equation*}
+p(v)=\Pi_k v_k
+\end{equation*}
+
+\subsection{Recommendation}
+The first step is to estimate the most possible aspect that the user is interested on, given the current browsing history $\tilde{d}$. We have
+
+\begin{equation}\label{aprobability}
+p(a=k|\tilde{d},V)=\frac{\Sigma_{v\in \tilde{d}} v_k}{\Sigma_k \Sigma_{v\in \tilde{d}} v_k}
+\end{equation}
+
+And the possiblity of generating a skyline object $w\in \tilde{d}$ is 
+
+\begin{align}\label{equ:skylineprobability}
+		p(w|\tilde{d},\theta,V,U,g) %& =\Pi_{w\in W^d, v\in L^d} [ p^a(w\succ v) \times \Pi_{a'\neq a} p^{a'}(w \succeq v)]\\
+		= \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta v_k}}^{g_k} { \frac{\theta w_{k}}{v_{k}+\theta w_{k}}}^{1-g_k}]
+\end{align}
+
+\section{Model with Indeciveness}
+It seems that deciding on the most trivial thing takes me a long time
+\bibliographystyle{abbrv}
+\bibliography{C:/scratch/MyPaper/reference}
+
+\end{document}

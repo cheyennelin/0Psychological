@@ -1,0 +1,77 @@
+\begin{thebibliography}{10}
+
+\bibitem{Alon2006Ranking}
+N.~Alon.
+\newblock Ranking tournaments.
+\newblock {\em SIAM Journal on Discrete Mathematics}, 20(1):137--142, 2006.
+
+\bibitem{AzariSoufiani2013Generalized}
+H.~Azari~Soufiani, W.~Chen, D.~C. Parkes, and L.~Xia.
+\newblock Generalized method-of-moments for rank aggregation.
+\newblock In C.~J.~C. Burges, L.~Bottou, M.~Welling, Z.~Ghahramani, and K.~Q.
+  Weinberger, editors, {\em Advances in Neural Information Processing Systems
+  26}, pages 2706--2714. Curran Associates, Inc., 2013.
+
+\bibitem{Bobadilla2013Recommender}
+J.~Bobadilla, F.~Ortega, A.~Hernando, and A.~Gutiérrez.
+\newblock Recommender systems survey.
+\newblock {\em Knowledge-Based Systems}, 46(0):109 -- 132, 2013.
+
+\bibitem{Gleich2011Rank}
+D.~F. Gleich and L.-h. Lim.
+\newblock Rank aggregation via nuclear norm minimization.
+\newblock In {\em Proceedings of the 17th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '11, pages 60--68, New York, NY,
+  USA, 2011. ACM.
+
+\bibitem{Hunter2004MM}
+D.~R. Hunter.
+\newblock Mm algorithms for generalized bradley-terry models.
+\newblock {\em The Annals of Statistics}, 32(1):384--406, 2004.
+
+\bibitem{Koren2009Matrix}
+Y.~Koren, R.~Bell, and C.~Volinsky.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer}, 42(8):30--37, 2009.
+
+\bibitem{Lu2011Learning}
+T.~Lu and C.~Boutilier.
+\newblock Learning mallows models with pairwise preferences.
+\newblock In {\em Proceedings of the 28th International Conference on Machine
+  Learning (ICML-11)}, pages 145--152, 2011.
+
+\bibitem{Negahban2012Iterative}
+S.~Negahban, S.~Oh, and D.~Shah.
+\newblock Iterative ranking from pair-wise comparisons.
+\newblock In F.~Pereira, C.~J.~C. Burges, L.~Bottou, and K.~Q. Weinberger,
+  editors, {\em Advances in Neural Information Processing Systems 25}, pages
+  2474--2482. Curran Associates, Inc., 2012.
+
+\bibitem{Parkes2012Random}
+D.~C. Parkes, H.~A. Soufiani, and L.~Xia.
+\newblock Random utility theory for social choice.
+\newblock In {\em Proceeedings of the 25th Annual Conference on Neural
+  Information ProcessingSystems (NIPS'12)}, pages 126--134, , Lake Tahoe,
+  Nevada,, 12 2012. Curran Associates and NIPS.
+
+\bibitem{Pei2007Probabilistic}
+J.~Pei, B.~Jiang, X.~Lin, and Y.~Yuan.
+\newblock Probabilistic skylines on uncertain data.
+\newblock In {\em Proceedings of the 33rd International Conference on Very
+  Large Data Bases}, VLDB '07, pages 15--26. VLDB Endowment, 2007.
+
+\bibitem{Rendle2009BPR}
+S.~Rendle, C.~Freudenthaler, Z.~Gantner, and L.~Schmidt-Thieme.
+\newblock Bpr: Bayesian personalized ranking from implicit feedback.
+\newblock In {\em Proceedings of the Twenty-Fifth Conference on Uncertainty in
+  Artificial Intelligence}, UAI '09, pages 452--461, Arlington, Virginia,
+  United States, 2009. AUAI Press.
+
+\bibitem{Wu2015Clustering}
+R.~Wu, J.~Xu, R.~Srikant, L.~Massoulie, M.~Lelarge, and B.~Hajek.
+\newblock Clustering and inference from pairwise comparisons.
+\newblock In {\em Proceedings of the 2015 ACM SIGMETRICS International
+  Conference on Measurement and Modeling of Computer Systems}, SIGMETRICS '15,
+  pages 449--450, New York, NY, USA, 2015. ACM.
+
+\end{thebibliography}
