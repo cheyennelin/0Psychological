@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.22)  29 MAR 2017 12:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.22)  1 APR 2017 08:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1054,9 +1054,6 @@ Package rerunfilecheck Info: File `277.out' has not changed.
 
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 224.
  )

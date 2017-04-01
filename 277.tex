@@ -20,15 +20,36 @@
 
 
 \begin{abstract}
-The study of consumer psychology reveals two category of procedures used by consumers to make consumption related choices: compensatory rules and non compensatory rules. Existing recommendation models such as matrix factorization assume the consumers follow the compensatory rules, which is to make decisions based on a weighted or summated score over different attributes. In this paper, we present a novel model which adopts non-compensatory decision rules. The selected item is superior on the most  important attribute and beyond the minimally acceptable level on other attributes. Furthermore, we incorporate other psychological mechanisms including ordinal utility and attention.  We explore the application of such a psychological model in early consumption prediction for click sessions. We experimentally demonstrate that this model outperforms state-of-the-art methods.
+The study of consumer psychology reveals two categories of procedures used by consumers to make consumption related choices: compensatory rules and non-compensatory rules. Existing recommendation models such as matrix factorization assume the consumers follow the compensatory rules, which is to make decisions based on a weighted or summated score over different attributes. In this paper, we present a novel model which adopts non-compensatory decision rules. The selected item is superior on the most  important attribute and beyond the minimally acceptable level on other attributes. Furthermore, we incorporate other psychological mechanisms including ordinal utility and attention.  We explore the application of such a psychological model in early consumption prediction for click sessions. We experimentally demonstrate that this model outperforms state-of-the-art methods.
 \end{abstract}
 
 \keywords{consumer psychology, non-compensatory decision rules, ordinal utility, early prediction}
 
 \maketitle
 \section{Introduction}\label{sec:introduction}
-%recommendation: importance
-Recommender system is an bustling topic of research in recent years. Recommender system benefits both enterprises and consumers, as it boosts sales and enhances user experiences. Researchers are also attracted as recommender system is believed to be the key solution to information overload.   
+%consumer psychology
+
+Ever since the dawn of psychological science, many attempts have been made to explain human choice behavior. It is well regarded that there are two categories of procedures to make consumption related choices: compensatory rules and non-compensatory rules~\cite{Engel1986Consumer}. Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the products with highest scores. The shortcomings of a product are balanced out by its attractive features. On the contrary, non-compensatory decision rules do not allow a good performance on one aspect of a product to compensate for poor performances on other aspects. Non-compensatory rules include conjunction, disjunction and lexicographic decision making rules. Researches have shown that users use all of these rules, and the selection of rules is dependent on individual and situation-related factors~\cite{Park1976Effect} 
+
+%previous works 
+
+One essential goal of recommender systems (RS) is to understand consumption patterns. In the fruitful literature of RS, almost all models are implementations of the compensatory decision rules, i.e. they assume that a consumption is the weighted combination of item performances over several hidden aspects~\cite{Hu2008Collaborative,Gopalan2015Scalable}. Intuitively, compensatory decision rules are powerful when the users are familiar with the product or the product is low in     
+
+%first contribution
+
+The consumers establish a minimum level of acceptable performance for each 
+
+
+%ordinal utility
+
+
+%early prediction
+
+
+%second contribution
+
+
+%structure
   
  %recommendation: approaches
 A recommender system is often modeled as a rating regression problem~\cite{Bobadilla2013Recommender} or a ranking prediction problem~\cite{Rendle2009BPR}. For any given user, the former targets on forcasting the numerical ratings for items; the latter works on estimating the order of preferences over items. The two types are connected. On one hand, aiming to locate future consumptions, recommender system desires for relevant difference, instead of the absolute values of ratings for various items. On the other hand, a ranking based recommender system is usually dependent on a numerical core -- numerical model parameters that capture the relationships between users and items.         
