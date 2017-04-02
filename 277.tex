@@ -38,14 +38,32 @@ However, many researches in the field of consumer psychology revealed that users
 
 %first contribution
 
-Our first contribution in this work is a novel probabilistic model that represents the cognitive process of consumers following non-compensatory rules. The problem being tackled here is to predict what item the consumer will buy in an activity session (i.e. a set of clicks on a e-commerce website). We assume that an item is purchased because it is superior on the aspect which is currently of the most importance to the consumer, and it surpasses  a minimum level of acceptable performance on other aspects. 
+Our first contribution in this work is a novel probabilistic model that represents the cognitive process of consumers following non-compensatory rules. The problem being tackled here is to predict what item the consumer will buy in an activity session (i.e. a set of clicks on a e-commerce website). We assume that an item is purchased because (1) it is superior on the aspect which is currently of the most pertinence to the consumer, and (2) it surpasses  a minimum level of acceptable performance on other aspects. 
 
 %ordinal utility
-When modeling consumers' decision making process, another important issue is that consumers' preferences should be described by ordinal utility rather than cardinal utility.  Ordinal utility is the idea that user's satisfaction (utility) cannot be measured in absolute quantity, while cardinal utility theory presumes utility is measurable and additive.  Suppose there are two items to evaluate, it is possible to ask a consumer which item is better, but it is meaningless to ask him how much better it is. Modern economics typically apply ordinal utility to study consumer behavior.
+When modeling consumers' decision making process, another important issue is that consumers' preferences are described by ordinal utility rather than cardinal utility.  Ordinal utility is the idea that user's satisfaction (utility) cannot be measured in absolute quantity, while cardinal utility theory presumes utility is measurable and additive.  Suppose there are two items to evaluate, it is possible to ask a consumer which item is better, but it is meaningless to ask him how much better it is. In modern economics, ordinal utility theory is applied to study consumer behavior.
 
 %ordinal utility in RS
+RS models are usually expressed in terms of cardinal utility, largely because RS models are dealing with choices under uncertainty.  In the few recent works~\cite{Frolov2016Fifty} which employ ordinal utility, only the final decisions (i.e. differences among explicit ratings) are considered to be in the domain of ordinal variables. 
 
-RS models are usually expressed in terms of cardinal utility. Little attention has been paid to the use of ordinal utility, except some recent works~\cite{Frolov2016Fifty}. 
+%motivation of ordinal utility
+According to study of consumer behavior~\cite{Engel1986Consumer}, after a desire of purchase is triggered, the consumer will proceed with a series of alternative evaluations using limited memory and attention.  Our hypothesis in this paper is that ordinal utility is applied by the consumer throughout the decision process. We give an example below to show that, when coupling with non-compensatory rules, if the model does not reflect the complete decision making process, the prediction might be misleading.
+
+
+\emph{Suppose there are 5 options $<A,B,C>$, exposed to the customer sequentially. The consumer evaluates each option on two attributes. }
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|}
+
+\end{tabular}
+\caption{{\bf default}}
+\label{default}
+\end{center}
+\end{figure}
+
+
+%
 
 
 %second contribution
