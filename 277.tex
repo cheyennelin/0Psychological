@@ -49,7 +49,7 @@ Our first contribution in this work is a novel probabilistic model that represen
 
 
 %challange to click sequence
-We observe that in an activity session, sometimes the consumer clicks an item for multiple times at different time points. Multiple clicks could be the result of random error, repeated advertising exposures, or an intentional effort. Neither compensatory nor non-compensatory decision rules can explain how multiple clicks will affect choice.
+A further problem is that an activity session is a behavior sequence. The order of activities could be the result of random error,  advertising exposures, or an intentional effort. Decision rules per se can not explain how the order of activities will affect the consumption choice.
 
 
 %motivation of limited memory
@@ -57,7 +57,9 @@ According to study of consumer behavior~\cite{Engel1986Consumer}, consumers are 
 
 
 %ordinal utility
-Our second contribution in this work is to address the multi-click problem by introducing the concept of working memory. The decision rules are empolyed for alternatives within working memory. The main message of an evaluation is described by ordinal utility. In modern economics, ordinal utility theory is typically applied to study consumer behavior~\cite{Simon1959Theories}. Suppose there are two items to evaluate in working memory, the message to be persist is which item is better, but it is meaningless to keep in mind how much better it is. We present several heuristics to stimulate the strategy based on messages of several evaluations.
+Our second contribution in this work is to address the challenge by introducing the concept of evaluation  process. Our hypothesis is that in an active session, the consumer will proceed with a series of alternative evaluations. The non-compensatory rules are employed for each alternative evaluation. Once an evaluation is completed, the main message is retained.  
+
+The main message of an evaluation is described by ordinal utility. In modern economics, ordinal utility theory is typically applied to study consumer behavior~\cite{Simon1959Theories}. Suppose there are two items to evaluate, the message to be persist is which item is better, but it is meaningless to keep in mind how much better it is. We present several heuristics to simulate the strategy based on ordinal messages of several evaluations.
 
 
 %structure
@@ -103,7 +105,7 @@ In the E-step of $t-$th  EM round we compute $\gamma(d,k,\Theta^t)=p(g_k=1|d,\Th
 \gamma(d,k,\Theta^t) &=\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}
 \end{align}
 
-In the M-step, we update user preferences $u$, item features $v$ and minimal level of accepted performance $\theta$ by Equ.~\label{equ:update}. 
+In the M-step, we update user preferences $u$, item features $v$ and minimal level of accepted performance $\theta$ by Equ.~\ref{equ:update}. 
 
 \begin{align}\label{equ:update}
 u_k = & \frac{\Sigma_{u(d)=u}\gamma(d,k,\Theta^t)}{\Sigma_{s=1}^K \Sigma_{u(d)=u}\gamma(d,s,\Theta^t)} \\\nonumber
@@ -143,8 +145,7 @@ And the possibility of an object being selected is $score(v)=\Pi_{l \in \tilde{d
 
 %Strategy by sequence of evaluations
 
-We present another type of strategy which is based on sequential evaluations. As discussed in Sec.~\ref{sec:intro}, our hypothesis is that the consumer conducts a series of alternative evaluations. The evaluation process starts when there are at least two alternatives, and ends at the last item of activity sequence. The evaluation process yields a evaluation sequence, only the ordinal message of evaluations $o$ is kept in memory. For example, as in Fig.`\ref{fig:illustration}, for a click sequence $(a,b,c,d,e,e)$, the consumer conducts 5 evaluations $(a,b), (a,b,c),(a,b,c,d),(a,b,c,d,e),(a,b,c,d,e,e) $. if the consumer adopts a non-compensatory rule as in model NCR with $\theta=0.05$, for comparison $(a,b)$, since $b$ is not superior on the pertinent aspect, the consumer is likely to choose $a$. For comparison $(a,b,c,d)$,  $d$ is below the cutoff point on the secondary aspect , so the consumer is tending to pick $c$. The ordinal message will be $o=(a,c,c,e,e)$. Based on how the consumer exploits the message $o$, we present three heuristic prediction strategies.
-
+We present another type of strategy which is based on sequential evaluations. As discussed in Sec.~\ref{sec:intro}, our hypothesis is that the consumer conducts a series of alternative evaluations. The evaluation process starts when there are at least two alternatives, and ends at the last item of activity sequence. The evaluation process yields a evaluation sequence, each of which is the result by applying the basic strategy on the current alternatives. For example, as in Fig.`\ref{fig:illustration}, for a click sequence $(a,b,c,d,e,e)$, the consumer conducts 5 evaluations on $(a,b), (a,b,c), (a,b,c,d),(a,b,c,d,e)$ and $(a,b,c,d,e,e) $ separately. if the consumer adopts a non-compensatory rule as in model NCR with $\theta=0.05$, for comparison $(a,b)$, since $b$ is not superior on the pertinent aspect, $score(b)>score(a)$. For comparison $(a,b,c,d)$,  $d$ is below the cutoff point on the secondary aspect , so $score(c)>score(a)>score(d)>score(b)$. 
 %ordinal utility
 
 \begin{figure}[htbp]
@@ -158,17 +159,22 @@ c & 0.64 & 0.36 \\
 d & 0.78 & 0.22 \\
 e & 0.65 & 0.35 \\\hline
 \end{tabular}
-\caption{A toy example of prediction strategy, with five evaluations with winners $a,c,c,e,e$}
+\caption{A toy example of prediction strategy. }
 \label{default}
 \end{center}
 \end{figure}\label{fig:illustration}
 
+
+We presume that only the ordinal message of evaluations is kept, i.e. the consumer will only remember which item is the best at each evaluation instead of the exact value of scores. The ordinal message will be $o=(a,c,c,e,e)$. Then the consumer collects the information over all evaluations and scores each item based on how often it is determined to be best. Thus $score(v)=\frac{|\{o[t] = v\}|}{|o|}$. This simple heuristic has one major drawback: there could be multiple items with the same scores. We present three heuristic strategies.
+
+
+
 %strategy
-(1) Addictive: In this strategy, the consumer collects the ordinal information in each evaluation and scores each item based on how often it is determined to be best. Thus $score(v)=\frac{|\{o[t] = v\}|}{|o|}$. Items with equivalent values are re-ordered in timestamp ascending order. In Fig.`\ref{fig:illustration},  under the addictive strategy, the output will be $c,e,a,b,d$. This strategy favors items that perform good and arrive first.
+(1) Addictive: In this strategy,  Items with equivalent values are re-ordered in timestamp ascending order. In Fig.`\ref{fig:illustration},  under the addictive strategy, the output will be $c,e,a,b,d$. This strategy favors items that perform good and arrive first.
 
-(2)Frequency: This strategy differs with addictive strategy in that, items with equivalent scores will be ranked by their frequencies in $\tilde{d}$. In Fig.`\ref{fig:illustration},  under the frequency strategy, the prediction is $e,c,a,b,d$.
+(2) Frequency: This strategy differs with addictive strategy in that, items with equivalent scores will be ranked by their frequencies in $\tilde{d}$. In Fig.`\ref{fig:illustration},  under the frequency strategy, the prediction is $e,c,a,b,d$.
 
-(3)Span: This strategy presumes that consumers will be impressed by items that persistently win. The span of $s(v)$ is the longest continous subsequence of $o$ which contains only $v$, $\exists t,l, l\geq t, \forall t\geq j\leq l, o[j]=s(v)[j-t], \forall i, s(v)[i]=v$. The consumer will rank all items by the length of its span . In Fig.`\ref{fig:illustration}, under the span strategy, the prediction is $e,c,a,b,d$.
+(3) Span: Suppose $l(v)=\max \{i|\tilde{d}[i]=v\}$ is the item's last occurrence and $t(v)=\min \{i|\tilde{d}[i]=v\} $ is the item's first occurrence in the activity session, its total time-span is defined as $s(v)=l(v)-t(v)+1$. Intuitively an item with large span indicates the  consumer is impressive. In Fig.`\ref{fig:illustration}, under the span strategy, the prediction is $e,c,a,b,d$.
 
 
 \section{Experiment}\label{sec:experiment}
@@ -178,28 +184,29 @@ e & 0.65 & 0.35 \\\hline
 
 
 We evaluate our framework over a real data set, the YOOCHOOSE data set~\cite{Ben-Shimon2015RecSys}. The data set is a collection of user activity sessions for a large
-European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. Each
-record in yoochoose-buys.dat represents a purchase and includes
-the following five fields: Session ID, Time Stamp, Item ID, Item
-Price, and Quantity. There are 9,512,786 unique sessions from anonymous users.
+European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. There are 9,512,786 unique sessions from anonymous users. 
+
+In the YOOCHOOSE data set, each activity session might contain any number of purchases (if any). In preprocessing, we filter out sessions without any purchase, and split the remaining records according to the number of purchases. For example, D1 is the set of records with 1 purchase, D6 is the set of records with at least 6 purchases. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
+  
+Each session is considered to be the footprint of a new user. $\theta$?
+
+  
+The evaluation metrics are Precision and MRR. Precision is the fraction of correct prediction (purchase) in the top n items of the resulting list, where $n$ is the total number of purchases in the test session. . The mean reciprocal rank (MRR) is the average of the reciprocal ranks of first correct prediction on each test session.
 
 
-The evaluation metrics are
 
 
 
 
-\subsection{Decision Rules}
 
-
-\begin{table*}
+\begin{table*}[htbp]
 \caption{Comparative Performance of Decision Rules }
 \label{tab:decision}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \multirow{2}{*}{Dataset} & \multirow{2}{*}{Performance}
 & \multicolumn{2}{|c|}{Compensatory rules} & \multicolumn{3}{|c|}{Non-compensatory rules} & \multicolumn{3}{|c|}{Others} \\
-\cline{3-10} & & BPR & MF & NCR & NCR-M & NCR-S & LinearRegression & GDBT & LogisticRegression \\\hline
+\cline{3-10} & & BPR & MF & NCR & NCR-M & NCR-S & LinearRegression & GBDT & LogisticRegression \\\hline
 \multirow{2}{*}{D1} &Precision	& & &	0.5717 & 0.6038 & 0.6354 &	0.6333 & 0.6423 &\bf{0.67}\\
 \cline{2-10}	    &MRR		& & &0.7697 & 0.7887 & 0.8046 &0.8051 & 0.812	 &\bf{0.8244}\\\hline
 \multirow{2}{*}{D2} &Precision  & & &0.6669 & \bf{0.7583} & 0.7371 &	0.6785 & 0.6878	& 0.6934\\
@@ -215,42 +222,56 @@ The evaluation metrics are
 \end{tabular}
 \end{table*}
 
+\subsection{Decision Rules}
 
+Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. The features for linear regression models, GBDT and logistic regression are extracted ....
+
+From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR can be viewed as implementations of compensatory rules. In all data segments, non-compensatory rules outperform compensatory rules. This shows the massive potential of modeling non-compensatory rules in recommendation systems. (2) Regression and classification models perform better than compensatory rules, as they use global information such as ICR. However, our models are comparable to regression models on D1, and superior on other data segments. (3) Among the three variants, NCR-M is dominating in most data segments. NCR-S performs better than NCR. It verifies our assumption that multiple clicks indicate less convincing item performance. (4) Our model is more suitable for activity sessions with more than 1 purchases. One potential reason is that sessions with only one purchase tend to be shorter, thus the lack of training instances hurt the model performance.  
 
 
 \subsection{Evaluation Strategy}
 
+Our next goal is to study the performance of prediction strategy. We couple the three strategies with three model variants and report precision at Tab.~\ref{tab:strategy}. We can see that (1) the prediction strategies significantly boost the prediction precision, compared with the results in Tab.~\ref{tab:decision}. In general, the frequency strategy is best for most model variants and data segments, again suggesting that multiple views have strong correlation with purchase probability.  (2) An optimal combination is model NCR-M or NCR-S with the frequency strategy. 
 
 
-
-\begin{table*}
-\caption{Comparative Performance of Evaluation Rules }
-\label{tab:decision}
+\begin{table*}[ht!]
+\caption{Precision of prediction strategies on model variants }
+\label{tab:strategy}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Dataset} & \multirow{2}{*}{Performance}
-& \multicolumn{2}{|c|}{Cardinal Utility} & \multicolumn{6}{|c|}{Ordinal Utility} \\
-\cline{3-10} & & Average & Sum & Ordinal-UA & Ordinal-US & Ordinal-UP & Ordinal-FA & Ordinal-FS & Ordinal-FP \\\hline
-\multirow{2}{*}{D1} & Precision & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-\cline{2-10} & MRR & 1 & 2 &3 & 4 & 5 &6 & 7 & 8
-\\ \hline \end{tabular}
+Dataset & \multicolumn{3}{|c|}{Addictive} &  \multicolumn{3}{|c|}{Frequency} & \multicolumn{3}{|c|}{Span} \\\hline
+  & NCR & NCR-M & NCR-S  & NCR & NCR-M & NCR-S  & NCR & NCR-M & NCR-S \\\hline
+D1 & 0.5804	& 0.5988	& 0.6325& 	0.6648& 	0.6768& 	0.6883& 	0.5728	& 0.5999	& 0.6329 \\\hline
+D2& 0.7176	& 0.7585	& 0.7525	& 0.7570	& 0.7767	& 0.7727	& 0.6952	& 0.7590& 	0.7517	\\\hline
+D3& 0.7697	& 0.8148	& 0.8034	& 0.7837& 	0.8035	& 0.7982	& 0.7503	& 0.8024& 	0.7972	\\\hline
+D4& 0.7969& 	0.8347	& 0.8246	& 0.8138	& 0.8278	& 0.8232& 	0.7845	& 0.8328	& 0.8263\\\hline
+D5& 0.8083	& 0.8583& 	0.8485& 	0.8265& 	0.8523& 	0.8452	& 0.7934 &	0.8424& 	0.8364\\\hline
+D6& 0.8277	& 0.8650	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	& 0.8506	\\ \hline 
+\end{tabular}
 \end{table*}
+
+Our final question is to testify the effect of ordinal utility. We compute the average score of each item in each evaluation, and use this cardinal utility as the foundation of three heuristic strategies. We report the performance of cardinal utility based strategy in conjunction with model NCR-M, and compare them with ordinal utility based strategy ensemble with NCR-M. As shown in Tab.~\ref{tab:utility}, cardinal utility does not improve model performance in term of precision. In fact the precisions of all models are reduced for all data segments. 
+
+\begin{table}[ht]
+\caption{Comparative performance of cardinal and ordinal utilities}
+\label{tab:utility}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+{Dataset} & \multicolumn{3}{|c|}{Cardinal Utility} & \multicolumn{3}{|c|}{Ordinal Utility} \\
+ &  Addictive & Frequency & Span & Addictive  & Frequency &Span \\\hline
+D1 & 0.5435	& 0.5614	& 0.5997	& 0.6325	& 0.6883	& 0.6329\\\hline
+D2 & 0.6783& 	0.7379	& 0.7369	& 0.7525	& 0.7727	& 0.7517\\\hline
+D3 & 0.7329& 	0.7980& 	0.7865& 	0.8034& 	0.7982& 	0.7972\\\hline
+D4 & 0.7635	& 0.8272& 	0.8116& 	0.8246& 	0.8232	& 0.8263\\\hline
+D5 & 0.7760& 	0.8512& 	0.8308& 	0.8485	& 0.8452& 	0.8364\\\hline
+D6 & 0.8035& 	0.8649	& 0.8474	& 0.8525	& 0.8544& 	0.8506
+\\ \hline \end{tabular}
+\end{table}
 
 
 \section{Conclusion}\label{sec:conclusion}
 
 
-\section{Related Work}\label{sec:relatedwork}
-The Recsys challange 2015 and Yochoos! data set.
-
-
-\subsection{Rank Aggregation}
-Due to its wide applications in ecomonics, biomedicines and social science, rank aggregation has been studied extensively in those communities. Researchers within these communities are often asked to find a consensus ranking, given a set of individual rankings over different alternatives. Consider a voting process in social science, each voter demonstrates a preferece list over political candidates, the goal is to achieve an optimal ranking to which each voter agrees in a sense.  In completing such a goal, there are usually two types of methods in literature. The first type is directly based on the ordinal data. Most commonly, the ordinal data is employed to construct a graph over alternatives, and a permutation of alternative positions can be achieved explicitly by finding the minimum feedback arc set~\cite{Alon2006Ranking}, in which case the resulting ranking has minimal Kendall Tau distance to all inputs; or by finding the stationary access distribution in a random walk framework~\cite{Negahban2012Iterative}, in which case the result approximates the MLE estimator of the BTL model. The second type is driven by random utility theory, as it assumes that a real-valued utility score is associated with each alternate, and the individual ranking is regarded as noisy observation of the ground truth ranking, which is the ordering of utility scores. The objective is thus transformed to inferencing the utility scores.         
-%statistical models for generating rankings: pairwise, listwise and parameter estimation methods
-
-In social choice and biomedical communities, popular random utility models include the Bradley-Terry-Luce model (BTL for short)~\cite{Hunter2004MM}, the Plackett-Luce model (PL)~\cite{AzariSoufiani2013Generalized}, Mallows models ~\cite{Lu2011Learning}, and so on. In the BTL model, suppose each individual is assigned a score $s_i$, the probability of pair-wise comparison $i>j$ is $p(i>j)=\frac{s_i}{s_j}$. In the PL model, the probability for a ranking $r=s_1 \succ s_2 \cdots \succ s_M$ is $ p(r|s)=\frac{s_1}{\Sigma_{l=1}^{M} s_l} \times \frac{s_2}{\Sigma_{l=2}{M} s_l} \cdots \times \frac{s_{M-1}}{s_{M-1}+s_{M}}$. The pairwise comparison probability is further studied in~\cite{Gleich2011Rank}. BTL can be regarded as a special case of PL via mrginalization. In the mallows model, the probability of ranking $p(r|\sigma,\phi)=\frac{1}{Z} e^{-\lambda d(r,\sigma)}$, where $\sigma$ is the hidden true ranking, $\lambda$ is the negative lognomial of a dispersion parameter, and $Z$ is the normalizer. Other extensions are also proposed under the random utility assumption, e.g. exponential distribution family is introduced in \cite{Parkes2012Random}.
-
-We should notice that usually there is only one single ranking as output. It is believed that any rank aggregation requires some degree of compromise. The group nature of individual rankings is brought to attention in a recent study ~\cite{Wu2015Clustering}. In this study, a two stage strategy is adopted, where the inputs are clustered in a projected space, and then the true state is inferred in each cluster.
 \bibliographystyle{abbrv}
 \bibliography{C:/scratch/MyPaper/reference}
 
