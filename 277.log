@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.22)  2 APR 2017 10:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.22)  3 APR 2017 11:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -722,7 +722,11 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/multirow/multirow.sty
 \bigstrutjot=\dimen163
-) (./277.aux)
+) (./277.aux
+
+LaTeX Warning: Label `equ:update' multiply defined.
+
+)
 \openout1 = `277.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 14.
@@ -992,123 +996,123 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [1.1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1.1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 
-LaTeX Warning: Citation `Hunter2004MM' on page 2 undefined on input line 95.
+LaTeX Warning: Citation `Hunter2004MM' on page 2 undefined on input line 88.
 
 
-Overfull \hbox (2.51123pt too wide) in paragraph at lines 126--127
-[]\OT1/LinuxLibertineT-TLF/m/n/9 (-20) In the E-step of $\OML/nxlmi/m/it/9 t\OM
-S/ntxsy/m/n/9 ^^@$\OT1/LinuxLibertineT-TLF/m/n/9 (-20) th EM round, com-pute th
-e ex-pec-ta-tion $\OML/nxlmi/m/it/9 Q\U/ntxmia/m/it/9 {^^B[]| =
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (14.20747pt too wide) in paragraph at lines 132--132
-[] 
- []
+
+LaTeX Warning: Reference `likelihood' on page 2 undefined on input line 125.
 
 
-Overfull \hbox (28.6342pt too wide) in paragraph at lines 162--162
-[] 
+LaTeX Warning: Reference `equ:preference' on page 2 undefined on input line 125
+.
+
+
+Overfull \hbox (47.43771pt too wide) detected at line 129
+[]\OML/nxlmi/m/it/9 p\U/ntxmia/m/it/9 {\OML/nxlmi/m/it/9 < w; l > \OMS/ntxsy/m/
+n/9 j\OML/nxlmi/m/it/9 g; ^^R; V\U/ntxmia/m/it/9 | = ^^E[]\OT1/LinuxLibertineT-
+TLF/m/n/9 [[][][][]]
  []
 
 [2.2]
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 6.0pt on input line 181.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/b/it' will be
-(Font)              scaled to size 9.0pt on input line 197.
+
+LaTeX Warning: Reference `sec:intro' on page 3 undefined on input line 148.
 
 
-LaTeX Warning: Citation `Alon2006Ranking' on page 3 undefined on input line 255
+LaTeX Warning: Citation `Alon2006Ranking' on page 3 undefined on input line 191
 .
 
 
 LaTeX Warning: Citation `Negahban2012Iterative' on page 3 undefined on input li
-ne 255.
+ne 191.
 
 
-LaTeX Warning: Citation `Hunter2004MM' on page 3 undefined on input line 258.
+LaTeX Warning: Citation `Hunter2004MM' on page 3 undefined on input line 194.
 
 
 LaTeX Warning: Citation `AzariSoufiani2013Generalized' on page 3 undefined on i
-nput line 258.
+nput line 194.
 
 
-LaTeX Warning: Citation `Lu2011Learning' on page 3 undefined on input line 258.
-
-
-
-LaTeX Warning: Citation `Gleich2011Rank' on page 3 undefined on input line 258.
+LaTeX Warning: Citation `Lu2011Learning' on page 3 undefined on input line 194.
 
 
 
-LaTeX Warning: Citation `Parkes2012Random' on page 3 undefined on input line 25
-8.
+LaTeX Warning: Citation `Gleich2011Rank' on page 3 undefined on input line 194.
 
-[3.3]
 
-LaTeX Warning: Citation `Wu2015Clustering' on page 4 undefined on input line 26
-0.
+
+LaTeX Warning: Citation `Parkes2012Random' on page 3 undefined on input line 19
+4.
+
+
+LaTeX Warning: Citation `Wu2015Clustering' on page 3 undefined on input line 19
+6.
 
 No file 277.bbl.
-[4.4
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 264.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 264.
+[3.3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 200.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 200.
  (./277.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 264.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 264.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 200.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 200.
 Package rerunfilecheck Info: File `277.out' has not changed.
-(rerunfilecheck)             Checksum: 4F73CB3CAB764A13FFECBFD144E970E3;707.
+(rerunfilecheck)             Checksum: 41ED560630CEA86883AA63B9C6DF846B;622.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 264.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 14464 strings out of 493014
- 224547 string characters out of 6133351
- 379250 words of memory out of 5000000
- 17344 multiletter control sequences out of 15000+600000
- 71049 words of font info for 223 fonts, out of 8000000 for 9000
+ 14429 strings out of 493014
+ 223983 string characters out of 6133351
+ 372352 words of memory out of 5000000
+ 17335 multiletter control sequences out of 15000+600000
+ 68357 words of font info for 223 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,18n,94p,1483b,2719s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1483b,2587s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/newtx/liber
-tinealt.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_
-zajy4r.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/us
-r/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr
-/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_xogrpz.enc}{/usr/
-local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_lu7m2n.enc}{/usr/l
-ocal/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_c7kyj5.enc}{/usr/lo
-cal/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_c6xmqr.enc}</usr/loc
-al/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr
-/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb><
-/usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.
-pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLiberti
-neTBI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinL
-ibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/fxl
-ri-5letters.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/fx
-lri-7letters.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts
-/rtxmi.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/rtxmi5.
-pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></u
-sr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/loca
-l/texlive/2016/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texli
-ve/2016/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/201
-6/texmf-dist/fonts/type1/public/newtx/zxlr.pfb></usr/local/texlive/2016/texmf-d
-ist/fonts/type1/public/newtx/zxlri.pfb>
-Output written on 277.pdf (4 pages, 565374 bytes).
+tinealt.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/u
+sr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/us
+r/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_xogrpz.enc}{/usr
+/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_lu7m2n.enc}{/usr/
+local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_c7kyj5.enc}{/usr/l
+ocal/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_c6xmqr.enc}</usr/lo
+cal/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineTB
+.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibert
+ineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/fxlri-5l
+etters.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/fxlri-7
+letters.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/rtxm
+i.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb><
+/usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/lo
+cal/texlive/2016/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/tex
+live/2016/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/20
+16/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2016/tex
+mf-dist/fonts/type1/public/newtx/zxlr.pfb></usr/local/texlive/2016/texmf-dist/f
+onts/type1/public/newtx/zxlri.pfb>
+Output written on 277.pdf (3 pages, 529268 bytes).
 PDF statistics:
- 200 PDF objects out of 1000 (max. 8388607)
- 177 compressed objects within 2 object streams
- 48 named destinations out of 1000 (max. 500000)
- 24161 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 153 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 23121 words of extra memory for PDF output out of 24883 (max. 10000000)
 

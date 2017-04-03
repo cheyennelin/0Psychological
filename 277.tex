@@ -52,15 +52,7 @@ According to study of consumer behavior~\cite{Engel1986Consumer}, after a desire
 
 \emph{Suppose there are 5 options $<A,B,C>$, exposed to the customer sequentially. The consumer evaluates each option on two attributes. }
 
-\begin{figure}[htbp]
-\begin{center}
-\begin{tabular}{|c|c|}
 
-\end{tabular}
-\caption{{\bf default}}
-\label{default}
-\end{center}
-\end{figure}
 
 
 %
@@ -77,166 +69,110 @@ Our second contribution is to incorporate ordinal utility. We assume that a sequ
 
 
 
-\section{Non-Compensatory Model}\label{sec:model1}
+\section{Purchase Model Under Non-Compensatory Rules}\label{sec:model}
 
-Suppose we have the item universe $V=\{v_1,\cdots,v_M\}$ of $M$ items, the user universe $U=\{u_1,\cdots,u_N\}$ of $N$ users, input data $D={d}$ consists of buying sessions, each of which is a pair of a winning item and a set of losing items, $d=<W^d,L^d=\{v_1,v_2,\cdots,v_l\}>$. We use subscripts to denote the elements in each vector, i.e. the preference value of user $u$ in the $k-$th aspect is $u_k$. 
+%Problem Definition
+Suppose we have the item universe $V=\{v\}$ , the user universe $U=\{u\}$ , input data $D=\{d\}$ consists of a set of activity sessions. For now, we consider each activity session as a set of activities on items, $d=\{(v,n_v)\}$, where $n_v$ is the number of activities on item $v$.  In each activity session, at least one item will be purchased, thus $d$ can be divided to two disjoint sets of items, $d=W^d\bigcup L^d$, where $W^d$ is the set of purchases (winners), $L^d=d-W^d$ is the set of remaining items (losers). For example, if we are dealing with user activity sessions on an E-commerce website, $W^d$ will be the set of purchased items, $L^d$ will be the set of clicked but not purchased items, and $n$ is the number of clicks on $v$.
 
-Imagine that there are $K$ underlying aspects, the user preferences and item features are both quantified in the aspects. Therefore we assign a $k-$dimensional vector for each user as the user preference vector. Without ambiguity, we use the same notion $u_i$. We do the same to each item. The consumption session $d$ for user $u_d$ is a generative process:
+
+As with most factor models, we imagine that there are $K$ underlying aspects.  Without ambiguity, we use the same notion $u,v$ to denote user preferences and item features. $u,v\in \mathcal{R}^K$. We use subscripts to denote the elements in each vector, i.e. the preference value of user $u$ on the $k-$th aspect is $u_k$. 
 
 
-\begin{itemize}
-	\item Choose a favorite aspect $a$ according to $u_d$
-	
-	\begin{itemize}
-		\item Generate $d$ according to Equ.~\ref{equ:skyline}  
-	\end{itemize}
-\end{itemize}
+The consumer $u$ starts an activity session $d$ with a motivation, which is most pertinent to aspect $k$. From a probabilistic perspective, we denote the most pertinent aspect by a $1-of-K$ coding scheme, $g\in \mathcal{R}^K, g_k=1,\forall k'\neq k, g_{k'}=0,$. The generation of $g$ is dependent on user preference, $g \sim Mult(u)$. Then the user will follow non-compensatory rules to select the purchased items. The probability of an activity session is denoted by the probability of generating all pairs of winners and losers in the session $p(d|\Theta, g)=\Pi_{w\in W^d, l \in L^d} p(<w,l>|\Theta,g)$, where $\Theta$ is other model parameters. Next we introduce the definition of $p(w|d,\Theta,g)$.
+
+According to non-compensatory rules, we have the following two assumptions.
+
+(1) The winner (purchased item) is superior on the most pertinent aspect $k$
+(2)  The winner is not too bad on other aspects, compared with the losers (remaining items that are viewed but not purchased). 
   
-As mentioned in Sec.~\ref{sec:introduction}, the winning item $w\in W^d$ is a skyline object. To define the probability of skyline events, we turn to the BTL model~\cite{Hunter2004MM} in social sience. In the BTL model, a ranking $i \succ j$ is likely to happen if the latent utility score $s_i$ is relevantly larger than $s_j$. To be specific, we have define $p(i \succ j), p(i \prec j)$ as follows to guarantee $p(i \succ j)+ p(i \prec j) =1$
-
-
-\begin{align*}
-	p(i \succ j)=\frac{s_i}{s_i+ s_j} \\
-	p(i \prec j)=\frac{s_j}{s_j+ s_i} \\
-\end{align*}
+Our model is inspired by the extended BTL model~\cite{Hunter2004MM} in social science. In the extended BTL model, a ranking $i \succ j$ is likely to happen if the latent utility score $i$ is relevantly larger than $j$, $p(i \succ j)=\frac{i}{i+ \theta j}$.  
   
-If the favorite aspect in current session is $k$, then following the definition of skyline object, $w\in W^d$ is superior in the favorite aspect,  and is not worse than other items in other aspects. $w\in W^d$ ranks higher than item $v\in L^d$ in the aspect $k$ is $p^k(w \succ v)=\frac{w_k}{w_k+\theta v_k}$; the probability of item $w\in W^d$ ranks not lower than item $v\in L^d$ in the aspect $k'!=k$. Under the extended BTL model, we have$p^{k'}(w = v)=(\theta^2-1)\frac{w_{k'}v_{k'}}{[w_{k'}+\theta v_{k'}][\theta w_{k'}+ v_{k'}]}$. Therefore, $p^{k'}(w \succeq v)=1- p^{k'} (v \succ w) = \frac{\theta w_{k'}}{v_{k'}+\theta w_{k'}}$. Suppose $g$ is a $K-$dim vector, with one and only one component to be equal to $1$, for each pair, $p(<w,v>|g_k=1) = p^k(w\succ v) \times \Pi_{k'\neq k} p^{k'}(w \succeq v)$. then the probability of generating a session observation $d$ given the hidden aspect $a$ is defined as:  
+ The parameter $\theta>1$ plays as a tolerance threshold. If the absolute difference between the $i$ and $j$ is not significant $|i-j|\leq \theta$, the user will consider it to be a tie $i=j$, $p(i = j)=\frac{(\theta^2-1)i j}{[i+\theta j][\theta i+ j]}$. Note that $p(i \succ j)+ p(i \prec j) + p(i=j) =1$. 
+ 
+The usage of parameter $\theta$ can be interpreted as the consumer sets a minimally acceptable level of performance, which is controlled by both $\theta$ and how well another item $j$ performs, $i$'s performance must be at least better than this cutoff point. Therefore the probability of the winner $w$ being selected in the activity session $d$ is defined as the product of the probability that $w$ outranks other losing items $l$ on the most pertinent aspect $p(i_k\succ j_k)$ and the probability that $w$ at least tie with other items on other aspects $p(i_{k'} \preceq j_{k'})$: $p(<w,l>|g,\theta,V)  =  \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta v_k}}^{g_k} { \frac{\theta w_{k}}{v_{k}+\theta w_{k}}}^{1-g_k}]$. 
 
-\begin{align}\label{equ:skyline}
-		p(d|g,\theta,V,U) %& =\Pi_{w\in W^d, v\in L^d} [ p^a(w\succ v) \times \Pi_{a'\neq a} p^{a'}(w \succeq v)]\\
-		=\Pi_{w\in W^d, v\in L^d} \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta v_k}}^{g_k} { \frac{\theta w_{k}}{v_{k}+\theta w_{k}}}^{1-g_k}]
+Thus we present the likelihood of purchase model under Non-Compensatory Rules (NCR) as follows.   
+
+\begin{align}\label{equ:likelihood}
+		p(D|\Theta)=\Pi_{d\in D} \Sigma_{g} \{\Pi_{w\in W^d, v\in L^d} p(<w,l>|g,\theta,V) p(g|u)\}
 \end{align}
 
-The parameter $\theta>1$ plays as a tolerance threshold. If the absolute difference between the winning item and the losing item in aspect $a$ is not significant to the user, $|w_a-v_a|\leq \theta$, then the consumer will tolerate such a difference and calls a tie. Again, the property $p(w_a \succ v_a) + p(v_a \succ w_a) + p( w_a = v_a) =1$ is guaranteed for any aspect and item.
- 
+The model parameters are denoted as $\Theta=\{\theta,v\in V, u\in U)\}$.  The inference is implemented by computing a minorization function of the expectation $Q(\Theta)=E_g \ln p(D,G|\Theta) $ in an EM algorithm. For the limited space, we skip the derivation here and present the inference steps. 
 
-
-
-The model parameters are denoted as $\Theta=\{\theta,v\in V, u\in U)\}$, which include user preferences $u$, item features $v$ and tolerance threshold $\theta$. To inference the model parameters, we present the following EM algorithm to maximize the log-likelihood $\ln p(D|u,v,\theta)$. 
-
-First, let's use $\gamma(d,k,\Theta^t)$ to denote the conditional probability $p(g_k=1|d,\Theta^t)$ given parameters in the $t-$th round, when the current session specific favorite aspect is $g_k=1$, defined as follows
+In the E-step of $t-$th  EM round we compute $\gamma(d,k,\Theta^t)=p(g_k=1|d,\Theta^t)$ according to Equ.~\ref{equ:conditional}.
 
 \begin{align}\label{equ:conditional}
-\gamma(d,k,\Theta^t) &=\frac{p(d,g|\Theta^t)}{\Sigma_g p(d,g|\Theta^t)} = \frac{p(g|\Theta^t)p(d|\Theta^t,g)}{\Sigma_g p(g|\Theta^t)p(d|\Theta^t,g)}\\\nonumber
-&=\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}
+\gamma(d,k,\Theta^t) &=\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}
 \end{align}
 
-Note that $\forall d, \Sigma_k \gamma(d,k,\Theta^t)=1$.
+In the M-step, we update user preferences $u$, item features $v$ and minimal level of accepted performance $\theta$ by Equ.~\label{equ:update}. 
 
-In the E-step of $t-$th  EM round, compute the expectation $Q(\Theta^t)=E_{G} \ln p(D,G|\Theta) $
-
-\begin{align}\label{equ:estep}
-E_{G} \ln p(D,G|\Theta) & = \Sigma_d \Sigma_{k=1}^K \gamma(d,k,\Theta^t) \ln p(d,g|\Theta)\\\nonumber
-& = \Sigma_d \Sigma_{k=1}^K \gamma(d,k,\Theta^t) \{ \ln u_k \\ \nonumber
-&+ \Sigma_{w\in W_d, v\in V_d} [\ln \frac{w_k}{w_k +\theta v_k} +\Sigma_{k'\neq k} \ln \frac{\theta w_{k'}}{v_{k'}+\theta w_{k'}}]\}
-\end{align}
-
-In the M-step, we first maximize $Q(\Theta^t)$ with respect to $U$. For each $u \in U$, eliminating constant terms, we have:
-
-\begin{align}\label{equ:Lu}
-\min -\Sigma_{u(d)=u} \Sigma_{k=1}^K \gamma(d,k,\Theta^t) \ln u_k\\ \nonumber
-w.r.t \Sigma_k u_k =1
-\end{align}
- 
-Solving the above Lagrange function Equ.~\ref{equ:Lu}, we get 
-
-\begin{equation}\label{equ:u}
-u_k =\frac{\Sigma_{u(d)=u}\gamma(d,k,\Theta^t)}{\Sigma_{s=1}^K \Sigma_{u(d)=u}\gamma(d,s,\Theta^t)}
-\end{equation}
-
-By applying $\ln v_k - \ln (v_k + \theta^t v'_k) \geq \ln v_k + 1 - \ln (v_k^t + \theta^t {v'}_k^t) - \frac{v_k + \theta^t v'_k}{v_k^t + \theta^t {v'}_k^t}$, we obtain a minorization function of $\tilde{Q}(\Theta^t)$.
-
-\begin{align}\label{equ:minorization}
-\tilde{Q}(\Theta^t) &= \Sigma_d \Sigma_{k=1}^K \gamma(d,k,\Theta^t)  \Sigma_{w\in W_d, v\in L_d} \\\nonumber
-& \{ [\ln w_k + 1 - \ln (w_k^t + \theta^t v_k^t) - \frac{w_k+\theta v_k}{w_k^t + \theta^tv_k^t}]+\\\nonumber
-&\Sigma_{k'\neq k} [\ln (\theta w_{k'}) + 1 - \ln (v_{k'}^t + \theta^t w_{k'}^t) -  \frac{v_{k'}+\theta w_{k'}}{v_{k'}^t + \theta^tw_{k'}^t}]
-\}
-\end{align}
-
-One advantage of $\tilde{Q}(\Theta^t)$ is that it can be seperated for each item $v$. Considering only the $k-$th component $v_k$, $\tilde{Q}(v_k,\Theta^t)$ involves two terms, one of which is relevant to observations $d\in W(v)$ where $v$ acts as skyline object, the other is relevant to observations $d \in L(v)$ where $v$ acts as comparisons, $\tilde{Q}(v_k,\Theta^t)=\tilde{Q}^1(v_k,\Theta^t)+\tilde{Q}^2(v_k,\Theta^t)$. Removing all constants and irrelevant terms for $v_k$, we have the following minorizing function:
-
-\begin{align*}%\label{equ:Lv}
-\tilde{Q}^1(v_k,\Theta^t) & = \Sigma_{d\in W(v)} |L_d| \ln v_k \\\nonumber
-& -v_k\Sigma_{d\in W(v)}\Sigma_{v'\in L_d} [\frac{\gamma(d,k,\Theta^t)}{ \alpha(v,v',k,\Theta^t)} +\Sigma_{k'\neq k}\frac{\theta^t\gamma(d,k',\Theta^t)}{\alpha(v',v,k,\Theta^t)}]\\ \nonumber
-\tilde{Q}^2(v_k,\Theta^t) & = -v_k \Sigma_{d\in L(v)}\Sigma_{v'\in W_d} [\frac{\theta^t \gamma(d,k,\Theta^t)}{\alpha(v',v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{\gamma(d,k',\Theta^t)}{\alpha(v,v',k,\Theta^t)}] 
-\end{align*}
-
-where $|L_d|$ is the number of objects being dominanted in $d$, $\alpha(v,v',k,\Theta^t)=v_k^t + \theta^t {v'}_k^t$. By setting the partial derivative of $\frac{\partial \tilde{Q}(v_k,\Theta^t)}{\partial v_k}=0$, we have:
-\begin{align}\label{equ:v}
+\begin{align}\label{equ:update}
+u_k = & \frac{\Sigma_{u(d)=u}\gamma(d,k,\Theta^t)}{\Sigma_{s=1}^K \Sigma_{u(d)=u}\gamma(d,s,\Theta^t)} \\\nonumber
 \frac{1}{v_k}= &\frac{\Sigma_{d\in W(v)}\Sigma_{v'\in L_d} [\frac{\gamma(d,k,\Theta^t)}{ \alpha(v,v',k,\Theta^t)} +\Sigma_{k'\neq k}\frac{\theta^t\gamma(d,k',\Theta^t)}{\alpha(v',v,k,\Theta^t)}]}{\Sigma_{d\in W(v)}|L_d|}\\\nonumber
- & + \frac{\Sigma_{d\in L(v)}\Sigma_{v'\in W_d} [\frac{\theta^t \gamma(d,k,\Theta^t)}{\alpha(v',v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{\gamma(d,k',\Theta^t)}{\alpha(v,v',k,\Theta^t)}] }{\Sigma_{d\in W(v)}|L_d|}
+ & + \frac{\Sigma_{d\in L(v)}\Sigma_{v'\in W_d} [\frac{\theta^t \gamma(d,k,\Theta^t)}{\alpha(v',v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{\gamma(d,k',\Theta^t)}{\alpha(v,v',k,\Theta^t)}] }{\Sigma_{d\in W(v)}|L_d|}\\\nonumber
+\theta = & \frac{(K-1)\Sigma_d |W_d| |L_d|}{\Sigma_d \Sigma_k \gamma(d,k,\Theta^t)\Sigma_{w,v} [\frac{v_k}{\alpha(w,v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{w_{k'}}{\alpha(v,w,k',\Theta^t)}]}
 \end{align}
 
-Fix $v \in V$ and $u \in U$, rearranging Equ.\ref{equ:minorization}, we have the solution for $\frac{\partial \tilde{Q}(\Theta^t)}{\partial \theta}=0$ as:
+One may argue that number of clicks $n_v$ matters. Intuitively, if a consumer constantly reviews his options, it means that the winner is more appealing and attracts more attentions. Therefore we present two variants of the NCR model: NCR-M and NCR-S.
 
-\begin{equation}\label{equ:theta}
-\theta = \frac{(K-1)\Sigma_d |W_d| |L_d|}{\Sigma_d \Sigma_k \gamma(d,k,\Theta^t)\Sigma_{w,v} [\frac{v_k}{\alpha(w,v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{w_{k'}}{\alpha(v,w,k',\Theta^t)}]}
+In NCR-M, we construct $n_w \times n_l $ pairs of winners and losers, and compute the likelihood as in Equ.~\ref{equ:NCRM}. As $p(<w,l>) \leq 1$, this modification exaggerates the gap between $w$ and $l$ for $w$ with multiple occurrences. 
+
+\begin{equation}\label{equ:NCRM}
+		p(D|\Theta)=\Pi_{d\in D} \Sigma_{g} \{ \Pi_{w\in W^d, v\in L^d} {p(<w,l>|g,\theta,V)}^{n_w \times n_l} p(g|u) \}
 \end{equation}
 
-Finally, the EM algorithm is summarized below:
+In NCR-S, the likelihood function is Equ.~\ref{likelihood}, but we modify the winner's probability by multiplying a sigmoid function $s(n_v)=\frac{1}{1+\exp n_v}$, as shown in Equ.~\ref{equ:preference}. Since $s(n_v)$ is monotonic, the more a winner appears, the larger the item feature $v$ should be to generate the observations. 
 
-\begin{algorithm}
-\KwIn{A set $D = \{d\}$ of sessions, where $u(d)=u$ and $d=\{<w,v>, w \in W_d, v\in L_d\}$ is a set of skyline objects $w$ and normal objects $v$}
-\KwOut{Model parameters $u \in U,v \in V, \theta$}
-Randomly initialize $u \in U, v \in V, \theta >1$\;
-\For{$t \gets 1$ \textbf{and} not converge}{
-$\gamma(d,k,\Theta^t)=\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}$\;
-\For{$u \in U$}{
-\For {$k \gets 1 $ \textbf{to} $K$}{
-Compute $u_k$ by Equ.~\ref{equ:u}\;
-}
-}
-\For{$v \in V$}{
-\For {$k \gets 1 $ \textbf{to} $K$}{
-Compute $v_k$ by Equ.~\ref{equ:v}\;
-}
-}
-Normalize $V$\;
-$\theta^{t+1} = \frac{\Sigma_d |W_d| [\Sigma_{v\in L_d} |v^{t+1}|]}{\Sigma_d (|W_d||L_d|)}$\;
-}
-
-\Return{$\Theta=\{\theta,U,V\}$}\;
-\caption{EM algorithm for Model}
-\label{algo:EM}
-\end{algorithm}
-
-\section{Discussion}
-
-In this section, we prove that under the skyline assumption, the purchases over the item space will have a long tail distribution. To simplify the argument, let $\theta=0$ and each session to be of length $|V|$ where only one skyline object is selected. Then the probability of item $v$ being selected in an arbitary session would be 
-
-\begin{equation*}
-p(v)=\Pi_k v_k
-\end{equation*}
-
-Suppose for each item, the feature specific value $v_k$ is drawn independently and identically from an arbitary probability distribution. Applying the central limit theorem in the log domain, we know that for large $K$, the above probability will be a log-normal distribution, say $p(x)=\frac{1}{{(2\pi\sigma^2)}{1/2}}\exp{-\frac{{(\ln x - \mu)}^2}{2\sigma^2}}$. The probability of item $v$ being purchased for $k$ times, is defined as 
-
-\begin{equation*}
-p(v)=\Pi_k v_k
-\end{equation*}
-
-\subsection{Recommendation}
-The first step is to estimate the most possible aspect that the user is interested on, given the current browsing history $\tilde{d}$. We have
-
-\begin{equation}\label{aprobability}
-p(a=k|\tilde{d},V)=\frac{\Sigma_{v\in \tilde{d}} v_k}{\Sigma_k \Sigma_{v\in \tilde{d}} v_k}
+\begin{equation}\label{equ:peference}
+ p(<w,l>|g,\theta,V)  =  \Pi_{k=1}^{K}[ {\frac{s(n_w) w_k}{s(n_w) w_k+\theta s(n_v) v_k}}^{g_k} { \frac{\theta s(n_w) w_{k}}{s(n_v) v_{k}+\theta s(n_w) w_{k}}}^{1-g_k}]
 \end{equation}
 
-And the possiblity of generating a skyline object $w\in \tilde{d}$ is 
 
-\begin{align}\label{equ:skylineprobability}
-		p(w|\tilde{d},\theta,V,U,g) %& =\Pi_{w\in W^d, v\in L^d} [ p^a(w\succ v) \times \Pi_{a'\neq a} p^{a'}(w \succeq v)]\\
-		= \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta v_k}}^{g_k} { \frac{\theta w_{k}}{v_{k}+\theta w_{k}}}^{1-g_k}]
-\end{align}
-
-\section{Ordinal Utility}
+\section{Prediction Strategy}\label{sec:strategy}
 
 %problem definition: sequence of clicks
+Given the input training data available as described in Section~\ref{sec:model}, our problem is that for a new activity sequence (i.e. click sequence) $\tilde{d}$,  where $\tilde{d}[i]$ is the item at the $i$-th position of sequence $\tilde{d}$,  output a ranking of items, so that the probabilities of purchasing these items are in descending order.
+ 
+%basic strategy
+Our basic strategy will be treating the activity sequence as a set of items, and directly apply the NCR model. The first step is to estimate the most possible aspect that the user in this session iis interested on, given the current browsing history $\tilde{d}$. We have
 
+\begin{equation}\label{aprobability}
+p(g_k=1|\tilde{d},V)=\frac{\Sigma_{v\in \tilde{d}} v_k}{\Sigma_k \Sigma_{v\in \tilde{d}} v_k}
+\end{equation}
+
+And the possibility of an object being selected is $\Pi_{v \in \tilde{d}} p(<w, v|g,\Theta>)$ 
+
+%Strategy by sequence of evaluations
+
+We present another type of strategy which is based on sequential evaluations. As discussed in Sec.~\ref{sec:intro}, our hypothesis is that the consumer conducts a series of alternative evaluations. The evaluation process starts when there are at least two alternatives, and ends at the last item of activity sequence. The evaluation process yields a evaluation sequence, only the ordinal message of evaluations $o$ is kept in memory. For example, as in Fig.`\ref{fig:illustration}, for a click sequence $(a,b,c,d,e,e)$, the consumer conducts 5 evaluations $(a,b), (a,b,c),(a,b,c,d),(a,b,c,d,e),(a,b,c,d,e,e) $. if the consumer adopts a non-compensatory rule as in model NCR with $\theta=0.05$, for comparison $(a,b)$, since $b$ is not superior on the pertinent aspect, the consumer is likely to choose $a$. For comparison $(a,b,c,d)$,  $d$ is below the cutoff point on the secondary aspect , so the consumer is tending to pick $c$. The ordinal message will be $o=(a,c,c,e,e)$. Based on how the consumer exploits the message $o$, we present three heuristic prediction strategies.
 
 %ordinal utility
 
+\begin{figure}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Item & Pertinent Aspect & Secondary Aspect \\\hline
+a & 0.6 & 0.4 \\
+b & 0.4 & 0.6  \\
+c & 0.64 & 0.36 \\
+d & 0.78 & 0.22 \\
+e & 0.65 & 0.35 \\\hline
+\end{tabular}
+\caption{A toy example of prediction strategy, with five evaluations with winners $a,c,c,e,e$}
+\label{default}
+\end{center}
+\end{figure}\label{fig:illustration}
 
 %strategy
+(1) Addictive: In this strategy, the consumer cumulates all the ordinal information in each evaluation and selects the first item with the largest count. In Fig.`\ref{fig:illustration},  under the addictive strategy, the prediction is $c$. This strategy favors items that arrive first.
+
+(2)Selective: In this strategy, the consumer selects the item with the largest frequency in $\tilde{d}$ if it is among the items with the largest cumulative counts. In Fig.`\ref{fig:illustration},  under the selective strategy, the prediction is $e$, as $e$ and $c$ both are ranked as number $\#1$ in the evaluations and $e$ appears for 2 times.
+
+(3)Span: In this strategy, the consumer selects the item that achieves the maximal span. Definition of span. 
+
+
 
 \section{Experiment}
 
