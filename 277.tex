@@ -199,6 +199,8 @@ The evaluation metrics are Precision and MRR. Precision is the fraction of corre
 
 
 
+
+\subsection{Decision Rules}
 \begin{table*}[htbp]
 \caption{Comparative Performance of Decision Rules }
 \label{tab:decision}
@@ -206,7 +208,7 @@ The evaluation metrics are Precision and MRR. Precision is the fraction of corre
 \hline
 \multirow{2}{*}{Dataset} & \multirow{2}{*}{Performance}
 & \multicolumn{2}{|c|}{Compensatory rules} & \multicolumn{3}{|c|}{Non-compensatory rules} & \multicolumn{3}{|c|}{Others} \\
-\cline{3-10} & & BPR & MF & NCR & NCR-M & NCR-S & LinearRegression & GBDT & LogisticRegression \\\hline
+\cline{3-10} & & BPR & MF & NCR & NCR-M & NCR-S & Regression & GBDT & LR \\\hline
 \multirow{2}{*}{D1} &Precision	& & &	0.5717 & 0.6038 & 0.6354 &	0.6333 & 0.6423 &\bf{0.67}\\
 \cline{2-10}	    &MRR		& & &0.7697 & 0.7887 & 0.8046 &0.8051 & 0.812	 &\bf{0.8244}\\\hline
 \multirow{2}{*}{D2} &Precision  & & &0.6669 & \bf{0.7583} & 0.7371 &	0.6785 & 0.6878	& 0.6934\\
@@ -222,19 +224,13 @@ The evaluation metrics are Precision and MRR. Precision is the fraction of corre
 \end{tabular}
 \end{table*}
 
-\subsection{Decision Rules}
-
-Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. The features for linear regression models, GBDT and logistic regression are extracted ....
+Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. The features for linear regression models, GBDT and logistic regression are extracted ....
 
 From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR can be viewed as implementations of compensatory rules. In all data segments, non-compensatory rules outperform compensatory rules. This shows the massive potential of modeling non-compensatory rules in recommendation systems. (2) Regression and classification models perform better than compensatory rules, as they use global information such as ICR. However, our models are comparable to regression models on D1, and superior on other data segments. (3) Among the three variants, NCR-M is dominating in most data segments. NCR-S performs better than NCR. It verifies our assumption that multiple clicks indicate less convincing item performance. (4) Our model is more suitable for activity sessions with more than 1 purchases. One potential reason is that sessions with only one purchase tend to be shorter, thus the lack of training instances hurt the model performance.  
 
 
 \subsection{Evaluation Strategy}
-
-Our next goal is to study the performance of prediction strategy. We couple the three strategies with three model variants and report precision at Tab.~\ref{tab:strategy}. We can see that (1) the prediction strategies significantly boost the prediction precision, compared with the results in Tab.~\ref{tab:decision}. In general, the frequency strategy is best for most model variants and data segments, again suggesting that multiple views have strong correlation with purchase probability.  (2) An optimal combination is model NCR-M or NCR-S with the frequency strategy. 
-
-
-\begin{table*}[ht!]
+\begin{table*}[htbp]
 \caption{Precision of prediction strategies on model variants }
 \label{tab:strategy}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
@@ -249,10 +245,14 @@ D5& 0.8083	& 0.8583& 	0.8485& 	0.8265& 	0.8523& 	0.8452	& 0.7934 &	0.8424& 	0.83
 D6& 0.8277	& 0.8650	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	& 0.8506	\\ \hline 
 \end{tabular}
 \end{table*}
+Our next goal is to study the performance of prediction strategy. We couple the three strategies with three model variants and report precision at Tab.~\ref{tab:strategy}. We can see that (1) the prediction strategies significantly boost the prediction precision, compared with the results in Tab.~\ref{tab:decision}. In general, the frequency strategy is best for most model variants and data segments, again suggesting that multiple views have strong correlation with purchase probability.  (2) An optimal combination is model NCR-M or NCR-S with the frequency strategy. 
+
+
+
 
 Our final question is to testify the effect of ordinal utility. We compute the average score of each item in each evaluation, and use this cardinal utility as the foundation of three heuristic strategies. We report the performance of cardinal utility based strategy in conjunction with model NCR-M, and compare them with ordinal utility based strategy ensemble with NCR-M. As shown in Tab.~\ref{tab:utility}, cardinal utility does not improve model performance in term of precision. In fact the precisions of all models are reduced for all data segments. 
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \caption{Comparative performance of cardinal and ordinal utilities}
 \label{tab:utility}
 \begin{tabular}{|c|c|c|c|c|c|c|}
