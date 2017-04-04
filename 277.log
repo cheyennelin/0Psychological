@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.22)  4 APR 2017 14:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.9.22)  4 APR 2017 15:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -996,7 +996,7 @@ Overfull \hbox (6.92336pt too wide) in paragraph at lines 172--178
 Underfull \vbox (badness 6316) has occurred while \output is active []
 
  [3.3]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1721) has occurred while \output is active []
 
 
 Overfull \hbox (18.2902pt too wide) in paragraph at lines 251--262
@@ -1020,13 +1020,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 333.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 14466 strings out of 493014
- 225110 string characters out of 6133351
+ 14460 strings out of 493014
+ 224963 string characters out of 6133351
  385939 words of memory out of 5000000
  17332 multiletter control sequences out of 15000+600000
- 65747 words of font info for 237 fonts, out of 8000000 for 9000
+ 65201 words of font info for 233 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1156b,2689s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1378b,2689s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/newtx/liber
 tinealt.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/u
 sr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/us
@@ -1048,7 +1048,7 @@ live/2016/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/20
 16/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2016/tex
 mf-dist/fonts/type1/public/newtx/zxlr.pfb></usr/local/texlive/2016/texmf-dist/f
 onts/type1/public/newtx/zxlri.pfb>
-Output written on 277.pdf (5 pages, 534761 bytes).
+Output written on 277.pdf (5 pages, 534862 bytes).
 PDF statistics:
  196 PDF objects out of 1000 (max. 8388607)
  173 compressed objects within 2 object streams
