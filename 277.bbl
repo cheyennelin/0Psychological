@@ -1,0 +1,63 @@
+\begin{thebibliography}{10}
+
+\bibitem{Ben-Shimon2015RecSys}
+D.~Ben-Shimon, A.~Tsikinovsky, M.~Friedmann, B.~Shapira, L.~Rokach, and
+  J.~Hoerle.
+\newblock Recsys challenge 2015 and the yoochoose dataset.
+\newblock In {\em Proceedings of the 9th ACM Conference on Recommender
+  Systems}, RecSys '15, pages 357--358, New York, NY, USA, 2015. ACM.
+
+\bibitem{Engel1986Consumer}
+J.~F. Engel, R.~D. Blackwell, and P.~W. Miniard.
+\newblock {\em Consumer Behavior}.
+\newblock The Dryden Press, 1986.
+
+\bibitem{Gopalan2015Scalable}
+P.~Gopalan, J.~Hofman, and D.~Blei.
+\newblock Scalable recommendation with hierarchical poisson factorization.
+\newblock In {\em 31st Conference on Uncertainty in Artificial Intelligence},
+  2015.
+
+\bibitem{Hu2008Collaborative}
+Y.~Hu, Y.~Koren, and C.~Volinsky.
+\newblock {Collaborative filtering for implicit feedback datasets}.
+\newblock In {\em Data Mining, 2008. ICDM'08. Eighth IEEE International
+  Conference on}, pages 263--272. IEEE, 2008.
+
+\bibitem{Hunter2004MM}
+D.~R. Hunter.
+\newblock Mm algorithms for generalized bradley-terry models.
+\newblock {\em The Annals of Statistics}, 32(1):384--406, 2004.
+
+\bibitem{Koren2009Matrix}
+Y.~Koren, R.~Bell, and C.~Volinsky.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer}, 42(8):30--37, 2009.
+
+\bibitem{Park1976Effect}
+C.~W. Park.
+\newblock The effect of individual and situation-related factors on consumer
+  selection of judgmental models.
+\newblock {\em Journal of Marketing Research}, 13(2):144--151, 1976.
+
+\bibitem{Rendle2009BPR}
+S.~Rendle, C.~Freudenthaler, Z.~Gantner, and L.~Schmidt-Thieme.
+\newblock Bpr: Bayesian personalized ranking from implicit feedback.
+\newblock In {\em Proceedings of the Twenty-Fifth Conference on Uncertainty in
+  Artificial Intelligence}, UAI '09, pages 452--461, Arlington, Virginia,
+  United States, 2009. AUAI Press.
+
+\bibitem{Simon1959Theories}
+H.~A. Simon.
+\newblock Theories of decision-making in economics and behavioral science.
+\newblock {\em The American economic review}, 49(3):253--283, 1959.
+
+\bibitem{Yan2015E}
+P.~Yan, X.~Zhou, and Y.~Duan.
+\newblock E-commerce item recommendation based on field-aware factorization
+  machine.
+\newblock In {\em Proceedings of the 2015 International ACM Recommender Systems
+  Challenge}, RecSys '15 Challenge, pages 2:1--2:4, New York, NY, USA, 2015.
+  ACM.
+
+\end{thebibliography}

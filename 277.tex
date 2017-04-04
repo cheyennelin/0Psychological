@@ -187,18 +187,18 @@ We presume that only the ordinal message of evaluations is kept, i.e. the consum
 \multirow{2}{*}{Dataset} & \multirow{2}{*}{Performance}
 & \multicolumn{2}{|c|}{Compensatory rules} & \multicolumn{3}{|c|}{Non-compensatory rules} & \multicolumn{3}{|c|}{Others} \\
 \cline{3-10} & & BPR & MF & NCR & NCR-M & NCR-S & Regression & GBDT & LR \\\hline
-\multirow{2}{*}{D1} &Precision	& & &	0.5717 & 0.6038 & 0.6354 &	0.6333 & 0.6423 &\bf{0.67}\\
-\cline{2-10}	    &MRR		& & &0.7697 & 0.7887 & 0.8046 &0.8051 & 0.812	 &\bf{0.8244}\\\hline
-\multirow{2}{*}{D2} &Precision  & & &0.6669 & \bf{0.7583} & 0.7371 &	0.6785 & 0.6878	& 0.6934\\
-\cline{2-10}		 &MRR		& & &	0.8139 &\bf{0.8661} & 0.8545 & 0.8549 & 0.8597	& 0.8640\\\hline
-\multirow{2}{*}{D3} &Precision & & & 0.6719 & \bf{0.7147} & 0.7061 &	0.6941 & 0.7079 & 0.7042\\
-\cline{2-10} 		&MRR		& & & 0.8383 &\bf{0.8869} & 0.8721 & 0.8705 &0.8779 & 0.8788\\\hline
-\multirow{2}{*}{D4} &Precision & & & 0.7014 & \bf{0.7360} & 0.7284 & 0.7188 & 0.7232 & 0.723\\
-\cline{2-10} 		&MRR		& & & 0.8581& \bf{0.9044} & 0.8889 &	0.8852 & 0.8892& 0.8904\\\hline
-\multirow{2}{*}{D5} &Precision	& &&	0.7192 &\bf{0.7522} &0.7461 & 0.7367 & 0.7423 &0.7402\\
-\cline{2-10}		 &MRR		& && 0.8642 &\bf{0.9185} & 0.90246 & 0.9039 &	0.9065 & 0.9067\\\hline
-\multirow{2}{*}{D6} &Precision	& && 0.7261 &\bf{0.7569} & 0.7506 & 0.7454 & 0.7512 & 0.7515\\
-\cline{2-10}   		&MRR		& &&	0.8823& \bf{0.9221} &	0.9088 & 0.9053 & 0.9072 & 0.9072\\\hline
+\multirow{2}{*}{D1} &Precision	&0.4853	 & 0.5664&	0.5717 & 0.6038 & 0.6354 &	0.6333 & 0.6423 &\bf{0.67}\\
+\cline{2-10}	    &MRR		& 0.7210&0.7655 &0.7697 & 0.7887 & 0.8046 &0.8051 & 0.812	 &\bf{0.8244}\\\hline
+\multirow{2}{*}{D2} &Precision  &0.5555 &0.6232 &0.6669 & \bf{0.7583} & 0.7371 &	0.6785 & 0.6878	& 0.6934\\
+\cline{2-10}		 &MRR		& 0.7452& 0.8093&	0.8139 &\bf{0.8661} & 0.8545 & 0.8549 & 0.8597	& 0.8640\\\hline
+\multirow{2}{*}{D3} &Precision & 0.6015&0.6676 & 0.6719 & \bf{0.7147} & 0.7061 &	0.6941 & 0.7079 & 0.7042\\
+\cline{2-10} 		&MRR		& 0.7711&0.8393 & 0.8383 &\bf{0.8869} & 0.8721 & 0.8705 &0.8779 & 0.8788\\\hline
+\multirow{2}{*}{D4} &Precision & 0.6348&0.6982 & 0.7014 & \bf{0.7360} & 0.7284 & 0.7188 & 0.7232 & 0.723\\
+\cline{2-10} 		&MRR		& 0.7877& 0.8575& 0.8581& \bf{0.9044} & 0.8889 &	0.8852 & 0.8892& 0.8904\\\hline
+\multirow{2}{*}{D5} &Precision	& 0.6590&0.7179&	0.7192 &\bf{0.7522} &0.7461 & 0.7367 & 0.7423 &0.7402\\
+\cline{2-10}		 &MRR		& 0.8040&0.8698& 0.8642 &\bf{0.9185} & 0.90246 & 0.9039 &	0.9065 & 0.9067\\\hline
+\multirow{2}{*}{D6} &Precision	& 0.6587&0.7237& 0.7261 &\bf{0.7569} & 0.7506 & 0.7454 & 0.7512 & 0.7515\\
+\cline{2-10}   		&MRR		&0.8054 &0.8764&	0.8823& \bf{0.9221} &	0.9088 & 0.9053 & 0.9072 & 0.9072\\\hline
 \end{tabular}
 \end{table*}
 
@@ -209,12 +209,12 @@ We presume that only the ordinal message of evaluations is kept, i.e. the consum
 \hline
 Dataset & \multicolumn{3}{|c|}{Addictive} &  \multicolumn{3}{|c|}{Frequency} & \multicolumn{3}{|c|}{Span} \\\hline
   & NCR & NCR-M & NCR-S  & NCR & NCR-M & NCR-S  & NCR & NCR-M & NCR-S \\\hline
-D1 & 0.5804	& 0.5988	& 0.6325& 	0.6648& 	0.6768& 	0.6883& 	0.5728	& 0.5999	& 0.6329 \\\hline
-D2& 0.7176	& 0.7585	& 0.7525	& 0.7570	& 0.7767	& 0.7727	& 0.6952	& 0.7590& 	0.7517	\\\hline
-D3& 0.7697	& 0.8148	& 0.8034	& 0.7837& 	0.8035	& 0.7982	& 0.7503	& 0.8024& 	0.7972	\\\hline
-D4& 0.7969& 	0.8347	& 0.8246	& 0.8138	& 0.8278	& 0.8232& 	0.7845	& 0.8328	& 0.8263\\\hline
-D5& 0.8083	& 0.8583& 	0.8485& 	0.8265& 	0.8523& 	0.8452	& 0.7934 &	0.8424& 	0.8364\\\hline
-D6& 0.8277	& 0.8650	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	& 0.8506	\\ \hline 
+D1 & 0.5804	& 0.5988	& 0.6325& 	0.6648& 	0.6768& 	\bf{0.6883}& 	0.5728	& 0.5999	& 0.6329 \\\hline
+D2& 0.7176	& 0.7585	& 0.7525	& 0.7570	& \bf{0.7767}	& 0.7727	& 0.6952	& 0.7590& 	0.7517	\\\hline
+D3& 0.7697	& \bf{0.8148}	& 0.8034	& 0.7837& 	0.8035	& 0.7982	& 0.7503	& 0.8024& 	0.7972	\\\hline
+D4& 0.7969& 	\bf{0.8347}	& 0.8246	& 0.8138	& 0.8278	& 0.8232& 	0.7845	& 0.8328	& 0.8263\\\hline
+D5& 0.8083	& \bf{0.8583}& 	0.8485& 	0.8265& 	0.8523& 	0.8452	& 0.7934 &	0.8424& 	0.8364\\\hline
+D6& 0.8277	& \bf{0.8650}	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	& 0.8506	\\ \hline 
 \end{tabular}
 \end{table*}
 
@@ -222,18 +222,17 @@ D6& 0.8277	& 0.8650	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	& 0.85
 
 
 We evaluate our framework over a real data set, the YOOCHOOSE data set~\cite{Ben-Shimon2015RecSys}. The data set is a collection of user activity sessions for a large
-European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. There are 9,512,786 unique sessions from anonymous users. 
+European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. The YOOCHOOSE data is originally provided in Recsys Challenge 2015 to "predict whether the user (a session) is going to buy something, and if so, what would be the items he is going to buy".
 
-In the YOOCHOOSE data set, each activity session might contain any number of purchases (if any). In preprocessing, we filter out sessions without any purchase, and split the remaining records according to the number of purchases. For example, D1 is the set of records with 1 purchase, D6 is the set of records with at least 6 purchases. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
-  
-Each session is considered to be the footprint of a new user. $\theta$?
-  
+
+In the YOOCHOOSE data set, each activity session might contain any number of purchases (if any). In preprocessing, we filter out sessions without any purchase. There are 9,512,786 unique sessions from anonymous users on ??? items.  We observe that sessions buying $1\sim 6$ items account for $97\%$ of the data set. We split the records according to the number of purchases to 6 data segmentations. For example, D1 is the set of records with 1 purchase, D6 is the set of records with at least 6 purchases. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
+    
 The evaluation metrics are Precision and MRR. Precision is the fraction of correct prediction (purchase) in the top n items of the resulting list, where $n$ is the total number of purchases in the test session. . The mean reciprocal rank (MRR) is the average of the reciprocal ranks of first correct prediction on each test session.
-
 \subsection{Decision Rules}
+Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009BPR} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. 
 
+We implement the three variants of our NCR models. Each session is considered to be the footprint of a new user.  The values of model parameters are first randomly assigned $\theta>1$ and updated in EM. We run 400 iterations to converge.
 
-Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. 
 
 The features for linear regression models, GBDT and logistic regression include (1) month (2) weekday (3) exact time: the above three describe the time of the click (4) total click: the number of clicks in this session (5) span: the duration between the last click and the first click on the item (6) sessional click: the number of clicks on the item within this session (7) neighbor click: a vector of sessional click for all items within this session (8) session length: the number of different items being clicked in this session (9) ICR: the fraction of item being purchased in all sessions. It is worthy to point out that these features are a complete set of non sequential features extracted in ~\cite{Yan2015E} and they use external information that MF,BPR and our models do not use.
 
@@ -249,21 +248,21 @@ Our next goal is to study the performance of prediction strategy. We couple the 
 
 
 
-Our final question is to testify the effect of ordinal utility. We compute the average score of each item in each evaluation, and use this cardinal utility as the foundation of three heuristic strategies. We report the performance of cardinal utility based strategy in conjunction with model NCR-M, and compare them with ordinal utility based strategy ensemble with NCR-M. As shown in Tab.~\ref{tab:utility}, cardinal utility does not improve model performance in term of precision. In fact the precisions of all models are reduced for all data segments. 
+Our final question is to testify the effect of ordinal utility. The comparative methods are based on  cardinal utility. (1) Sum: we rank items based on its cumulative score in each evaluation. (2) Average: we rank the items based on its average score in each evaluation. (3) Difference: we compute the (negative) difference of each item to the top item in each evaluation, and rank items based on the average difference. We report the performance of cardinal utility based strategy in conjunction with model NCR-S, and compare them with ordinal utility based strategy ensemble with NCR-M. As shown in Tab.~\ref{tab:utility}, cardinal utility does not improve model performance in term of precision. In fact the precisions of all models are reduced for all data segments. 
 
 \begin{table}[htbp]
-\caption{Comparative performance of cardinal and ordinal utilities}
+\caption{Performance of cardinal and ordinal utilities}
 \label{tab:utility}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-{Dataset} & \multicolumn{3}{|c|}{Cardinal Utility} & \multicolumn{3}{|c|}{Ordinal Utility} \\
- &  Addictive & Frequency & Span & Addictive  & Frequency &Span \\\hline
-D1 & 0.5435	& 0.5614	& 0.5997	& 0.6325	& 0.6883	& 0.6329\\\hline
-D2 & 0.6783& 	0.7379	& 0.7369	& 0.7525	& 0.7727	& 0.7517\\\hline
-D3 & 0.7329& 	0.7980& 	0.7865& 	0.8034& 	0.7982& 	0.7972\\\hline
-D4 & 0.7635	& 0.8272& 	0.8116& 	0.8246& 	0.8232	& 0.8263\\\hline
-D5 & 0.7760& 	0.8512& 	0.8308& 	0.8485	& 0.8452& 	0.8364\\\hline
-D6 & 0.8035& 	0.8649	& 0.8474	& 0.8525	& 0.8544& 	0.8506
+{Datat} & \multicolumn{3}{|c|}{Cardinal Utility} & \multicolumn{3}{|c|}{Ordinal Utility} \\\hline
+ &  Sum. & Avg & Diff. & Addictive  & Frequency &Span \\\hline
+D1 & 0.5991	&0.5961&	0.5997	&0.6325	&\bf{0.6883}	&0.6329\\\hline
+D2 & 0.7372	&0.7375&	0.7369&	0.7525	&\bf{0.7727}	&0.7517\\\hline
+D3 & 0.7920&	0.7801	&0.7865	&\bf{0.8034}&	0.7982&0.7972\\\hline
+D4 &0.8183&	0.7992	&0.8116	&0.8246&	0.8232	&\bf{0.8263} \\\hline
+D5& 0.8359	&0.8219&	0.8308&	\bf{0.8485}&	0.8452&0.8364\\\hline
+D6 & 0.8499	&0.8325	&0.8474&	0.8525&	\bf{0.8544}&	0.8506
 \\ \hline \end{tabular}
 \end{table}
 
@@ -271,7 +270,69 @@ D6 & 0.8035& 	0.8649	& 0.8474	& 0.8525	& 0.8544& 	0.8506
 \section{Conclusion}\label{sec:conclusion}
 In this paper, we propose a novel framework that is based on non-compensatory rules and sequential evaluation process for purchase prediction. The proposed model captures a typical consumer decision making process which has rarely been exploited in the literature of RS. Experimental result shows that the proposed method outperforms other prediction methods. In the future, we will explore how to embed the sequential evaluation into the non-compensatory model. We will also study the possible application of such a psychological model in early prediction.
 
-\bibliographystyle{abbrv}
-\bibliography{C:/scratch/MyPaper/reference}
+\begin{thebibliography}{10}
+
+\bibitem{Ben-Shimon2015RecSys}
+D.~Ben-Shimon, A.~Tsikinovsky, M.~Friedmann, B.~Shapira, L.~Rokach, and
+  J.~Hoerle.
+\newblock Recsys challenge 2015 and the yoochoose dataset.
+\newblock In {\em Proceedings of the 9th ACM Conference on Recommender
+  Systems}, RecSys '15, pages 357--358, New York, NY, USA, 2015. ACM.
+
+\bibitem{Engel1986Consumer}
+J.~F. Engel, R.~D. Blackwell, and P.~W. Miniard.
+\newblock {\em Consumer Behavior}.
+\newblock The Dryden Press, 1986.
+
+\bibitem{Gopalan2015Scalable}
+P.~Gopalan, J.~Hofman, and D.~Blei.
+\newblock Scalable recommendation with hierarchical poisson factorization.
+\newblock In {\em 31st Conference on Uncertainty in Artificial Intelligence},
+  2015.
+
+\bibitem{Hu2008Collaborative}
+Y.~Hu, Y.~Koren, and C.~Volinsky.
+\newblock {Collaborative filtering for implicit feedback datasets}.
+\newblock In {\em Data Mining, 2008. ICDM'08. Eighth IEEE International
+  Conference on}, pages 263--272. IEEE, 2008.
+
+\bibitem{Hunter2004MM}
+D.~R. Hunter.
+\newblock Mm algorithms for generalized bradley-terry models.
+\newblock {\em The Annals of Statistics}, 32(1):384--406, 2004.
+
+\bibitem{Koren2009Matrix}
+Y.~Koren, R.~Bell, and C.~Volinsky.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer}, 42(8):30--37, 2009.
+
+\bibitem{Park1976Effect}
+C.~W. Park.
+\newblock The effect of individual and situation-related factors on consumer
+  selection of judgmental models.
+\newblock {\em Journal of Marketing Research}, 13(2):144--151, 1976.
+
+\bibitem{Rendle2009BPR}
+S.~Rendle, C.~Freudenthaler, Z.~Gantner, and L.~Schmidt-Thieme.
+\newblock Bpr: Bayesian personalized ranking from implicit feedback.
+\newblock In {\em Proceedings of the Twenty-Fifth Conference on Uncertainty in
+  Artificial Intelligence}, UAI '09, pages 452--461, Arlington, Virginia,
+  United States, 2009. AUAI Press.
+
+\bibitem{Simon1959Theories}
+H.~A. Simon.
+\newblock Theories of decision-making in economics and behavioral science.
+\newblock {\em The American economic review}, 49(3):253--283, 1959.
+
+\bibitem{Yan2015E}
+P.~Yan, X.~Zhou, and Y.~Duan.
+\newblock E-commerce item recommendation based on field-aware factorization
+  machine.
+\newblock In {\em Proceedings of the 2015 International ACM Recommender Systems
+  Challenge}, RecSys '15 Challenge, pages 2:1--2:4, New York, NY, USA, 2015.
+  ACM.
+
+\end{thebibliography}
+
 
 \end{document}
