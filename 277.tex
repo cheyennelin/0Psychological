@@ -179,28 +179,6 @@ We presume that only the ordinal message of evaluations is kept, i.e. the consum
 
 \section{Experiment}\label{sec:experiment}
 
-
-\subsection{Experimental setup}
-
-
-We evaluate our framework over a real data set, the YOOCHOOSE data set~\cite{Ben-Shimon2015RecSys}. The data set is a collection of user activity sessions for a large
-European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. There are 9,512,786 unique sessions from anonymous users. 
-
-In the YOOCHOOSE data set, each activity session might contain any number of purchases (if any). In preprocessing, we filter out sessions without any purchase, and split the remaining records according to the number of purchases. For example, D1 is the set of records with 1 purchase, D6 is the set of records with at least 6 purchases. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
-  
-Each session is considered to be the footprint of a new user. $\theta$?
-
-  
-The evaluation metrics are Precision and MRR. Precision is the fraction of correct prediction (purchase) in the top n items of the resulting list, where $n$ is the total number of purchases in the test session. . The mean reciprocal rank (MRR) is the average of the reciprocal ranks of first correct prediction on each test session.
-
-
-
-
-
-
-
-
-\subsection{Decision Rules}
 \begin{table*}[htbp]
 \caption{Comparative Performance of Decision Rules }
 \label{tab:decision}
@@ -224,12 +202,6 @@ The evaluation metrics are Precision and MRR. Precision is the fraction of corre
 \end{tabular}
 \end{table*}
 
-Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. The features for linear regression models, GBDT and logistic regression are extracted ....
-
-From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR can be viewed as implementations of compensatory rules. In all data segments, non-compensatory rules outperform compensatory rules. This shows the massive potential of modeling non-compensatory rules in recommendation systems. (2) Regression and classification models perform better than compensatory rules, as they use global information such as ICR. However, our models are comparable to regression models on D1, and superior on other data segments. (3) Among the three variants, NCR-M is dominating in most data segments. NCR-S performs better than NCR. It verifies our assumption that multiple clicks indicate less convincing item performance. (4) Our model is more suitable for activity sessions with more than 1 purchases. One potential reason is that sessions with only one purchase tend to be shorter, thus the lack of training instances hurt the model performance.  
-
-
-\subsection{Evaluation Strategy}
 \begin{table*}[htbp]
 \caption{Precision of prediction strategies on model variants }
 \label{tab:strategy}
@@ -245,6 +217,33 @@ D5& 0.8083	& 0.8583& 	0.8485& 	0.8265& 	0.8523& 	0.8452	& 0.7934 &	0.8424& 	0.83
 D6& 0.8277	& 0.8650	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	& 0.8506	\\ \hline 
 \end{tabular}
 \end{table*}
+
+\subsection{Experimental setup}
+
+
+We evaluate our framework over a real data set, the YOOCHOOSE data set~\cite{Ben-Shimon2015RecSys}. The data set is a collection of user activity sessions for a large
+European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. There are 9,512,786 unique sessions from anonymous users. 
+
+In the YOOCHOOSE data set, each activity session might contain any number of purchases (if any). In preprocessing, we filter out sessions without any purchase, and split the remaining records according to the number of purchases. For example, D1 is the set of records with 1 purchase, D6 is the set of records with at least 6 purchases. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
+  
+Each session is considered to be the footprint of a new user. $\theta$?
+  
+The evaluation metrics are Precision and MRR. Precision is the fraction of correct prediction (purchase) in the top n items of the resulting list, where $n$ is the total number of purchases in the test session. . The mean reciprocal rank (MRR) is the average of the reciprocal ranks of first correct prediction on each test session.
+
+\subsection{Decision Rules}
+
+
+Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009} is a Bayesian model for optimizing rankings among explicit positive feedbacks and implicit feedbacks . We set the purchased items as positive explicit feedback, and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is now the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another classifier which outputs class probabilities. The resulting list is obtained by ranking items based on the probability of being positive. 
+
+The features for linear regression models, GBDT and logistic regression include (1) month (2) weekday (3) exact time: the above three describe the time of the click (4) total click: the number of clicks in this session (5) span: the duration between the last click and the first click on the item (6) sessional click: the number of clicks on the item within this session (7) neighbor click: a vector of sessional click for all items within this session (8) session length: the number of different items being clicked in this session (9) ICR: the fraction of item being purchased in all sessions. It is worthy to point out that these features are a complete set of non sequential features extracted in ~\cite{Yan2015E} and they use external information that MF,BPR and our models do not use.
+
+From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR can be viewed as implementations of compensatory rules. In all data segments, non-compensatory rules outperform compensatory rules. This shows the massive potential of modeling non-compensatory rules in recommendation systems. (2) Regression and classification models perform better than compensatory rules, as they use global information such as ICR. However, our models are comparable to regression models on D1, and superior on other data segments. (3) Among the three variants, NCR-M is dominating in most data segments. NCR-S performs better than NCR. It verifies our assumption that multiple clicks indicate less convincing item performance. (4) Our model is more suitable for activity sessions with more than 1 purchases. One potential reason is that sessions with only one purchase tend to be shorter, thus the lack of training instances hurt the model performance.  
+
+
+
+\subsection{Evaluation Strategy}
+
+
 Our next goal is to study the performance of prediction strategy. We couple the three strategies with three model variants and report precision at Tab.~\ref{tab:strategy}. We can see that (1) the prediction strategies significantly boost the prediction precision, compared with the results in Tab.~\ref{tab:decision}. In general, the frequency strategy is best for most model variants and data segments, again suggesting that multiple views have strong correlation with purchase probability.  (2) An optimal combination is model NCR-M or NCR-S with the frequency strategy. 
 
 
@@ -270,7 +269,7 @@ D6 & 0.8035& 	0.8649	& 0.8474	& 0.8525	& 0.8544& 	0.8506
 
 
 \section{Conclusion}\label{sec:conclusion}
-
+In this paper, we propose a novel framework that is based on non-compensatory rules and sequential evaluation process for purchase prediction. The proposed model captures a typical consumer decision making process which has rarely been exploited in the literature of RS. Experimental result shows that the proposed method outperforms other prediction methods. In the future, we will explore how to embed the sequential evaluation into the non-compensatory model. We will also study the possible application of such a psychological model in early prediction.
 
 \bibliographystyle{abbrv}
 \bibliography{C:/scratch/MyPaper/reference}
