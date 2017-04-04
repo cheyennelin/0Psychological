@@ -20,11 +20,11 @@
 
 
 \begin{abstract}
-The study of consumer psychology reveals two categories of procedures used by consumers to make consumption related choices: compensatory rules and non-compensatory rules. Existing recommendation models such as matrix factorization assume the consumers follow the compensatory rules, which are to make decisions based on a weighted or summated score over different aspects. In this paper, we present a novel model which adopts non-compensatory decision rules. The selected item is superior on the most important aspect and beyond the minimally acceptable level on other aspects. Furthermore, we incorporate other psychological concepts such as evaluation process and ordinal utility to predict consumption in activity sessions. We experimentally demonstrate that this model outperforms state-of-the-art methods.
+The study of consumer psychology reveals two categories of procedures used by consumers to make consumption related choices: compensatory rules and non-compensatory rules. Existing recommendation models assume the consumers follow the compensatory rules, which are to make decisions based on a weighted or summated score over different aspects. In this paper, we present a novel model which adopts non-compensatory decision rules. An item is selected because  (1) it is superior on the most important aspect, and (2) its performance is beyond the minimally acceptable level on other aspects. Furthermore, we incorporate other psychological concepts such as evaluation process and ordinal utility to predict consumption in activity sessions. We experimentally demonstrate that this model outperforms state-of-the-art methods.
 \end{abstract}
 
 
-\keywords{consumer psychology, non-compensatory decision rules, ordinal utility, early prediction}
+\keywords{consumer psychology, non-compensatory decision rules, ordinal utility, consumption prediction}
 
 
 \maketitle
@@ -32,7 +32,7 @@ The study of consumer psychology reveals two categories of procedures used by co
 %consumer psychology: overview of decision rules
 
 
-Ever since the dawn of psychological science, many attempts have been made to explain human choice behavior. It is well regarded that there are two categories of procedures to make consumption related choices: compensatory rules and non-compensatory rules~\cite{Engel1986Consumer}. Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The shortcomings of a product are balanced out by its attractive features. On the contrary, non-compensatory rules do not allow a good performance on one aspect of a product to compensate for poor performances on other aspects. Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with other decision rules.
+Ever since the dawn of psychological science, many attempts have been made to explain human choice behavior. It is well regarded that there are two categories of procedures to make consumption related choices: compensatory rules and non-compensatory rules~\cite{Engel1986Consumer}. Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The shortcomings of a product are balanced out by its attractive features. On the contrary, non-compensatory rules do not allow a good performance on one aspect of a product to compensate for poor performances on other aspects. Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with lexicographic rules.
 %previous works
 
 
@@ -53,9 +53,9 @@ An activity session is a behavior sequence. The order of activities could be the
 
 
 %ordinal utility
-Our second contribution in this work is to address the challenge by introducing the concept of evaluation  process. Our hypothesis is that in an active session, the consumer will proceed with a series of alternative evaluations, as items are sequentially exposed to him. The non-compensatory rules are employed for each alternative evaluation. Once an evaluation is completed, the main message is retained.  
+Our second contribution in this work is to address the above challenge by introducing the concept of evaluation  process. Our hypothesis is that, the consumer will proceed with a series of alternative evaluations, as items are sequentially exposed to him. The non-compensatory rules are employed for each alternative evaluation. Once an evaluation is completed, the main message is retained, until final decision is made.
 
-The main message of an evaluation is described by ordinal utility. In modern economics, ordinal utility theory is widely employed to study consumer behavior~\cite{Simon1959Theories}. Suppose there are two items to evaluate, the message to  persist is "which item is better", not "how much better it is". We present several heuristics to simulate the strategy based on ordinal messages of evaluation process.
+We argue that, the main message of an evaluation should be described by ordinal utility. In modern economics, ordinal utility theory is widely employed to study consumer behavior~\cite{Simon1959Theories}. Suppose there are two items to evaluate, the message to  persist is "which item is better", not "how much better it is". We present several heuristics which are based on ordinal messages of evaluation process to predict consumptions.
 
 
 %structure
@@ -65,10 +65,10 @@ This paper is structured as follows. In section~\ref{sec:model} we describe the 
 \section{Purchase Model Under Non-Compensatory Rules}\label{sec:model}
 
 %Problem Definition
-Suppose we have the item universe $V=\{v\}$ , the user universe $U=\{u\}$ , input data $D=\{d\}$ consisting of a set of activity sessions. For now, we consider each activity session as a set of activities on items, $d=\{(v,n_v)\}$, where $n_v$ is the number of activities on item $v$.  In each activity session, at least one item will be purchased, thus $d$ can be divided to two disjoint sets of items, $d=W^d\bigcup L^d, W^d\bigcap L^d=\emptyset$, where $W^d$ is the set of purchases (winners), $L^d$ is the set of remaining items (losers). For example, if we are dealing with user activity sessions on an E-commerce website, $W^d$ will be the set of purchased items, $L^d$ will be the set of clicked but not purchased items, and $n_v$ is the number of clicks on $v$.
+Suppose we have the item universe $V=\{v\}$ , the user universe $U=\{u\}$ , input data $D=\{d\}$ consisting of a set of activity sessions. For now, we consider each activity session as a set of activities on items, $d=\{(v,n_v)\}$, where $n_v$ is the number of activities on item $v$.  In each activity session, at least one item will be purchased, thus $d$ can be divided into two disjoint sets of items, $d=W^d\bigcup L^d, W^d\bigcap L^d=\emptyset$, where $W^d$ is the set of purchases (winners), $L^d$ is the set of remaining items (losers). For example, if we are dealing with user activity sessions on an E-commerce website, $W^d$ will be the set of purchased items, $L^d$ will be the set of clicked but not purchased items, and $n_v$ is the number of clicks on $v$.
 
 
-As with most factor models, we imagine that there are $K$ underlying aspects.  Without ambiguity, we use the same notion $u,v$ to denote user preferences and item features. $u,v\in \mathcal{R}^K$. We use subscripts to denote the elements in each vector, i.e. the preference value of user $u$ on the $k-$th aspect is $u_k$. 
+As with most factor models, we imagine that there are $K$ underlying aspects.  Without ambiguity, we use the same notion $u,v$ to denote user preferences and item features, $u,v\in \mathcal{R}^K$. We use subscripts to denote the elements in each vector, i.e. the preference value of user $u$ on the $k-$th aspect is $u_k$. 
 
 
 The consumer $u$ starts an activity session $d$ with a motivation, which is most pertinent to aspect $k$. From a probabilistic perspective, we denote the most pertinent aspect by a $1-of-K$ coding scheme, $g\in \mathcal{R}^K, g_k=1,\forall k'\neq k, g_{k'}=0,$. The generation of $g$ is dependent on user preference, $g \sim Mult(u)$. Then the user will follow non-compensatory rules to select the purchased items. The probability of an activity session is denoted by the probability of generating all pairs of winners and losers in the session $p(d|\Theta, g)=\Pi_{w\in W^d, l \in L^d} p(<w,l>|\Theta,g)$, where $\Theta$ denotes model parameters. 
@@ -82,14 +82,14 @@ Our model is inspired by the extended BTL model~\cite{Hunter2004MM} in social sc
   
  The parameter $\theta>1$ plays as a tolerance threshold. If the absolute difference between $i$ and $j$ is not significant $|i-j|\leq \theta$, the user will consider it to be a tie $i=j$, $p(i = j)=\frac{(\theta^2-1)i j}{[i+\theta j][\theta i+ j]}$. Note that $p(i \succ j)+ p(i \prec j) + p(i=j) =1$. 
  
-The usage of parameter $\theta$ can be interpreted as the consumer sets a minimally acceptable level of performance. The cutoff point is controlled by both $\theta$ and how well other items perform. $i$'s performance must be at least better than this cutoff point. Therefore the probability of  $w$ winning in the activity session $d$ is defined as the product of the probability that $w$ outranks other items $l$ on the most pertinent aspect $p(i_k\succ j_k)$ and the probability that $w$ at least ties with other items on other aspects $p(i_{k'} \preceq j_{k'})$.
+The usage of parameter $\theta$ can be interpreted as the consumer sets a minimally acceptable level of performance. The cutoff point is controlled by both $\theta$ and how well other items perform. $i$'s performance must be at least better than this cutoff point. Therefore the probability of  $w$ winning in the activity session $d$ is defined in Equ.~\ref{equ:win} as the product of the probability that $w$ outranks other items $l$ on the most pertinent aspect $p(w_k\succ l_k)$ and the probability that $w$ at least ties with other items on other aspects $p(w_{k'} \succeq l_{k'})$.
 \begin{equation}\label{equ:win}
-p(<w,l>|\Theta,g)  =  \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta v_k}}^{g_k} { \frac{\theta w_{k}}{v_{k}+\theta w_{k}}}^{1-g_k}]
+p(<w,l>|\Theta,g)  =  \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta l_k}}^{g_k} { \frac{\theta w_{k}}{l_{k}+\theta w_{k}}}^{1-g_k}]
 \end{equation}
 
 Thus we present the likelihood of purchase model under Non-Compensatory Rules (NCR) as follows. The model parameters are denoted as $\Theta=\{\theta,v\in V, u\in U)\}$.     
 \begin{equation}\label{equ:likelihood}
-		p(D|\Theta)=\Pi_{d\in D} \Sigma_{g} \{\Pi_{w\in W^d, v\in L^d} p(<w,l>|g,\theta,V) p(g|u)\}
+		p(D|\Theta)=\Pi_{d\in D} \Sigma_{g} \{\Pi_{w\in W^d, v\in L^d} p(<w,l>|g,\Theta) p(g|u)\}
 \end{equation}
 
 One may argue that the number of clicks $n_v$ matters. Intuitively, if a consumer constantly reviews his options, it means that the it is more appealing and attracts more attentions. Therefore we present two variants of the NCR model: NCR-M and NCR-S.
@@ -100,10 +100,10 @@ The intuition of NCR-M is to weight the pair of winners and losers  by  $n_w \ti
 		p(D|\Theta)=\Pi_{d\in D} \Sigma_{g} \{ \Pi_{w\in W^d, v\in L^d} {p(<w,l>|g,\theta,V)}^{1+\ln (n_w \times n_l)} p(g|u) \}
 \end{equation}
 
-In NCR-S, the likelihood function is Equ.~\ref{equ:likelihood}, but we modify the winner's probability by multiplying a function $s(n_v)=1+\exp n_v$, as shown in Equ.~\ref{equ:preference}. Since $s(n_v)$ is monotonic, the more a winner appears, the larger the item feature $v$ should be to generate the observations. 
+In NCR-S, the likelihood function is Equ.~\ref{equ:likelihood}, but we modify the winner's probability by multiplying a sigmoid function $s(n_v)=\frac{1}{1+\exp n_v}$, as shown in Equ.~\ref{equ:preference}. Since $s(n_v)$ is monotonic, the more a winner appears, the greater $v$ should be to generate the observations. 
 
 \begin{equation}\label{equ:preference}
- p(<w,l>|g,\Theta)  =  \Pi_{k=1}^{K}[ {\frac{s(n_w) w_k}{s(n_w) w_k+\theta s(n_v) v_k}}^{g_k} { \frac{\theta s(n_w) w_{k}}{s(n_v) v_{k}+\theta s(n_w) w_{k}}}^{1-g_k}]
+ p(<w,l>|g,\Theta)  =  \Pi_{k=1}^{K}[ {\frac{s(n_w) w_k}{s(n_w) w_k+\theta s(n_l) l_k}}^{g_k} { \frac{\theta s(n_w) w_{k}}{s(n_l) l_{k}+\theta s(n_w) w_{k}}}^{1-g_k}]
 \end{equation}
 
 
@@ -122,10 +122,10 @@ u_k = & \frac{\Sigma_{u(d)=u}\gamma(d,k,\Theta^t)}{\Sigma_{s=1}^K \Sigma_{u(d)=u
 \section{Prediction Strategy}\label{sec:strategy}
 
 %problem definition: sequence of clicks
-Given the input training data available as described in Section~\ref{sec:model}, our problem is that for a new activity sequence (i.e. click sequence) $\tilde{d}$,  where $\tilde{d}[i]$ is the item at the $i$-th position of sequence $\tilde{d}$,  output a ranking list of most possible purchases. This means that we should assign a numerical value for each item $score(v)$. 
+Given the input training data available as described in Section~\ref{sec:model}, our problem is that for a new activity sequence (i.e. click sequence) $\tilde{d}$,  where $\tilde{d}[i]$ is the item at the $i$-th position of sequence $\tilde{d}$,  output a ranking list of most possible purchases. This means that we should assign a numerical value $score(v)$ for each item. 
  
 %basic strategy
-Our basic strategy will be treating the activity sequence as a set of items, and directly apply the NCR model to score each item.  The first step is to estimate the most possible aspect that the user in this session iis interested on, given the current browsing history $\tilde{d}$. We have $p(g_k=1|\tilde{d},\Theta)=\frac{\Sigma_{v\in \tilde{d}} v_k}{\Sigma_k \Sigma_{v\in \tilde{d}} v_k}$
+Our basic strategy will be treating the activity sequence as a set of items, and directly apply the NCR model to score each item.  The first step is to estimate the most possible aspect that the user in this session is interested on, given the current browsing history $\tilde{d}$. We have $p(g_k=1|\tilde{d},\Theta)=\frac{\Sigma_{v\in \tilde{d}} v_k}{\Sigma_k \Sigma_{v\in \tilde{d}} v_k}$
 
 And the possibility of an object being selected is computed by Equ.~\ref{equ:score}: 
 
@@ -134,7 +134,7 @@ score(v)=\Pi_{l \in \tilde{d}} p(<v, l>|g,\Theta>)p(g|\tilde{d},\Theta)
 \end{equation}
 %Strategy by sequence of evaluations
 
-We present another type of strategy which is based on sequential evaluations. As discussed in Sec.~\ref{sec:introduction}, our hypothesis is that the consumer conducts a series of alternative evaluations. The evaluation process starts when there are at least two alternatives, and ends at the last item of activity sequence. The evaluation process yields a evaluation sequence, each of which is the result of applying the basic strategy on the current alternatives. For example, if for a click sequence $(a,b,c,d,e,e)$, the consumer conducts 5 evaluations on $(a,b), (a,b,c), (a,b,c,d),(a,b,c,d,e)$ and $(a,b,c,d,e,e) $ separately. Suppose the consumer adopts a non-compensatory rule as in model NCR with $\theta=0.05$, and the items' performances on the pertinent and secondary aspects are depicted in Fig.~\ref{fig:illustration}, then for comparison $(a,b)$, since $b$ is not superior on the pertinent aspect, $score(b)>score(a)$. For comparison $(a,b,c,d)$,  $d$ is below the cutoff point on the secondary aspect , so $score(c)>score(a)>score(d)>score(b)$. 
+We present another type of strategy which is based on sequential evaluations. As discussed in Sec.~\ref{sec:introduction}, our hypothesis is that the consumer conducts a series of alternative evaluations. The evaluation process starts when there are at least two alternatives, and ends at the last item of activity sequence. The evaluation process yields a evaluation sequence, each of which is the result of applying the basic strategy on the current alternatives. For example, for a click sequence $(a,b,c,d,e,e)$, the consumer conducts 5 evaluations on $(a,b), (a,b,c), (a,b,c,d),(a,b,c,d,e)$ and $(a,b,c,d,e,e) $ separately. Suppose the consumer adopts a non-compensatory rule as in model NCR with $\theta=0.05$, and the items' performances on the pertinent and secondary aspects are depicted in Fig.~\ref{fig:illustration}, then for comparison $(a,b)$, since $b$ is not superior on the pertinent aspect, $score(b)>score(a)$. For comparison $(a,b,c,d)$,  $d$ is below the cutoff point on the secondary aspect , so $score(c)>score(a)>score(d)>score(b)$. 
 %ordinal utility
 
 \begin{figure}[htbp]
@@ -158,11 +158,11 @@ We presume that only the ordinal message of evaluations is kept, i.e. the consum
 
 
 %strategy
-(1) Addictive: In this strategy,  items with equivalent values are re-ordered in timestamp ascending order. In Fig.~\ref{fig:illustration},  under the addictive strategy, the output will be $c,e,a,b,d$. This strategy favors items that perform good and arrive first.
+(1) Addictive: In this strategy,  items with equivalent values are re-ordered in timestamp ascending order. In Fig.~\ref{fig:illustration},  under the addictive strategy, the most possible purchase will be $c$. This strategy favors items that perform good and arrive first.
 
-(2) Frequency: This strategy differs with addictive strategy in that, items with equivalent scores will be ranked by their frequencies in $\tilde{d}$. In Fig.~\ref{fig:illustration},  under the frequency strategy, the prediction is $e,c,a,b,d$.
+(2) Frequency: This strategy differs with addictive strategy in that, items with equivalent scores will be ranked by their frequencies in $\tilde{d}$. In Fig.~\ref{fig:illustration},  under the frequency strategy, the most possible purchase is $e$.
 
-(3) Span: Suppose $l(v)=\max \{i|\tilde{d}[i]=v\}$ is the item's last occurrence and $t(v)=\min \{i|\tilde{d}[i]=v\} $ is the item's first occurrence in the activity session, its total time-span is defined as $s(v)=l(v)-t(v)+1$. Intuitively an item with large span indicates the  consumer is impressive. In Fig.~\ref{fig:illustration}, under the span strategy, the prediction is $e,c,a,b,d$.
+(3) Span: This strategy arranges items in the order of total time-span between its last and first occurrences in the session. Intuitively an item with large span indicates the  consumer is impressive. In Fig.~\ref{fig:illustration}, under the span strategy, the prediction is $e$.
 
 
 \section{Experiment}\label{sec:experiment}
@@ -223,19 +223,18 @@ D6& 0.8277	& \bf{0.8650}	& 0.8525	& 0.8452& 	0.8575& 	0.8544& 	0.8196	& 0.8558	&
 We evaluate our framework on a real data set, the YOOCHOOSE data set~\cite{Ben-Shimon2015RecSys}. The data set is originally provided in Recsys Challenge 2015 to "predict whether the user (a session) is going to buy something, and if so, what would be the items he is going to buy". It is a collection of user activity sessions for a large
 European e-commerce website over six months. Each activity session consists of a sequence of click event, each click event includes time stamp, item ID, and item category. 
 
-In preprocessing, we filter out sessions without any purchase. There are $341,391$ unique sessions from anonymous users on $30,851$ items.  We observe that sessions buying $1\sim 6$ items account for $97\%$ of the data set. We split the records according to the number of purchases to 6 data segmentations. The statistics of data is shown in Tab.~\ref{tab:data}. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
+In preprocessing, we filter out sessions without any purchase. There are $341,391$ unique sessions from anonymous users on $30,851$ items.  We observe that sessions buying $1\sim 6$ items account for $97\%$ of the data set. We split the records to 6 data segmentations, according to the number of purchases per session. The statistics of data are shown in Tab.~\ref{tab:data}. In each segmentation, we randomly sample about 2800 training records, and about 700 training records without cold-start items. The reported results are averaged over 10  sample sets for each segmentation.
     
-The evaluation metrics are Precision and MRR. Precision is the fraction of correct prediction (purchase) in the top n items of the resulting list, where $n$ is the number of purchases per session in the data segments. . The mean reciprocal rank (MRR) is the average of the reciprocal ranks of first correct prediction on each test session.
+The evaluation metrics are Precision and MRR. Precision is the fraction of correct prediction (purchase) in the top n items of the resulting list, where $n$ is the number of purchases per session in the data segments . The mean reciprocal rank (MRR) is the average of the reciprocal ranks of first correct prediction on each test session.
 
 \subsection{Decision Rules}
-Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009BPR} is a Bayesian model for optimizing rankings. The input is the set of ranking pairs of the purchased items  and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another binary classifier to predict consumptions (as positive instances). The resulting list is obtained by ranking items based on the classifier assigned scores. 
+Our first goal is to study the performance of different decision rules. We use the following comparative methods. (1) BPR~\cite{Rendle2009BPR} is a Bayesian model for optimizing rankings. The input is the set of ranking pairs of the purchased items  and clicked but not purchased items as implicit feedbacks. (2) MF~\cite{Koren2009Matrix} is the most commonly adopted recommendation framework which approximates the ratings of each item. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (3) Linear Regression model is capable of recovering numeric values given a set of features. We assign a value $1$ to purchased items, and $0.5$ to clicked but not purchased items. (4)GBDT is the  gradient boosting decision tree utilized in~\cite{Yan2015E} which treats the consumption prediction problem as a binary classification problem. (5) Logistic Regression (LR) is yet another binary classifier to predict consumptions (as positive instances). Fir GBDT and LR, the resulting list is obtained by ranking items based on the classifier assigned scores. 
+
+The features for linear regression models, GBDT and logistic regression include (1) month ;(2) weekday ;(3) exact time: the above three describe the time of the click ;(4) the number of clicks in this session; (5) the duration between the last click and the first click on the item in the session; (6) the number of clicks on the item within this session; (7) a vector of sessional clicks for all items within this session ;(8) the number of different items being clicked in this session; (9) ICR: the fraction of item being purchased in all sessions. It is worthy to point out that these features use external information that MF,BPR and our models do not use.
 
 We implement the three variants of our NCR models. Each session is considered to be the footprint of a new user.  The values of model parameters are first randomly assigned $\theta>1$ and updated in EM. We run 400 iterations to converge.
 
-
-The features for linear regression models, GBDT and logistic regression include (1) month (2) weekday (3) exact time: the above three describe the time of the click (4) total click: the number of clicks in this session (5) span: the duration between the last click and the first click on the item in the session (6) sessional click: the number of clicks on the item within this session (7) neighbor click: a vector of sessional clicks for all items within this session (8) session length: the number of different items being clicked in this session (9) ICR: the fraction of item being purchased in all sessions. It is worthy to point out that these features use external information that MF,BPR and our models do not use.
-
-From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR can be viewed as implementations of compensatory rules. In all data segments, non-compensatory rules outperform compensatory rules. This shows the massive potential of modeling non-compensatory rules in recommendation systems. (2) Regression and classification models perform better than compensatory rules, as they use global information such as ICR. However, our models are comparable to regression models on D1, and superior on other data segments. (3) Among the three variants, NCR-M is dominating in most data segments. NCR-S performs better than NCR. It verifies our assumption that multiple clicks indicate appealing item performance. (4) Our model is more suitable for activity sessions with more than 1 purchases. One potential reason is that sessions with only one purchase tend to be shorter, thus the lack of training instances hurt the model performance.  
+From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR can be viewed as implementations of compensatory rules. In all data segments, non-compensatory rules outperform compensatory rules. This shows the massive potential of modeling non-compensatory rules in recommendation systems. (2) In a sense, regression and classification models are also compensatory rules. They perform better as they use global information such as ICR. However, our models are comparable to categorization models on D1, and superior on other data segments. (3) Among the three variants, NCR-M is dominating in most data segments. NCR-S performs better than NCR. It verifies our assumption that multiple clicks indicate appealing item performance. (4) Our model is more suitable for activity sessions with more than 1 purchases. One potential reason is that sessions with only one purchase tend to be shorter, thus the lack of training instances hurt the model performance.  
 
 
 
@@ -244,7 +243,7 @@ From Tab.~\ref{tab:decision}, we have the following observations. (1) MF and BPR
 
 Our next goal is to study the performance of prediction strategy. We couple the three strategies with three model variants and report precision at Tab.~\ref{tab:strategy}. We can see that (1) the prediction strategies significantly boost the prediction precision, compared with the results in Tab.~\ref{tab:decision}. In general, the addictive strategy is best for most model variants and data segments, suggesting that the order of views has strong correlation with purchase probability.  (2) An optimal combination is model NCR-M with addictive strategy for sessions with more purchases. For sessions with less purchases, NCR-S with frequency strategy seems to be more appropriate. This phenomena implies that when the consumption desire is weak, the count is more indicative than the order. 
 
-We finally testify the effect of ordinal utility. The comparative methods are based on  cardinal utility. (1) Sum: we rank items based on its cumulative score in each evaluation. (2) Average: we rank the items based on its average score in each evaluation. (3) Difference: we compute the (negative) difference of each item to the top item in each evaluation, and rank items based on the average difference. We report the performance of cardinal utility based strategies in conjunction with model NCR-S, and compare them with ordinal utility based strategies, ensemble with NCR-S. As shown in Tab.~\ref{tab:utility}, cardinal utility does not improve model performance in term of precision. In fact the precisions of all models are reduced for sessions with less purchases. 
+We finally test the effect of ordinal utility. The comparative methods are based on  cardinal utility. (1) Sum: we rank items based on its cumulative score in each evaluation. (2) Average: we rank the items based on its average score in each evaluation. (3) Difference: we compute the (negative) difference of each item to the top item in each evaluation, and rank items based on the average difference. We report the performance of cardinal utility based strategies in conjunction with model NCR-S, and compare them with ordinal utility based strategies, ensemble with NCR-S. As shown in Tab.~\ref{tab:utility}, cardinal utility does not improve model performance in term of precision. In fact the precisions of all models are reduced for sessions with less purchases. 
 
 \begin{table}[htbp]
 \caption{Performance of cardinal and ordinal utilities}
@@ -253,12 +252,12 @@ We finally testify the effect of ordinal utility. The comparative methods are ba
 \hline
 {Datat} & \multicolumn{3}{|c|}{Cardinal Utility} & \multicolumn{3}{|c|}{Ordinal Utility} \\\hline
  &  Sum. & Avg & Diff. & Addictive  & Frequency &Span \\\hline
-D1 & 0.5991	&0.5961&	0.5997	&0.6325	&\bf{0.6883}	&0.6329\\\hline
-D2 & 0.7372	&0.7375&	0.7369&	0.7525	&\bf{0.7727}	&0.7517\\\hline
-D3 & 0.7920&	0.7801	&0.7865	&\bf{0.8034}&	0.7982&0.7972\\\hline
-D4 &0.8183&	0.7992	&0.8116	&0.8246&	0.8232	&\bf{0.8263} \\\hline
-D5& 0.8359	&0.8219&	0.8308&	\bf{0.8485}&	0.8452&0.8364\\\hline
-D6 & 0.8499	&0.8325	&0.8474&	0.8525&	\bf{0.8544}&	0.8506
+D1 & 0.5991	&0.5961&	0.5967	&0.6325	&\bf{0.6883}	&0.6329\\\hline
+D2 & 0.7372	&0.7375&	0.7367&	0.7525	&\bf{0.7727}	&0.7517\\\hline
+D3 & 0.7920&	0.7801	&0.7768	&\bf{0.8034}&	0.7982&0.7972\\\hline
+D4 &0.8183&	0.7992	&0.7969	&0.8246&	0.8232	&\bf{0.8263} \\\hline
+D5& 0.8359	&0.8219&	0.8192&	\bf{0.8485}&	0.8452&0.8364\\\hline
+D6 & 0.8499	&0.8325	&0.8308&	0.8525&	\bf{0.8544}&	0.8506
 \\ \hline \end{tabular}
 \end{table}
 
