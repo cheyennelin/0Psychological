@@ -1,0 +1,29 @@
+\documentclass{article}
+\title{A Detailed Derivation of the Psychological Model}
+\begin{document}
+\section{Explicit Feedback}
+For explicit feedback, we assume that a pair of purchase and click $<w,l>$ is the result that (1) $w$ is superior than $l$ on the most pertinent aspect $g_k=1$ and (2) $w$ at least ties with $l$ on other aspects. 
+
+We have the following equation: 
+\begin{equation}
+p(<w,l>|\Theta,g) = \prod_{k=1}^K {\frac{w_k}{w_k+\theta l_k}}^{g_k} {\frac{\theta w_k}{v_k + \theta w_k}}^{1-g_k},
+\end{equation} 
+ 
+where $g$ the hidden variable is sampled from $u$, $\Theta=\{\theta,w_k,l_k, u\}$ is the parameter space.
+
+The likelihood over all sessions is defined by
+
+\begin{equation}
+p(D|\Theta)= \prod _u \prod_{d\in D(u)} \Sigma_k (\prod_{w\in W(d)} \prod_{l \in L(d)} p(<w,l>|\Theta,g) p(g|u))
+\end{equation} 
+
+Due to the summation part, the log-likelihood can not be analytically optimized. To maximize the log-likelihood, we follow the EM framework.
+
+\textbf{E-step} 
+\begin{equation}
+p(g|d) \propto   p(g|u)  \prod_{k=1}^K {\frac{w_k}{w_k+\theta l_k}}^{g_k} {\frac{\theta w_k}{v_k + \theta w_k}}^{1-g_k}
+\end{equation} 
+
+
+\section{Implicit Feedback}
+\end{document}
