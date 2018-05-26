@@ -20,33 +20,44 @@
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+The study of consumer psychology reveals two categories of procedures used by consumers to make consumption related choices: compensatory rules and non-compensatory rules. Existing models assume the consumers follow the compensatory rules, which are to make decisions based on a weighted or summated score over different aspects. In this paper, we present a novel model which adopts non-compensatory decision rules. An item is selected because  (1) it is superior on the most important aspect, and (2) its performance is beyond the minimally acceptable level on other aspects. Furthermore, we incorporate other psychological concepts such as evaluation process and ordinal utility to predict consumption in activity sessions. We experimentally demonstrate that this model outperforms state-of-the-art methods.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+conpensatory decision rules, non-compensatory decision rules, factor models 
 \end{IEEEkeywords}
 
 \section{Introduction}\label{sec:introduction}
 %Recsys
+\textbf{R}ecommender \textbf{S}ystems (RS) have been successfully applied in e-commerce. In the fruitful literature of RS, factor models have received increasing popularity, due to their simplicity to implement and intuitive motivation. Factor models factorize observations (e.g. ratings~\cite{} or rankings~\cite{}) to inner product of user preferences and item features. they assume that the probability of a consumption is calculated by a weighted combination of item performances over several hidden aspects~\cite{Gopalan2015Scalable,Hu2008Collaborative}.
+
 
 %Existing work: compensate
+From the perspective of psychological study, almost all existing factor models are implementations of the compensatory decision rules. In the field of psychological science, compensatory decision rules are one type of strategy consumers adopt to make consumption decisions.  Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The shortcomings of a product are balanced out by its attractive features.  
+
 
 %Non-compensate rules
+Ample evidence in psychology study~\cite{Engel1986Consumer} exist to support that, despite of the compensatory rules, consumers often adopt non-compensatory rules. Non-compensatory rules do not allow a good performance on one aspect of a product to compensate for poor performances on other aspects. Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with lexicographic rules.
 
 %Research problems
-
+To the best of our knowledge, there is no RS model that is based on non-compensatory decision making rules.
+In this work, we are motivated by psychological studies to build new RS models based on non-compensatory rules. We want to study the following three research questions. (1) How do we model the non-compensatory rules? (2) Do users follow the same rules for different feedbacks, i.e. explicit feedback and implicit feedback? (3) Can the model be scaled to massive recommender systems?
+  
 %For explicit feedback
+Explicit feedback. graded implicit feedback.  
 
 %For implicit feedback
+Binary implicit feedback. 
 
 %Algorithm
+For the above two models, we propose 
 
 %Contribution
+Our contributions are three folds. (1) for explicit and graded sessional feedback. (2) for binary implicit feedback. (3) highly parrallel inference algorithm. 
 
 %Paper structure
+This paper is structured as follows. We briefly introduce related work in Sec.~\ref{sec:relatedwork}. The main contributions of this paper are described in Sec.~\ref{sec:model1} to Sec.~\ref{sec:algorithm}. The complete non-compensate model for explicit and graded sessional feedback is presented in Sec.~ref{sec:model1}. The simplified non-compensate model for binary implicit feedback is presented in Sec.~\ref{sec:model2}. The highly parrallel algorithm is presented in Sec.~\ref{sec:algorithm}. We analyze experimental results on real recommendation data sets in Sec.~\ref{sec:experiment}. Finally, we conclude our work and give future directions in Sec.~\ref{sec:conclusion}. 
+
 
 \section{Related Work}\label{sec:relatedwork}
 %factor models
@@ -68,13 +79,9 @@ component, formatting, style, styling, insert
 \subsection{Comparative Performance on Explicit Feedback}
 
 \subsection{Comparative Performance on }
-\section*{Acknowledgment}
 
-The preferred spelling of the word ``acknowledgment'' in America is without 
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-acknowledgments in the unnumbered footnote on the first page.
 
+\section{Conclusion}\label{sec:conclusion}
 \section*{References}
 
 Please number citations consecutively within brackets \cite{b1}. The 
