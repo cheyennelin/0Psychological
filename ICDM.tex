@@ -29,11 +29,18 @@ conpensatory decision rules, non-compensatory decision rules, factor models
 
 \section{Introduction}\label{sec:introduction}
 %Recsys
-\textbf{R}ecommender \textbf{S}ystems (RS) have been successfully applied in e-commerce. In the fruitful literature of RS, factor models have received increasing popularity, due to their simplicity to implement and intuitive motivation. Factor models factorize observations (e.g. ratings~\cite{} or rankings~\cite{}) to inner product of user preferences and item features. they assume that the probability of a consumption is calculated by a weighted combination of item performances over several hidden aspects~\cite{Gopalan2015Scalable,Hu2008Collaborative}.
+\textbf{R}ecommender \textbf{S}ystem (RS) has received a lot of research attention. In the fruitful literature of RS, latent factor models are the most ubiquitous and successful  because of the simplicity to implement and their superior performance. Latent factor models represent users and items as vectors of factors with the same dimensions~\cite{Gopalan2015Scalable,Hu2008Collaborative}. Inner products of the latent factor vectors are used to reconstruct the observations, which could be either pointwise values (i.e. the ratings users give to items~\cite{}) or pairwise rankings (i.e. the order of user feedbacks~\cite{}).
 
 
 %Existing work: compensate
-From the perspective of psychological study, almost all existing factor models are implementations of the compensatory decision rules. In the field of psychological science, compensatory decision rules are one type of strategy consumers adopt to make consumption decisions.  Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The shortcomings of a product are balanced out by its attractive features.  
+Intuitively, a user's factors in latent factor models encode the user's ``preferences'' on some hidden ``aspects'', while an item's factors model the item's ``property'' on the aspects. The inner product describes the summated score over all aspects that a user assigns to an item. From the perspective of users, the shortcomings of an item are balanced out by its strongpoints. For example, an item with a low valued aspect can receive a high rating if it has a high value on the attractive aspect.  
+
+\begin{table}
+\begin{tabular}{|c|c|c|}
+\end{tabular}
+\end{table}
+
+ almost all existing factor models are implementations of the compensatory decision rules. In the field of psychological science, compensatory decision rules are one type of strategy consumers adopt to make consumption decisions.  Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score.
 
 
 %Non-compensate rules
