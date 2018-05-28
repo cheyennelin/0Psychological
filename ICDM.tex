@@ -59,8 +59,12 @@ legend style={legend pos=south east,font=\tiny},
 \addplot+[xbar interval]
 	coordinates {(0.7,1) (0.1,0.5) (0.2,0.1) (0.,0) };
 \addplot+ [xbar interval] coordinates {(0.6,1) (0.3,0.5) (0.1,0.1) (0,0) };
+\draw [fill=blue,dashed] (axis cs: 0.602,0.5) rectangle (axis cs: 0.698,1);
+\draw [fill=red,dashed] (axis cs: 0.102,0.1) rectangle (axis cs: 0.298,0.5);
+\draw [fill=blue,dashed] (axis cs: 0.102,0) rectangle (axis cs: 0.198,0.1);
 \legend{$v_1=[0.7\textrm{,} 0.1\textrm{,}0.2]$,$v_2=[0.6\textrm{,}0.3\textrm{,}0.1]$}
 \end{axis}
+
 \end{tikzpicture}
 \caption{Toy example: for user preference $u=[0.5,0.4,0.1]$ and items $v_1=[0.7,0.1,0.2],v_2=[0.6,0.3,0.1]$, compensatory rules prefer $v_2$ while non-compensatory rules prefer $v_1$. }
 \label{default}
