@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -29,26 +31,52 @@ conpensatory decision rules, non-compensatory decision rules, factor models
 
 \section{Introduction}\label{sec:introduction}
 %Recsys
-\textbf{R}ecommender \textbf{S}ystem (RS) has received a lot of research attention. In the fruitful literature of RS, latent factor models are the most ubiquitous and successful  because of the simplicity to implement and their superior performance. Latent factor models represent users and items as vectors of factors with the same dimensions~\cite{Gopalan2015Scalable,Hu2008Collaborative}. Inner products of the latent factor vectors are used to reconstruct the observations, which could be either pointwise values (i.e. the ratings users give to items~\cite{}) or pairwise rankings (i.e. the order of user feedbacks~\cite{}).
+\textbf{R}ecommender \textbf{S}ystem (RS) has received a lot of research attention. In the fruitful literature of RS, latent factor models are the most ubiquitous and successful  because of the simplicity to implement and their superior performance. Latent factor models represent users and items as vectors of factors with the same dimensions~\cite{Gopalan2015Scalable,Hu2008Collaborative}. Inner products of the latent factor vectors are used to reconstruct the observations, which could be either point-wise values (i.e. the ratings users give to items~\cite{}) or pair-wise rankings (i.e. the order of user feedbacks~\cite{}).
 
 
 %Existing work: compensate
-Intuitively, a user's factors in latent factor models encode the user's ``preferences'' on some hidden ``aspects'', while an item's factors model the item's ``property'' on the aspects. The inner product describes the summated score over all aspects that a user assigns to an item. From the perspective of users, the shortcomings of an item are balanced out by its strongpoints. For example, an item with a low valued aspect can receive a high rating if it has a high value on the attractive aspect.  
+Intuitively, a user's factors in latent factor models encode the user's ``preferences'' on some hidden ``aspects'', while an item's factors convey information about the item's ``property'' on the same aspects. The inner product describes the summated score over all aspects that a user assigns to an item. From the perspective of users, the scoring of an item is based on compensatory rules, i.e. the shortcomings of an item are balanced out by its strongpoints. 
 
-\begin{table}
-\begin{tabular}{|c|c|c|}
-\end{tabular}
-\end{table}
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	xmin=0,xmax=1,
+%	ymin=0,ymax=1,
+	ylabel=User Preference,
+	every axis y label/.style={at={(ticklabel cs:0.5)},rotate=90,anchor=near ticklabel,},
+	xlabel=Item Property,
+	enlargelimits=false,
+	ytick=data,
+	xtick=data,
+%	yticklabel interval boundaries,
+	yticklabels={Price(0.5),Quality (0.4),Others (0.1)},
+%	xbar stacked, 
+%	nodes near coords,
+legend style={legend pos=south east,font=\tiny},
+]
 
- almost all existing factor models are implementations of the compensatory decision rules. In the field of psychological science, compensatory decision rules are one type of strategy consumers adopt to make consumption decisions.  Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score.
+\addplot+[xbar interval]
+	coordinates {(0.7,1) (0.1,0.5) (0.2,0.1) (0.,0) };
+\addplot+ [xbar interval] coordinates {(0.6,1) (0.3,0.5) (0.1,0.1) (0,0) };
+\legend{$v_1=[0.7\textrm{,} 0.1\textrm{,}0.2]$,$v_2=[0.6\textrm{,}0.3\textrm{,}0.1]$}
+\end{axis}
+\end{tikzpicture}
+\caption{Toy example: for user preference $u=[0.5,0.4,0.1]$ and items $v_1=[0.7,0.1,0.2],v_2=[0.6,0.3,0.1]$, compensatory rules prefer $v_2$ while non-compensatory rules prefer $v_1$. }
+\label{default}
+\end{center}
+\end{figure}
+
+Existing latent factor models in RS community are implementations of the compensatory decision rules. However, in the field of psychological science, ample evidence~\cite{Engel1986Consumer} exist to support that, despite of the compensatory rules, consumers often adopt non-compensatory rules. Non-compensatory rules do not allow a good performance on one aspect of an item to compensate for poor performances on other aspects. 
 
 
-%Non-compensate rules
-Ample evidence in psychology study~\cite{Engel1986Consumer} exist to support that, despite of the compensatory rules, consumers often adopt non-compensatory rules. Non-compensatory rules do not allow a good performance on one aspect of a product to compensate for poor performances on other aspects. Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with lexicographic rules.
 
 %Research problems
 To the best of our knowledge, there is no RS model that is based on non-compensatory decision making rules.
 In this work, we are motivated by psychological studies to build new RS models based on non-compensatory rules. We want to study the following three research questions. (1) How do we model the non-compensatory rules? (2) Do users follow the same rules for different feedbacks, i.e. explicit feedback and implicit feedback? (3) Can the model be scaled to massive recommender systems?
+  
+%challenge
+Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with lexicographic rules.
   
 %For explicit feedback
 Explicit feedback. graded implicit feedback.  
