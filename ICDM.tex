@@ -31,15 +31,15 @@ conpensatory decision rules, non-compensatory decision rules, factor models
 
 \section{Introduction}\label{sec:introduction}
 %Recsys
-\textbf{R}ecommender \textbf{S}ystem (RS) has received a lot of research attention. In the fruitful literature of RS, latent factor models are the most ubiquitous and successful  because of their superior performance. Latent factor models represent users and items as vectors of factors with the same dimensions~\cite{Gopalan2015Scalable,Hu2008Collaborative}. Inner products of the latent factor vectors of users and items are used to reconstruct the observations, which could be either point-wise values (i.e. the ratings users give to items~\cite{}) or pair-wise rankings (i.e. the order of user feedbacks~\cite{}).
+\textbf{R}ecommender \textbf{S}ystem (RS) has received a lot of research attention. In the fruitful literature of RS, latent factor models are the most ubiquitous and successful because of their dominanting performance. Latent factor models represent users and items as vectors of factors with the same dimensions~\cite{Gopalan2015Scalable,Hu2008Collaborative}. Inner products of the latent factor vectors of users and items are used to reconstruct the observations, which could be either point-wise values (i.e. the numerical ratings users give to items~\cite{}) or pair-wise rankings (i.e. the order between a pair of user feedback~\cite{}).
 
 
 %Existing work: compensate
-Intuitively, a user's factors in latent factor models encode the user's ``preferences'' on some hidden ``aspects'', while an item's factors convey information about the item's ``property'' on the same aspects. The inner product describes the summated score over all aspects that a user assigns to an item. From the perspective of users, the scoring of an item is based on compensatory rules, i.e. the shortcomings of an item are balanced out by its strongpoints. For example, in the toy example 
+Intuitively, a user's factors in latent factor models encode the user's ``preferences'' on some hidden ``aspects'', while an item's factors convey information about the item's ``property'' on the same aspects. The inner product describes the summated score over all aspects that a user assigns to an item. From the perspective of users, the scoring of an item is based on compensatory rules, i.e. the shortcomings of an item are balanced out by its strongpoints. For example, suppose consumers make decisions based on three hidden aspects: ``price'',``quality'' and ``others''. As illustrated in Fig.~\ref{fig:illustration}, a user with preference vector $u=[0.5,0.4,0.1]$ is comparing two items $v_1=[0.7,0.1,0.2]$ and $v_2=[0.6,0.35,0.05]$. If the user adopts compensatory decision rules, he will prefer $v_2$ because the summated score of $v_2$ over all aspects is higher (i.e. the red area is larger than the blue area). 
 
 \begin{figure}[htbp]
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=0.8]
 \begin{axis}[
 	xmin=0,xmax=1,
 %	ymin=0,ymax=1,
@@ -58,44 +58,45 @@ legend style={legend pos=south east,font=\tiny},
 
 \addplot+[xbar interval]
 	coordinates {(0.7,1) (0.1,0.5) (0.2,0.1) (0.,0) };
-\addplot+ [xbar interval] coordinates {(0.6,1) (0.3,0.5) (0.1,0.1) (0,0) };
+\addplot+ [xbar interval] coordinates {(0.6,1) (0.35,0.5) (0.05,0.1) (0,0) };
 \draw [fill=blue,dashed] (axis cs: 0.602,0.5) rectangle (axis cs: 0.698,1);
-\draw [fill=red,dashed] (axis cs: 0.102,0.1) rectangle (axis cs: 0.298,0.5);
-\draw [fill=blue,dashed] (axis cs: 0.102,0) rectangle (axis cs: 0.198,0.1);
-\legend{$v_1=[0.7\textrm{,} 0.1\textrm{,}0.2]$,$v_2=[0.6\textrm{,}0.3\textrm{,}0.1]$}
+\draw [fill=red,dashed] (axis cs: 0.102,0.1) rectangle (axis cs: 0.348,0.5);
+\draw [fill=blue,dashed] (axis cs: 0.052,0) rectangle (axis cs: 0.198,0.1);
+\draw [dashed] (axis cs: 0.08,1) -- (axis cs:0.08,0);
+\draw [<-] (axis cs:0.08,0.65) -- (axis cs:0.15,0.65);
+\node[align=left,right] at (axis cs:0.15,0.65) {minimal\\requirement};
+\legend{$v_1=[0.7\textrm{,} 0.1\textrm{,}0.2]$,$v_2=[0.6\textrm{,}0.35\textrm{,}0.95]$}
 \end{axis}
 
 \end{tikzpicture}
-\caption{Toy example: for user preference $u=[0.5,0.4,0.1]$ and items $v_1=[0.7,0.1,0.2],v_2=[0.6,0.3,0.1]$, compensatory rules prefer $v_2$ while non-compensatory rules prefer $v_1$. }
-\label{default}
+%for user preference $u=[0.5,0.4,0.1]$ and items $v_1=[0.7,0.1,0.2],v_2=[0.6,0.3,0.1]$, 
+\caption{Difference between compensatory rules and non-compensatory rules: compensatory rules prefer $v_2$, while non-compensatory rules prefer $v_1$. }
+\label{fig:illustration}
 \end{center}
 \end{figure}
 
-Existing latent factor models in RS community are implementations of the compensatory decision rules. However, in the field of psychological science, ample evidence~\cite{Engel1986Consumer} exist to support that, despite of the compensatory rules, consumers often adopt non-compensatory rules. Non-compensatory rules do not allow a good performance on one aspect of an item to compensate for poor performances on other aspects. 
-
+% 
+Existing latent factor models in RS community are implementations of the compensatory decision rules. However, in the field of psychological science, ample evidence~\cite{Engel1986Consumer} exist to support that, consumers adopt non-compensatory rules more often to make consumption decisions. Non-compensatory rules do not allow a good performance on one aspect of an item to make up for poor performances on other aspects. In the study of consumer psychology, non-compensatory rules include \emph{lexicographic, conjunction and disjunction} rules. Under lexicographic rules, items are compared on the most important aspect. For example, in Fig.~\ref{fig:illustration}, if the user adopts lexicographic rules, $v_1$ is the winner because $v_1$ is superior on the most important aspect ``price''.  Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable performance on each aspect separately. For example, if the user in Fig.~\ref{fig:illustration} adopts conjunction or disjunction rules, and the minimum requirement is $0.08$ on every aspect, then $v_1$ will be chosen. 
 
 
 %Research problems
-To the best of our knowledge, there is no RS model that is based on non-compensatory decision making rules.
-In this work, we are motivated by psychological studies to build new RS models based on non-compensatory rules. We want to study the following three research questions. (1) How do we model the non-compensatory rules? (2) Do users follow the same rules for different feedbacks, i.e. explicit feedback and implicit feedback? (3) Can the model be scaled to massive recommender systems?
+To the best of our knowledge, there is no RS model that is based on non-compensatory decision making rules. In this work, we seek to answer the following three research questions. (1) Are non-compensatory rules more suitable to model user behavior in recommender systems? (2) Do users follow the same non-compensatory rules to give different feedback, i.e. explicit feedback and implicit feedback? (3) Can we handle massive recommender systems?
   
 %challenge
-Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with lexicographic rules.
+To address the first problem, we study the generation of pair-wise observations in a recommender system. We are inspired by psychological discoveries that conjunction and disjunction rules are found to be often used in conjunction with lexicographic rules. Therfore, we propose a \textbf{C}omplete \textbf{N}on-\textbf{C}ompensatory (CNC) model which uses both lexicographic and conjunction rules. We assume that an item is preferred in a pair of items because it is significantly better on the user's favorite aspect, and it is satisfactory on other aspects.     
   
 %For explicit feedback
-Explicit feedback. graded implicit feedback.  
+The second problem is motivated by the heterogeneous types of user feedback available in recommender systems. We consider three types of user feedback, explicit feedback which contains user-item ratings, graded sessional feedback which contains user actions in a session that we can rank (e.g. a purchase ranks higher than a click) and binary implicit feedback (e.g. click v.s. non-click). Explicit feedback and graded sessional feedback are clear indicators of user preference, while binary implicit feedback is noisy (i.e. a clicked item is not neccessarily preferred than a non-clicked item). The CNC model is based on a complex evaluation of all aspects, and thus could be too ``strict'' for noisy binary implicit feedback. Therefore, we present a \textbf{S}implified \textbf{N}on-\textbf{C}ompensatory (SNC) model, which is based purely on lexicographic rules and only considers the user's favorite aspect.  
 
-%For implicit feedback
-Binary implicit feedback. 
 
 %Algorithm
-For the above two models, we propose 
+The third problem is related to the scalability of the proposed models. To deal with large-scale mordern recommender systems, we derive stochastic EM inference algorithms for the proposed models. Stochastic EM algorithms are more effcient than EM algorithms. Futhermore, inspired by the SECA framework~\cite{}, we present to parrallize the stochastic EM inference.   
 
 %Contribution
-Our contributions are three folds. (1) for explicit and graded sessional feedback. (2) for binary implicit feedback. (3) highly parrallel inference algorithm. 
+Our contributions are three folds. (1) We propose a novel recommendation model (CNC model) which is based on a set of combined non-compensatory rules. Conprehensive experiments demonstrate that, CNC significantly outperforms state-of-the-art latent factor models on explicit and graded sessional feedback. (2) We propose a novel recommendation model (SNC) model which is based on simple non-compensatory rules. Comprehensive experiments reveal that,  for binary implicit feedback, SNC model significantly outperforms state-of-the-art latent factor models and CNC model. (3) We present highly parrallel and efficient inference algorithms for both models. 
 
 %Paper structure
-This paper is structured as follows. We briefly introduce related work in Sec.~\ref{sec:relatedwork}. The main contributions of this paper are described in Sec.~\ref{sec:model1} to Sec.~\ref{sec:algorithm}. The complete non-compensate model for explicit and graded sessional feedback is presented in Sec.~ref{sec:model1}. The simplified non-compensate model for binary implicit feedback is presented in Sec.~\ref{sec:model2}. The highly parrallel algorithm is presented in Sec.~\ref{sec:algorithm}. We analyze experimental results on real recommendation data sets in Sec.~\ref{sec:experiment}. Finally, we conclude our work and give future directions in Sec.~\ref{sec:conclusion}. 
+This paper is structured as follows. We briefly introduce related work in Sec.~\ref{sec:relatedwork}. The main contributions of this paper are described in Sec.~\ref{sec:model1} to Sec.~\ref{sec:algorithm}. The CNC model for explicit and graded sessional feedback is presented in Sec.~ref{sec:model1}. The SNC model for binary implicit feedback is presented in Sec.~\ref{sec:model2}. The highly parrallel algorithm is presented in Sec.~\ref{sec:algorithm}. We analyze experimental results on real recommendation data sets in Sec.~\ref{sec:experiment}. Finally, we conclude our work and give future directions in Sec.~\ref{sec:conclusion}. 
 
 
 \section{Related Work}\label{sec:relatedwork}
@@ -106,6 +107,7 @@ This paper is structured as follows. We briefly introduce related work in Sec.~\
 %implicit feedback
 
 \section{Complete Non-compensate Rules for Explicit Feedback}\label{sec:model1}
+ An item is chosen if it scores sufficiently higher than other items. 
 
 \section{Simplified Non-compensate Rules for Implicit Feedback}\label{sec:model2}
 
