@@ -1,0 +1,154 @@
+\documentclass[11pt]{report}
+
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+\title{Development and Derivation of The Psychological Model}
+\maketitle
+
+This document provides development logs of the psychological model, including intuitions, derivations, and result summaries.
+
+To begin with, we must outline several key concepts in building the blocks of our models. 
+\begin{itemize}
+\item $K$ aspects. We assume there are $K$ aspects based on which a user measure the items. The number $K$ is predefined. Consequently. we define the variables, $U,V$ where  $v_{i,k}$ denotes item $i$'s feature on aspect $k$ and $u_{p,k}$  denotes user $p$'s preference on aspect $k$. The range of $U,V$ is specified by the model, thus a probabilistic generative model and a numerical model might provide apply different range constraints.
+\item Prominent aspect(s). We assume that the $K$ aspects are not treated equally by the users. One or some (depending on the model) of the aspects are most important. 
+\item Distinguish prominent and non-prominent aspects. We adopt different scoring or ranking methods for prominent and non-prominent aspects. This part essentially makes our model non-compensate.   
+\end{itemize}
+
+\part{Ranking Based Models}
+This part devotes to models that observe rankings. In each session, we assume that the user is given a set of items, and the user generates a set of pairwise rankings. For example, if a user has access to items $i,j$, and he buys $i$, clicks on $j$. Then we can make a reasonable conclusion that to the user $i\succ j$. The ranking based models mimic the generation of pairwise rankings. The details of observing rankings, i.e. which actions to be taken into accounts and how to grade these actions, are out of the scope of this document (but should be considered in the experiments).
+
+\section{The BTL Model}
+%瑛珈，非生成模型，非贝叶斯
+
+%严格？宽松？
+
+%we use the BTL model with ties $p(i\succ j|g_k=1)=\frac{\theta v_i}{\theta v_i+v_j}$. Therefore, on the prominent aspects, the winning product is likely to be better than the losing product, but on the non-prominent aspects, the winning product can be not as good as the losing product as long as $\theta v_i \succ  v_j$. For simplicity, the value of $\theta>1$ is pre-set. Below, we will use $o$ to denote the observations. 
+\part{Rating Based Models}
+In this section, we develop a series of ranking based models. These models have the following properties. (1) The models are based on rating observations, i.e. we assign a rating to every action. The actions include the old-fashioned preference ratings (in such case, each rating is a standalone session), actions in a session, positive and negative samples, etc. (2) The models are Bayesian generative models that have good explainability. (3) We control the assumptions by adjusting the hyper-parameters in these models.
+   
+\section{The Sigmoidal model}
+ We are motivated to design this model by the following assumptions: (1) we allow  multiple ($0~K$) aspects in a session to be prominent. (2) We use positive and negative observations, e.g. a click is negative and a buy is positive. (3) For prominent aspects, we use the sigmoidal function as the likelihood $p( o_v=1|g_k=1)=\sigma (v_k)$. (4) For non-prominent aspects, we assume that they do not contribute to the likelihood of being positive or negative, ie. $p(o=1|g_k=0)=0.5$. 
+ 
+ As such, in experiments, we should monitor model performances on the following issues. (1) Shall we induce sparse constraints on the number of prominent aspects? This could be done by choosing proper values for $a,b$. (2) Shall we use confidence levels for the negative samples, especially for implicit feedback? (3) Shall we consider ratings, instead of positive and negative samples? A fair comparative study with MF is needed to answer this question.
+ 
+ This model might also suffer from the following weaknesses. (1) The likelihood is obtained by a multiplication of all aspects. However, this is proved by preceding pilot studies, that a complete BTL models multiplying all aspects is better than a simplified BTL model on just one aspect. (2) The non-prominent aspects are discarded. This could be fixed by introducing a step function, i.e. $p(o_v=1|g_k=0)=f(v-\theta)$. 
+ 
+\begin{figure}
+  \centering
+  \tikz{ %
+%users and items
+    \node[const] (a) {$a$} ; %
+    \node[const, right=of a] (b) {$b$} ; 
+    \node[const, right =3 of b] (beta) {$\beta$};
+     \node[latent, below =of a] (u1) {$u_1$};
+     \node[const, below = of b] (dots) {$\cdots $};
+        \node[latent, right = 2 of u1 ] (uK) {$u_K$};
+        
+  	\node[latent, below = of beta] (v1) {$v_1$};
+	     \node[const, right = of v1] (vdots) {$\cdots $};
+        \node[latent, right = 3 of v1 ] (vK) {$v_K$};
+        
+       	\edge{a}{u1};
+	\edge{b}{u1};
+	\edge{a}{uK};
+	\edge{b}{uK};
+	
+	 \plate[inner sep=0.1cm, xshift=-0cm, yshift=0.12 cm] {U} {(u1) (dots) (uK) } {M}; 
+	\edge{beta}{v1};
+	\edge{beta}{vK};
+       \plate[inner sep=0.1cm, xshift=-0cm, yshift=0.12 cm] {V} {(v1) (vdots) (vK) } {N}; 
+       %per session
+       
+     \node[latent, below = 2 of u1] (g1) {$g_1$};    
+     	     \node[const, right = of g1] (gdots) {$\cdots $};
+        \node[latent, right = 2 of g1 ] (gK) {$g_K$};
+           
+           	  \node[const,  below = of g1] (h1) {$h_1$};    
+                	     \node[const, right = of h1] (hdots) {$\cdots $};
+        \node[latent, right = 2 of h1 ] (hK) {$h_K$};
+           \node[obs, below =  of hdots] (o) {$o$};  
+           
+	 
+	
+	  \edge{u1}{g1};
+	    \edge{uK}{gK};
+	    
+		  \edge{v1}{h1};
+	  	  \edge{g1}{h1};
+		  
+		  	  \edge{vK}{hK};
+	  	  \edge{gK}{hK};
+		  
+	  \edge{h1}{o};
+	   \edge{hdots}{o};
+	    \edge{hK}{o};
+	    
+	
+
+	    \plate[inner sep=0.1cm, xshift=0cm, yshift=0.12 cm] {S} {(o) (h1) (hdots) (hK) } {L}; 
+	    \plate[inner sep=0.4 cm, xshift=-0.12cm, yshift=0.12 cm] {D} {(g1) (gdots) (gK) (S) } {S}; 
+ }
+\end{figure}
+
+First we generate the user preferences and item features. 
+\begin{itemize}
+\item For aspect $k=1: K$, for user $u=1: M$, sample user preference on aspect $k: u_k\sim Beta(\alpha)$. Unlike most of previous research, the user preference vector $u$ in our work is not the normalized weight over all aspects.
+\item For aspect $v=1: N$, sample item features for the item universe $v \sim \mathcal{N}(0,\beta))$. The item features resemble the factors in previous research. 
+\end{itemize}
+
+Next, given $S$ sessions of user $u$ with $L$ ranking observations with known item ids.
+\begin{itemize}
+\item For each session $s$, for aspect $k=1:K$, generate aspect indicator $g_{s,k} \sim Bern(u_k)$
+\item For each aspect, generate the indicator $p(h_k=1|v_k,g_k)=\frac{1}{1+\exp{v_k}}^{g_k}\frac{1}{2}^{1-g_k}$
+\item For each observed rating $o$, generate ranking observation $p(o)=XOR (h_1,\cdots,h_K)$ where $o=1$ if and only if $\forall k, h_k=1$
+\end{itemize}
+
+The joint probability is given by
+\begin{equation*}
+    p(U,V,G,H,D|a,b,\beta) =  \prod_v  \{ p(v|0,\beta)  \prod_u \prod_k [ p(u_{k}|a,b) \prod_{s} p(o|H) p(g_{s,k} |u_k)   p(h_{s,k}|g_{s,k},v_k)]\}
+    \end{equation*}
+Where:
+
+The upperbound for $p(h_k|g_{s,k},v_k)$is
+\begin{eqnarray*}
+p(h_{s,k}|g_{s,k},v_k) &=& \frac{1}{2}^{1-g_{s,k} }[\sigma(v_k)^{h_{s,k}} (1-\sigma(v_k))^{1-h_{s,k}} ]^{g_k}\\
+&\leq & \frac{1}{2}^{1-g_{s,k} } \exp(v_k h_{s,k}) \sigma(\xi) \exp[ -\frac{v_k+\xi}{2} - \lambda(\xi) (v_k^2- \xi^2) ]
+\end{eqnarray*}
+
+By variational inference, we have factorize the posterior probability $p(U,V,G,H|D,a,b,\Lambda )=q(U)q(V)q(G)q(H)$, where $\Lambda =\beta^{-1}$
+
+\begin{eqnarray*}
+\ln q(u_k) & = & \mathbb{E}_{G,V,H} [\ln p(u_k|a,b)+\ln p(g_k|u_k)]+const\\
+&=&(a-1)\ln u_k +(b-1) \ln (1-u_k) + \sum_{s} \mathbb{E}[g_{s,k}] \ln u_k + (1-\mathbb{E}[g_{s,k}] \ln (1-u_k) + const \\
+\mathbb{E}[u_k] &=& \frac{a-1+\sum_{s} \mathbb{E}[g_{s,k}] }{a-1+\sum_{s} \mathbb{E}[g_{s,k}]+b- -\mathbb{E}[g_{s,k}  }
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\ln q(v) & = & \mathbb{E}_{G,U,H} [\ln p(H|v,G)+\ln(v|\Lambda) ] + const\\
+&=& \sum_u \sum_s \sum_k \{ \mathbb{E}[g_{s,k}] [v_kh_{s,k} -\frac{v_k+\xi}{2} -\lambda(\xi) (v_k^2-\xi^2) ] -\frac{1}{2} v^T\Lambda v\} + const\\
+\Sigma[v]^{-1}& = &\mathbf{I} ( \Lambda - 2\lambda(\xi) \sum_s\sum_u \mathbb{E} [g_{s,k}]) \\
+\mathbb{E}[v]&=& \Sigma[v] (\sum_u\sum_s \mathbb{E}[g_{s,k}] (h_{s,k}-1/2))
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\ln q(g_{s,k}) & = & \mathbb{E}_{U,V,H} (\ln (g_{s,k}|u_k)+\ln (H|G,U))+ const \\
+&\geq & \sum_s g_{s,k} \mathbb{E}[\ln u_k] + (1-g_{s,k} ) \mathbb{E}[1-\ln u_k] + \ln \frac{1}{2} (1-g_{s,k}) + g_{s,k} \{\mathbb{E}[h_k] \mathbb{E}[\sigma(v_k)] + \mathbb{E}[1-h_k] \mathbb{E}[1-\sigma(v_k)] \}+const\\
+\mathbb{E}[g_{s,k}]&=&\frac{\mathbb{E}[\ln u_k+ \{\mathbb{E}[h_k] \mathbb{E}[\sigma(v_k)] + \mathbb{E}[1-h_k] \mathbb{E}[1-\sigma(v_k)] \}] }{\mathbb{E}[\ln u_k+ \{\mathbb{E}[h_k] \mathbb{E}[\sigma(v_k)] + \mathbb{E}[1-h_k] \mathbb{E}[1-\sigma(v_k)] \}+\mathbb{E}[1-\ln u_k] + \ln \frac{1}{2}  }
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\ln q(H_s) & = & \mathbb{E}_{G,U,V} (\ln p(H_s|V_s,G_s) + \ln p(o|H)) \\
+&\geq  & \sum_k \mathbb{E}[g_{s,k}] \{ h_{s,k} \ln \sigma(v_k) + (1-h_{s,k}) \mathbb{E}[\ln(1-\sigma v_k)] \} + \ln p(o|H) +const\\
+\mathbb{E}[H_s] = ? 
+\end{eqnarray*}
+
+\begin{eqnarray*}
+5
+\end{eqnarray*}
+
+
+\end{document}
