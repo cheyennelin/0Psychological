@@ -4,6 +4,7 @@
 \usetikzlibrary{bayesnet}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\newcommand{\Ep}{\mathbb{E}}
 
 \begin{document}
 \title{Development and Derivation of The Psychological Model}
@@ -30,25 +31,29 @@ This part devotes to models that observe rankings. In each session, we assume th
 \part{Rating Based Models}
 In this section, we develop a series of ranking based models. These models have the following properties. (1) The models are based on rating observations, i.e. we assign a rating to every action. The actions include the old-fashioned preference ratings (in such case, each rating is a standalone session), actions in a session, positive and negative samples, etc. (2) The models are Bayesian generative models that have good explainability. (3) We control the assumptions by adjusting the hyper-parameters in these models.
    
-\section{The Sigmoidal model}
- We are motivated to design this model by the following assumptions: (1) we allow  multiple ($0~K$) aspects in a session to be prominent. (2) We use positive and negative observations, e.g. a click is negative and a buy is positive. (3) For prominent aspects, we use the sigmoidal function as the likelihood $p( o_v=1|g_k=1)=\sigma (v_k)$. (4) For non-prominent aspects, we assume that they do not contribute to the likelihood of being positive or negative, ie. $p(o=1|g_k=0)=0.5$. 
+\section{The Beta model}
+%motivations
+ We are motivated to design this model by the following assumptions: (1) we allow  multiple ($0~K$) aspects in a session to be prominent. (2) We use positive and negative observations, e.g. a click is negative and a buy is positive. (3) For prominent aspects, we directly model the likelihood by the Beta function. (4) For non-prominent aspects, we assume that they do not contribute to the likelihood of being positive or negative, ie. $p(o=1|g_k=0)=0.5$.  (5) We assume that the final label is assigned by a very strict measurement, i.e. the item must be ``good'' on all aspects.
  
- As such, in experiments, we should monitor model performances on the following issues. (1) Shall we induce sparse constraints on the number of prominent aspects? This could be done by choosing proper values for $a,b$. (2) Shall we use confidence levels for the negative samples, especially for implicit feedback? (3) Shall we consider ratings, instead of positive and negative samples? A fair comparative study with MF is needed to answer this question.
+ %experiments
+As such, in experiments, we should monitor model performances on the following issues. (1) A proper baseline would be to also treat the recommendation system as binary classification problems. For simplicity, I would recommend starting with those traditional MF or classifiers without any number, or time related features. (2) The binary classification framework is easily extend to one class classification scheme for implicit feedback. However, I would recommend to first testify the performance for two classes. When we involve implicit feedback, a fair comparison is important. It would be best if we could verify the capacity of our model on two-class problems, before we use confidence levels or sampling techniques for the negative implicit feedback. (3) Shall we induce sparse constraints on the number of prominent aspects? This could be done by choosing proper values for $a,b$.  (4) Tuning the parameter $K$ is the last step in experimental studies.
  
- This model might also suffer from the following weaknesses. (1) The likelihood is obtained by a multiplication of all aspects. However, this is proved by preceding pilot studies, that a complete BTL models multiplying all aspects is better than a simplified BTL model on just one aspect. (2) The non-prominent aspects are discarded. This could be fixed by introducing a step function, i.e. $p(o_v=1|g_k=0)=f(v-\theta)$. 
+ %future extensions
+For future extensions, we should keep in mind that this model might suffer from the following weaknesses. (1) The likelihood is obtained by a multiplication of all aspects. Although this is proved by preceding pilot studies, that a complete BTL models multiplying all aspects is better than a simplified BTL model on just one aspect, I am not very confident about the conclusion. We can easily modify the model to account for an opposite assumption, that the ``good'' performance on one aspect can override other aspects.  (2) The non-prominent aspects are discarded. This could be fixed by introducing a step function, i.e. $p(o_v=1|g_k=0)=f(v-\theta)$.  (3)  Shall we consider ratings (normalized to $(0,1)$), instead of positive and negative samples? A fair comparative study with MF is needed to answer this question.  If the answer is, we can modify the generation of observations. All the above directions are possible and can be implemented without much difficulty.
  
 \begin{figure}
   \centering
   \tikz{ %
 %users and items
     \node[const] (a) {$a$} ; %
-    \node[const, right=of a] (b) {$b$} ; 
-    \node[const, right =3 of b] (beta) {$\beta$};
+    \node[const, right=2 of a] (b) {$b$} ; 
+    \node[const, right =2 of b] (alpha) {$\alpha$};
+       \node[const, right =2 of alpha] (beta) {$\beta$};
      \node[latent, below =of a] (u1) {$u_1$};
-     \node[const, below = of b] (dots) {$\cdots $};
+     \node[const, right = of u1] (dots) {$\cdots $};
         \node[latent, right = 2 of u1 ] (uK) {$u_K$};
         
-  	\node[latent, below = of beta] (v1) {$v_1$};
+  	\node[latent, right = of uK] (v1) {$v_1$};
 	     \node[const, right = of v1] (vdots) {$\cdots $};
         \node[latent, right = 3 of v1 ] (vK) {$v_K$};
         
@@ -58,6 +63,8 @@ In this section, we develop a series of ranking based models. These models have 
 	\edge{b}{uK};
 	
 	 \plate[inner sep=0.1cm, xshift=-0cm, yshift=0.12 cm] {U} {(u1) (dots) (uK) } {M}; 
+	 \edge{alpha}{v1};
+	\edge{alpha}{vK};
 	\edge{beta}{v1};
 	\edge{beta}{vK};
        \plate[inner sep=0.1cm, xshift=-0cm, yshift=0.12 cm] {V} {(v1) (vdots) (vK) } {N}; 
@@ -67,7 +74,7 @@ In this section, we develop a series of ranking based models. These models have 
      	     \node[const, right = of g1] (gdots) {$\cdots $};
         \node[latent, right = 2 of g1 ] (gK) {$g_K$};
            
-           	  \node[const,  below = of g1] (h1) {$h_1$};    
+           	  \node[latent,  below = of g1] (h1) {$h_1$};    
                 	     \node[const, right = of h1] (hdots) {$\cdots $};
         \node[latent, right = 2 of h1 ] (hK) {$h_K$};
            \node[obs, below =  of hdots] (o) {$o$};  
@@ -92,63 +99,89 @@ In this section, we develop a series of ranking based models. These models have 
 	    \plate[inner sep=0.1cm, xshift=0cm, yshift=0.12 cm] {S} {(o) (h1) (hdots) (hK) } {L}; 
 	    \plate[inner sep=0.4 cm, xshift=-0.12cm, yshift=0.12 cm] {D} {(g1) (gdots) (gK) (S) } {S}; 
  }
+ \caption{Plate notation of the proposed sigmoidal model}\label{fig:sigmoidal}
 \end{figure}
 
 First we generate the user preferences and item features. 
 \begin{itemize}
-\item For aspect $k=1: K$, for user $u=1: M$, sample user preference on aspect $k: u_k\sim Beta(\alpha)$. Unlike most of previous research, the user preference vector $u$ in our work is not the normalized weight over all aspects.
-\item For aspect $v=1: N$, sample item features for the item universe $v \sim \mathcal{N}(0,\beta))$. The item features resemble the factors in previous research. 
+\item For aspect $k=1: K$, for user $u=1: M$, sample user preference on aspect $k: u_k\sim Beta(a,b)$. Unlike most of previous research, the user preference vector $u$ in our work is not the normalized weight over all aspects.
+\item For items $v=1: N$, sample item features for the item universe $v_k \sim Beta (\alpha,\beta)$. Again, unlike most of previous research, the user preference vector $u$ in our work is not the normalized weight over all aspects.
+
 \end{itemize}
 
-Next, given $S$ sessions of user $u$ with $L$ ranking observations with known item ids.
+Next, given $S$ sessions of user $u$
 \begin{itemize}
-\item For each session $s$, for aspect $k=1:K$, generate aspect indicator $g_{s,k} \sim Bern(u_k)$
-\item For each aspect, generate the indicator $p(h_k=1|v_k,g_k)=\frac{1}{1+\exp{v_k}}^{g_k}\frac{1}{2}^{1-g_k}$
-\item For each observed rating $o$, generate ranking observation $p(o)=XOR (h_1,\cdots,h_K)$ where $o=1$ if and only if $\forall k, h_k=1$
+\item For each session $s$, for aspect $k=1:K$, generate aspect indicator $g_{s,k} \sim Bern(u_k)$. If $g_{s,k}=1$, then $k$ is a prominent aspect for user $u$ in the session $s$.
+\item For each item $v$ within the session $s$ of length $L$
+\begin{itemize}
+\item For each aspect $k$, generate the indicator $p(h_{s,v,k}|g_{s,k},v_k)=[v_k^{h_{s,v,k}} (1-v_k)^{1-h_{s,v,k}}]^{g_{s,k}} [\frac{1}{2}^{h_{s,v,k}} \frac{1}{2}^{1-h_{s,v,k}}]^{1-g_{s,k}}$
+%no sigmoiidal $p(h_{s,v,k}=1|v_k,g_k)=\frac{1}{1+\exp{v_k}}^{g_{s,k}}\frac{1}{2}^{1-g_{s,k}}$
+\item For each observed rating $o_v$, generate label observation $o_{s,v}=1-\prod_k (1-h_{s,v,k})$ where $o_v=1$ if and only if $\forall k, h_{s,v,k}=1$
+\end{itemize}
 \end{itemize}
 
 The joint probability is given by
 \begin{equation*}
-    p(U,V,G,H,D|a,b,\beta) =  \prod_v  \{ p(v|0,\beta)  \prod_u \prod_k [ p(u_{k}|a,b) \prod_{s} p(o|H) p(g_{s,k} |u_k)   p(h_{s,k}|g_{s,k},v_k)]\}
+    p(U,V,G,H,D |a,b,\Lambda) =    \prod_k \prod_u p(u_{k}|a,b)  \prod_{s} p(g_{s,k} | u_k)  \prod_{v} \{ p(v_k|0,\alpha,\beta) p(o_{s,v}|H)  p(h_{s,v,k}|g_{s,k},v_k)\}
     \end{equation*}
-Where:
 
-The upperbound for $p(h_k|g_{s,k},v_k)$is
+%Sigmoidal 
+%where the upperbound for $p(h_{s,vk}|g_{s,k},v_k)$is
+%\begin{eqnarray*}
+%p(h_{s,v,k}|g_{s,k},v_k) &=& \frac{1}{2}^{1-g_{s,k} }[\sigma(v_k)^{h_{s,v,k}} (1-\sigma(v_k))^{1-h_{s,v,k}} ]^{g_{s,k}}\\
+%&\leq & \frac{1}{2}^{1-g_{s,k} } \exp(v_k h_{s,v,k}) \sigma(\xi) \exp[ -\frac{v_k+\xi}{2} - \lambda(\xi) (v_k^2- \xi^2) ]
+%\end{eqnarray*}
+
+We should notice that $o_{v,k}=1$ indicates $\forall k, h_{v,k}=1$. Thus the likelihood must be decomposed to a term with observations and a term with hidden variables. We have:
+
+\begin{eqnarray}\label{equ:completelikelihoodsigmodal}
+\ln p(U,V,G,H,D|a,b,\Lambda,\xi)  & = &\sum_s\sum_{o_{s,v}=1} \sum_k p(h_{s,v,k}=1|g_{s,k},v_k) \\\nonumber
+& &+\sum_s \sum_{o_{s,v}=0} p(o_{s,v}=0|H) \sum_k p(h_{s,v,k}|g_{s,k},v_k)\\\nonumber
+& &+\sum_u\sum_k p(u_{k}|a,b) + \sum_v \sum_k p(v_k|\alpha,\beta) + \sum_u \sum_s \sum_k p(g_{s,k}|u_k) 
+\end{eqnarray}
+
+By variational inference, we have factorize the posterior probability $p(U,V,G,H|D,a,b,\alpha,\beta )=q(U)q(V)q(G)q(H)$. We can see from the following derivations that $q(u_k)\sim Bern(a',b')$
 \begin{eqnarray*}
-p(h_{s,k}|g_{s,k},v_k) &=& \frac{1}{2}^{1-g_{s,k} }[\sigma(v_k)^{h_{s,k}} (1-\sigma(v_k))^{1-h_{s,k}} ]^{g_k}\\
-&\leq & \frac{1}{2}^{1-g_{s,k} } \exp(v_k h_{s,k}) \sigma(\xi) \exp[ -\frac{v_k+\xi}{2} - \lambda(\xi) (v_k^2- \xi^2) ]
+\ln q(u_k) & = & \mathbb{E}_{G,V,H} [\ln p(u_k|a,b)+\sum_s \ln p(g_{s,k}|u_k)]+const\\
+&=&(a-1)\ln u_k +(b-1) \ln (1-u_k) + \sum_{s} \mathbb{E}[g_{s,k}] \ln u_k + \sum_s (1-\mathbb{E}[g_{s,k}] \ln (1-u_k) + const \\
+\mathbb{E}[u_k] &=& \frac{a+\sum_{s} \mathbb{E}[g_{s,k}] }{a+b+ |S|  }
 \end{eqnarray*}
 
-By variational inference, we have factorize the posterior probability $p(U,V,G,H|D,a,b,\Lambda )=q(U)q(V)q(G)q(H)$, where $\Lambda =\beta^{-1}$
+%Sigmoidal: Because $p(h_{s,v,k}=1|g_{s,k},v_k) = \frac{1}{2}^{1-g_{s,k}} \sigma(v_k) g_{s,k} $, $\ln p(h_{s,v,k}=1|g_{s,k},v_k) \geq g_{s,k} [\frac{v_k-\xi}{2} -\lambda(\xi) (v_k^2-\xi^2)]$
+Because $p(h_{s,v,k}|g_{s,k},v_k)=[v_k^{h_{s,v,k}} (1-v_k)^{1-h_{s,v,k}}]^{g_{s,k}} [\frac{1}{2}^{h_{s,v,k}} \frac{1}{2}^{1-h_{s,v,k}}]^{1-g_{s,k}}$, we have $\ln p(h_{s,v,k}|g_{s,k},v_k)= g_{s,k} [h_{s,v,k}\ln v_k + (1-h_{s,v,k}\ln (1-v_k)] + (1-g_{s,k}\ln\frac{1}{2}$
+%Sigmoidal
+%\begin{eqnarray*}
+%\ln q(v) & = & \mathbb{E}_{G,U,H} [\ln p(H|v,G)+\ln(v|\alpha,\beta) ] + const\\
+%&=& \sum_u \sum_s \sum_k \{ \mathbb{E}[g_{s,k}] [v_kh_{s,k} -\frac{v_k+\xi}{2} -\lambda(\xi) (v_k^2-\xi^2) ] -\frac{1}{2} v^T\Lambda v\} + const\\
+%&=& \sum_s\sum_{o_{s,v}=1} \sum_k \mathbb{E} [g_{s,k}] [\frac{v_k-\xi}{2} -\lambda(\xi) (v_k^2-\xi^2)] + 
+%\end{eqnarray*}
 
 \begin{eqnarray*}
-\ln q(u_k) & = & \mathbb{E}_{G,V,H} [\ln p(u_k|a,b)+\ln p(g_k|u_k)]+const\\
-&=&(a-1)\ln u_k +(b-1) \ln (1-u_k) + \sum_{s} \mathbb{E}[g_{s,k}] \ln u_k + (1-\mathbb{E}[g_{s,k}] \ln (1-u_k) + const \\
-\mathbb{E}[u_k] &=& \frac{a-1+\sum_{s} \mathbb{E}[g_{s,k}] }{a-1+\sum_{s} \mathbb{E}[g_{s,k}]+b- -\mathbb{E}[g_{s,k}  }
+\ln q(v) & = & \mathbb{E}_{G,U,H} [\ln p(H|v,G)+\ln(v|\alpha,\beta) ] + const\\
+&=& \sum_s\sum_{o_{s,v}=1} \sum_k p(h_{s,v,k}=1|g_{s,k},v_k) + \sum_s\sum_{o_{s,v}=0} \sum_k p(h_{s,v,k}|g_{s,k},v_k) +  \sum_v \sum_k p(v_k|\alpha,\beta) \\
+\ln q(v_k) & = & \{\sum_s\sum_{o_{s,v}=1}  \mathbb{E}[g_{s,k}] + \sum_s\sum_{o_{s,v}=0}  \Ep[g_{s,k}]\Ep[h_{s,v,k}]\} \ln v_k \\
+& & + \sum_s\sum_{o_{s,v}=0} \Ep[g_{s,k}]\Ep[1-h_{s,v,k}] \ln (1-v_k) +  (\alpha-1)\ln v_k + (\beta-1) \ln (1-v_k) + const \\
+\Ep[v_k]& = & \frac{\sum_s\sum_{o_{s,v}=1}  \mathbb{E}[g_{s,k}] + \sum_s\sum_{o_{s,v}=0}  \Ep[g_{s,k}]\Ep[h_{s,v,k}]+\alpha}{\sum_s\sum_{o_{s,v}=1}  \mathbb{E}[g_{s,k}] + \sum_s\sum_{o_{s,v}=0}  \Ep[g_{s,k}]\Ep[h_{s,v,k}]+\alpha+\beta + \sum_s\sum_{o_{s,v}=0} \Ep[g_{s,k}]\Ep[1-h_{s,v,k}]}
 \end{eqnarray*}
 
-\begin{eqnarray*}
-\ln q(v) & = & \mathbb{E}_{G,U,H} [\ln p(H|v,G)+\ln(v|\Lambda) ] + const\\
-&=& \sum_u \sum_s \sum_k \{ \mathbb{E}[g_{s,k}] [v_kh_{s,k} -\frac{v_k+\xi}{2} -\lambda(\xi) (v_k^2-\xi^2) ] -\frac{1}{2} v^T\Lambda v\} + const\\
-\Sigma[v]^{-1}& = &\mathbf{I} ( \Lambda - 2\lambda(\xi) \sum_s\sum_u \mathbb{E} [g_{s,k}]) \\
-\mathbb{E}[v]&=& \Sigma[v] (\sum_u\sum_s \mathbb{E}[g_{s,k}] (h_{s,k}-1/2))
-\end{eqnarray*}
+
 
 \begin{eqnarray*}
-\ln q(g_{s,k}) & = & \mathbb{E}_{U,V,H} (\ln (g_{s,k}|u_k)+\ln (H|G,U))+ const \\
-&\geq & \sum_s g_{s,k} \mathbb{E}[\ln u_k] + (1-g_{s,k} ) \mathbb{E}[1-\ln u_k] + \ln \frac{1}{2} (1-g_{s,k}) + g_{s,k} \{\mathbb{E}[h_k] \mathbb{E}[\sigma(v_k)] + \mathbb{E}[1-h_k] \mathbb{E}[1-\sigma(v_k)] \}+const\\
-\mathbb{E}[g_{s,k}]&=&\frac{\mathbb{E}[\ln u_k+ \{\mathbb{E}[h_k] \mathbb{E}[\sigma(v_k)] + \mathbb{E}[1-h_k] \mathbb{E}[1-\sigma(v_k)] \}] }{\mathbb{E}[\ln u_k+ \{\mathbb{E}[h_k] \mathbb{E}[\sigma(v_k)] + \mathbb{E}[1-h_k] \mathbb{E}[1-\sigma(v_k)] \}+\mathbb{E}[1-\ln u_k] + \ln \frac{1}{2}  }
+\ln q(G) & = & \mathbb{E}_{U,V,H} (\ln p(G|U)+\ln (H|G,U))+ const \\
+\ln q(g_{s,k}) & = & \ln p(g_{s,k}|u_k) + \sum_{o_{s,v}=1}  p(h_{s,v,k}=1|g_{s,k},v_k) + \sum_{o_{s,v}=0}  p(h_{s,v,k}|g_{s,k},v_k) \\
+&=& g_{s,k} \{\Ep[\ln u_k] + \Ep[\ln v_k] + \sum_{o_{s,v}=1}  \Ep[\ln v_k] + \sum_{o_{s,v}=0} [ \Ep[h_{s,v,k}] \Ep[\ln v_k] + \Ep[1-h_{s,v,k} ] \Ep[1-\ln v_k] ] \}\\
+& & + (1-g_{s,k}) \{\Ep[\ln (1-u_k)] + \sum_{o_{s,v} } \ln \frac{1}{2}  \}  \\
+\mathbb{E}[g_{s,k}]&=&\frac{\Ep[\ln u_k] + \Ep[\ln v_k] + \sum_{o_{s,v}=1}  \Ep[\ln v_k] + \sum_{o_{s,v}=0} [ \Ep[h_{s,v,k}] \Ep[\ln v_k] + \Ep[1-h_{s,v,k} ] \Ep[1-\ln v_k] ] }{\Ep[\ln u_k] + \Ep[\ln v_k] + \sum_{o_{s,v}=1}  \Ep[\ln v_k] + \sum_{o_{s,v}=0} [ \Ep[h_{s,v,k}] \Ep[\ln v_k] + \Ep[1-h_{s,v,k} ] \Ep[1-\ln v_k] ]  +(1-g_{s,k}) \{\Ep[\ln (1-u_k)] + \sum_{o_{s,v} } \ln \frac{1}{2}  \}  }
 \end{eqnarray*}
 
-\begin{eqnarray*}
-\ln q(H_s) & = & \mathbb{E}_{G,U,V} (\ln p(H_s|V_s,G_s) + \ln p(o|H)) \\
-&\geq  & \sum_k \mathbb{E}[g_{s,k}] \{ h_{s,k} \ln \sigma(v_k) + (1-h_{s,k}) \mathbb{E}[\ln(1-\sigma v_k)] \} + \ln p(o|H) +const\\
-\mathbb{E}[H_s] = ? 
-\end{eqnarray*}
+where $\Ep[\ln(u_k) = \phi(a')\phi(a'+b'), \Ep[\ln(v_k) = \phi(\alpha')\phi(\beta')$.  
 
 \begin{eqnarray*}
-5
+\ln q(H) & = & \mathbb{E}_{G,U,V} (\ln p(H|V,G) + \ln p(O|H)) \\
+\ln q(h_{s,v,k}=1) &=& \sum_{o_{s,v}=1} \sum_k p(h_{s,v,k}=1|g_{s,k},v_k) +\sum_{o_{s,v}=0} \sum_{h_{s,v,k'}} p(o_{s,v}=0|H)  p(h_{s,v,k'}|g_{s,k'},v_k) + const\\
+\Ep [h_{s,v,k} ] &= &   q(h_{s,v,k}=1) + q(h_{s,v,k}=0) 
 \end{eqnarray*}
+
 
 
 \end{document}

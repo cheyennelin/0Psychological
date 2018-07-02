@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.27)  29 JUN 2018 22:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.27)  2 JUL 2018 13:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -499,18 +499,18 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (./Model.aux)
 \openout1 = `Model.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
  ABD: EveryShipout initializing macros
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -581,12 +581,12 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 10.
+LaTeX Font Info:    Try loading font information for U+msa on input line 11.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 10.
+LaTeX Font Info:    Try loading font information for U+msb on input line 11.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -597,19 +597,19 @@ LaTeX Warning: No \author given.
 [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 16.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 17.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
  [1] [2
 
 ] [3]
 [4
 
-]
+] [5]
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
@@ -659,94 +659,112 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
- [5]
-Overfull \hbox (11.46327pt too wide) in paragraph at lines 106--107
-[]\OT1/cmr/m/n/10.95 For each as-pect, gen-er-ate the in-di-ca-tor $\OML/cmm/m/
-it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 h[] \OT1/cmr/m/n/10.95 = 1\OM
-S/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 v[]; g[]\OT1/cmr/m/n/10.95 ) = [][][][]$ 
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+ [6]
+Overfull \hbox (20.16092pt too wide) in paragraph at lines 117--119
+[]\OT1/cmr/m/n/10.95 For each as-pect $\OML/cmm/m/it/10.95 k$\OT1/cmr/m/n/10.95
+ , gen-er-ate the in-di-ca-tor $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/c
+mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
+10.95 ) = [\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 (1 \OMS/cmsy/m/n/10.95 ^^@
 
  []
 
 
-Overfull \hbox (54.6413pt too wide) in paragraph at lines 107--108
-[]\OT1/cmr/m/n/10.95 For each ob-served rat-ing $\OML/cmm/m/it/10.95 o$\OT1/cmr
-/m/n/10.95 , gen-er-ate rank-ing ob-ser-va-tion $\OML/cmm/m/it/10.95 p\OT1/cmr/
-m/n/10.95 (\OML/cmm/m/it/10.95 o\OT1/cmr/m/n/10.95 ) = \OML/cmm/m/it/10.95 XOR\
-OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 h[]; []  ; h[]\OT1/cmr/m/n/10.95 )$
- []
-
-
-Overfull \hbox (68.21835pt too wide) detected at line 113
+Overfull \hbox (99.45546pt too wide) detected at line 126
 \OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 U; V; G; H; D\OMS/
-cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 a; b; ^^L\OT1/cmr/m/n/10.95 ) = []\OMS/cmsy
-/m/n/10.95 f\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 v\OMS/
-cmsy/m/n/10.95 j\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; ^^L\OT1/cmr/m/n/10.95
- ) [] [][\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u[]\OMS/c
-msy/m/n/10.95 j\OML/cmm/m/it/10.95 a; b\OT1/cmr/m/n/10.95 ) [] \OML/cmm/m/it/10
-.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 o\OMS/cmsy/m/n/10.95 j\OML/cmm/m/i
-t/10.95 H\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/
-m/it/10.95 g[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 u[]\OT1/cmr/m/n/10.95 )\
-OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 h[]\OMS/cmsy/m/n/10
-.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/10.95 )]\OMS/cmsy/m/n/10.95 g
+cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 a; b; \OT1/cmr/m/n/10.95 ^^C) = [] [] \OML/
+cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u[]\OMS/cmsy/m/n/10.95 
+j\OML/cmm/m/it/10.95 a; b\OT1/cmr/m/n/10.95 ) [] \OML/cmm/m/it/10.95 p\OT1/cmr/
+m/n/10.95 (\OML/cmm/m/it/10.95 g[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 u[]\
+OT1/cmr/m/n/10.95 ) []\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10
+.95 (\OML/cmm/m/it/10.95 v[]\OMS/cmsy/m/n/10.95 j\OT1/cmr/m/n/10.95 0\OML/cmm/m
+/it/10.95 ; ; ^^L\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (
+\OML/cmm/m/it/10.95 o[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 H\OT1/cmr/m/n/1
+0.95 )\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 h[]\OMS/cmsy
+/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/10.95 )\OMS/cmsy/m/n/10.95
+ g
  []
 
 
-Overfull \hbox (91.702pt too wide) in paragraph at lines 122--123
+Overfull \hbox (91.55382pt too wide) in alignment at lines 137--141
+ [][][] []
+ []
+
+
+Overfull \hbox (102.78123pt too wide) in paragraph at lines 143--144
 []\OT1/cmr/m/n/10.95 By vari-a-tional in-fer-ence, we have fac-tor-ize the pos-
 te-rior prob-a-bil-ity $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/
-10.95 U; V; G; H\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 D; a; b; \OT1/cmr/m/n/
-10.95 ^^C) =
+10.95 U; V; G; H\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 D; a; b; ; ^^L\OT1/cm
+r/m/n/10.95 ) =
  []
 
-[6]
-Overfull \hbox (97.80937pt too wide) in alignment at lines 124--128
+
+Overfull \hbox (113.62607pt too wide) in alignment at lines 144--148
  [][][] []
  []
 
 
-Overfull \hbox (32.79341pt too wide) in alignment at lines 130--135
+Overfull \hbox (3.48042pt too wide) in paragraph at lines 151--158
+[]\OT1/cmr/m/n/10.95 Because $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm
+/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/10
+.95 ) = [\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 (1 \OMS/cmsy/m/n/10.95 ^^@ \
+OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 )[]][][[][][][]][]$,
+ []
+
+
+Overfull \hbox (129.0006pt too wide) in alignment at lines 159--165
+ [][][] []
+ []
+
+[7]
+Overfull \hbox (325.59016pt too wide) in alignment at lines 169--175
  [][][] []
  []
 
 
-Overfull \hbox (227.03261pt too wide) in alignment at lines 137--141
+Overfull \hbox (124.35077pt too wide) in alignment at lines 179--183
  [][][] []
  []
 
+[8] (./Model.aux)
 
-Overfull \hbox (48.18562pt too wide) in alignment at lines 143--147
- [][][] []
- []
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-[7] (./Model.aux) ) 
+ ) 
 Here is how much of TeX's memory you used:
- 14783 strings out of 492649
- 317923 string characters out of 6129622
- 390394 words of memory out of 5000000
- 18369 multiletter control sequences out of 15000+600000
- 14577 words of font info for 56 fonts, out of 8000000 for 9000
+ 14787 strings out of 492649
+ 317993 string characters out of 6129622
+ 390028 words of memory out of 5000000
+ 18375 multiletter control sequences out of 15000+600000
+ 13956 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,8n,78p,592b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
-.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.p
-fb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/
-local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
-ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
-al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Model.pdf (8 pages, 166284 bytes).
+ 55i,8n,78p,980b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
+xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
+ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/201
+8/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Model.pdf (9 pages, 174203 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 105 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
