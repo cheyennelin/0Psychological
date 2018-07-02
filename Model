@@ -5,9 +5,10 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \newcommand{\Ep}{\mathbb{E}}
+\newcommand{\Real}{\mathcal{R}}
 
 \begin{document}
-\title{Development and Derivation of The Psychological Model}
+\title{Development and Derivation of the Psychological Model}
 \maketitle
 
 This document provides development logs of the psychological model, including intuitions, derivations, and result summaries.
@@ -28,6 +29,50 @@ This part devotes to models that observe rankings. In each session, we assume th
 %严格？宽松？
 
 %we use the BTL model with ties $p(i\succ j|g_k=1)=\frac{\theta v_i}{\theta v_i+v_j}$. Therefore, on the prominent aspects, the winning product is likely to be better than the losing product, but on the non-prominent aspects, the winning product can be not as good as the losing product as long as $\theta v_i \succ  v_j$. For simplicity, the value of $\theta>1$ is pre-set. Below, we will use $o$ to denote the observations. 
+
+\section{The Sigmoidal Model}
+As the section title indicates, we propose a set of models that relate pair-wise rankings $i\succ j$ to logit functions. The optimization objective is in a general form of :
+
+\begin{eqnarray}
+\min_{u,v} & \sum_{i\succ j} \frac{1}{2} (1-\sum_k u_k \sigma(v_{i,k}-v_{j,k}))^2 - \frac{\lambda}{2} \sum_u \|u\|^2 \\\nonumber
+ s.t. & \forall u \forall k, u_k>0\\\nonumber
+  & \forall u, \sum_k u_k=1
+\end{eqnarray}
+
+There are a few issues needed to be emphasized here. (1) Essentially this is a mixture model so only evaluation on prominent aspects is provided. We could make explicit treatments for prominent and non-prominent aspects in the model by changing the constraints to $\forall u,\forall k, 0<u_k<1$. (2) With the negative regularization term (together with the constraints) we penalize sparse $u$s, thus we allow more prominent aspects to be chosen. (3) We use the sum-of-square error function, because our prediction for a pair $<i,,j>$$f(i j)=\sum_k u_k \sigma(v_{i,k}-v_{j,k})$ falls in the range of $(0,1)$ and $f(i,j)=1-(j,i)$. So we label $i\succ j$ to be 1. For symmetry, we don't have to label $j\succ i$. (4) We do not normalize $v$ as $\sigma(v_{i,k}, v_{j,k})$ is already normalized.
+
+The optimization algorithm is listed below. In each iteration, we first optimize over $u$ when $v$s are fixed. We rewrite the objective as $\|Ax-b\|^2-\lambda \|x\|^2$ with constraints $C_i^Tx=d_i, \forall i=1,\cdots,U$, where $x\in \Real^{KU}$, $U$ is the number of users, $x_i=u_{i,k}$, $A\in \Real^{D}$, $D$ is the number of observations and $|D|\simeq SL$, where $S$ is the number of sessions, and $L$ is the average number of pairs in a session, $C_i\in \Real^{KU}$ where for $1\leq i \leq U, iK+1\leq j \leq i(K+1), C_{i,j}=1 \forall j', C_{i,j'}=0$, $b$ is a vector of all ones, $d_i=1$ is a scalar. Therefore we have
+
+\begin{equation}
+\begin{bmatrix}
+x^* \\
+z^*
+\end{bmatrix} = \begin{bmatrix}
+2A^TA-\lambda & C^T \\
+C & 0
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+2A^Tb \\
+d
+\end{bmatrix}
+\end{equation}
+Note that we have $S\geq U$ to filter cold start users, and generally $L\geq K-1$, $K>1$, therefore the matrix is invertible. 
+
+Next we optimize $v$ while keeping $u$ fixed. We adopt stochastic gradient.  As shown below, the gradient is the addiction of two terms:
+
+\begin{eqnarray*}
+\frac{\delta L}{\delta v_{i,k}}&=&\sum_{i\succ j} (1-\sum_{k'} u_{k'}\sigma(v_{i,k'},v_{j,k'}))\sigma(v_{i,k},v_{j,k})(1-\sigma(v_{i,k},v_{j,k}))\\
+&&+ \sum_{w\succ i} (1-\sum_{k'} u'_{k'}\sigma(v_{w,k'},v_{i,k'}))\sigma(v_{w,k},v_{i,k})(\sigma(v_{w,k},v_{i,k})-1)
+\end{eqnarray*}
+
+We can sample an item $j$ from $i\succ j$ and another item $w$ from $w\succ i$,  compute $S_1= (1-\sum_{k'} u_{k'}\sigma(v_{i,k'},v_{j,k'}))\sigma(v_{i,k},v_{j,k})(1-\sigma(v_{i,k},v_{j,k}))$ and $(1-\sum_{k'} u'_{k'}\sigma(v_{w,k'},v_{i,k'}))\sigma(v_{w,k},v_{i,k})(\sigma(v_{w,k},v_{i,k})-1)$
+
+\begin{equation}
+v_{i,k}=v_k+\eta |i\succ j| S_1 +\eta |w\succ i| S_2
+\end{equation}
+
+
+      
 \part{Rating Based Models}
 In this section, we develop a series of ranking based models. These models have the following properties. (1) The models are based on rating observations, i.e. we assign a rating to every action. The actions include the old-fashioned preference ratings (in such case, each rating is a standalone session), actions in a session, positive and negative samples, etc. (2) The models are Bayesian generative models that have good explainability. (3) We control the assumptions by adjusting the hyper-parameters in these models.
    
