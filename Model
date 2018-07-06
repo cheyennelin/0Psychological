@@ -15,7 +15,7 @@ This document provides development logs of the psychological model, including in
 
 To begin with, we must outline several key concepts in building the blocks of our models. 
 \begin{itemize}
-\item $K$ aspects. We assume there are $K$ aspects based on which a user measure the items. The number $K$ is predefined. Consequently. we define the variables, $U,V$ where  $v_{i,k}$ denotes item $i$'s feature on aspect $k$ and $u_{p,k}$  denotes user $p$'s preference on aspect $k$. The range of $U,V$ is specified by the model, thus a probabilistic generative model and a numerical model might provide apply different range constraints.
+\item $K$ aspects. We assume there are $K$ aspects based on which a user measures the items. The number $K$ is predefined. Consequently. we define the variables, $U,V$ where  $v_{i,k}$ denotes item $i$'s feature on aspect $k$ and $u_{p,k}$  denotes user $p$'s preference on aspect $k$. The range of $U,V$ is specified by the model, thus a probabilistic generative model and a numerical model might provide apply different range constraints.
 \item Prominent aspect(s). We assume that the $K$ aspects are not treated equally by the users. One or some (depending on the model) of the aspects are most important. 
 \item Distinguish prominent and non-prominent aspects. We adopt different scoring or ranking methods for prominent and non-prominent aspects. This part essentially makes our model non-compensate.   
 \end{itemize}
@@ -24,12 +24,40 @@ To begin with, we must outline several key concepts in building the blocks of ou
 This part devotes to models that observe rankings. In each session, we assume that the user is given a set of items, and the user generates a set of pairwise rankings. For example, if a user has access to items $i,j$, and he buys $i$, clicks on $j$. Then we can make a reasonable conclusion that to the user $i\succ j$. The ranking based models mimic the generation of pairwise rankings. The details of observing rankings, i.e. which actions to be taken into accounts and how to grade these actions, are out of the scope of this document (but should be considered in the experiments).
 
 \section{The BTL Model}
-%瑛珈，非生成模型，非贝叶斯
+\subsection{Model}
+In the extended BTL model, a ranking $i \succ j$ is likely to happen if the latent utility score $i$ is relevantly larger than $j$, $p(i \succ j)=\frac{i}{i+ \theta j}$.  The parameter $\theta>1$ plays as a tolerance threshold. If the absolute difference between $i$ and $j$ is not significant $|i-j|\leq \theta$, the user will consider it to be a tie $i=j$, $p(i = j)=\frac{(\theta^2-1)i j}{[i+\theta j][\theta i+ j]}$. Note that $p(i \succ j)+ p(i \prec j) + p(i=j) =1$. 
+ 
+Based on the extended BTL model, we propose our first attempt of the psychological model. The highlights are (1) we consider only one prominent aspect in each session within the $K$ aspects. (2) The winning item must be significantly better than the losing item on the prominent aspect. (3) The winning item can be not as good as the losing product as long as $\theta v_{i,k} >  v_{j,k}$. The usage of parameter $\theta$ can be interpreted as the consumer sets a minimally acceptable level of performance. The cutoff point is controlled by both $\theta$ and how well other items perform.
 
-%严格？宽松？
+Therefore the probability of  $w$ winning in the session $d$ is defined in Equ.~\ref{equ:win} as the product of the probability that $w$ outranks other items $l$ on the most pertinent aspect $p(w_k\succ l_k)$ and the probability that $w$ at least ties with other items on other aspects $p(w_{k'} \succeq l_{k'})$.
+\begin{equation}\label{equ:win}
+p(<w,l>|\Theta,g)  =  \Pi_{k=1}^{K}[ {\frac{w_k}{w_k+\theta l_k}}^{g_k} { \frac{\theta w_{k}}{l_{k}+\theta w_{k}}}^{1-g_k}]
+\end{equation}
 
-%we use the BTL model with ties $p(i\succ j|g_k=1)=\frac{\theta v_i}{\theta v_i+v_j}$. Therefore, on the prominent aspects, the winning product is likely to be better than the losing product, but on the non-prominent aspects, the winning product can be not as good as the losing product as long as $\theta v_i \succ  v_j$. For simplicity, the value of $\theta>1$ is pre-set. Below, we will use $o$ to denote the observations. 
+Thus we present the likelihood of purchase model under Non-Compensatory Rules (NCR) as follows. The model parameters are denoted as $\Theta=\{\theta,v\in V, u\in U)\}$.     
+\begin{equation}\label{equ:likelihood}
+		p(D|\Theta)=\Pi_{d\in D} \Sigma_{g} \{\Pi_{w\in W^d, v\in L^d} p(<w,l>|g,\Theta) p(g|u)\}
+\end{equation}
 
+The inference is implemented by EM. As in~\cite{Hunter2004MM}, in the M-step of EM, instead of maximizing $Q(\Theta)=E_g \ln p(D,G|\Theta) $ , we compute a minorization function of $Q$ . For the limited space, we skip the derivation here and present the updates of NCR in Equ.~\ref{equ:update}. 
+\begin{align}\label{equ:update}
+\gamma(d,k,\Theta^t) =&\frac{u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}{\Sigma_{k=1}^K u_k \Pi_{w \in W^d, v\in L^d} \frac{w_k}{w_k+\theta^t v_k}\Pi_{k'\neq k}\frac{\theta^t w_{k'}}{v_{k'}+\theta^t w_{k'}}}\\\nonumber
+\alpha(v,v',k,\Theta^t)=&v_k^t + \theta^t {v'}_k^t\\\nonumber
+u_k = & \frac{\Sigma_{u(d)=u}\gamma(d,k,\Theta^t)}{\Sigma_{s=1}^K \Sigma_{u(d)=u}\gamma(d,s,\Theta^t)} \\\nonumber
+\frac{1}{v_k}= &\frac{\Sigma_{d\in W(v)}\Sigma_{v'\in L_d} [\frac{\gamma(d,k,\Theta^t)}{ \alpha(v,v',k,\Theta^t)} +\Sigma_{k'\neq k}\frac{\theta^t\gamma(d,k',\Theta^t)}{\alpha(v',v,k,\Theta^t)}]}{\Sigma_{d\in W(v)}|L_d|}\\\nonumber
+ & + \frac{\Sigma_{d\in L(v)}\Sigma_{v'\in W_d} [\frac{\theta^t \gamma(d,k,\Theta^t)}{\alpha(v',v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{\gamma(d,k',\Theta^t)}{\alpha(v,v',k,\Theta^t)}] }{\Sigma_{d\in W(v)}|L_d|}\\\nonumber
+\theta = & \frac{(K-1)\Sigma_d |W_d| |L_d|}{\Sigma_d \Sigma_k \gamma(d,k,\Theta^t)\Sigma_{w,v} [\frac{v_k}{\alpha(w,v,k,\Theta^t)}+\Sigma_{k'\neq k} \frac{w_{k'}}{\alpha(v,w,k',\Theta^t)}]}
+\end{align}
+
+ 
+%We use the BTL model with ties $p(i\succ j|g_k=1)=\frac{\theta v_i}{\theta v_i+v_j}$. Therefore, on the prominent aspects, the winning product is likely to be better than the losing product, but on the non-prominent aspects, the winning product can be not as good as the losing product as long as $\theta v_i \succ  v_j$. For simplicity, the value of $\theta>1$ is pre-set. Below, we will use $o$ to denote the observations. 
+
+\subsection{Results}
+Unfortunately, the BTL model does NOT outperform comparative models, e.g. BPR on our Tmall dataset. But it outranks BPR and other models (excluding classification and regression models) on the Yochoose dataset. 
+
+Nonetheless, we run experiments based on BTL for a series of evaluations. The first one is about different actions. Our conclusions include: (1) Ranking buy v.s. add to cart is slightly better than BPR. However,  ranking solely on other types of actions suffer from the lack of data. (2) Ranking based on ensemble action pairs (3) 
+
+ 
 \section{The Sigmoidal Model}
 As the section title indicates, we propose a set of models that relate pair-wise rankings $i\succ j$ to logit functions. The optimization objective is in a general form of :
 
@@ -39,9 +67,9 @@ As the section title indicates, we propose a set of models that relate pair-wise
   & \forall u, \sum_k u_k=1
 \end{eqnarray}
 
-There are a few issues needed to be emphasized here. (1) Essentially this is a mixture model so only evaluation on prominent aspects is provided. We could make explicit treatments for prominent and non-prominent aspects in the model by changing the constraints to $\forall u,\forall k, 0<u_k<1$. (2) With the negative regularization term (together with the constraints) we penalize sparse $u$s, thus we allow more prominent aspects to be chosen. (3) We use the sum-of-square error function, because our prediction for a pair $<i,,j>$$f(i j)=\sum_k u_k \sigma(v_{i,k}-v_{j,k})$ falls in the range of $(0,1)$ and $f(i,j)=1-(j,i)$. So we label $i\succ j$ to be 1. For symmetry, we don't have to label $j\succ i$. (4) We do not normalize $v$ as $\sigma(v_{i,k}, v_{j,k})$ is already normalized.
+There are a few issues needed to be emphasized here. (1) Essentially this is a mixture model so only evaluation on prominent aspects is provided. We could make explicit treatments for prominent and non-prominent aspects in the model by changing the constraints to $\forall u,\forall k, 0<u_k<1$. (2) With the negative regularization term (together with the constraints) we penalize sparse $u$s, thus we allow more prominent aspects to be chosen. (3) We use the sum-of-square error function, because our prediction for a pair $<i,,j>$$f(i j)=\sum_k u_k \sigma(v_{i,k}-v_{j,k})$ falls in the range of $(0,1)$ and $f(i,j)=1-f(j,i)$. So we label $i\succ j$ to be 1. For symmetry, we don't have to label $j\succ i$. (4) We do not normalize $v$ as $\sigma(v_{i,k}, v_{j,k})$ is already normalized.
 
-The optimization algorithm is listed below. In each iteration, we first optimize over $u$ when $v$s are fixed. We rewrite the objective as $\|Ax-b\|^2-\lambda \|x\|^2$ with constraints $C_i^Tx=d_i, \forall i=1,\cdots,U$, where $x\in \Real^{KU}$, $U$ is the number of users, $x_i=u_{i,k}$, $A\in \Real^{D}$, $D$ is the number of observations and $|D|\simeq SL$, where $S$ is the number of sessions, and $L$ is the average number of pairs in a session, $C_i\in \Real^{KU}$ where for $1\leq i \leq U, iK+1\leq j \leq i(K+1), C_{i,j}=1 \forall j', C_{i,j'}=0$, $b$ is a vector of all ones, $d_i=1$ is a scalar. Therefore we have
+The optimization algorithm is listed below. In each iteration, we first optimize over $u$ when $v$s are fixed. We rewrite the objective as $\|Ax-b\|^2-\lambda \|x\|^2$ with constraints $C_i^Tx=d_i, \forall i=1,\cdots,U$, where $x\in \Real^{KU}$, $U$ is the number of users, $x_i=u_{i,k}$, $A\in \Real^{D}$, $D$ is the number of observations and $D\simeq SL$, where $S$ is the number of sessions, and $L$ is the average number of pairs in a session, $C_i\in \Real^{KU}$ where for $1\leq i \leq U, iK+1\leq j \leq i(K+1), C_{i,j}=1, \forall j', C_{i,j'}=0$, $b$ is a vector of all ones, $d_i=1$ is a scalar. Therefore we have
 
 \begin{equation}
 \begin{bmatrix}
@@ -65,14 +93,14 @@ Next we optimize $v$ while keeping $u$ fixed. We adopt stochastic gradient.  As 
 &&+ \sum_{w\succ i} (1-\sum_{k'} u'_{k'}\sigma(v_{w,k'},v_{i,k'}))\sigma(v_{w,k},v_{i,k})(\sigma(v_{w,k},v_{i,k})-1)
 \end{eqnarray*}
 
-We can sample an item $j$ from $i\succ j$ and another item $w$ from $w\succ i$,  compute $S_1= (1-\sum_{k'} u_{k'}\sigma(v_{i,k'},v_{j,k'}))\sigma(v_{i,k},v_{j,k})(1-\sigma(v_{i,k},v_{j,k}))$ and $(1-\sum_{k'} u'_{k'}\sigma(v_{w,k'},v_{i,k'}))\sigma(v_{w,k},v_{i,k})(\sigma(v_{w,k},v_{i,k})-1)$
+We can sample an item $j$ from $i\succ j$ and another item $w$ from $w\succ i$,  compute $S_1= (1-\sum_{k'} u_{k'}\sigma(v_{i,k'},v_{j,k'}))\sigma(v_{i,k},v_{j,k})(1-\sigma(v_{i,k},v_{j,k}))$ and $(1-\sum_{k'} u'_{k'}\sigma(v_{w,k'},v_{i,k'}))\sigma(v_{w,k},v_{i,k})(\sigma(v_{w,k},v_{i,k})-1)$, then we update 
 
 \begin{equation}
-v_{i,k}=v_k+\eta |i\succ j| S_1 +\eta |w\succ i| S_2
+v_{i,k}=v_{i,k}+\eta |i\succ j| S_1 +\eta |w\succ i| S_2,
 \end{equation}
 
-
-      
+where $\eta$ is the step length, $|\cdot|$ is the size of a set.
+ 
 \part{Rating Based Models}
 In this section, we develop a series of ranking based models. These models have the following properties. (1) The models are based on rating observations, i.e. we assign a rating to every action. The actions include the old-fashioned preference ratings (in such case, each rating is a standalone session), actions in a session, positive and negative samples, etc. (2) The models are Bayesian generative models that have good explainability. (3) We control the assumptions by adjusting the hyper-parameters in these models.
    
