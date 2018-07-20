@@ -1,12 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.27)  4 JUL 2018 10:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  19 JUL 2018 22:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**Model
-(./Model
-LaTeX2e <2018-04-01> patch level 2
-Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+**Model.tex
+(./Model.tex
+LaTeX2e <2018-04-01> patch level 5
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/size11.clo
@@ -607,13 +606,13 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
  [1] [2
 
 ]
-Overfull \hbox (11.11122pt too wide) in paragraph at lines 36--37
+Overfull \hbox (11.11122pt too wide) in paragraph at lines 37--38
 []\OT1/cmr/m/n/10.95 Thus we present the like-li-hood of pur-chase model un-der
  Non-Compensatory
  []
 
 
-LaTeX Warning: Citation `Hunter2004MM' on page 3 undefined on input line 41.
+LaTeX Warning: Citation `Hunter2004MM' on page 3 undefined on input line 42.
 
 [3] [4] [5] [6
 
@@ -674,7 +673,7 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
  [8]
-Overfull \hbox (20.16092pt too wide) in paragraph at lines 183--185
+Overfull \hbox (20.16092pt too wide) in paragraph at lines 190--192
 []\OT1/cmr/m/n/10.95 For each as-pect $\OML/cmm/m/it/10.95 k$\OT1/cmr/m/n/10.95
  , gen-er-ate the in-di-ca-tor $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/c
 mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
@@ -683,7 +682,7 @@ mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
  []
 
 
-Overfull \hbox (99.45546pt too wide) detected at line 192
+Overfull \hbox (99.45546pt too wide) detected at line 199
 \OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 U; V; G; H; D\OMS/
 cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 a; b; \OT1/cmr/m/n/10.95 ^^C) = [] [] \OML/
 cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u[]\OMS/cmsy/m/n/10.95 
@@ -699,12 +698,12 @@ OT1/cmr/m/n/10.95 ) []\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10
  []
 
 
-Overfull \hbox (91.55382pt too wide) in alignment at lines 203--207
+Overfull \hbox (91.55382pt too wide) in alignment at lines 210--214
  [][][] []
  []
 
 
-Overfull \hbox (102.78123pt too wide) in paragraph at lines 209--210
+Overfull \hbox (102.78123pt too wide) in paragraph at lines 216--217
 []\OT1/cmr/m/n/10.95 By vari-a-tional in-fer-ence, we have fac-tor-ize the pos-
 te-rior prob-a-bil-ity $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/
 10.95 U; V; G; H\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 D; a; b; ; ^^L\OT1/cm
@@ -712,12 +711,12 @@ r/m/n/10.95 ) =
  []
 
 
-Overfull \hbox (113.62607pt too wide) in alignment at lines 210--214
+Overfull \hbox (113.62607pt too wide) in alignment at lines 217--221
  [][][] []
  []
 
 
-Overfull \hbox (3.48042pt too wide) in paragraph at lines 217--224
+Overfull \hbox (3.48042pt too wide) in paragraph at lines 224--231
 []\OT1/cmr/m/n/10.95 Because $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm
 /m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/10
 .95 ) = [\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 (1 \OMS/cmsy/m/n/10.95 ^^@ \
@@ -725,17 +724,17 @@ OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 )[]][][[][][][]][]$,
  []
 
 
-Overfull \hbox (129.0006pt too wide) in alignment at lines 225--231
+Overfull \hbox (129.0006pt too wide) in alignment at lines 232--238
  [][][] []
  []
 
 [9]
-Overfull \hbox (325.59016pt too wide) in alignment at lines 235--241
+Overfull \hbox (325.59016pt too wide) in alignment at lines 242--248
  [][][] []
  []
 
 
-Overfull \hbox (124.35077pt too wide) in alignment at lines 245--249
+Overfull \hbox (124.35077pt too wide) in alignment at lines 252--256
  [][][] []
  []
 
@@ -745,13 +744,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14791 strings out of 492649
- 318034 string characters out of 6129622
- 392072 words of memory out of 5000000
- 18379 multiletter control sequences out of 15000+600000
- 13956 words of font info for 54 fonts, out of 8000000 for 9000
+ 14792 strings out of 492646
+ 318057 string characters out of 6129564
+ 392265 words of memory out of 5000000
+ 18383 multiletter control sequences out of 15000+600000
+ 14263 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,78p,980b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,11n,78p,984b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -770,7 +769,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Model.pdf (11 pages, 204617 bytes).
+Output written on Model.pdf (11 pages, 205611 bytes).
 PDF statistics:
  115 PDF objects out of 1000 (max. 8388607)
  83 compressed objects within 1 object stream
