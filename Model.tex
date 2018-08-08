@@ -57,6 +57,34 @@ Unfortunately, the BTL model does NOT outperform comparative models, e.g. BPR on
 
 Nonetheless, we run experiments based on BTL for a series of evaluations. The first one is about different actions. Our conclusions include: (1) Ranking buy v.s. add to cart is slightly better than BPR. However,  ranking solely on other types of actions suffer from the lack of data. (2) Ranking based on ensemble action pairs (3) 
 
+\section{BTR}
+We want to make the smallest modification to the BPR model. We use the Bayesian maximum posterior estimator 
+\begin{equation}
+BPR-Opt = \ln p(i\succ_d j|\Theta) p(\Theta)
+\end{equation}
+
+where $\ln p(i\succ_d j|\Theta) =\sigma(x)=\frac{1}{1+\exp{-x_{u,i,j}}}$, $\Theta$ is the set of all parameters. In the first type of BPR (with matrix factorization), $x_{u,i,j}=u^T(i-j)$, $\Theta=U,V$ is the set of all user and item latent vectors. Here, we introduce a new parameter $\theta$ and define:
+\begin{equation}
+x_{u,i,j}=\sum_k \frac{\exp (u_k)}{\sum_{k'} \exp (u_{k'})}[\exp \theta(i_k-j_k)+\sum_{k'}(i_{k'}-j_{k'})]
+\end{equation}
+
+
+As in ~\cite{Rendle2009BPR},  the gradient of BPR-Opt with respect to the model parameter is
+
+\begin{equation}
+\frac{\partial BPR-Opt}{\partial \theta}\propto \sum_{i\succ_d j} \frac{-e^{-x_{u,i,j}}}{1+ e^{-x_{u,i,j}} } \frac{\partial x_{u,i,j}}{\partial \Theta} -\lambda_\Theta \Theta
+\end{equation}
+
+where 
+\begin{equation}
+ \frac{\partial x_{u,i,j}}{\partial \Theta}=\left\{\begin{matrix}
+[\exp\theta (i_k-j_k)+\sum_{k'\neq k}(i_{k'}-j_{k'})][\frac{\exp u_k}{\sum_{k}\exp u_k}-\frac{\exp^2 u_k}{(\sum_k \exp u_k)^2}] & if \Theta=u_k \\ 
+\frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= i_k \\ 
+\frac{-\exp u_k \exp \theta -\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= i_k \\ 
+\exp \theta & \Theta = \theta 
+\end{matrix}\right.
+\end{equation}
+
  
 \section{The Sigmoidal Model}
 As the section title indicates, we propose a set of models that relate pair-wise rankings $i\succ j$ to logit functions. The optimization objective is in a general form of :
