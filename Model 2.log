@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  20 AUG 2018 19:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  20 AUG 2018 16:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -495,11 +495,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
-(./Model.aux
-
-LaTeX Warning: Label `equ:derivative' multiply defined.
-
-)
+(./Model.aux)
 \openout1 = `Model.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -632,80 +628,27 @@ LaTeX Warning: Citation `Steck2015Gaussian' on page 5 undefined on input line 9
 0.
 
 
-LaTeX Warning: Citation `Steck2015Gaussian' on page 5 undefined on input line 9
-0.
+LaTeX Warning: Citation `Lee2014Local' on page 5 undefined on input line 99.
 
 
-LaTeX Warning: Citation `Zhao2018Factored' on page 5 undefined on input line 96
-.
+LaTeX Warning: Citation `Lee2014Local' on page 5 undefined on input line 99.
 
 
-Overfull \hbox (20.30151pt too wide) in paragraph at lines 102--103
-\OT1/cmr/m/n/10.95 gra-di-ent de-scent is ap-plied to up-date the pa-ram-e-ters
- $^^B \OMS/cmsy/m/n/10.95   \OT1/cmr/m/n/10.95 ^^B \OMS/cmsy/m/n/10.95 ^^@ \OML
-/cmm/m/it/10.95 \OT1/cmr/m/n/10.95 ([][] \OMS/cmsy/m/n/10.95 ^^@
+Overfull \hbox (48.65666pt too wide) in paragraph at lines 104--105
+\OT1/cmr/m/n/10.95 fac-tor-iza-tions around $\OML/cmm/m/it/10.95 q$ \OT1/cmr/m/
+n/10.95 an-chor points: $\OML/cmm/m/it/10.95 g\OT1/cmr/m/n/10.95 (\OML/cmm/m/it
+/10.95 u; i; j\OT1/cmr/m/n/10.95 ) = [][] \OML/cmm/m/it/10.95 q[]g\OT1/cmr/m/n/
+10.95 (\OML/cmm/m/it/10.95 u[]; i[]; j[]\OT1/cmr/m/n/10.95 )$. 
  []
 
 [5]
-Overfull \hbox (1.43805pt too wide) in paragraph at lines 113--114
-[]\OT1/cmr/m/n/10.95 To build the non-compensatory ver-sion of AMF, we set $\OM
-L/cmm/m/it/10.95 u[] \OT1/cmr/m/n/10.95 = [[]][]$,
- []
-
-
-Overfull \hbox (109.90903pt too wide) detected at line 122
+Overfull \hbox (25.63275pt too wide) detected at line 115
 [] \OT1/cmr/m/n/10.95 = []
  []
 
+[6] [7] [8
 
-LaTeX Warning: Citation `Lee2014Local' on page 6 undefined on input line 125.
-
-
-LaTeX Warning: Citation `Lee2014Local' on page 6 undefined on input line 125.
-
-
-Overfull \hbox (52.47032pt too wide) in paragraph at lines 130--131
-\OT1/cmr/m/n/10.95 fac-tor-iza-tions around $\OML/cmm/m/it/10.95 q$ \OT1/cmr/m/
-n/10.95 an-chor points: $\OML/cmm/m/it/10.95 g\OT1/cmr/m/n/10.95 (\OML/cmm/m/it
-/10.95 u; i; j\OT1/cmr/m/n/10.95 ) = [][] [][] \OML/cmm/m/it/10.95 u[]\OT1/cmr/
-m/n/10.95 [[]\OML/cmm/m/it/10.95 i[] \OMS/cmsy/m/n/10.95 ^^@
- []
-
-
-Overfull \hbox (100.56201pt too wide) in paragraph at lines 132--133
-[]\OT1/cmr/m/n/10.95 Again, we can mod-ify the score dif-fer-ence $\OML/cmm/m/i
-t/10.95 g\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u; i; j\OT1/cmr/m/n/10.95 ) = 
-[][] [][] [][[] \OML/cmm/m/it/10.95 ^^R\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 
-s\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u; t; i\OT1/cmr/m/n/10.95 )\OML/cmm/m/
-it/10.95 i[] \OMS/cmsy/m/n/10.95 ^^@
- []
-
-
-Overfull \hbox (84.66917pt too wide) in paragraph at lines 132--133
-\OML/cmm/m/it/10.95 s\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u; t; j\OT1/cmr/m/
-n/10.95 )\OML/cmm/m/it/10.95 j[]\OT1/cmr/m/n/10.95 ) + [][](\OML/cmm/m/it/10.95
- s\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 t; u; i\OT1/cmr/m/n/10.95 )\OML/cmm/m
-/it/10.95 i[] \OMS/cmsy/m/n/10.95 ^^@ \OML/cmm/m/it/10.95 s\OT1/cmr/m/n/10.95 (
-\OML/cmm/m/it/10.95 t; u; j\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 j[]\OT1/cmr/
-m/n/10.95 )]$, where $\OML/cmm/m/it/10.95 s\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
-.95 t; u; i\OT1/cmr/m/n/10.95 ) = []\OML/cmm/m/it/10.95 ; s\OT1/cmr/m/n/10.95 (
-\OML/cmm/m/it/10.95 t; u; j\OT1/cmr/m/n/10.95 ) =
- []
-
-
-Overfull \hbox (19.17159pt too wide) in paragraph at lines 132--133
-[]$\OT1/cmr/m/n/10.95 . Ap-ply-ing the chain rule, the gra-di-ent is $[] = [][]
-$,
- []
-
-[6]
-Overfull \hbox (165.87962pt too wide) in alignment at lines 134--144
- [][][] []
- []
-
-[7] [8] [9
-
-] [10]
+] [9]
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
@@ -761,8 +704,8 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
- [11]
-Overfull \hbox (20.16092pt too wide) in paragraph at lines 275--277
+ [10]
+Overfull \hbox (20.16092pt too wide) in paragraph at lines 246--248
 []\OT1/cmr/m/n/10.95 For each as-pect $\OML/cmm/m/it/10.95 k$\OT1/cmr/m/n/10.95
  , gen-er-ate the in-di-ca-tor $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/c
 mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
@@ -771,7 +714,7 @@ mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
  []
 
 
-Overfull \hbox (99.45546pt too wide) detected at line 284
+Overfull \hbox (99.45546pt too wide) detected at line 255
 \OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 U; V; G; H; D\OMS/
 cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 a; b; \OT1/cmr/m/n/10.95 ^^C) = [] [] \OML/
 cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u[]\OMS/cmsy/m/n/10.95 
@@ -787,12 +730,12 @@ OT1/cmr/m/n/10.95 ) []\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10
  []
 
 
-Overfull \hbox (91.55382pt too wide) in alignment at lines 295--299
+Overfull \hbox (91.55382pt too wide) in alignment at lines 266--270
  [][][] []
  []
 
 
-Overfull \hbox (102.78123pt too wide) in paragraph at lines 301--302
+Overfull \hbox (102.78123pt too wide) in paragraph at lines 272--273
 []\OT1/cmr/m/n/10.95 By vari-a-tional in-fer-ence, we have fac-tor-ize the pos-
 te-rior prob-a-bil-ity $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/
 10.95 U; V; G; H\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 D; a; b; ; ^^L\OT1/cm
@@ -800,12 +743,12 @@ r/m/n/10.95 ) =
  []
 
 
-Overfull \hbox (113.62607pt too wide) in alignment at lines 302--306
+Overfull \hbox (113.62607pt too wide) in alignment at lines 273--277
  [][][] []
  []
 
 
-Overfull \hbox (3.48042pt too wide) in paragraph at lines 309--316
+Overfull \hbox (3.48042pt too wide) in paragraph at lines 280--287
 []\OT1/cmr/m/n/10.95 Because $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm
 /m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/10
 .95 ) = [\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 (1 \OMS/cmsy/m/n/10.95 ^^@ \
@@ -813,34 +756,34 @@ OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 )[]][][[][][][]][]$,
  []
 
 
-Overfull \hbox (129.0006pt too wide) in alignment at lines 317--323
+Overfull \hbox (129.0006pt too wide) in alignment at lines 288--294
  [][][] []
  []
 
-[12]
-Overfull \hbox (325.59016pt too wide) in alignment at lines 327--333
+[11]
+Overfull \hbox (325.59016pt too wide) in alignment at lines 298--304
  [][][] []
  []
 
 
-Overfull \hbox (124.35077pt too wide) in alignment at lines 337--341
+Overfull \hbox (124.35077pt too wide) in alignment at lines 308--312
  [][][] []
  []
 
-[13] (./Model.aux)
+[12] (./Model.aux)
 
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 14803 strings out of 492646
- 318170 string characters out of 6129564
- 392350 words of memory out of 5000000
- 18391 multiletter control sequences out of 15000+600000
- 15509 words of font info for 60 fonts, out of 8000000 for 9000
+ 14794 strings out of 492646
+ 318082 string characters out of 6129564
+ 392283 words of memory out of 5000000
+ 18385 multiletter control sequences out of 15000+600000
+ 14263 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,11n,78p,984b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -862,10 +805,10 @@ ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Model.pdf (14 pages, 236836 bytes).
+Output written on Model.pdf (13 pages, 226104 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 126 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

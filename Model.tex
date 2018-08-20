@@ -76,16 +76,73 @@ As in ~\cite{Rendle2009BPR},  the gradient of BPR-Opt with respect to the model 
 \end{equation}
 
 where 
-\begin{equation}
+\begin{equation}\label{equ:derivative}
  \frac{\partial x_{u,i,j}}{\partial \Theta}=\left\{\begin{matrix}
 [\exp\theta (i_k-j_k)+\sum_{k'\neq k}(i_{k'}-j_{k'})][\frac{\exp u_k}{\sum_{k}\exp u_k}-\frac{\exp^2 u_k}{(\sum_k \exp u_k)^2}] & if \Theta=u_k \\ 
 \frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= i_k \\ 
 \frac{-\exp u_k \exp \theta -\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= i_k \\ 
-\exp \theta & \Theta = \theta 
+\sum_k  \frac{\exp (u_k)(i_k-j_k )}{\sum_{k'} \exp (u_{k'})} \exp \theta & if \Theta = \theta 
 \end{matrix}\right.
 \end{equation}
 
+ \section{AMF}
  
+Neighborhood information can also be incorporated in the definition of $x_{u,i,j}$. As in ~\cite{Steck2015Gaussian}, in this paper, we adopt the asymmetric matrix factorization (AMF)~\cite{Steck2015Gaussian}, each item i is associated with two factor vectors $q_i$ and $p_i$. The representation of user $u$ is through the sum $\sum_{j \in R(u)} p_j/\sqrt{|R(u)|}$, where $R(u)$ is the set of positive items.  
+ 
+  \begin{equation}
+\hat{r_{ui}}=u+b_u+b_i+q_i (\sum_{s \in R(u)} p_s/\sqrt{|R(u)|} )
+\end{equation}
+
+FSBPR~\cite{Zhao2018Factored} incorporates AMF in a pairwise BPR style ranking framework. First, the difference of prediction is defined as :
+ 
+\begin{equation}
+x_{u,i,j} = \hat{r_{ui}}- \hat{r_{uj}} = \sum_k [\frac{\sum_{s \in R(u)}  p_s}{\sqrt{|R(u)|}}]_k (q_{i,k}-q_{j,k})
+\end{equation}
+
+According to the chain rule $\frac{\partial BPR-Opt}{\partial \theta}\propto \sum_{i\succ_d j} \frac{-e^{-x_{u,i,j}}}{1+ e^{-x_{u,i,j}} } \frac{\partial x_{u,i,j}}{\partial \Theta} -\lambda_\Theta \Theta$, gradient descent is applied to update the parameters $\Theta \leftarrow \Theta - \alpha (\frac{-e^{-x_{u,i,j}}}{1+ e^{-x_{u,i,j}} } \frac{\partial x_{u,i,j}}{\partial \Theta} -\lambda_\Theta \Theta)$, where $\alpha$ is the learning rate, and $ \frac{\partial x_{u,i,j}}{\partial \Theta}$ is:
+
+
+\begin{equation}\label{equ:BPR}
+ \frac{\partial x_{u,i,j}}{\partial \Theta}=\left\{\begin{matrix}
+\sum_{u | s\in R(u) }\frac{q_{i_k}-q_{j_k}} {\sqrt{|R(u)|} } & if \Theta=p_{s _k} \\ 
+[\frac{\sum_{s \in R(u)}  p_s}{\sqrt{|R(u)|}}]_k   & if \Theta= q_{i_k} \\ 
+-[\frac{\sum_{s \in R(u)}  p_s}{\sqrt{|R(u)|}}]_k  & if \Theta= q_{j_k} \\ 
+\end{matrix}\right.
+\end{equation}
+
+To build the non-compensatory version of AMF, we set $u_k = [\frac{\sum_{s \in R(u)}  p_s}{\sqrt{|R(u)|}}]_k$, and thus we have:
+
+\begin{equation}\label{equ:derivative}
+ \frac{\partial x_{u,i,j}}{\partial \Theta}=\left\{\begin{matrix}
+\sum_{u | s\in R(u) } [\exp\theta (i_k-j_k)+\sum_{k'\neq k}(i_{k'}-j_{k'})][\frac{\exp u_k}{\sum_{k}\exp u_k}-\frac{\exp^2 u_k}{(\sum_k \exp u_k)^2}] \frac{p_{s_k}}{\sqrt{|R(u)|} }& if \Theta=p_{s_k} \\ 
+\frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= q_{i_k}  \\ 
+\frac{-\exp u_k \exp \theta -\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= q_{j_k} \\ 
+\sum_k  \frac{\exp (u_k)(i_k-j_k )}{\sum_{k'} \exp (u_{k'})} \exp \theta & if \Theta = \theta 
+\end{matrix}\right.
+\end{equation}
+
+ \section{LCR}
+ \textbf{L}ocal \textbf{C}ollaborative \textbf{R}anking (LCR)~\cite{Lee2014Local} minimizes a pair-wise loss function, which is constructed using observed entries. In the experiments~\cite{Lee2014Local},  the log-loss function is shown to achieve best results, thus it is adopted in this paper.
+ \begin{equation}
+L=\sum_{u\in U} \frac{1}{s_u} \sum_{k=1}^{s_u} \Delta M_{u,i,j}  \log (1+\exp - g(u,i,j) ),
+\end{equation}
+
+where $s_u$ is the number of ordered items rated by the user $u$. The loss function approximates the observed rating difference with predicted rating difference $g(u,i,j)$. LCR is inspired by LLORMA, which assumes that the rating matrix itself is not low-rank. Instead, $M$ is locally low-rank where locality is defined by a neighborhood with respect to the given kernel $K$. Therefore, the prediction difference can be approximated by a set of low-rank factorizations around $q$ anchor points: $g(u,i,j)=\sum_{t=1}^{q} \sum_k u_{t, k} [\frac{K((u_t,i_t),(u,i))}{\sum_{s=1}{q} K((u_s,i_s),(u,i))} i_{t,k} - \frac{K((u_t,j_t),(u,j))}{\sum_{s=1}^{q} K((u_s,j_s),(u,j))} j_{t,k}] $.  \footnote{This equation is not the same as Equ.15 in the paper}
+
+Again, we can modify the score difference $g(u,i,j) = \sum_{t=1}^{q} \sum_k \frac{\exp (u_{t,k})}{\sum_{k'} \exp (u_{t,k'})}[\exp \theta(s (u,t,i) i_{t,k} -s(u,t,j) j_{t,k})+\sum_{k'}(s(t,u,i) i_{t,k'}-s(t,u,j) j_{t,k'})]$, where $s(t,u,i)= \frac{K((u_t,i_t),(u,i))}{\sum_{s=1}^{q} K((u_s,i_s),(u,i))}, s(t,u,j)= \frac{K((u_t,j_t),(u,j))}{\sum_{s=1}^{q} K((u_s,j_s),(u,j))} $. Applying the chain rule, the gradient is $\frac{\partial L}{\partial \Theta}=\frac{\partial L}{\partial g(u,i,j) } \frac{\partial g (u,i,j)}{\theta}$, which is defined by Equ.~\ref{equ:derivative}. Thus, the update steps will be:
+
+\begin{eqnarray}\label{equ:LCR}
+line 12: & s_{t,u,i} & \leftarrow \frac{K(u_t,u) K(i_t,i) }{w_{u,i}}  \\\nonumber
+line 15: & g_{u,i,j} & = \sum_{t=1}^{q} \sum_k \frac{\exp (u_{t,k})}{\sum_{k'} \exp (u_{t,k'})}[\exp \theta(s (t,u,i) i_{t,k} -s(t,u,j) j_{t,k})+\sum_{k'}(s(t,u,i) i_{t,k'}-s(t,u,j) j_{t,k'})]\\\nonumber
+line 15: & l_{u,i,j} & = \frac{-\Delta M \exp - g_{u,i,j} }{ 1 + \exp - g_{u,i,j}} \\\nonumber
+line 23: & [\Delta u]_k & \leftarrow [\Delta u]_k  + [\exp\theta (s(t,u,i) i_{t,k}-s(t,u,j) j_{t,k})+\sum_{k'\neq k}(s(t,u,i) i_{t,k'}-s(t,u,j) j_{t,k'})]\\\nonumber 
+& & [\frac{\exp u_{t,k}}{\sum_{k}\exp u_{t,k}}-\frac{\exp^2 u_{t,k}}{(\sum_k \exp u_{t,k})^2}]  l_{u,i,j}\\ \nonumber
+line 25: & [\Delta i]_k & \leftarrow [\Delta i]_k + \frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  s(t,u,i) l_{u,i,j} \\ \nonumber
+line 26: & [\Delta i]_k & \leftarrow [\Delta i]_k +  \frac{-\exp u_k \exp \theta -\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k} s(t,u,i) l_{u,i,j}  \\ \nonumber
+line 26+: & [\Delta \theta ] & \leftarrow \sum_k  \frac{\exp (u_k)(i_k-j_k )}{\sum_{k'} \exp (u_{k'})} \exp \theta  \exp \theta \\\nonumber
+line 30+: & \theta & = \theta - v  [\Delta \theta ] \\\nonumber
+\end{eqnarray}
+
 \section{The Sigmoidal Model}
 As the section title indicates, we propose a set of models that relate pair-wise rankings $i\succ j$ to logit functions. The optimization objective is in a general form of :
 
