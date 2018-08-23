@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  20 AUG 2018 19:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  23 AUG 2018 18:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -664,14 +664,6 @@ LaTeX Warning: Citation `Lee2014Local' on page 6 undefined on input line 125.
 LaTeX Warning: Citation `Lee2014Local' on page 6 undefined on input line 125.
 
 
-Overfull \hbox (52.47032pt too wide) in paragraph at lines 130--131
-\OT1/cmr/m/n/10.95 fac-tor-iza-tions around $\OML/cmm/m/it/10.95 q$ \OT1/cmr/m/
-n/10.95 an-chor points: $\OML/cmm/m/it/10.95 g\OT1/cmr/m/n/10.95 (\OML/cmm/m/it
-/10.95 u; i; j\OT1/cmr/m/n/10.95 ) = [][] [][] \OML/cmm/m/it/10.95 u[]\OT1/cmr/
-m/n/10.95 [[]\OML/cmm/m/it/10.95 i[] \OMS/cmsy/m/n/10.95 ^^@
- []
-
-
 Overfull \hbox (100.56201pt too wide) in paragraph at lines 132--133
 []\OT1/cmr/m/n/10.95 Again, we can mod-ify the score dif-fer-ence $\OML/cmm/m/i
 t/10.95 g\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u; i; j\OT1/cmr/m/n/10.95 ) = 
@@ -693,7 +685,7 @@ m/n/10.95 )]$, where $\OML/cmm/m/it/10.95 s\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
  []
 
 
-Overfull \hbox (19.17159pt too wide) in paragraph at lines 132--133
+Overfull \hbox (18.628pt too wide) in paragraph at lines 132--133
 []$\OT1/cmr/m/n/10.95 . Ap-ply-ing the chain rule, the gra-di-ent is $[] = [][]
 $,
  []
@@ -862,7 +854,7 @@ ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Model.pdf (14 pages, 236836 bytes).
+Output written on Model.pdf (14 pages, 237069 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  93 compressed objects within 1 object stream

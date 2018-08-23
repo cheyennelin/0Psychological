@@ -1,0 +1,160 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Devooght, Kourtellis, and
+  Mantrach}{2015}]{Devooght2015Dynamic}
+Devooght, R.; Kourtellis, N.; and Mantrach, A.
+\newblock 2015.
+\newblock Dynamic matrix factorization with priors on unknown values.
+\newblock In {\em Proceedings of the 21th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '15,  189--198.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Engel, Blackwell, and
+  Miniard}{1986}]{Engel1986Consumer}
+Engel, J.~F.; Blackwell, R.~D.; and Miniard, P.~W.
+\newblock 1986.
+\newblock {\em Consumer Behavior}.
+\newblock The Dryden Press.
+
+\bibitem[\protect\citeauthoryear{Hu and Li}{2017}]{Hu2017Decoupled}
+Hu, J., and Li, P.
+\newblock 2017.
+\newblock Decoupled collaborative ranking.
+\newblock In {\em Proceedings of the 26th International Conference on World
+  Wide Web}, WWW '17,  1321--1329.
+\newblock Republic and Canton of Geneva, Switzerland: International World Wide
+  Web Conferences Steering Committee.
+
+\bibitem[\protect\citeauthoryear{Hunter}{2004}]{Hunter2004MM}
+Hunter, D.~R.
+\newblock 2004.
+\newblock Mm algorithms for generalized bradley-terry models.
+\newblock {\em The Annals of Statistics} 32(1):384--406.
+
+\bibitem[\protect\citeauthoryear{Koren, Bell, and
+  Volinsky}{2009}]{Koren2009Matrix}
+Koren, Y.; Bell, R.; and Volinsky, C.
+\newblock 2009.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer} 42(8):30--37.
+
+\bibitem[\protect\citeauthoryear{Koren}{2008}]{Koren2008Factorization}
+Koren, Y.
+\newblock 2008.
+\newblock Factorization meets the neighborhood: a multifaceted collaborative
+  filtering model.
+\newblock In {\em Proceeding of the 14th ACM SIGKDD international conference on
+  Knowledge discovery and data mining},  426--434.
+\newblock ACM.
+
+\bibitem[\protect\citeauthoryear{Koren}{2010}]{Koren2010Factor}
+Koren, Y.
+\newblock 2010.
+\newblock Factor in the neighbors: Scalable and accurate collaborative
+  filtering.
+\newblock {\em ACM Transactions on Knowledge Discovery from Data.} 4:1:1--1:24.
+
+\bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
+  }{2013}]{Lee2013Local}
+Lee, J.; Kim, S.; Lebanon, G.; and Singer, Y.
+\newblock 2013.
+\newblock Local low-rank matrix approximation.
+\newblock In {\em International Conference on Machine Learning},  82--90.
+
+\bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
+  }{2014}]{Lee2014Local}
+Lee, J.; Bengio, S.; Kim, S.; Lebanon, G.; and Singer, Y.
+\newblock 2014.
+\newblock Local collaborative ranking.
+\newblock In {\em Proceedings of the 23rd International Conference on World
+  Wide Web}, WWW '14,  85--96.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Lerche and Jannach}{2014}]{Lerche2014Using}
+Lerche, L., and Jannach, D.
+\newblock 2014.
+\newblock Using graded implicit feedback for bayesian personalized ranking.
+\newblock In {\em Proceedings of the 8th ACM Conference on Recommender
+  Systems}, RecSys '14,  353--356.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Pil\'{a}szy, Zibriczky, and
+  Tikk}{2010}]{Pil'aszy2010Fast}
+Pil\'{a}szy, I.; Zibriczky, D.; and Tikk, D.
+\newblock 2010.
+\newblock Fast als-based matrix factorization for explicit and implicit
+  feedback datasets.
+\newblock In {\em Proceedings of the fourth ACM conference on Recommender
+  systems}, RecSys '10,  71--78.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Rendle \bgroup et al\mbox.\egroup
+  }{2009}]{Rendle2009BPR}
+Rendle, S.; Freudenthaler, C.; Gantner, Z.; and Schmidt-Thieme, L.
+\newblock 2009.
+\newblock Bpr: Bayesian personalized ranking from implicit feedback.
+\newblock In {\em Proceedings of the Twenty-Fifth Conference on Uncertainty in
+  Artificial Intelligence}, UAI '09,  452--461.
+\newblock Arlington, Virginia, United States: AUAI Press.
+
+\bibitem[\protect\citeauthoryear{Salakhutdinov and
+  Mnih}{2008}]{salakhutdinov2008probabilistic}
+Salakhutdinov, R., and Mnih, A.
+\newblock 2008.
+\newblock Probabilistic matrix factorization.
+\newblock {\em Advances in neural information processing systems}
+  20:1257--1264.
+
+\bibitem[\protect\citeauthoryear{Shi, Larson, and Hanjalic}{2010}]{Shi2010List}
+Shi, Y.; Larson, M.; and Hanjalic, A.
+\newblock 2010.
+\newblock List-wise learning to rank with matrix factorization for
+  collaborative filtering.
+\newblock In {\em Proceedings of the Fourth ACM Conference on Recommender
+  Systems}, RecSys '10,  269--272.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Steck}{2015}]{Steck2015Gaussian}
+Steck, H.
+\newblock 2015.
+\newblock Gaussian ranking by matrix factorization.
+\newblock In {\em Proceedings of the 9th ACM Conference on Recommender
+  Systems}, RecSys '15,  115--122.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Weston, Bengio, and
+  Usunier}{2011}]{Weston2011Wsabie}
+Weston, J.; Bengio, S.; and Usunier, N.
+\newblock 2011.
+\newblock Wsabie: Scaling up to large vocabulary image annotation.
+\newblock In {\em IJCAI}, volume~11,  2764--2770.
+
+\bibitem[\protect\citeauthoryear{Yu \bgroup et al\mbox.\egroup
+  }{2016}]{Yu2016RankMBPR}
+Yu, L.; Zhou, G.; Zhang, C.; Huang, J.; Liu, C.; and Zhang, Z.-K.
+\newblock 2016.
+\newblock Rankmbpr: Rank-aware mutual bayesian personalized ranking for item
+  recommendation.
+\newblock In Cui, B.; Zhang, N.; Xu, J.; Lian, X.; and Liu, D., eds., {\em
+  Web-Age Information Management},  244--256.
+\newblock Cham: Springer International Publishing.
+
+\bibitem[\protect\citeauthoryear{Zhang \bgroup et al\mbox.\egroup
+  }{2013}]{Zhang2013Optimizing}
+Zhang, W.; Chen, T.; Wang, J.; and Yu, Y.
+\newblock 2013.
+\newblock Optimizing top-n collaborative filtering via dynamic negative item
+  sampling.
+\newblock In {\em Proceedings of the 36th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval}, SIGIR '13,  785--788.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Zhao \bgroup et al\mbox.\egroup
+  }{2018}]{Zhao2018Factored}
+Zhao, Q.; Zhang, Y.; Ma, J.; and Duan, Q.
+\newblock 2018.
+\newblock Factored item similarity and bayesian personalized ranking for
+  recommendation with implicit feedback.
+\newblock {\em Arabian Journal for Science and Engineering}.
+
+\end{thebibliography}

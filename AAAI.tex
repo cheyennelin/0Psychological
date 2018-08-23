@@ -6,8 +6,8 @@
 \usepackage{amsfonts}
 \newcommand{\Ep}{\mathbb{E}}
 \newcommand{\Real}{\mathcal{R}}
-
-
+\newcommand{\Rating}{\mathbf{X}}
+\newcommand{\Loss}{\mathcal{L}}
 \usepackage{aaai19}  %Required
 \usepackage{times}  %Required
 \usepackage{helvet}  %Required
@@ -31,63 +31,168 @@
 }
 \maketitle
 \begin{abstract}
-The study of consumer psychology reveals two categories of procedures used by consumers to make consumption related choices: compensatory rules and non-compensatory rules. Existing models assume the consumers follow the compensatory rules, which are to make decisions based on a weighted or summated score over different aspects. Our main contribution in this paper is to improve performance of recommender systems by adopting non-compensatory rules to make ranking decisions.  We present non-compensatory versions for three most commonly adopted ranking models in this area, i.e. BPR, BTL and SVD++. We show that, the non-compensatory versions all outperform their original models on a wide range of real data sets. 
+The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. the evaluation are based on a weighted or summated score over different aspects. However, it has been shown in the literature of consumer psychology that, consumers adopt non-compensatory rules more than compensatory rules. Our main contribution in this paper is to study the unexplored utilization of non-compensatory rules in recommendation models. 
+
+Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen by the user as the prominent aspect. (2) Evaluations over different aspects are non-compensatory, i.e. the user has higher standards with respect to the item's performance on the prominent aspect and is more tolerant to the item's performance on other aspects. We show how these general assumptions can be applied to a wide range of existing recommender systems, including the point-wise prediction models such as conventional Matrix Factorization (MF), Matrix Factorization with neighborhood (AMF++), and low-rank matrix appximation (LLORMA), and the pair-wise ranking models such as Bradley-Terry model (BTL) and Thurstonian model (e.g. BPR).  We experimentally show that adopting non-compensatory rules can significantly improve performance of these point-wise prediction and ranking models on a variety of real-world recommendation data sets.
 \end{abstract}
 
 
 
-\section{Introduction}
+\section{Introduction}\label{sec:introduction}
+The majority of state-of-the-art recommendation models are based on latent factor models. Generally, latent factor models transform both user preferences and item features into the same hidden feature spaces with $K$ aspects. To recover the observations (i.e. ratings or rankings) in any recommender system, they adopt the inner product of the user preferences and the item features. There are fruitful successful applications of latent factor models in  rating predictions~\cite{Koren2009Matrix,Koren2010Factor,Lee2014Local} and ranking reconstructions~\cite{Rendle2009BPR,Steck2015Gaussian,Zhao2018Factored,Shi2010List}.   
 
-Ever since the dawn of psychological science, many attempts have been made to explain human choice behavior. It is well regarded that there are two categories of procedures to make consumption related choices: compensatory rules and non-compensatory rules~\cite{Engel1986Consumer}. Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The shortcomings of a product are balanced out by its attractive features. On the contrary, non-compensatory rules do not allow a good performance on one aspect of a product to compensate for poor performances on other aspects. Non-compensatory rules include lexicographic, conjunction and disjunction rules. Under lexicographic rules, products are compared on the most important aspect. Under conjunction and disjunction rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunction and disjunction rules are often used in conjunction with lexicographic rules.
-
-\section{Related Work}
-
-\section{Compensate Recommendations Models}
-Most successful recommendation models are built upon latent factor models, i.e. they assume a universe of $K$ factors in which the user preferences and item features are represented. Hereafter, unless stated otherwise, we use lower-case letters for indices, upper-case letters for universal constants, lower-case bold-face letters for vectors and upper-case bold-face letters for matrices. Specifically, $\mathbf{X}\in \Real^{M\times N}$ denotes the observation matrix, $\mathbf{p},\mathbf{q}\in \Real^K$ denotes the item features, $\mathbf{u}\in \Real^K$ denotes the user features.  
-
-\subsection{Point-wise Prediction Model}
+From the perspective of consumer decision making, all existing latent factor models fall into the category of compensatory rules. Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The result of such a procedure is  that a good performance on one aspect of a product compensates for poor performances on other aspects. 
 
 
-\textbf{MF} In matrix factorization, the predicted rating can be approximated by an inner product of $\hat{\mathbf{X}_{u,p}}=\sum_k \mathbf{p}_k \mathbf{u}_k$
+However, in the study of human choice behavior, it is well regarded that there are two categories of decision making procedures, namely compensatory rules and non-compensatory rules. Furthermore, it is found in many surveys that in most cases consumers make consumption related choices based on non-compensatory rules~\cite{Engel1986Consumer}. Non-compensate rules do not allow the shortcomings of a product to be balanced out by its attractive features. For example, the evaluation could be solely on the most important aspect and item's performance on other aspects does not affect the final judgement.
 
-\textbf{Factorization with Neighborhood} As in ~\cite{Steck2015Gaussian}, in this paper, we adopt the asymmetric matrix factorization (AMF)~\cite{Steck2015Gaussian}, each item i is associated with two factor vectors $q_i$ and $p_i$. The representation of user $u$ is through the sum $\sum_{j \in R(u)} p_j/\sqrt{|R(u)|}$, where $R(u)$ is the set of positive items.  
- 
-  \begin{equation}
-\hat{r_{ui}}=u+b_u+b_i+q_i (\sum_{s \in R(u)} p_s/\sqrt{|R(u)|} )
+To the best of our knowledge, no previous work has been devoted to modeling non-compensatory rules in recommender systems. Our goal in this paper is to study this unexplored area. Our primary contribution is to model the assumptions in non-compensatory rules by (1) transforming user preferences and item features into the same $K-$dimensional hidden space as in most existing latent factor models, (2) picking a prominent aspect in each decision session, (3) and adopting different evaluation strategy on prominent and non-prominent aspects. We show that this strategy can be easily applied to a wide range of recommendation models, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and locally low-rank matrix approximation (LLORMA~\cite{Lee2013Local}) and ranking reconstruction models such as BTL model~\cite{Hunter2004MM} and BPR style  Thurstonian model~\cite{Rendle2009BPR}. We experimentally show that the non-compensatory version of these models significantly outperform the original models.
+
+The paper is organized as follows. In Sec.~\ref{sec:previousmodel} , we start with surveying the most commonly adopted latent factor models in the community of recommendation research. We categorize previous research work on the basis of  combinations of  different rating approximation formulas and ranking aware loss functions. In Sec.~\ref{sec:NCRmodel}, we describe our non-compensatory assumptions and develop non-compensatory versions of existing models. In Sec.~\ref{sec:experiment}, we experimentally show that the non-compensatory versions significantly outperform the original versions of existing models on a variety of real-world data sets. Finally, in Sec.~\ref{sec:conclusion} we conclude our work and future directions.
+
+\section{Compensatory Recommendations Models}\label{sec:previousmodel}
+We restrict our discussions to latent factor models, i.e. models where a universe of $K$ factors is used to project  user preferences and item features. Hereafter, unless stated otherwise, we use lower-case letters for indices, upper-case letters for universal constants, lower-case bold-face letters for vectors and upper-case bold-face letters for matrices. Specifically, $\mathbf{X}\in \Real^{M\times N}$ denotes the rating matrix, $\hat{\mathbf{X}}\in \Real^{M\times N}$ denotes the predicted rating matrix,  $i$ $\mathbf{p},\mathbf{q}\in \Real^K$ denotes the item features, $\mathbf{u}\in \Real^K$ denotes the user preferences.  
+
+\subsection{Rating Prediction Formulas}
+One goal of recommendation research is to recover the rating matrix $\Rating$, by minimizing a loss function $\Loss(\Rating,\hat{\Rating})$. We list the some of the most successful rating prediction formulas for $\hat{\Rating}$.
+
+\textbf{Matrix Factorization.} In conventional matrix factorization~\cite{Koren2009Matrix}, the predicted rating can be computed as an inner product of user preferences and item features as follows.
+
+\begin{equation}\label{equ:MF}
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \mathbf{q}_k \mathbf{u}_k
 \end{equation}
 
+For simplicity we ignore the user specific or item specific bias~\cite{Koren2009Matrix}. A massive amount of techniques have been proposed to extend Equ.~\ref{equ:MF} by incorporating prior distributions over $\mathbf{p},\mathbf{u}$~\cite{salakhutdinov2008probabilistic}, adding priors over unknown values~\cite{Devooght2015Dynamic}, weighing different samples~\cite{Pil'aszy2010Fast} and so on.  
 
-\textbf{Local Low-Rank Matrix Approximation.} The intuition behind the LLORMA is that the entire rating matrix $M$ is not low-rank but a submatrix $M_s$, restricted to certain types of similar users and items. ~\cite{Lee2014Local} minimizes a pair-wise loss function, which is constructed using observed entries. In the experiments~\cite{Lee2014Local},  the log-loss function is shown to achieve best results, thus it is adopted in this paper.
- \begin{equation}
-L=\sum_{u\in U} \frac{1}{s_u} \sum_{k=1}^{s_u} \Delta M_{u,i,j}  \log (1+\exp - g(u,i,j) ),
+\textbf{Neighborhood Factorization.} It is possible to embed neighborhood information which is proved to be useful in traditional collaborative filtering strategies in latent factor models. Instead of directly modeling user preferences, each user is represented by items that he/she gives explicit or implicit feedback. For example, if we consider explicit feedback only, then each item is associated with two types of vectors $\mathbf{p},\mathbf{q}$, the rating prediction formula of AMF in ~\cite{Koren2008Factorization} is stated as follows.  
+ \begin{equation}\label{equ:AMF}
+\hat{\Rating}_{u,q}=\sum_{k=1}^{K} \mathbf{q}_{k} (\sum_{p \in R(u)} \mathbf{p}_k/\sqrt{|R(u)|} ),
 \end{equation}
 
-where $s_u$ is the number of ordered items rated by the user $u$. The loss function approximates the observed rating difference with predicted rating difference $g(u,i,j)$. LCR is inspired by LLORMA, which assumes that the rating matrix itself is not low-rank. Instead, $M$ is locally low-rank where locality is defined by a neighborhood with respect to the given kernel $K$. Therefore, the prediction difference can be approximated by a set of low-rank factorizations around $q$ anchor points: $g(u,i,j)=\sum_{t=1}^{q} \sum_k u_{t, k} [\frac{K((u_t,i_t),(u,i))}{\sum_{s=1}{q} K((u_s,i_s),(u,i))} i_{t,k} - \frac{K((u_t,j_t),(u,j))}{\sum_{s=1}^{q} K((u_s,j_s),(u,j))} j_{t,k}] $.  \footnote{This equation is not the same as Equ.15 in the paper}
+where  $R(u)$ is the set of rated items for $u$. Note that AMF is extended to SVD++~\cite{Koren2008Factorization} with implicit feedback. 
 
+\textbf{Local Low-Rank Matrix Approximation.} The third type of rating prediction formula is  LLORMA~\cite{Lee2013Local}. The intuition of LLORMA is that the entire rating matrix $\Rating$ is not low-rank but a sub-matrix restricted to a neighborhood of similar users and items is low-rank.  Therefore, the predicted rating is aggregated over $S$ sub-matrices  as follows:
+
+\begin{equation}\label{equ:LLORMA}
+\hat{\Rating}_{u,q} = \sum_{t=1}^{S} \sum_k \mathbf{u}_{t, k} \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \mathbf{q}_{t,k}
+\end{equation}
+
+$\mathbf{u}_t, \mathbf{q}_t$ are the factorized user preferences and item features in the $t-$th sub-matrix,  $\mathbf{i}_s,\mathbf{i}_t$ are anchor points in the corresponding matrix, $K(\cdot)$ are arbitrary smooth kernels. 
 
 
 \subsection{Ranking Models}
-point-wise loss function
+Another goal of recommendation research is to reveal the observed rankings. We here consider pair-wise rankings $p\succ_u q$. The pair-wise rankings can be generated from pre-processing  the ratings, i.e. $\Rating_{u,p}> \mu, \Rating_{u,q}<\mu$~\cite{}, or from explicit and implicit feedback, i.e. $\Rating_{u,p}\neq 0, \Rating_{u,q}=0$~\cite{Rendle2009BPR}. To generate the probability of pair-wise rankings $p(p\succ_u q)$, we assume that each user-item combination is associated with a score, i.e. $\hat{\Rating}_{u,p},\hat{\Rating}_{u,q}$.  We list two most commonly adopted ranking models . 
 
-pair-wise loss functions
+\textbf{Bradley-Terry Model.} The famous BTL model~\cite{Hunter2004MM} is extensively studied in learning to rank scenarios. BTL models the generation of ranking pairs by a division.
 
-\textbf{Bradley-Terry Model}
+\begin{equation}\label{equ:BTL}
+p(p\succ_u q) = \frac{\hat{\Rating}_{u,p}}{\hat{\Rating}_{u,p}+ \hat{\Rating}_{u,q}} 
+\end{equation}
 
-\textbf{Thurstone Model}
 
-\begin{table}[htp]
-\caption{default}
+\textbf{Thurstone Model} The most frequently adopted ranking model in recommendation systems is the Thurstone model which uses a non-linear transformation of the predicted ratings. 
+
+\begin{equation}
+p(p\succ_u q) = \frac{1} {1+\exp[-(\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q})]}
+\end{equation}
+
+In either ranking model, the score $\hat{\Rating}$ can be approximated by different ranking prediction formulas. We categorize existing models based on the rating prediction formula and the ranking model. 
+\begin{itemize}
+\item BTL model has been by far leveraged with MF prediction formula~\cite{};
+\item Thurstone model with standard matrix factorization prediction formula is first presented as BPR~\cite{Rendle2009BPR}, which maximizes the likelihood of Thurstonian modeling of MF predictions. Abundant research has been carried out to improve BPR-style systems by modifying the sampling methods in optimization, including BTR++~\cite{Lerche2014Using}, WARP~\cite{Weston2011Wsabie}, DNS~\cite{Zhang2013Optimizing}, RankMBPR~\cite{Yu2016RankMBPR} and so on.
+\item Thurstone model with factorized neighborhood prediction formula: AMF is first incorporated in a point-wise ranking framework In~\cite{Steck2015Gaussian},  FSBPR~\cite{Zhao2018Factored} implants AMF in a Thurstone model and maximizes its likelihood.
+\item Thurstone model with local low-rank factorization prediction formula: LLORMA is utilized in the Thurstone model in~\cite{Lee2014Local}.
+ \end{itemize}
+
+ 
+
+
+
+%\begin{table}[htp]\label{tab:survey}
+%\caption{default}
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+% & \multicolumn{3}{c}{Rating}\\
+% \cline{2-4}
+%Ranking & MF & AMF & LLORMA \\\hline
+%BTL &  & & \\\hline
+%Thurstone & BPR\cite{Rendle2009BPR,Lerche2014Using,Weston2011Wsabie} & FSBPR\cite{Zhao2018Factored} & LCR~\cite{Lee2014Local} \\\hline
+%\end{tabular}
+%\end{center}
+%\label{default}
+%\end{table}%
+
+The list is by no means exclusive. However, we believe that most of existing recommender systems are covered. It is worthy to point out that (1) we do not restrict the form of loss functions. For example, many ranking approaches consider Bayesian maximum posterior, cross entropy and other forms of loss functions. Nevertheless, the core ranking model is either BTL or Thurstone.   (2) Although we only study pair-wise ranking , the conclusion is insightful for other ranking-aware systems, i.e. point-wise and list-wise approaches. The reason is that, as shown in ~\cite{Steck2015Gaussian},  point-wise and list-wise loss functions can be decomposed to components which are directly based on each score $\hat\Rating_{u,p}$ and components that are not related to $\hat\Rating$. Thus our propose strategy in Sec.~\ref{sec:NCRmodel} is also applicable to point-wise and list-wise ranking models.  
+
+\section{Non-Compensatory Recommendation Models}\label{sec:NCRmodel}
+We begin this section by reviewing the findings in consumer psychology study. The decision rules can be naturally explained in the latent factor models. Non-compensatory rules include lexicographic, conjunction and disjunction rules. In a lexicographic rule the consumer first ranks the features. He/she then ranks the profiles using successively the first-ranked feature, breaking ties with the second- ranked feature. Under lexicographic rules, items are evaluated on the most important aspect. Under conjunctive and disjunctive rules, the consumer imposes requirements for minimally acceptable values on each aspect separately. The conjunctive and disjunctive rules are often used in conjunction with lexicographic rules.
+
+\begin{table}[htp]\label{tab:rules}
+\caption{Illustrative example of non-compensatory rules}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
-
+\hline
+Item & Prominent aspect & \multicolumn{2}{|c|}{Not prominent aspects}\\\hline
+$\mathbf{p}$ & 0.8 & 0.3 & 0.3  \\\hline
+$\mathbf{q}$ & 0.7 & 0.2 & 0.2 \\\hline
+$\mathbf{l}$ & 0.6 & 0.3 & 0.3 \\\hline
 \end{tabular}
 \end{center}
 \label{default}
 \end{table}%
 
-\subsection{Modeling }
-\section{Non-Compensatory Ranking Models for Recommendations}
+We illustrate the non-compensatory rules using three toy item vectors $\mathbf{p,q,l}$  in Table.~\ref{tab:rules}. Suppose the user's minimal acceptable value is $0.3$, then if the evaluation is solely based on lexicographic rules, the result will be $p\succ_u q \succ_u l$. If the user adopts conjunctive rules only, $p.l$ will be  picked. If the user adopts disjunctive rules only, $p,q,l$ are all satisfying. If the user adopts both lexicographic rules and conjunctive rules, $p\succ_u l$ and $l$ will not be chosen. 
 
-\section{Experiments}
+Inspired by the psychological findings, we propose the following assumptions. (1) We assume that in each evaluation session, there is a prominent aspect. The choice of prominent aspect is dependent on the user preferences. (2) We assume that the evaluation on prominent aspect is different from the evaluations on non-prominent aspects. According to the above assumptions, we provide the non-compensatory versions of rating prediction formulas and ranking models.
 
+\subsection{Non-Compensatory Rating Prediction Formulas}
+\textbf{MF-NCR} samples the hidden prominent aspect by $\frac{\exp \mathbf{u}_k}{\sum_{k'} \mathbf{u}_{k'}} $, and the prediction is generated across all possible hidden prominent aspects: 
+
+\begin{equation}\label{equ:MF-NCR}
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} \mathbf{q}_{k'} ].
+\end{equation}
+
+We use the parameter $\theta$ to control the strength of prominent aspects, when $\exp\theta \leftarrow \infty$ indicates that the user adopts lexicographical rules only.
+
+\textbf{AMF-NCR} implements a similar scheme by setting $u_k =\sum_{p \in R(u)} \mathbf{p}_k/\sqrt{|R(u)|} $, 
+
+\begin{equation}\label{equ:AMF-NCR}
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp (\sum_{p \in R(u)} \mathbf{p}_k )}{\sum_{k'} \exp  (\sum_{p \in R(u)} \mathbf{p}_{k'} ) } [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} \mathbf{q}_{k'} ].
+\end{equation}
+
+\textbf{LLORMA-NCR} uses the same decomposition for each sub-matrix.  
+
+\begin{eqnarray}\label{equ:LLORMA-NCR}
+\hat{\Rating}_{u,q} = & \sum_{t=1}^{S} \sum_k  \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}}  \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \\\nonumber
+& [ \exp\theta \mathbf{q}_{t,k}  + \sum_{k'\neq k} \mathbf{q}_{t,k'} ]
+\end{eqnarray}
+
+\subsection{Non-Compensatory Ranking Models}
+
+In order to treat prominent and non-prominent aspects differently, we propose \textbf{BTL-NCR} which defines the probability of any ranking pairs $p\succ_u q$ as:
+
+\begin{equation}\label{equ:BTL-NCR}
+p(p\succ_u q)  =  \prod_{k=1}^{K} \mathbf{u}_k [ {\frac{\mathbf{p}_k}{\mathbf{p}_k+\theta \mathbf{q}_k}}\prod_{k'\neq k}{ \frac{\theta \mathbf{p}_{k'}}{\mathbf{q}_{k'}+\theta \mathbf{p}_{k'}}}].
+\end{equation}
+
+where $\mathbf{u}_k >0, \sum_k \mathbf{u}_k=1$ and $\theta>1$. The interpretation of BTL-NCR is that, given a hidden prominent aspect $k$, the probability of user $u$ ranking $p$ over $q$ is the multiplication of ranking probability over all aspects. Furthermore, the overall probability $p(p\succ_u q)$ is largely affected by the performance divergence between $p$ and $q$ on the prominent aspect $k$.  The parameter $\theta$ controls the tolerance range of user $u$ on other aspects. Because $\theta >1$, as long $p$ does not perform too badly on non-prominent aspects $k'\neq k$, i.e. $\theta p_{i,k'} >  q_{j,k'}$, then the ranking probability $p(p\succ_u q)$ will not be decreased.
+
+Finally, the modification of Thurston model is straightforward. For example, if we use the Bayesian maximum posterior estimator as in BPR~\cite{Rendle2009BPR}, the loss function is defined as:
+\begin{equation}
+\Loss= -\sum_u \sum_{p\succ_u q}\ln \frac{1}{1+\exp{-[\hat\Rating_{u,p}-\hat\Rating_{u,q}]}}  - \lambda \|\Theta \|, 
+\end{equation}
+
+where  $\Theta$ is the set of all parameters and $\hat\Real$ is  predicted by any NCR-version of rating prediction formulas. 
+
+ 
+\section{Experiments}\label{sec:experiment}
+
+\section{Related Work}\label{sec:relatedwork}
+
+\section{Conclusion}\label{sec:conclusion}
+
+
+\bibliography{/Users/linchen/Documents/GitHub/MyRef/reference.bib}
+\bibliographystyle{aaai}
 \end{document}
