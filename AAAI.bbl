@@ -16,14 +16,12 @@ Engel, J.~F.; Blackwell, R.~D.; and Miniard, P.~W.
 \newblock {\em Consumer Behavior}.
 \newblock The Dryden Press.
 
-\bibitem[\protect\citeauthoryear{Hu and Li}{2017}]{Hu2017Decoupled}
+\bibitem[\protect\citeauthoryear{Hu and Li}{2016}]{Hu2016Improved}
 Hu, J., and Li, P.
-\newblock 2017.
-\newblock Decoupled collaborative ranking.
-\newblock In {\em Proceedings of the 26th International Conference on World
-  Wide Web}, WWW '17,  1321--1329.
-\newblock Republic and Canton of Geneva, Switzerland: International World Wide
-  Web Conferences Steering Committee.
+\newblock 2016.
+\newblock Improved and scalable bradley-terry model for collaborative ranking.
+\newblock In {\em 2016 IEEE 16th International Conference on Data Mining
+  (ICDM)},  949--954.
 
 \bibitem[\protect\citeauthoryear{Hunter}{2004}]{Hunter2004MM}
 Hunter, D.~R.

@@ -77,7 +77,7 @@ where  $R(u)$ is the set of rated items for $u$. Note that AMF is extended to SV
 \hat{\Rating}_{u,q} = \sum_{t=1}^{S} \sum_k \mathbf{u}_{t, k} \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \mathbf{q}_{t,k}
 \end{equation}
 
-$\mathbf{u}_t, \mathbf{q}_t$ are the factorized user preferences and item features in the $t-$th sub-matrix,  $\mathbf{i}_s,\mathbf{i}_t$ are anchor points in the corresponding matrix, $K(\cdot)$ are arbitrary smooth kernels. 
+$\mathbf{u}_t, \mathbf{q}_t$ are the factorized user preferences and item features in the $t-$th sub-matrix,  $\mathbf{i}_s,\mathbf{i}_t$ are anchor points in the corresponding matrix, $K(\cdot)$ is a smoothing kernel. 
 
 
 \subsection{Ranking Models}
@@ -86,7 +86,7 @@ Another goal of recommendation research is to reveal the observed rankings. We h
 \textbf{Bradley-Terry Model.} The famous BTL model~\cite{Hunter2004MM} is extensively studied in learning to rank scenarios. BTL models the generation of ranking pairs by a division.
 
 \begin{equation}\label{equ:BTL}
-p(p\succ_u q) = \frac{\hat{\Rating}_{u,p}}{\hat{\Rating}_{u,p}+ \hat{\Rating}_{u,q}} 
+p(p\succ_u q) = \frac{\exp{\hat{\Rating}_{u,p}}}{\exp{\hat{\Rating}_{u,p}}+ \exp{\hat{\Rating}_{u,q}}} 
 \end{equation}
 
 
@@ -98,8 +98,8 @@ p(p\succ_u q) = \frac{1} {1+\exp[-(\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q})]}
 
 In either ranking model, the score $\hat{\Rating}$ can be approximated by different ranking prediction formulas. We categorize existing models based on the rating prediction formula and the ranking model. 
 \begin{itemize}
-\item BTL model has been by far leveraged with MF prediction formula~\cite{};
-\item Thurstone model with standard matrix factorization prediction formula is first presented as BPR~\cite{Rendle2009BPR}, which maximizes the likelihood of Thurstonian modeling of MF predictions. Abundant research has been carried out to improve BPR-style systems by modifying the sampling methods in optimization, including BTR++~\cite{Lerche2014Using}, WARP~\cite{Weston2011Wsabie}, DNS~\cite{Zhang2013Optimizing}, RankMBPR~\cite{Yu2016RankMBPR} and so on.
+\item BTL model has been by far leveraged with MF prediction formula~\cite{Hu2016Improved};
+\item Thurstone model with standard matrix factorization prediction formula is first presented as BPR~\cite{Rendle2009BPR}, which maximizes the Bayesian posterior with respect to Thurstonian modeling of standard matrix factorization predictions. Abundant research has been carried out to improve BPR-style systems by modifying the sampling methods in optimization, including BTR++~\cite{Lerche2014Using}, WARP~\cite{Weston2011Wsabie}, DNS~\cite{Zhang2013Optimizing}, RankMBPR~\cite{Yu2016RankMBPR} and so on.
 \item Thurstone model with factorized neighborhood prediction formula: AMF is first incorporated in a point-wise ranking framework In~\cite{Steck2015Gaussian},  FSBPR~\cite{Zhao2018Factored} implants AMF in a Thurstone model and maximizes its likelihood.
 \item Thurstone model with local low-rank factorization prediction formula: LLORMA is utilized in the Thurstone model in~\cite{Lee2014Local}.
  \end{itemize}
@@ -185,8 +185,21 @@ Finally, the modification of Thurston model is straightforward. For example, if 
 
 where  $\Theta$ is the set of all parameters and $\hat\Real$ is  predicted by any NCR-version of rating prediction formulas. 
 
- 
+\section{Inference}
+
+
+
 \section{Experiments}\label{sec:experiment}
+We conduct experiments to evaluate the performance of the proposed non-compensatory rules. We  on real world datasets. 
+The second set of experiments is conducted to examine whether collaborative ranking, i.e., learning latent factors for the users and items from the rating matrix, results in higher ranking accuracy compared to training separate rank- ing functions per user.
+
+\subsection{Rating Prediction Performance}
+
+\subsection{Ranking Performance for Implicit Feedback}
+
+\subsection{Ranking Performance for Graded Sessional Feedback}
+
+\subsection{Effect of Non-compensatory Rules}
 
 \section{Related Work}\label{sec:relatedwork}
 

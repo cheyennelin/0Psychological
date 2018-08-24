@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: AAAI.aux
+The style file: aaai.bst
+Database file #1: /Users/linchen/Documents/GitHub/MyRef/reference.bib
+You've used 19 entries,
+            2568 wiz_defined-function locations,
+            720 strings with 8702 characters,
+and the built_in function-call counts, 9552 in all, are:
+= -- 1050
+> -- 345
+< -- 14
++ -- 115
+- -- 115
+* -- 720
+:= -- 1444
+add.period$ -- 106
+call.type$ -- 19
+change.case$ -- 130
+chr.to.int$ -- 19
+cite$ -- 19
+duplicate$ -- 404
+empty$ -- 698
+format.name$ -- 149
+if$ -- 2084
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 20
+newline$ -- 127
+num.names$ -- 59
+pop$ -- 106
+preamble$ -- 1
+purify$ -- 150
+quote$ -- 0
+skip$ -- 352
+stack$ -- 0
+substring$ -- 590
+swap$ -- 152
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 148
+warning$ -- 0
+while$ -- 84
+width$ -- 22
+write$ -- 295
