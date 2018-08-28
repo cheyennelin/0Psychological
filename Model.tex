@@ -139,7 +139,7 @@ line 23: & [\Delta u]_k & \leftarrow [\Delta u]_k  + [\exp\theta (s(t,u,i) i_{t,
 & & [\frac{\exp u_{t,k}}{\sum_{k}\exp u_{t,k}}-\frac{\exp^2 u_{t,k}}{(\sum_k \exp u_{t,k})^2}]  l_{u,i,j}\\ \nonumber
 line 25: & [\Delta i]_k & \leftarrow [\Delta i]_k + \frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  s(t,u,i) l_{u,i,j} \\ \nonumber
 line 26: & [\Delta i]_k & \leftarrow [\Delta i]_k +  \frac{-\exp u_k \exp \theta -\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k} s(t,u,i) l_{u,i,j}  \\ \nonumber
-line 26+: & [\Delta \theta ] & \leftarrow \sum_k  \frac{\exp (u_k)(i_k-j_k )}{\sum_{k'} \exp (u_{k'})} \exp \theta  \exp \theta \\\nonumber
+line 26+: & [\Delta \theta ] & \leftarrow \sum_k  \frac{[s(u,t,i) i_{t,k}- s(u,t,j) j_{t,k} ]\exp (u_k)}{\sum_{k'} \exp (u_{k'})} \exp \theta  \\\nonumber
 line 30+: & \theta & = \theta - v  [\Delta \theta ] \\\nonumber
 \end{eqnarray}
 
@@ -188,7 +188,40 @@ where $\eta$ is the step length, $|\cdot|$ is the size of a set.
  
 \part{Rating Based Models}
 In this section, we develop a series of ranking based models. These models have the following properties. (1) The models are based on rating observations, i.e. we assign a rating to every action. The actions include the old-fashioned preference ratings (in such case, each rating is a standalone session), actions in a session, positive and negative samples, etc. (2) The models are Bayesian generative models that have good explainability. (3) We control the assumptions by adjusting the hyper-parameters in these models.
-   
+
+\section{Matrix Factorization}
+
+In conventional matrix factorization~\cite{Koren2009Matrix}, the predicted rating can be computed as an inner product of user preferences and item features as follows.
+
+\begin{equation}\label{equ:MF}
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \mathbf{q}_k \mathbf{u}_k
+\end{equation}
+
+For a regularized loss function $L=\sum_{(u,q)\in D} ( \mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})^2 + \lambda (\sum_q \| \mathbf{q}\| + \sum_u \| \mathbf{u}\|)$
+The update process
+
+\begin{eqnarray}
+ \mathbf{u}= \mathbf{u} - \alpha \frac{\partial L}{\partial \mathbf{u}} =  \mathbf{u} +  \alpha \sum_{q\in R(u)}[ (\mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})\frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \mathbf{u}}] - \alpha\lambda \mathbf{u} \\\nonumber
+ \mathbf{q} =  \mathbf{q} - \alpha \frac{\partial L}{\partial \mathbf{q}}=  \mathbf{q} +  \alpha \sum_{u\in R(q)}[ (\mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})\frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \mathbf{q}}] - \alpha\lambda \mathbf{q} 
+\end{eqnarray}
+
+
+
+where we can change the prediction to 
+\begin{equation}\label{equ:MF-NCR}
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} \mathbf{q}_{k'} ].
+\end{equation}
+
+Thus in updating we use
+ \begin{equation}\label{equ:derivative}
+ \frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \Theta}=\left\{\begin{matrix}
+ [(q_k) \exp\theta +\sum_{k'\neq k}(q_{k'})][\frac{\exp u_k}{\sum_{k}\exp u_k}-\frac{\exp^2 u_k}{(\sum_k \exp u_k)^2}] & if \Theta=u_k \\ 
+\frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= q_{k}  \\ 
+\sum_k  \frac{q_k \exp (u_k)}{\sum_{k'} \exp (u_{k'})} \exp \theta & if \Theta = \theta 
+\end{matrix}\right.
+\end{equation}
+
+
 \section{The Beta model}
 %motivations
  We are motivated to design this model by the following assumptions: (1) we allow  multiple ($0~K$) aspects in a session to be prominent. (2) We use positive and negative observations, e.g. a click is negative and a buy is positive. (3) For prominent aspects, we directly model the likelihood by the Beta function. (4) For non-prominent aspects, we assume that they do not contribute to the likelihood of being positive or negative, ie. $p(o=1|g_k=0)=0.5$.  (5) We assume that the final label is assigned by a very strict measurement, i.e. the item must be ``good'' on all aspects.
