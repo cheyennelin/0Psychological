@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  29 AUG 2018 02:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  29 AUG 2018 02:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -277,7 +277,11 @@ Underfull \hbox (badness 1014) in paragraph at lines 221--222
 atasets
  []
 
-[4] (./AAAI.bbl [5]) [6] (./AAAI.aux)
+[4] (./AAAI.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5])
+[6] (./AAAI.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -309,7 +313,7 @@ t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist/
 fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
 1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/time
 s/utmri8a.pfb>
-Output written on AAAI.pdf (6 pages, 210910 bytes).
+Output written on AAAI.pdf (6 pages, 210872 bytes).
 PDF statistics:
  96 PDF objects out of 1000 (max. 8388607)
  69 compressed objects within 1 object stream
