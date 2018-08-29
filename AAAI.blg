@@ -3,44 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: AAAI.aux
 The style file: aaai.bst
 Database file #1: /Users/linchen/Documents/GitHub/MyRef/reference.bib
-You've used 19 entries,
+You've used 21 entries,
             2568 wiz_defined-function locations,
-            720 strings with 8702 characters,
-and the built_in function-call counts, 9552 in all, are:
-= -- 1050
-> -- 345
-< -- 14
-+ -- 115
-- -- 115
-* -- 720
-:= -- 1444
-add.period$ -- 106
-call.type$ -- 19
-change.case$ -- 130
-chr.to.int$ -- 19
-cite$ -- 19
-duplicate$ -- 404
-empty$ -- 698
-format.name$ -- 149
-if$ -- 2084
+            739 strings with 9108 characters,
+and the built_in function-call counts, 10430 in all, are:
+= -- 1149
+> -- 365
+< -- 15
++ -- 122
+- -- 121
+* -- 784
+:= -- 1574
+add.period$ -- 117
+call.type$ -- 21
+change.case$ -- 141
+chr.to.int$ -- 21
+cite$ -- 21
+duplicate$ -- 445
+empty$ -- 768
+format.name$ -- 158
+if$ -- 2277
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 20
-newline$ -- 127
-num.names$ -- 59
-pop$ -- 106
+missing$ -- 22
+newline$ -- 140
+num.names$ -- 65
+pop$ -- 112
 preamble$ -- 1
-purify$ -- 150
+purify$ -- 163
 quote$ -- 0
-skip$ -- 352
+skip$ -- 389
 stack$ -- 0
-substring$ -- 590
-swap$ -- 152
-text.length$ -- 14
+substring$ -- 650
+swap$ -- 167
+text.length$ -- 15
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 148
+type$ -- 164
 warning$ -- 0
-while$ -- 84
-width$ -- 22
-write$ -- 295
+while$ -- 92
+width$ -- 24
+write$ -- 326
