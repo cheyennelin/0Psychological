@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  29 AUG 2018 10:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  31 AUG 2018 04:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -502,6 +502,12 @@ LaTeX Warning: Label `equ:derivative' multiply defined.
 
 LaTeX Warning: Label `equ:derivative' multiply defined.
 
+
+LaTeX Warning: Label `equ:MF-NCR' multiply defined.
+
+
+LaTeX Warning: Label `equ:derivative' multiply defined.
+
 )
 \openout1 = `Model.aux'.
 
@@ -706,6 +712,11 @@ LaTeX Warning: Citation `Koren2009Matrix' on page 10 undefined on input line 19
 4.
 
 [10]
+Overfull \hbox (83.25128pt too wide) detected at line 248
+[] \OT1/cmr/m/n/10.95 = []
+ []
+
+[11]
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
@@ -761,8 +772,8 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
- [11] [12]
-Overfull \hbox (20.16092pt too wide) in paragraph at lines 308--310
+ [12] [13]
+Overfull \hbox (20.16092pt too wide) in paragraph at lines 333--335
 []\OT1/cmr/m/n/10.95 For each as-pect $\OML/cmm/m/it/10.95 k$\OT1/cmr/m/n/10.95
  , gen-er-ate the in-di-ca-tor $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/c
 mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
@@ -771,7 +782,7 @@ mm/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/
  []
 
 
-Overfull \hbox (99.45546pt too wide) detected at line 317
+Overfull \hbox (99.45546pt too wide) detected at line 342
 \OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 U; V; G; H; D\OMS/
 cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 a; b; \OT1/cmr/m/n/10.95 ^^C) = [] [] \OML/
 cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 u[]\OMS/cmsy/m/n/10.95 
@@ -787,12 +798,12 @@ OT1/cmr/m/n/10.95 ) []\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10
  []
 
 
-Overfull \hbox (91.55382pt too wide) in alignment at lines 328--332
+Overfull \hbox (91.55382pt too wide) in alignment at lines 353--357
  [][][] []
  []
 
 
-Overfull \hbox (102.78123pt too wide) in paragraph at lines 334--335
+Overfull \hbox (102.78123pt too wide) in paragraph at lines 359--360
 []\OT1/cmr/m/n/10.95 By vari-a-tional in-fer-ence, we have fac-tor-ize the pos-
 te-rior prob-a-bil-ity $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/
 10.95 U; V; G; H\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 D; a; b; ; ^^L\OT1/cm
@@ -800,34 +811,34 @@ r/m/n/10.95 ) =
  []
 
 
-Overfull \hbox (113.62607pt too wide) in alignment at lines 335--339
+Overfull \hbox (113.62607pt too wide) in alignment at lines 360--364
  [][][] []
  []
 
-[13]
-Overfull \hbox (3.48042pt too wide) in paragraph at lines 342--349
+
+Overfull \hbox (3.48042pt too wide) in paragraph at lines 367--374
 []\OT1/cmr/m/n/10.95 Because $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OML/cmm
 /m/it/10.95 h[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 g[]; v[]\OT1/cmr/m/n/10
 .95 ) = [\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 (1 \OMS/cmsy/m/n/10.95 ^^@ \
 OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 )[]][][[][][][]][]$,
  []
 
-
-Overfull \hbox (129.0006pt too wide) in alignment at lines 350--356
+[14]
+Overfull \hbox (129.0006pt too wide) in alignment at lines 375--381
  [][][] []
  []
 
 
-Overfull \hbox (325.59016pt too wide) in alignment at lines 360--366
+Overfull \hbox (325.59016pt too wide) in alignment at lines 385--391
  [][][] []
  []
 
 
-Overfull \hbox (124.35077pt too wide) in alignment at lines 370--374
+Overfull \hbox (124.35077pt too wide) in alignment at lines 395--399
  [][][] []
  []
 
-[14] [15] (./Model.aux)
+[15] (./Model.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -838,34 +849,35 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  14814 strings out of 492646
  318281 string characters out of 6129564
- 396383 words of memory out of 5000000
+ 395120 words of memory out of 5000000
  18398 multiletter control sequences out of 15000+600000
  17057 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,11n,78p,984b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
-ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
-al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
-/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/te
-xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
-ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
-2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Model.pdf (16 pages, 241427 bytes).
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Model.pdf (16 pages, 251726 bytes).
 PDF statistics:
- 135 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
+ 139 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
