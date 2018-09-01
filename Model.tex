@@ -247,6 +247,30 @@ In updating we use
 \end{matrix}\right.
 \end{equation}
 
+%chensi
+If we use a ``softer'' cut-off constraint for  non-prominent aspect. We have the prediction according to 
+\begin{equation}\label{equ:MF-NCR}
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} [\mathbf{q}_{k'}-b_{u,k'}] ].
+\end{equation}
+
+The interpretation is that (1) the evaluation of $u$ on $q$ is mainly based on the prominent aspect $k$ (2) the user $u$ sets a cut-off point for non prominent aspects $k'$. The item performance on non-prominent aspect contributes a term of $[\mathbf{q}_{k'}-b_{u,k'}] $ to the overall evaluation.
+ 
+Thus \begin{eqnarray}
+ \mathbf{u}= \mathbf{u} - \alpha \frac{\partial L}{\partial \mathbf{u}} =  \mathbf{u} +  \alpha \sum_{q\in R(u)}[ (\mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})\frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \mathbf{u}}] - \alpha\lambda \mathbf{u} \\\nonumber
+ \mathbf{q} =  \mathbf{q} - \alpha \frac{\partial L}{\partial \mathbf{q}}=  \mathbf{q} +  \alpha \sum_{u\in R(q)}[ (\mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})\frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \mathbf{q}}] - \alpha\lambda \mathbf{q} \\\nonumber
+ \mathbf{b}_{u} =  \mathbf{b}_{u} - \alpha \frac{\partial L}{\partial \mathbf{b}_{u}}=  \mathbf{b}_{u} +  \alpha \sum_{q\in R(u)}[ (\mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})\frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \mathbf{b}_u}]  \\\nonumber
+\mathbf{\theta} =  \mathbf{\theta} - \alpha \frac{\partial L}{\partial \mathbf{\theta}}=  \mathbf{\theta} +  \alpha \sum_{u,q}[ (\mathbf{X}_{u,q}- \hat{\mathbf{X}}_{u,q})\frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \mathbf{\theta}}] 
+\end{eqnarray}
+In updating we use
+ \begin{equation}\label{equ:derivative}
+ \frac{\partial \hat{\mathbf{X}}_{u,q}}{\partial \Theta}=\left\{\begin{matrix}
+ [(q_k) \exp\theta +\sum_{k'\neq k}([\mathbf{q}_{k'}-b_{u,k'}]_+)][\frac{\exp u_k}{\sum_{k}\exp u_k}-\frac{\exp^2 u_k}{(\sum_k \exp u_k)^2}] & if \Theta=u_k \\ 
+\frac{\exp u_k \exp \theta +\sum_{k'\neq k} \exp u_{k'}}{\sum_k \exp u_k}  & if \Theta= q_{k}  \\ 
+-(1-\frac{\exp\mathbf{u}_k}{\sum_{k'}\exp\mathbf{u}_{k'}}) & if \Theta = b_{u,k}  \\
+\sum_k  \frac{q_k \exp (u_k)}{\sum_{k'} \exp (u_{k'})} \exp \theta & if \Theta = \theta 
+\end{matrix}\right.
+\end{equation}
+
 \section{The Beta model}
 %motivations
  We are motivated to design this model by the following assumptions: (1) we allow  multiple ($0~K$) aspects in a session to be prominent. (2) We use positive and negative observations, e.g. a click is negative and a buy is positive. (3) For prominent aspects, we directly model the likelihood by the Beta function. (4) For non-prominent aspects, we assume that they do not contribute to the likelihood of being positive or negative, ie. $p(o=1|g_k=0)=0.5$.  (5) We assume that the final label is assigned by a very strict measurement, i.e. the item must be ``good'' on all aspects.
