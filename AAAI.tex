@@ -31,9 +31,9 @@
 }
 \maketitle
 \begin{abstract}
-The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. the evaluations are based on a weighted or summated score over different aspects. However, it has been shown in the literature of consumer psychology that, consumers adopt non-compensatory rules more than compensatory rules. Our main contribution in this paper is to study the unexplored utilization of non-compensatory rules in recommendation models. 
+The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. the consumer evaluate an item over multiple aspects and compute a weighted or/and summated score which is further used to derive the rating or the rankings among items. However, it has been shown in the literature of consumer psychology that, consumers adopt non-compensatory rules more than compensatory rules. Our main contribution in this paper is to study the unexplored utilization of non-compensatory rules in recommendation models. 
 
-Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen by the user as the prominent aspect. (2) Evaluations over different aspects are non-compensatory, i.e. the user has higher standards with respect to the item's performance on the prominent aspect and is more tolerant to the item's performance on other aspects. We show how these general assumptions can be applied to a wide range of existing recommender systems, including the point-wise rating prediction models such as conventional Matrix Factorization (MF), Neighborhood Factorization (AMF++), and low-rank matrix approximation (LLORMA), and the pair-wise ranking prediction models such as Bradley-Terry model (BTL) and Thurstonian model (e.g. BPR).  We experimentally show that adopting non-compensatory rules constantly improve performance of these rating  and ranking models on a variety of real-world recommendation data sets.
+Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen as the prominent aspect according to user preference. (2) Evaluations over prominent and non-prominent aspects are non-compensatory. Evaluation is manly based on item performance on the prominent aspect. For non-prominent aspects the user sets a minimal acceptable value. We give a conceptual model for these general assumptions and show how this model can be applied to a wide range of existing recommender systems, including  point-wise rating prediction models and pair-wise ranking prediction models.  We experimentally show that adopting non-compensatory rules constantly improve ranking performance of existing models on a variety of real-world recommendation data sets.
 \end{abstract}
 
 
@@ -41,12 +41,35 @@ Our general assumptions are (1) there are $K$ universal hidden aspects. In each 
 \section{Introduction}\label{sec:introduction}
 The majority of state-of-the-art recommendation models are based on latent factor models. Generally, latent factor models transform both user preferences and item features into the same hidden feature spaces with $K$ aspects. To recover the observations (i.e. ratings or rankings) in any recommender system, they adopt the inner product of the user preferences and the item features. There are fruitful successful applications of latent factor models in  rating predictions~\cite{Koren2009Matrix,Koren2010Factor,Lee2014Local} and ranking reconstructions~\cite{Rendle2009BPR,Steck2015Gaussian,Zhao2018Factored,Shi2010List}.   
 
-From the perspective of consumer decision making, all existing latent factor models fall into the category of compensatory rules. Consumers who adopt compensatory rules evaluate every product over multiple relevant aspects and compute a weighted or summated score for each product. Then they will select the product with the highest score. The result of such a procedure is  that a good performance on one aspect of a product compensates for poor performances on other aspects. 
+From the perspective of consumer decision making, all existing latent factor models fall into the category of \emph{compensatory rules}. Consumers who adopt compensatory rules evaluate every item over multiple aspects and compute a weighted or/and summated score for each item. Then they will rate or rank items based on the score. The key property of compensatory rules is that a good performance on one aspect of an item compensates for poor performances on other aspects. 
 
 
-However, in the study of human choice behavior, it is well regarded that there are two categories of decision making procedures, namely compensatory rules and non-compensatory rules. Furthermore, it is found in many surveys~\cite{Engel1986Consumer} that in most cases consumers make consumption related choices based on non-compensatory rules. Non-compensatory rules do not allow the shortcomings of a product to be balanced out by its attractive features. For example, the evaluation could be solely on the most important aspect and item's performance on other aspects does not affect the final judgement.
+However, in the study of human choice behavior, it is well regarded that there are two categories of decision making procedures, namely \emph{compensatory rules} and \emph{non-compensatory rules}. Furthermore, it is found in many surveys~\cite{Engel1986Consumer} that in most cases consumers make consumption related choices based on non-compensatory rules. Non-compensatory rules do not allow the shortcomings of a product to be balanced out by its attractive features. We next illustrate two typical non-compensatory rules.
 
-To the best of our knowledge, no previous work has been devoted to modeling non-compensatory rules in recommender systems. Our goal in this paper is to study this unexplored area. Our primary contribution is to model the assumptions in non-compensatory rules by (1) transforming user preferences and item features into the same $K-$dimensional hidden space as in most existing latent factor models, (2) picking a prominent aspect in each decision session, (3) and adopting different evaluation strategies on prominent and non-prominent aspects. We show that this strategy can be easily applied to a wide range of recommendation models, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and locally low-rank matrix approximation (LLORMA~\cite{Lee2013Local}) and pairwise ranking reconstruction models such as BTL model~\cite{Hu2016Improved} and BPR style  Thurstonian model~\cite{Rendle2009BPR}. We experimentally show that the non-compensatory versions of these models significantly outperform the original models.
+\textbf{Example.} Alice wants to buy a smart phone and she ranks her alternatives over three relevant aspects: battery life, price and storage space. If Alice's priority is long-lasting battery, than she will adopt \emph{lexicographic rules}, a type of non-compensatory rules, to rank phones first based on the battery life. Clearly Honor and iPhone will be ranked higher than Galaxy, the other benefits offered by Galaxy  do not outweigh her desire for a long-life battery . If Alice has a second layer of demands that she wants the phone to be cheap and with plenty of storage space, then she will adopt \emph{conjunctive rules}, another type of non-compensatory rules, to set cut-off points (e.g. $600\$$ and $64GB$ on the corresponding aspects). iPhone fails to meet the cut-off point, it will not outrank Honor which satisfies the minimal acceptable value on each aspect. In either case, adopting a compensatory rule based recommendation model (e.g. MF) is problematic. 
+
+\begin{table}[htp]\label{tab:rules}
+\caption{Illustrative example of non-compensatory rules}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Item & Prominent aspect & \multicolumn{2}{|c|}{Not prominent aspects}\\\hline
+& Battery life &  Price & Memory \\\hline
+iPhone SE &  13 & 700$\$$ & 64GB  \\\hline
+Galaxy S8 & 9 & 500$\$$  & 128GB \\\hline
+Honor 10 & 24 & 589$\$$ & 128GB \\\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+
+Non-compensatory rules are widely used in many \textbf{D}ecision \textbf{S}upport \textbf{S}ystems (DSS)~\cite{Lee2009Transforming}. Despite of the commercial success, current DSS are labor costly, i.e. they ask consumers to control or manipulate the rules, e.g. specify the value of an aspect. To the best of our knowledge, no previous work has been devoted to modeling and learning non-compensatory rules in recommender systems. Our goal in this paper is to study this unexplored area. 
+
+Our primary contribution is to give a conceptual model of how users adopt non-compensatory rules in recommender systems. We assume that, (1) there are $K-$ hidden aspects which  user preferences and item features are transformed into, (2) in each evaluation session, the user picks a prominent aspect according to his/her preference, (3) the user adopts different evaluation strategies on prominent and non-prominent aspects. The evaluation is mainly based on item performance on the prominent aspect. The evaluation is less influenced by item performance with respect to a user-defined minimal acceptance value on non-prominent aspects.
+
+Our second contribution is to realize the conceptual model in a wide range of recommendation frameworks, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and locally low-rank matrix approximation (LLORMA~\cite{Lee2013Local}) and pairwise ranking reconstruction models such as BTL model~\cite{Hu2016Improved} and BPR style  Thurstonian model~\cite{Rendle2009BPR}. 
+
+We conduct comprehensive experiments on a variety of real world data sets. We experimentally show that the non-compensatory versions of these models significantly improve ranking performances of the original models. 
 
 The paper is organized as follows. In Sec.~\ref{sec:previousmodel} , we start with surveying the most commonly adopted latent factor models in the community of recommendation research. We categorize previous research work on the basis of  combinations of  different rating approximation formulas and  loss functions. In Sec.~\ref{sec:NCRmodel}, we describe our non-compensatory assumptions and develop non-compensatory versions of existing models. In Sec.~\ref{sec:experiment}, we experimentally show that the non-compensatory versions significantly outperform the original versions of existing models on a variety of real-world data sets. Finally, in Sec.~\ref{sec:conclusion} we conclude our work and future directions.
 
@@ -133,21 +156,7 @@ We begin this section by reviewing the findings in consumer psychology study. Ev
 
 Non-compensatory rules include \textit{lexicographic, conjunction} and \textit{disjunction} rules. The conjunctive and disjunctive rules are often used in conjunction with lexicographic rules.
 
-\begin{table}[htp]\label{tab:rules}
-\caption{Illustrative example of non-compensatory rules}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-Item & Prominent aspect & \multicolumn{2}{|c|}{Not prominent aspects}\\\hline
-$\mathbf{p}$ & 0.8 & 0.3 & 0.3  \\\hline
-$\mathbf{q}$ & 0.7 & 0.2 & 0.2 \\\hline
-$\mathbf{i}$ & 0.6 & 0.3 & 0.3 \\\hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}%
 
-We illustrate the non-compensatory rules using three toy item vectors $\mathbf{p,q,i}$  in Table.~\ref{tab:rules}. Under lexicographic rules, the user will first rank the factors, e.g. pick the prominent aspect according to user preference. Then items are evaluated on the prominent aspect, i.e. $p\succ_u q \succ_u i$.. Under conjunctive and disjunctive rules, the consumer imposes requirements for minimally acceptable values on each aspect separately.  Suppose the user's minimal acceptable value is $0.3$. If the user adopts conjunctive rules only, then the chosen items must be better than the minimal acceptable value on all aspects, i.e. $p.i$ will be  picked. If the user adopts disjunctive rules only, then the chosen items must satisfy the minimal acceptable value on at least one aspect, i.e. $p,q,i$ are all chosen. Finally, these rules an be combined. If the user adopts both lexicographic rules and conjunctive rules, then the result is $p\succ_u i$ and $i$ will not be chosen. 
 
 We can see that non-compensatory rules differ from compensatory rules in two key points. (1) \textit{Distinguished factors}. In compensatory rules, different factors are essentially equivalent (i.e. all factors contribute to the final score), while in non-compensatory rules factors are not interchangeable (i.e. only the prominent factor is considered if there are no ties). (2) \textit{Distinguished evaluation metrics on each factor}. In compensatory rules, the evaluations on each factor follow the same framework (i.e. a product of user preference and item feature on the specific factor), while in non-compensatory rules, the evaluations on each factor are dissimilar (i.e. numerical comparisons on the prominent factor and acceptance/rejection on other factors).  
 
@@ -382,3 +391,4 @@ Dataset & Method & MAP & NDCG & Prec & Recall & MRR \\\hline
 \bibliography{/Users/linchen/Documents/GitHub/MyRef/reference.bib}
 \bibliographystyle{aaai}
 \end{document}
+ 
