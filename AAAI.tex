@@ -44,7 +44,7 @@ The majority of state-of-the-art recommendation models are based on latent facto
 From the perspective of consumer decision making, all existing latent factor models fall into the category of \emph{compensatory rules}. Consumers who adopt compensatory rules evaluate every item over multiple aspects and compute a weighted or/and summated score for each item. Then they will rate or rank items based on the score. The key property of compensatory rules is that a good performance on one aspect of an item compensates for poor performances on other aspects. 
 
 
-However, in the study of human choice behavior, it is well regarded that there are two categories of decision making procedures, namely \emph{compensatory rules} and \emph{non-compensatory rules}. Furthermore, it is found in many surveys~\cite{Engel1986Consumer} that in most cases consumers make consumption related choices based on non-compensatory rules. Non-compensatory rules do not allow the shortcomings of a product to be balanced out by its attractive features. We next illustrate two typical non-compensatory rules.
+However, in the study of human choice behavior, it is well regarded that there are two categories of decision making procedures, namely \emph{compensatory rules} and \emph{non-compensatory rules}. Furthermore, it is found in many surveys~\cite{Engel1986Consumer} that in most cases consumers make consumption related choices based on non-compensatory rules. Non-compensatory rules do not allow the shortcomings of a product to be balanced out by its attractive features. The literature has proposed different non-compensatory rules as a more realistic description of consumers’ choice. We next illustrate two typical non-compensatory rules.
 
 \textbf{Example.} Alice wants to buy a smart phone and she ranks her alternatives over three relevant aspects: battery life, price and storage space. If Alice's priority is long-lasting battery, than she will adopt \emph{lexicographic rules}, a type of non-compensatory rules, to rank phones first based on the battery life. Clearly Honor and iPhone will be ranked higher than Galaxy, the other benefits offered by Galaxy  do not outweigh her desire for a long-life battery . If Alice has a second layer of demands that she wants the phone to be cheap and with plenty of storage space, then she will adopt \emph{conjunctive rules}, another type of non-compensatory rules, to set cut-off points (e.g. $600\$$ and $64GB$ on the corresponding aspects). iPhone fails to meet the cut-off point, it will not outrank Honor which satisfies the minimal acceptable value on each aspect. In either case, adopting a compensatory rule based recommendation model (e.g. MF) is problematic. 
 
@@ -63,9 +63,11 @@ Honor 10 & 24 & 589$\$$ & 128GB \\\hline
 \label{default}
 \end{table}%
 
-Non-compensatory rules are widely used in many \textbf{D}ecision \textbf{S}upport \textbf{S}ystems (DSS)~\cite{Lee2009Transforming}. Despite of the commercial success, current DSS are labor costly, i.e. they ask consumers to control or manipulate the rules, e.g. specify the value of an aspect. To the best of our knowledge, no previous work has been devoted to modeling and learning non-compensatory rules in recommender systems. Our goal in this paper is to study this unexplored area. 
+Non-compensatory rules are widely used in many \textbf{D}ecision \textbf{S}upport \textbf{S}ystems (DSS)~\cite{Lee2009Transforming}. Despite of the commercial success, current computer support fornon-compensatory rules is labor costly and user unfriendly, i.e. they ask consumers to control or manipulate the rules, e.g. specify the value of an aspect. To the best of our knowledge, no previous work has been devoted to modeling and learning non-compensatory rules in recommender systems. 
 
-Our primary contribution is to give a conceptual model of how users adopt non-compensatory rules in recommender systems. We assume that, (1) there are $K-$ hidden aspects which  user preferences and item features are transformed into, (2) in each evaluation session, the user picks a prominent aspect according to his/her preference, (3) the user adopts different evaluation strategies on prominent and non-prominent aspects. The evaluation is mainly based on item performance on the prominent aspect. The evaluation is less influenced by item performance with respect to a user-defined minimal acceptance value on non-prominent aspects.
+Our goal in this paper is to study this unexplored area. Two challenges need to be addressed. (1) There are different non-compensatory rules. Incorporating all of them is neither practical nor efficient. We must concepturalize the most typical non-compensatory rules in one unified framework. (2) Most non-compensatory rules explain discrete choices which are computationally inconvenient. It is important to model non-compensatory rules in a manner that complies with existing  efficient rating and ranking models.  
+
+Our primary contribution is to give a conceptual model of how users adopt non-compensatory rules in recommender systems. Our assumptions are based on the lexicographic and conjunction rules. We assume that, (1) there are $K-$ hidden aspects which  user preferences and item features are transformed into, (2) in each evaluation session, the user picks a prominent aspect according to his/her preference, (3) the user adopts different evaluation strategies on prominent and non-prominent aspects. The evaluation is mainly based on item performance on the prominent aspect. The evaluation is less influenced by item performance with respect to a user-defined minimal acceptance value on non-prominent aspects.
 
 Our second contribution is to realize the conceptual model in a wide range of recommendation frameworks, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and locally low-rank matrix approximation (LLORMA~\cite{Lee2013Local}) and pairwise ranking reconstruction models such as BTL model~\cite{Hu2016Improved} and BPR style  Thurstonian model~\cite{Rendle2009BPR}. 
 
@@ -130,68 +132,50 @@ In either ranking model, the score $\hat{\Rating}$ can be approximated by differ
 \item Thurstone model with local low-rank factorization prediction formula is utilized in LCR~\cite{Lee2014Local}.
  \end{itemize}
 
- 
 
-
-
-%\begin{table}[htp]\label{tab:survey}
-%\caption{default}
-%\begin{center}
-%\begin{tabular}{|c|c|c|c|}
-%\hline
-% & \multicolumn{3}{c}{Rating}\\
-% \cline{2-4}
-%Ranking & MF & AMF & LLORMA \\\hline
-%BTL &  & & \\\hline
-%Thurstone & BPR\cite{Rendle2009BPR,Lerche2014Using,Weston2011Wsabie} & FSBPR\cite{Zhao2018Factored} & LCR~\cite{Lee2014Local} \\\hline
-%\end{tabular}
-%\end{center}
-%\label{default}
-%\end{table}%
 
 The list is by no means exclusive. However, we believe that most of existing recommender systems are covered. It is worthy to point out that (1) we do not restrict the form of loss functions. For example, many ranking approaches consider Bayesian maximum posterior, cross entropy and other forms of loss functions. Nevertheless, the core ranking model is either BTL or Thurstone.   (2) Although we only study pair-wise ranking , the conclusion is insightful for other ranking-aware systems, i.e. point-wise and list-wise approaches. The reason is that, as shown in ~\cite{Steck2015Gaussian},  point-wise and list-wise loss functions can be decomposed to components which are directly based on each score $\hat\Rating_{u,p}$ and components that are not related to $\hat\Rating$. Thus our proposed strategy in Sec.~\ref{sec:NCRmodel} is also applicable to point-wise and list-wise ranking models.  
 
 \section{Non-Compensatory Recommendation Models}\label{sec:NCRmodel}
-We begin this section by reviewing the findings in consumer psychology study. Ever since the dawn of consumption psychology study, psychologists have been studying how consumers adopt different heuristics to  facilitate brand (or other consumption  related) choices. Two distinct categories of decision rules are found ~\cite{Engel1986Consumer}: compensatory rules and non compensatory rules. The decision rules can be naturally explained in the latent factor models. For example, compensatory rules are adopted if a consumer determines  options in terms of each factor and computes a weighted  or summated  score for each item, then selects the item that  scores the highest among  the alternatives evaluated. It is clear that all related work that has been described in previous section is the application of compensatory rules.
+We begin this section by reviewing the findings in consumer psychology study. Ever since the dawn of consumption psychology study, psychologists have been studying how consumers adopt different heuristics to  facilitate brand (or other consumption  related) choices. Two distinct categories of decision rules are found ~\cite{Engel1986Consumer}: compensatory rules and non compensatory rules. The decision rules can be naturally explained in the latent factor models. For example, compensatory rules are adopted if a consumer determines  options in terms of each factor and computes a weighted  and/or summated  score for each item, then selects the item that  scores the highest among  the alternatives evaluated. It is clear that all related work that has been described in previous section is the application of compensatory rules.
 
-Non-compensatory rules include \textit{lexicographic, conjunction} and \textit{disjunction} rules. The conjunctive and disjunctive rules are often used in conjunction with lexicographic rules.
+A number of non-compensatory rules are discovered in human decision process~\cite{Engel1986Consumer}. The most common ones include \textit{lexicographic, conjunctive} and \textit{disjunctive} rules. The conjunctive and disjunctive rules are often used in conjunction with lexicographic rules. In a lexicographic rule the consumer first ranks the aspects. He/she will pick the item with highest score on the most important aspect, breaking ties using successively less important aspects. In a conjunctive rule an item to be chosen must have all of its aspects above a user-defined threshold of minimally acceptable value. In a disjunctive rule an item is chosen if one aspect or a set of aspects is above the threshold.
 
 
-
-We can see that non-compensatory rules differ from compensatory rules in two key points. (1) \textit{Distinguished factors}. In compensatory rules, different factors are essentially equivalent (i.e. all factors contribute to the final score), while in non-compensatory rules factors are not interchangeable (i.e. only the prominent factor is considered if there are no ties). (2) \textit{Distinguished evaluation metrics on each factor}. In compensatory rules, the evaluations on each factor follow the same framework (i.e. a product of user preference and item feature on the specific factor), while in non-compensatory rules, the evaluations on each factor are dissimilar (i.e. numerical comparisons on the prominent factor and acceptance/rejection on other factors).  
+We can see that non-compensatory rules differ from compensatory rules in two key points. (1) \textit{Distinguished factors}. In compensatory rules, different factors are essentially equivalent, while in non-compensatory rules factors are not interchangeable. (2) \textit{Distinguished evaluation metrics on each factor}. In compensatory rules, the evaluations on each factor follow the same framework (i.e. a product of user preference and item feature on the specific factor), while in non-compensatory rules, the evaluations on each factor are dissimilar.  
 
 %Though these findings are insightful, we can not directly model them in the existing rating prediction or ranking reconstruction framework. 
-For computational convenience, inspired by the psychological findings, we present the following two assumptions based on lexicographic and conjunction rules. (1) We assume that in each evaluation session\footnote{The evaluation session could be either a true user interaction session with multiple actions, or a pseudo session which contains one rating action. The impact of availability of session information is discussed in experiments. }, there is a prominent aspect. The choice of the prominent aspect is dependent on the user preferences. (2) We assume two types of evaluation strategies are adopted, one for the prominent aspect and the other for other non-prominent aspects. According to the above assumptions, we provide the non-compensatory versions of rating prediction formulas and ranking models.
+For computational convenience, inspired by the psychological findings, we present the following conceptual model based on lexicographic and conjunction rules. We assume that in each evaluation session\footnote{The evaluation session could be either a true user interaction session with multiple actions, or a pseudo session which contains one rating action. The impact of availability of session information is discussed in experiments. }, there is a prominent aspect. The choice of the prominent aspect is dependent on the user preferences. Two types of evaluation strategies are adopted, one for the prominent aspect and the other for other non-prominent aspects. The overall evaluation of the item is mainly based on the its performance on the prominent aspect. The overall evaluation is less influenced by the item's performance on non-prominent aspects, compared with the user-defined aspect-specific threshold.
 
  
 \subsection{Non-Compensatory Rating Prediction Formulas}
-Our goal here is to modify the rating prediction formulas as little as possible, while still preserving the most important properties of non-compensatory rules. Therefore, we follow the same notations for user preferences and item features. In each evaluation session, the hidden prominent aspect is sampled by $\frac{\exp \mathbf{u}_k}{\sum_{k'} \mathbf{u}_{k'}} $. We use a parameter $\theta$ to control the strength of prominent aspect, i.e. the evaluation on the prominent aspect is magnified by  $\exp \theta$. The prediction is generated across all possible hidden prominent aspects. This gives us the following non-compensatory versions of rating prediction formulas.
+Our goal here is to modify the rating prediction formulas as little as possible, while still preserving the most important properties of non-compensatory rules. Therefore, we follow the same notations for user preferences and item features. In each evaluation session, the hidden prominent aspect is sampled by $\frac{\exp \mathbf{u}_k}{\sum_{k'} \mathbf{u}_{k'}} $. We use a parameter $\theta$ to control the strength of prominent aspect, i.e. the evaluation on the prominent aspect is magnified by  $\exp \theta$. The threashold on aspect $k$ set by user $u$ is denoted as $b_{u,k}$. When the aspect $k$ is chosen, the evaluation of user $u$ on $q$ is $\exp\theta \mathbf{q}_k  + \sum_{k'\neq k} (\mathbf{q}_{k'}-b_{u,k'})$. The prediction is generated across all possible hidden prominent aspects. This gives us the following non-compensatory versions of rating prediction formulas.
 
 \textbf{Matrix Factorization: MF-NCR} 
 
 \begin{equation}\label{equ:MF-NCR}
- \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} \mathbf{q}_{k'} ].
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} (\mathbf{q}_{k'}-b_{u,k'}) ].
 \end{equation}
 
 
 \textbf{Neighborhood Factorization: AMF-NCR} implements a similar scheme by setting $u_k =\sum_{p \in R(u)} \mathbf{p}_k/\sqrt{|R(u)|} $, 
 
 \begin{equation}\label{equ:AMF-NCR}
- \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp (\sum_{p \in R(u)} \mathbf{p}_k )}{\sum_{k'} \exp  (\sum_{p \in R(u)} \mathbf{p}_{k'} ) } [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} \mathbf{q}_{k'} ].
+ \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp (\sum_{p \in R(u)} \mathbf{p}_k )}{\sum_{k'} \exp  (\sum_{p \in R(u)} \mathbf{p}_{k'} ) } [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} (\mathbf{q}_{k'}-b_{u,k'}) ].
 \end{equation}
 
 \textbf{LLORMA-NCR} uses the same decomposition for each sub-matrix.  
 
 \begin{eqnarray}\label{equ:LLORMA-NCR}
 \hat{\Rating}_{u,q} = & \sum_{t=1}^{S} \sum_k  \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}}  \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \\\nonumber
-& [ \exp\theta \mathbf{q}_{t,k}  + \sum_{k'\neq k} \mathbf{q}_{t,k'} ]
+& [ \exp\theta \mathbf{q}_{t,k}  + \sum_{k'\neq k} (\mathbf{q}_{t,k'}-b_{u,k'}) ]
 \end{eqnarray}
 
-We can see that all these NCR versions are combinations of lexicographic and conjunction rules, where  $\exp\theta \rightarrow \infty$ indicates that the user adopts lexicographical rules only. 
+We can see that all these NCR versions are combinations of lexicographic and conjunction rules, where  $\exp\theta \rightarrow \infty$ indicates that the user adopts lexicographical rules only. The threashold for a user on an aspect is static in the sense that $b_{u,k}$ does not change by the nature of the items.
 
 \subsection{Non-Compensatory Ranking Models}
 
-\textbf{Thurston-NCR}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Real_{u,q}$ which can be rreplaced by any NCR-version of rating prediction formulas. 
+\textbf{Thurston-NCR}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Rating_{u,q}$ which can be rreplaced by any NCR-version of rating prediction formulas. 
 
 Inference of Thurston models is easily extensible. For example, if we use the Bayesian maximum posterior estimator as in BPR~\cite{Rendle2009BPR}, the loss function is defined as:
 \begin{equation}
@@ -227,7 +211,9 @@ The third set of experiments is conducted to examine whether NCR versions of ran
 
 \subsection{Rating Prediction Performance}
 
-\textbf{Data Sets} We use the standard benchmarking datasets with user-item ratings. (1) Movielens (2) FilmTrust (3) CiaoDVD. The ratings are in the range of $1-5$ stars. Statistics of the datasets are described in Table.~\ref{tab:datasets}. For each dataset, we reserve users with at least $5$ ratings and randomly split training and test set by avoiding cold-start users and items. We consider each rating as an evaluation session. The reported results are averaged using 5-fold cross validation, 
+\textbf{Data Sets} We use the standard benchmarking datasets with user-item ratings. (1) Movielens: user-movie rating for movies collected from the MovieLens web site (2) FilmTrust~\cite{guo2013novel}: user-movie ratings crawled from the entire FilmTrust website. (3) CiaoDVD: user-movie ratings crawled from the entire category of DVDs from the UK Ciao website. Statistics of the datasets are described in Table.~\ref{tab:datasets}. 
+
+For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation, 
 
 \begin{table}[htp]
 \caption{Statistics of Datasets with ratings and implicit feedback}
@@ -244,31 +230,36 @@ CiaoDVD &2665 &14280 &72665 &2478836 \\\hline
 \end{table}%
  
 
-\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. 
+\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization;  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization; (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. 
 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: (2) NDCG (3) RMSE (4) MAE (5) MRR
+\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve; (2) NDCG: another evaluation metric to measure the accuracy of item ranking by the predicted ratings v.s. the actural ranking;  (3) RMSE: computes the average squred difference between predicted ratings and the actual ratings; (4) MAE: computes the average absolute difference between predicted ratings and the actual ratings; (5) MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. 
 
-\begin{table}[htp]
-\tiny
+\begin{table*}[htp]
 \caption{Comparative rating prediction performance}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
-\multirow{6}{*}{Movielens} & MF & & & & & \\\cline{2-7}
- & MF-NCR & & & & & \\\cline{2-7}
+\multirow{6}{*}{Movielens} & MF & 0.6661 & 	0.6856 &	1.1351 &	0.8564 &	0.8391 
+ \\\cline{2-7}
+ & MF-NCR &0.7019 & 	0.7137 &	1.0303 &	0.8198 &	0.8770 
+ \\\cline{2-7}
  & AMF &0.6043 &0.5003 &1.1682 &0.9924 &0.7506 \\\cline{2-7}
  & AMF-NCR &0.6129 &0.5027 &1.4392 &1.2560 &0.7559 \\\cline{2-7}
  & LLORMA & &0.8990 &0.9291 &0.7322 &0.5761 \\\cline{2-7}
  & LLORMA-NCR & &0.8994 &0.9217 &0.7288 &0.5761 \\\hline
-\multirow{6}{*}{Filmtrust} & MF & & & & & \\\cline{2-7}
- & MF-NCR & & & & & \\\cline{2-7}
+\multirow{6}{*}{Filmtrust} & MF &0.6056 &	0.5240 &	1.1426 	& 0.8282 &	0.7522 
+ \\\cline{2-7}
+ & MF-NCR & 0.6159 & 	0.5258 &	1.0473 & 	0.7870 & 	0.7633 
+\\\cline{2-7}
  & AMF &0.6244 &0.5055 &0.8601 &0.7448 &0.7622 \\\cline{2-7}
  & AMF-NCR &0.6436 &0.5098 &1.1535 &0.9330 &0.7717 \\\cline{2-7}
  & LLORMA & &0.8672 &0.8341 &0.6437 &0.6481 \\\cline{2-7}
  & LLORMA-NCR & &0.8684 &0.8310 &0.6417 &0.6533 \\\hline
- \multirow{6}{*}{CiaoDVD} & MF & & & & & \\\cline{2-7}
- & MF-NCR & & & & & \\\cline{2-7}
+ \multirow{6}{*}{CiaoDVD} & MF &0.5915 & 	0.6497 &	2.4717 & 	1.9519 	 & 0.8427 
+\\\cline{2-7}
+ & MF-NCR &0.6997 & 	0.6895 &	1.9459 &	1.3389 	& 0.9008 
+  \\\cline{2-7}
  & AMF &0.6211 &0.5048 &1.2025 &1.0261 &0.7607\\\cline{2-7}
  & AMF-NCR &0.7993 &0.5657 &1.1475 &0.9723 &0.8950 \\\cline{2-7}
  & LLORMA & &0.7827 &1.0436 &0.8188 &0.4883 \\\cline{2-7}
@@ -276,8 +267,9 @@ Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
 \end{tabular}
 \end{center}
 \label{tab:ratingresult}
-\end{table}%
+\end{table*}%
 
+A general observation in Table.~\ref{tab:ratingresult} is that 
 \subsection{Ranking Performance for Implicit Feedback}
 
 \textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. 
