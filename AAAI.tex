@@ -76,10 +76,17 @@ We conduct comprehensive experiments on a variety of real world data sets. We ex
 The paper is organized as follows. In Sec.~\ref{sec:previousmodel} , we start with surveying the most commonly adopted latent factor models in the community of recommendation research. We categorize previous research work on the basis of  combinations of  different rating approximation formulas and  loss functions. In Sec.~\ref{sec:NCRmodel}, we describe our non-compensatory assumptions and develop non-compensatory versions of existing models. In Sec.~\ref{sec:experiment}, we experimentally show that the non-compensatory versions significantly outperform the original versions of existing models on a variety of real-world data sets. Finally, in Sec.~\ref{sec:conclusion} we conclude our work and future directions.
 
 \section{Compensatory Recommendation Models}\label{sec:previousmodel}
-In this section, we summarize and categorize recommendation models based on the rating prediction formulas and loss functions. We restrict our discussions to latent factor models, i.e. models where a universe of $K$ factors is used to project  user preferences and item features. Hereafter, unless stated otherwise, we use lower-case letters for indices, upper-case letters for universal constants, lower-case bold-face letters for vectors and upper-case bold-face letters for matrices. Specifically, $\mathbf{X}\in \Real^{M\times N}$ denotes the rating matrix, $\hat{\mathbf{X}}\in \Real^{M\times N}$ denotes the predicted rating matrix,  $\mathbf{p},\mathbf{q}\in \Real^K$ denotes the item features, $\mathbf{u}\in \Real^K$ denotes the user preferences.  
+In this section, we summarize and categorize recommendation models based on the rating prediction formulas and loss functions. We restrict our discussions to latent factor models, i.e. models where a universe of $K$ factors is used to project  user preferences and item features. Hereafter, unless stated otherwise, we use lower-case letters for indices, upper-case letters for universal constants, lower-case bold-face letters for vectors and upper-case bold-face letters for matrices. Specifically, $\mathbf{X}\in \Real^{M\times N}$ denotes the rating matrix, $\hat{\mathbf{X}}\in \Real^{M\times N}$ denotes the predicted rating matrix,  $\mathbf{p},\mathbf{q}\in \Real^K$ denotes the item features, which are rows of item space $\mathbf{V}\in \Real^{N\times K}$, $\mathbf{u}\in \Real^K$ denotes the user preferences, which is a row of the user space $\mathbf{U}\in \Real^{M\times K}$.  $\mathbf{U},\mathbf{V}$ are components of the model parameters $\Theta=\{\mathbf{U},\mathbf{V} \}$.
 
 \subsection{Rating Prediction Formulas}
-One goal of recommendation research is to recover the rating matrix $\Rating$, by minimizing a loss function $\Loss(\Rating,\hat{\Rating})$, which is usually defined as the regularized square loss between the predicted rating $\hat{\Rating}_{u,q}$ and the observed rating $\hat{\Rating}_{u,q}$ for each user $u$ who has rated item $q$. We list some of the most successful rating prediction formulas for $\hat{\Rating}$.
+One goal of recommendation research is to recover the rating matrix $\Rating$, by minimizing a loss function $\Loss(\Theta)$, which is usually defined as the regularized square loss between the predicted rating $\hat{\Rating}_{u,q}$ and the observed rating $\hat{\Rating}_{u,q}$ for each user $u$ who has rated item $q$. 
+
+\begin{equation}\label{equ:ratingloss}
+\Loss(\Theta)=\sum_{u,q}(\Rating_{u,q}-\hat\Rating_{u,q})^2 + \lambda (\|\mathbf{U}\|+\|\mathbf{V}\|)
+\end{equation}
+
+
+We list some of the most successful rating prediction formulas for $\hat{\Rating}$.
 
 \textbf{Matrix Factorization.} In conventional matrix factorization~\cite{Koren2009Matrix}, the predicted rating can be computed as an inner product of user preferences and item features as follows.
 
@@ -108,7 +115,15 @@ $\mathbf{u}_t, \mathbf{q}_t$ are the factorized user preferences and item featur
 \subsection{Ranking Models}
 Another goal of recommendation research is to reveal the observed rankings. We here consider pair-wise rankings $p\succ_u q$, where user $u$ prefers item $p$ over $q$. The pair-wise rankings can be generated from pre-processing  the ratings, i.e. $\Rating_{u,p}> \mu, \Rating_{u,q}<\mu$~\cite{Hu2017Decoupled}, or from explicit and implicit feedback, i.e. $\Rating_{u,p}\neq 0$ and $ \Rating_{u,q}$ doesn't exist~\cite{Rendle2009BPR}. 
 
-A large body of previous research has been presented by employing a ranking aware loss function  $\Loss(p(p\succ_u q), o(p\succ_u q))$, where $p(p\succ_u q)$ is the predicted possibility and $o(p\succ_u q)$ is an indicator function of whether or not the ranking is observed. To generate the probability of pair-wise rankings $p(p\succ_u q)$,  each user-item combination is associated with a score, i.e. $\hat{\Rating}_{u,p},\hat{\Rating}_{u,q}$.  We list two most commonly adopted ranking models . 
+A large body of previous research has been presented by employing a ranking aware loss function  $\Loss(\Theta)$ on the observed pair-wise rankings. For example, the Bayesian posterior is expressed as:
+
+\begin{equation}
+\Loss(\Theta) = \sum_{u}\sum_{p,q} o(p\succ_u q) \log p(p\succ_u q) + \lambda(\|\mathbf{U}\| + \|\mathbf{V}\|).
+\end{equation}
+
+where $p(p\succ_u q)$ is the predicted possibility and $o(p\succ_u q)$ is an indicator function of whether or not the ranking is observed. 
+
+To generate the probability of pair-wise rankings $p(p\succ_u q)$,  each user-item combination is associated with a score, i.e. $\hat{\Rating}_{u,p},\hat{\Rating}_{u,q}$.  We list two most commonly adopted ranking models . 
 
 
 \textbf{Thurstone Model} The most frequently adopted ranking model in recommendation systems is the Thurstone model~\cite{Thurstone1927law} which uses a non-linear transformation of the predicted ratings. 
@@ -211,28 +226,28 @@ The third set of experiments is conducted to examine whether NCR versions of ran
 
 \subsection{Rating Prediction Performance}
 
-\textbf{Data Sets} We use the standard benchmarking datasets with user-item ratings. (1) Movielens: user-movie rating for movies collected from the MovieLens web site (2) FilmTrust~\cite{guo2013novel}: user-movie ratings crawled from the entire FilmTrust website. (3) CiaoDVD: user-movie ratings crawled from the entire category of DVDs from the UK Ciao website. Statistics of the datasets are described in Table.~\ref{tab:datasets}. 
+\textbf{Data Sets} We use the standard benchmarking datasets with user-item ratings. (1) Movielens\footnote{http://www.grouplens.org}: user-movie rating for movies collected from the MovieLens web site (2) FilmTrust~\cite{Guo2013Novel}: user-movie ratings crawled from the entire FilmTrust website. (3) CiaoDVD~\cite{Guo2014ETAF}: user-movie ratings crawled from the entire category of DVDs from the UK Ciao website. Statistics of the datasets are described in Table.~\ref{tab:datasets}. 
 
 For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation, 
 
 \begin{table}[htp]
-\caption{Statistics of Datasets with ratings and implicit feedback}
+\caption{Statistics of Datasets with ratings}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Dataset & \#users & \#items & \#ratings & \#sessions \\\hline
-Movielens &942 &1650 &80000 &4641262 \\\hline
-FilmTrust &1235 &2062 &35497 &623516 \\\hline
-CiaoDVD &2665 &14280 &72665 &2478836 \\\hline
+Dataset & \#users & \#items & \#ratings & \#pairs \\\hline
+Movielens &942 &1,650 &80,000 &4,641,262 \\\hline
+FilmTrust &1,235 &2,062 &35,497 &623,516 \\\hline
+CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \end{tabular}
 \end{center}
 \label{tab:datasets}
 \end{table}%
  
 
-\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization;  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization; (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. 
+\textbf{Comparative Methods}. We compare the non-compensatory improved versions (with suffix ``-NCR'') with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization;  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization; (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. For all the latent factor models, including the NCR versions, we set the number of aspects $K=10$, the regularization coefficients $\lambda=0.01$. The learning rate is self adapted as in~\cite{Wilson2003general}.  We stop the learning process either when the improvement in training error is smaller than $1e^{-6}$ or when the algorithm reaches $1000$ iterations. To reduce the number of parameters, we set the user-defined aspect-specific threshold for the NCR models $b_{u,k}=0$ for every $u,k$. 
 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve; (2) NDCG: another evaluation metric to measure the accuracy of item ranking by the predicted ratings v.s. the actural ranking;  (3) RMSE: computes the average squred difference between predicted ratings and the actual ratings; (4) MAE: computes the average absolute difference between predicted ratings and the actual ratings; (5) MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. 
+\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve; (2) NDCG: another evaluation metric to measure the accuracy of item ranking by the predicted ratings v.s. the actual ranking;  (3) RMSE: computes the average squared difference between predicted ratings and the actual ratings; (4) MAE: computes the average absolute difference between predicted ratings and the actual ratings; (5) MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. 
 
 \begin{table*}[htp]
 \caption{Comparative rating prediction performance}
@@ -269,16 +284,16 @@ Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
 \label{tab:ratingresult}
 \end{table*}%
 
-A general observation in Table.~\ref{tab:ratingresult} is that 
-\subsection{Ranking Performance for Implicit Feedback}
 
-\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. 
+
+\subsection{Ranking Reconstruction Performance}
+
+\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization. Following the settings in previous section, we set $b_{u,k}=0$ for all NCR models. 
 
 \textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: (2) NDCG (3) RMSE (4) MAE (5) MRR
 
-\begin{table}[htp]
-\tiny
-\caption{Comparative ranking prediction performance with implicit feedback}
+\begin{table*}[htp]
+\caption{Comparative ranking prediction performance}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
@@ -310,9 +325,9 @@ Dataset & Method & MAP & NDCG & Prec & Recall & MRR \\\hline
 \end{tabular}
 \end{center}
 \label{tab:ratingresult}
-\end{table}%
+\end{table*}%
 
-
+A general observation in Table.~\ref{tab:ratingresult} is that 
 
 
 \subsection{Ranking Performance for Graded Sessional Feedback}
@@ -323,10 +338,10 @@ Dataset & Method & MAP & NDCG & Prec & Recall & MRR \\\hline
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Dataset & \#users & \#items & \#ratings & \#sessions \\\hline
+Dataset & \#users & \#items & \#pair & \#sessions \\\hline
 Tmall-single &33815 &176231 &5682833 &364844 \\\hline
 Tmall-hybrid &62101 &198344 &6072061 &475503 \\\hline
-Yoochose &1 &30852 &3044572 &341396 \\\hline
+Yoochose &341,396 &30852 &3044572 &341,396 \\\hline
 \end{tabular}
 \end{center}
 \label{tab:datasets}
@@ -336,8 +351,7 @@ Yoochose &1 &30852 &3044572 &341396 \\\hline
 
 \textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: (2) NDCG (3) RMSE (4) MAE (5) MRR
 
-\begin{table}[htp]
-\tiny
+\begin{table*}[htp]
 \caption{Comparative ranking prediction performance with graded sessional feedback}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
@@ -370,7 +384,7 @@ Dataset & Method & MAP & NDCG & Prec & Recall & MRR \\\hline
 \end{tabular}
 \end{center}
 \label{tab:ratingresult}
-\end{table}%
+\end{table*}%
 
 
 \subsection{Effect of Non-compensatory Rules}
