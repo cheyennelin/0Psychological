@@ -32,6 +32,14 @@ Guo, G.; Zhang, J.; and Yorke-Smith, N.
 \newblock In {\em Proceedings of the 23rd International Joint Conference on
   Artificial Intelligence (IJCAI)},  2619--2625.
 
+\bibitem[\protect\citeauthoryear{Hauser, Ding, and
+  Gaskin}{2009}]{Hauser2009Non}
+Hauser, J.~R.; Ding, M.; and Gaskin, S.~P.
+\newblock 2009.
+\newblock Non-compensatory (and compensatory) models of consideration-set
+  decisions.
+\newblock In {\em 2009 Sawtooth Software Conference Proceedings, Sequin WA}.
+
 \bibitem[\protect\citeauthoryear{Hu and Li}{2016}]{Hu2016Improved}
 Hu, J., and Li, P.
 \newblock 2016.
@@ -76,6 +84,13 @@ Koren, Y.
 \newblock Factor in the neighbors: Scalable and accurate collaborative
   filtering.
 \newblock {\em ACM Transactions on Knowledge Discovery from Data.} 4:1:1--1:24.
+
+\bibitem[\protect\citeauthoryear{Laroche, Kim, and
+  Matsui}{2003}]{Laroche2003Which}
+Laroche, M.; Kim, C.; and Matsui, T.
+\newblock 2003.
+\newblock Which decision heuristics are used in consideration set formation?
+\newblock {\em Journal of Consumer Marketing} 20(3):192--209.
 
 \bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
   }{2013}]{Lee2013Local}
