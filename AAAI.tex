@@ -223,8 +223,8 @@ To infer the parameters of BTL-NCR, we implement a stochastic expectation maximi
 
 \section{Experiments}\label{sec:experiment}
 We conduct experiments to evaluate the performance of non-compensatory rules in recommendation models. We conduct three sets of experiments on real world datasets. The first set of experiments is conducted to examine whether the NCR versions of rating prediction models outperform the original versions on rating data sets. 
-The second set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with implicit feedback.
-The third set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with user interaction session information.
+The second set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
+The third set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with graded implicit feedback.
 
 \subsection{Rating Prediction Performance}
 
@@ -296,7 +296,7 @@ We can see from Table.~\ref{tab:ratingresult} that overall adopting non-compensa
 
 \textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on four widely adopted ranking methods. (1) BTL~\cite{Hu2016Improved};: the Bradley-Terry ranking model with MF rating prediction formula, (2) BPR~\cite{Rendle2009BPR}:  the Thurstonian ranking model with MF rating prediction formula, the optimization is through maximal Bayesian posterior, the regularization coefficient is $\lambda=0.04$, (3) FSBPR~\cite{Zhao2018Factored}: the Thurstonian ranking model with AMF rating prediction formula, the optimization is through maximal Bayesian posterior, (4) LCR~\cite{Lee2014Local}: the Thurstonian ranking model with local low-rank matrix factorization, the loss function for LLORMA and LLORMA-NCR is $log[M]$ which is the log-likelihood. 
 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings for each user. Hence we adopt different ranking evaluation metrics, including AUC, NDCG, Precision, Recall and MRR. Precision and Recall are concepts borrowed from classifier evaluation metrics which are both based on the fraction of correctly ordered test pairs. To be specific, an item $p$ is predicted to be a winner in a pair if there exists another item $q$ and for user $u$ the prediction favors $p$, i.e. $p(p\succ_u q)> p(q\succ_u p)$. For each item $p$, precision is the fraction with the number of correctly identified winners (i.e. $p$ is predicted to be superior than $q$ for user $u$ while the actual rating $\hat\Rating_{u,p}>\hat\Rating_{u,q}$) as numerator, and the number of pairs where $p$ is predicted to be a winner as denominator. Similarly, recall is the number of correctly identified winners divided by the number of pairs where $p$ is truly a winner. The reported precision and recall are averaged over all items. 
+\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings for each user. Hence we adopt different ranking evaluation metrics, including AUC, NDCG, Precision, AUC and MRR. Precision is the concept borrowed from classifier evaluation metric which is based on the fraction of correctly ordered test pairs. To be specific, an item $p$ is predicted to be a winner in a pair of $p,q$ if the prediction favors $p$, i.e. $p(p\succ_u q)> p(q\succ_u p)$. Precision is the fraction with the number of correctly identified winners (i.e. $p$ is predicted to be superior than $q$ for user $u$ while the actual rating $\hat\Rating_{u,p}>\hat\Rating_{u,q}$) as numerator, and the number of evaluation sessions (i.e. the pair-wise rating rankings) as denominator.
 
 \begin{table}[htp]
 \tiny
@@ -304,29 +304,29 @@ We can see from Table.~\ref{tab:ratingresult} that overall adopting non-compensa
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-Dataset & Method & MAP & NDCG & Precision & Recall & MRR \\\hline
-\multirow{6}{*}{Movielens} & BTL &0.7654 &0.5070 &0.5307 &0.7553 &0.7654 \\\cline{2-7}
- & BTL-NCR &0.8440 &0.5425 &0.6879 &0.8340 &0.8440 \\\cline{2-7}
- & BPR &0.8478 &0.5443 &0.6956 &0.8478 &0.8478 \\\cline{2-7}
- & BPR-NCR &0.8623 &0.5508 &0.7246 &0.8623 &0.8623 \\\cline{2-7}
- & FSBPR &0.7474 &0.4993 &0.4968 &0.7583 &0.7484 \\\cline{2-7}
-  & FSBPR-NCR &0.7964 &0.5205 &0.5908 &0.7856 &0.7954 \\\cline{2-7}
+Dataset & Method & MAP & NDCG & Precision & AUC & MRR \\\hline
+\multirow{6}{*}{Movielens} & BTL &0.7654 &0.5070 &0.5307 & &0.7654 \\\cline{2-7}
+ & BTL-NCR &0.8440 &0.5425 &0.6879 & &0.8440 \\\cline{2-7}
+ & BPR &0.8478 &0.5443 &0.6956 & &0.8478 \\\cline{2-7}
+ & BPR-NCR &0.8623 &0.5508 &0.7246 & &0.8623 \\\cline{2-7}
+ & FSBPR &0.7474 &0.4993 &0.4968 & &0.7484 \\\cline{2-7}
+  & FSBPR-NCR &0.7964 &0.5205 &0.5908 & &0.7954 \\\cline{2-7}
    & LCR & & & & & \\\cline{2-7}
  & LCR-NCR & & & & & \\\hline
-\multirow{6}{*}{Filmtrust} & BTL &0.7674 &0.5070 &0.5307 &0.7551 &0.7654 \\\cline{2-7}
- & BTL-NCR &0.8182 &0.5312 &0.6379 &0.8089 &0.8190 \\\cline{2-7}
- & BPR &0.7825 &0.5147 &0.5649 &0.7825 &0.7825  \\\cline{2-7}
- & BPR-NCR &0.8365 &0.5392 &0.6730 &0.8365 &0.8365 \\\cline{2-7}
- & FSBPR &0.7484 &0.4996 &0.4980 &0.7387 &0.7490 \\\cline{2-7}
-  & FSBPR-NCR &0.7956 &0.5205 &0.5908 &0.7953 &0.7954 \\\cline{2-7}
+\multirow{6}{*}{Filmtrust} & BTL &0.7674 &0.5070 &0.5307 & &0.7654 \\\cline{2-7}
+ & BTL-NCR &0.8182 &0.5312 &0.6379 & &0.8190 \\\cline{2-7}
+ & BPR &0.7825 &0.5147 &0.5649 & &0.7825  \\\cline{2-7}
+ & BPR-NCR &0.8365 &0.5392 &0.6730 & &0.8365 \\\cline{2-7}
+ & FSBPR &0.7484 &0.4996 &0.4980 & &0.7490 \\\cline{2-7}
+  & FSBPR-NCR &0.7956 &0.5205 &0.5908 & &0.7954 \\\cline{2-7}
    & LCR & & & & & \\\cline{2-7}
  & LCR-NCR & & & & & \\\hline
-\multirow{6}{*}{CiaoDVD} & BTL &0.8009 &0.5230 &0.6016 &0.7903 &0.8008 \\\cline{2-7}
- & BTL-NCR &0.9394 &0.5857 &0.8787 &0.9291 &0.9393 \\\cline{2-7}
- & BPR &0.7241 &0.4883 &0.4481 &0.7240 &0.7240 \\\cline{2-7}
- & BPR-NCR &0.9537 &0.5922 &0.9074 &0.9537 &0.9537 \\\cline{2-7}
- & FSBPR &0.7501 &0.5001 &0.5004 &0.7401 &0.7502 \\\cline{2-7}
-  & FSBPR-NCR &0.8906 &0.5637 &0.7815 &0.8806 &0.8908 \\\cline{2-7}
+\multirow{6}{*}{CiaoDVD} & BTL &0.8009 &0.5230 &0.6016 & &0.8008 \\\cline{2-7}
+ & BTL-NCR &0.9394 &0.5857 &0.8787 & &0.9393 \\\cline{2-7}
+ & BPR &0.7241 &0.4883 &0.4481 & &0.7240 \\\cline{2-7}
+ & BPR-NCR &0.9537 &0.5922 &0.9074 & &0.9537 \\\cline{2-7}
+ & FSBPR &0.7501 &0.5001 &0.5004 & &0.7502 \\\cline{2-7}
+  & FSBPR-NCR &0.8906 &0.5637 &0.7815 & &0.8908 \\\cline{2-7}
    & LCR & & & & & \\\cline{2-7}
  & LCR-NCR & & & & & \\\hline
 \end{tabular}
@@ -334,32 +334,35 @@ Dataset & Method & MAP & NDCG & Precision & Recall & MRR \\\hline
 \label{tab:rankingresult}
 \end{table}%
 
-A general observation in Table.~\ref{tab:rankingresult} is that embedding non-compensatory rules greatly improves existing ranking models. 
+A general observation in Table.~\ref{tab:rankingresult} is that embedding non-compensatory rules significantly improves existing ranking models. For example, in terms of precision on all data sets, the non-compensatory rules averagely improve BTL's performance by $29\%$ , BPR's performance by $42\%$, FSBPR by $32\%$ and LCR by $\%$. This observation implies that non-compensatory rules better describe the consumer decision process in comparing between alternative items.
 
 
-\subsection{Ranking Performance for Sessional Feedback}
+\subsection{Ranking Performance for Graded Implicit Feedback}
+In most recommender systems, users not only give explicit ratings but also implicit feedback that can be graded. For example, a purchase and a click are both implicit feedback that indicates user preference. A reasonable grading is that a purchase is ``higher'' than a click, as a purchase is a stronger indicator of user preference. Therefore, we conduct experiments on datasets with graded implicit feedback.  
 
-\textbf{Data Sets} In our model the prominent aspect is sampled for each evaluation session. In the previous experiments, the evaluation sessions are considered to be associated with each rating. Here we evaluate model performance when the user interaction session information is available. We use two real world datasets: (1) Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase.  (2) Yoochoose\footnote{http://2015.recsyschallenge.com}. 
+
+\textbf{Data Sets}  We use three real world datasets. Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase. We build two data sets based on Tmall. (1) Tmall-single: a set of pairwise rankings where an item $p$ purchased in $u$'s session is considered to be superrior than an item $q$ clicked in the same session. (2) Tmall-hybrid: the pairwise rankings are built by extracting purchased items in each session and all remaining items which are not purchased in the same session. Thus if an item $p$ is purchased in the session, and an item $q$ is either clicked, added to cart or added to favorite, we build $p\succ_u q$. (3) Yoochoose\footnote{http://2015.recsyschallenge.com}: a collection of user shopping sessions with clicked and purchased items. In this data set, user information is not provided. To avoid the cold-start user problem, we assume all sessions are from users with similar preferences.
 \begin{table}[htp]
-\caption{Statistics of Datasets with sessional feedback}
+\caption{Statistics of Datasets with graded implicit feedback}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Dataset & \#users & \#items & \#pairs & \#sessions \\\hline
 Tmall-single &33,815 &176,231 &5,682,833 &364,844 \\\hline
 Tmall-hybrid &62,101 &198,344 &6,072,061 &475,503 \\\hline
-Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
+Yoochoose &- &30,852 &3,044,572 &341,396 \\\hline
 \end{tabular}
 \end{center}
 \label{tab:datasets}
 \end{table}%
 
-\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on three widely adopted rating prediction methods 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: (2) NDCG (3) RMSE (4) MAE (5) MRR
+\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on the same four ranking models. It is worthy to note that implementation of BTL-NCR is different from previous sections.  In our model the prominent aspect is associate with each evaluation session. In the previous experiments, an evaluation session is a rating or a pair of rating. Here we the user interaction session information is available. Thus in BTL-NCR, we sample the prominent aspect for each session instead of a pair of actions.  
+
+\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings of activities precisely. Hence we evaluate different approaches based on the following metrics. (1) MAP: computes the mean average precision of the correctly ordered activity pairs (2) NDCG (3) MRR as described above. (4) Precision (5) Recall are two evaluation metrics designed to evaluate sessional ranking performance. For each session, if there are $N$ purchased items in a session, we compute the pairwise ranking probability between the purchased items and other items and generate a purchase item. The sessional precision is the the fraction of correctly identified items in all items that are predicted to be purchased, recall is the ratio of correctly identified items divided by the number of $N$. Reported precision and recall are averaged over all sessions.  
 
 \begin{table}[htp]
 \tiny
-\caption{Comparative ranking prediction performance graded sessional feedback}
+\caption{Comparative ranking prediction performance for sessional graded feedback}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
@@ -390,11 +393,17 @@ Dataset & Method & MAP & NDCG & Precision & Recall & MRR \\\hline
  & LCR-NCR & & & & & \\\hline
 \end{tabular}
 \end{center}
-\label{tab:ratingresult}
+\label{tab:gradedresult}
 \end{table}%
 
+As shown in Table.~\ref{tab:gradedresult}. 
 
-\subsection{Effect of Non-compensatory Rules}
+
+\subsection{Strength of Non-compensatory Rules}
+
+We next study how the two types of non-compensatory rules are combined. The parameter $\theta$ controls the strength of lexicographical rules. We report the values of $\theta$ in Table.~\ref{tab:theta}. We have the following observations. (1) The obtained value $\theta>0$ for all models on all datasets. Since $\exp\theta>1$, the prominent aspect is more important than non-prominent aspect in user evaluations. This is consistent to our assumptions that lexicographical rules will evaluate item perforamance first on the most important aspect. (2) The optimal value of $\theta$ differs among models and data sets. In general, BTL-NCR model relies more on the prominent aspect. (3) We observe positive association between rating model and ranking models with the same type of rating prediction formula. For example, MF-NCR and BPR-NCR adopt the same conventional matrix factorization prediction formula, and they generally derive a smaller $\theta$, compared with AMF-NCR and FSBPR-NCR, which share the same form of neighborhood factorization prediction formula.  
+
+ 
 
 \begin{table}[htp]
 \caption{Scale of strength parameter $\theta$}
@@ -416,11 +425,13 @@ FSBPR-NCR & & & \\\hline
 LCR-NCR & & & \\\hline
 \end{tabular}
 \end{center}
-\label{default}
+\label{tab:theta}
 \end{table}%
 
 
 \subsection{Effect of User-defined Aspect-specific Threshold}
+
+Finally, we study the effect of user-defined aspect-specific threshold $\mathbf{b}_{u,k}$. In the previous experiment on rating performance, we set $\mathbf{b}_{u,k}=0$ for all users and aspects. Here we allow $\mathbf{b}_{u,k}$ to be infered. For a fair comparison, we compare the $MF-NCR-b$ with MF with user and item biases.  
 
 \begin{table}[htp]
 \tiny
@@ -429,21 +440,21 @@ LCR-NCR & & & \\\hline
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
-\multirow{2}{*}{Movielens} & MF &  & 	 &	 &	 &	 
+\multirow{2}{*}{Movielens} & MF-biased &  & 	 &	 &	 &	 
  \\\cline{2-7}
- & MF-NCR & & 	 &	 &	 &	 
+ & MF-NCR-b & & 	 &	 &	 &	 
  \\\hline
-\multirow{2}{*}{Filmtrust} & MF & &	 &	 	&  &	 
+\multirow{2}{*}{Filmtrust} & MF-biased & &	 &	 	&  &	 
  \\\cline{2-7}
- & MF-NCR &  & 	 &	 & 	 & 	 
+ & MF-NCR-b &  & 	 &	 & 	 & 	 
 \\\hline
- \multirow{2}{*}{CiaoDVD} & MF & & 	 &	 & 	 	 &  
+ \multirow{2}{*}{CiaoDVD} & MF-biased & & 	 &	 & 	 	 &  
 \\\cline{2-7}
- & MF-NCR & & 	 &	 &	 	&  
+ & MF-NCR-b & & 	 &	 &	 	&  
  \\\hline
 \end{tabular}
 \end{center}
-\label{tab:ratingresult}
+\label{tab:biasresult}
 \end{table}%
 
 
@@ -453,10 +464,10 @@ Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
 \begin{tabular}{|c|c|c|c|}
 \hline
 Method & Movielens & FilmTrust & CiaoDVD \\\hline
-$\mathbf{b}_{u,k}$ & & & \\\hline
+$std(\mathbf{b}_{u,k})$ & & & \\\hline
 \end{tabular}
 \end{center}
-\label{default}
+\label{tab:bias}
 \end{table}%
 
 
