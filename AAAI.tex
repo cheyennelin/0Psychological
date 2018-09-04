@@ -4,6 +4,7 @@
 \usepackage{multirow}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{array}
 \newcommand{\Ep}{\mathbb{E}}
 \newcommand{\Real}{\mathcal{R}}
 \newcommand{\Rating}{\mathbf{X}}
@@ -227,7 +228,7 @@ We conduct experiments to evaluate the performance of non-compensatory rules in 
 The second set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
 The third set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in NCR models for further insights.
 
-\subsection{Rating Prediction Performance}
+\subsection{Comparative Results for Rating Prediction Models}
 
 \textbf{Data Sets} We use the standard benchmarking datasets with user-item ratings. (1) Movielens\footnote{http://www.grouplens.org}: user-movie rating for movies collected from the MovieLens web site (2) FilmTrust~\cite{Guo2013Novel}: user-movie ratings crawled from the entire FilmTrust website. (3) CiaoDVD~\cite{Guo2014ETAF}: user-movie ratings crawled from the entire category of DVDs from the UK Ciao website. Statistics of the datasets are described in Table.~\ref{tab:datasets}. 
 
@@ -251,40 +252,52 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 
 \textbf{Comparative Methods}. We compare the non-compensatory improved versions (with suffix ``-NCR'') with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization in Equ.~\ref{equ:MF};  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization in Equ.~\ref{equ:AMF}; (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization in Equ.~\ref{equ:LLORMA}. For all methods including the NCR versions, we set the number of aspects $K=10$. The regularization coefficients for MF and MF-NCR is $\lambda=0.01$. The number of local models for LLORMA and LLORMA-NCR is $S=10$. The learning rate is self adapted as in~\cite{Wilson2003general}.  We stop the learning process either when the improvement in training error is smaller than $1e^{-6}$ or when the algorithm reaches $1000$ iterations. To reduce the number of parameters, we set the user-defined aspect-specific threshold for the NCR models $\mathbf{b}_{u,k}=0$ for every $u,k$. 
 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed user-item ratings as accurate as possible. Hence we evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve; (2) NDCG: another evaluation metric to measure the accuracy of item ranking by the predicted ratings v.s. the actual ranking;  (3) RMSE: computes the average squared difference between predicted ratings and the actual ratings; (4) MAE: computes the average absolute difference between predicted ratings and the actual ratings; (5) MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. 
+\textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve; (2) NDCG: another evaluation metric to measure the accuracy of item ranking by the predicted ratings v.s. the actual ranking;  (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. %;  (4) RMSE: a metric to evaluate how accurate the ratings are predicted. MAE computes the average square root of difference between predicted ratings and the actual ratings.
 
 \begin{table}[htp]
 \tiny
-\caption{Comparative rating prediction performance}
+\caption{Comparative performance for compensatory and non-compensatory rating prediction models, `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|p{0.7cm}<{\centering}|c|c|p{0.5cm}<{\centering}|c|p{0.5cm}<{\centering}|c|p{0.5cm}<{\centering}|}
 \hline
-Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
-\multirow{6}{*}{Movielens} & MF & 0.6661 & 	0.6856 &	1.1351 &	0.8564 &	0.8391 
- \\\cline{2-7}
- & MF-NCR &0.7019 & 	0.7137 &	1.0303 &	0.8198 &	0.8770 
- \\\cline{2-7}
- & AMF &0.6043 &0.5003 &1.1682 &0.9924 &0.7506 \\\cline{2-7}
- & AMF-NCR &0.6129 &0.5027 &1.4392 &1.2560 &0.7559 \\\cline{2-7}
- & LLORMA & &0.8990 &0.9291 &0.7322 &0.5761 \\\cline{2-7}
- & LLORMA-NCR & &0.8994 &0.9217 &0.7288 &0.5761 \\\hline
-\multirow{6}{*}{Filmtrust} & MF &0.6056 &	0.5240 &	1.1426 	& 0.8282 &	0.7522 
- \\\cline{2-7}
- & MF-NCR & 0.6159 & 	0.5258 &	1.0473 & 	0.7870 & 	0.7633 
-\\\cline{2-7}
- & AMF &0.6244 &0.5055 &0.8601 &0.7448 &0.7622 \\\cline{2-7}
- & AMF-NCR &0.6436 &0.5098 &1.1535 &0.9330 &0.7717 \\\cline{2-7}
- & LLORMA & &0.8672 &0.8341 &0.6437 &0.6481 \\\cline{2-7}
- & LLORMA-NCR & &0.8684 &0.8310 &0.6417 &0.6533 \\\hline
- \multirow{6}{*}{CiaoDVD} & MF &0.5915 & 	0.6497 &	2.4717 & 	1.9519 	 & 0.8427 
-\\\cline{2-7}
- & MF-NCR &0.6997 & 	0.6895 &	1.9459 &	1.3389 	& 0.9008 
-  \\\cline{2-7}
- & AMF &0.6211 &0.5048 &1.2025 &1.0261 &0.7607\\\cline{2-7}
- & AMF-NCR &0.7993 &0.5657 &1.1475 &0.9723 &0.8950 \\\cline{2-7}
- & LLORMA & &0.7827 &1.0436 &0.8188 &0.4883 \\\cline{2-7}
- & LLORMA-NCR & &0.7838 &1.0608 &0.8271 &0.4904 \\\hline
-\end{tabular}
+Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve\\\hline
+\multirow{6}{*}{Movielens} &	MF	& 0.6661 	& &	0.6856 	&&	0.8391 	&\\
+\cline{2-8}
+	&MF-NCR	&0.6990 &	4.94$\%$	&0.7107 	&3.67$\%$	&0.8745 &	4.23$\%$	\\
+	\cline{2-8}
+	&AMF&	0.6043 	&&	0.5003 	&&	0.7506 &\\
+	\cline{2-8}
+	&AMF-NCR	&0.6129 	&1.43$\%$	&0.5027 &	0.48$\%$	&0.7559 	&0.71$\%$	\\
+	\cline{2-8}
+	&LLORMA		&&	&0.8990 	&&	0.5761&\\	
+	\cline{2-8}
+	&LLORMA-NCR	&&&		0.8994 	&0.04$\%$	&0.5761 	&0.01$\%$	\\
+	\hline
+\multirow{6}{*}{Filmtrust}	&MF	&0.6056 	&&	0.5240 &&		0.7522 	&	\\
+\cline{2-8}
+	&MF-NCR&	0.6166 	&1.81$\%$	&0.5252 	&0.24$\%$	&0.7624 	&1.35$\%$\\
+	\cline{2-8}
+	&AMF	&0.6244 	&&	0.5055 &&		0.7622 	&	\\
+	\cline{2-8}
+	&AMF-NCR	&0.6436 	&3.07$\%$	&0.5098 	&0.85$\%$	&0.7717 	&1.24$\%$	\\
+	\cline{2-8}
+	&LLORMA	&& &		0.8672 	&&	0.6481 	&	\\
+	\cline{2-8}
+	&LLORMA-NCR		&&&	0.8684 &	0.14$\%$	&0.6533 	&0.80$\%$	\\
+	\hline
+\multirow{6}{*}{CiaoDVD}	&MF	&0.5915 	&&	0.6497 &	&	0.8427 &	\\
+\cline{2-8}
+	&MF-NCR	&0.6948 	&17.45$\%$	&0.6872 	&5.77$\%$	&0.8969 	&6.43$\%$	\\
+	\cline{2-8}
+	&AMF	&0.6211 	&&	0.5048 	&&	0.7607 	&	\\
+	\cline{2-8}
+	&AMF-NCR	&0.7993 &	28.69$\%$	&0.5657 	&12.05$\%$	&0.8950 	&17.67$\%$	\\
+	\cline{2-8}
+	&LLORMA		&&	&0.7827 		&&0.4883 		& 	\\
+	\cline{2-8}
+	&LLORMA-NCR	&& &		0.7838 	&0.14$\%$	&0.4904 	&0.43$\%$	\\
+	\hline
+	\end{tabular}
 \end{center}
 \label{tab:ratingresult}
 \end{table}%
@@ -292,9 +305,9 @@ Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
 We can see from Table.~\ref{tab:ratingresult} that overall adopting non-compensatory rules can improve model performance. We observe that for ``simpler'' models, the improvement is more significant. For example, MF-NCR outperforms MF on all three data sets in terms of higher AUC,NDCG and MRR results and lower RMSE and MAE results. AMF-NCR performs better than AMF on Filmtrust and CiaoDVD and generates better ranking results than AMF on Movielens. LLORMA-NCR achieves higher ranking related AUC,NDCG and MRR results, compared with LLORMA, while preserving comparable RMSE and MAE results.  However, increasing the model complexity also leads to increased computation time and poor interpretability. Thus utilizing non-compensatory rules in simpler models, such as MF and AMF, generates recommendations with higher accuracy, efficiency and interpretability. 
 
 
-\subsection{Ranking Reconstruction Performance}
+\subsection{Comparative Results for Ranking Models}
 
-\textbf{Data Sets}. Next we evaluate the performance of ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. We construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table.~\ref{tab:datasets}
+\textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. We construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table.~\ref{tab:datasets}
 
 \textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved};: the Bradley-Terry ranking model with MF rating prediction formula, (2) BPR~\cite{Rendle2009BPR}:  the Thurstonian ranking model with MF rating prediction formula, the optimization is through maximal Bayesian posterior, the regularization coefficient is $\lambda=0.01$, (3) FSBPR~\cite{Zhao2018Factored}: the Thurstonian ranking model with AMF rating prediction formula, the optimization is through maximal Bayesian posterior, (4) LCR~\cite{Lee2014Local}: the Thurstonian ranking model with local low-rank matrix factorization, the loss function for LLORMA and LLORMA-NCR is $log[M]$ which is the log-likelihood. The number of local models  is $S=10$.  For all methods including the NCR versions, we set the number of aspects $K=10$. 
 
