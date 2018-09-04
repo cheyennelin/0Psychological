@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  3 SEP 2018 16:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  3 SEP 2018 16:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,84 +285,74 @@ Underfull \hbox (badness 1137) in paragraph at lines 232--233
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
 []\OT1/ptm/b/n/10 Comparative Meth-ods\OT1/ptm/m/n/10 . We com-pare the non-
  []
 
 
-Underfull \hbox (badness 1845) in paragraph at lines 251--252
+Underfull \hbox (badness 1845) in paragraph at lines 252--253
 \OT1/ptm/m/n/10 compensatory im-proved ver-sions (with suf-fix ``-NCR'')
  []
 
 
-Underfull \hbox (badness 2941) in paragraph at lines 251--252
+Underfull \hbox (badness 2941) in paragraph at lines 252--253
 \OT1/ptm/m/n/10 pre-dic-tion meth-ods (1) MF ( Ko-ren, Bell, and Volin-
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 251--252
+Underfull \hbox (badness 1189) in paragraph at lines 252--253
 \OT1/ptm/m/n/10 fac-tor-iza-tion in Equ. 4[]. For all meth-ods in-clud-ing the
  []
 
 
-Underfull \hbox (badness 1092) in paragraph at lines 291--292
+Underfull \hbox (badness 1092) in paragraph at lines 292--293
 \OT1/ptm/m/n/10 on all three data sets in terms of higher AUC,NDCG
  []
 
 
-Underfull \hbox (badness 1158) in paragraph at lines 291--292
+Underfull \hbox (badness 1158) in paragraph at lines 292--293
 \OT1/ptm/m/n/10 and MRR re-sults and lower RMSE and MAE re-sults.
  []
 
 
-Underfull \hbox (badness 1237) in paragraph at lines 291--292
+Underfull \hbox (badness 1237) in paragraph at lines 292--293
 \OT1/ptm/m/n/10 while pre-serv-ing com-pa-ra-ble RMSE and MAE re-sults.
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 345--345
+Underfull \hbox (badness 10000) in paragraph at lines 346--346
 [][]\OT1/ptm/m/n/9 https://ijcai-15.org/index.php/repeat-buyers-prediction-
  []
 
-
-Overfull \hbox (11.66449pt too wide) in paragraph at lines 349--356
- [] 
- []
-
-[6]
-Overfull \hbox (22.99352pt too wide) in paragraph at lines 412--428
- [] 
- []
-
-(./AAAI.bbl [7]) [8] (./AAAI.aux) ) 
+[6] (./AAAI.bbl [7]) [8] (./AAAI.aux) ) 
 Here is how much of TeX's memory you used:
  2436 strings out of 492646
  33493 string characters out of 6129564
- 131987 words of memory out of 5000000
+ 132987 words of memory out of 5000000
  6257 multiletter control sequences out of 15000+600000
  26037 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,25p,1225b,249s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/en
-c/dvips/base/8r.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
-/cmextra/cmex7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.
-pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
-></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
-exlive/2018/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on AAAI.pdf (8 pages, 235968 bytes).
+{/usr/local/texlive/2018/texmf-dist/font
+s/enc/dvips/base/8r.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
+onts/cmextra/cmex7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5
+.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
+fb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive
+/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on AAAI.pdf (8 pages, 235846 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  75 compressed objects within 1 object stream

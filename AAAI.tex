@@ -234,6 +234,7 @@ The third set of experiments is conducted to examine whether NCR versions of ran
 For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation, 
 
 \begin{table}[htp]
+\tiny
 \caption{Statistics of Datasets with ratings}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
@@ -344,6 +345,7 @@ In most recommender systems, users not only give explicit ratings but also impli
 
 \textbf{Data Sets}  We use three real world datasets, as shown in Table.~\ref{tab:idata}. Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase. We build two data sets based on Tmall. (1) Tmall-single: a set of pairwise rankings where an item $p$ purchased in $u$'s session is considered to be superrior than an item $q$ clicked in the same session. (2) Tmall-hybrid: the pairwise rankings are built by extracting purchased items in each session and all remaining items which are not purchased in the same session. Thus if an item $p$ is purchased in the session, and an item $q$ is either clicked, added to cart or added to favorite, we build $p\succ_u q$. (3) Yoochoose\footnote{http://2015.recsyschallenge.com}: a collection of user shopping sessions with clicked and purchased items. In this data set, user information is not provided. To avoid the cold-start user problem, we assume all sessions are from users with similar preferences.
 \begin{table}[htp]
+\tiny
 \caption{Statistics of Datasets with graded implicit feedback}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
@@ -407,6 +409,7 @@ We next study how the two types of non-compensatory rules are combined. The para
  
 
 \begin{table}[htp]
+\tiny
 \caption{Scale of strength parameter $\theta$}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
