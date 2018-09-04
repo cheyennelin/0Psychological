@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  3 SEP 2018 22:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  3 SEP 2018 23:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -95,11 +95,31 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+(/usr/local/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen113
+\lightrulewidth=\dimen114
+\cmidrulewidth=\dimen115
+\belowrulesep=\dimen116
+\belowbottomsep=\dimen117
+\aboverulesep=\dimen118
+\abovetopsep=\dimen119
+\cmidrulesep=\dimen120
+\cmidrulekern=\dimen121
+\defaultaddspace=\dimen122
+\@cmidla=\count101
+\@cmidlb=\count102
+\@aboverulesep=\dimen123
+\@belowrulesep=\dimen124
+\@thisruleclass=\count103
+\@lastruleclass=\count104
+\@thisrulewidth=\dimen125
+)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
 Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
-\col@sep=\dimen113
+\col@sep=\dimen126
 \ar@mcellbox=\box28
-\extrarowheight=\dimen114
+\extrarowheight=\dimen127
 \NC@list=\toks19
 \extratabsurround=\skip48
 \backup@length=\skip49
@@ -141,40 +161,40 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen115
-\Gin@req@width=\dimen116
+\Gin@req@height=\dimen128
+\Gin@req@width=\dimen129
 )
 (./AAAI.aux)
 \openout1 = `AAAI.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 27.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count101
-\scratchdimen=\dimen117
+\scratchcounter=\count105
+\scratchdimen=\dimen130
 \scratchbox=\box30
-\nofMPsegments=\count102
-\nofMParguments=\count103
+\nofMPsegments=\count106
+\nofMParguments=\count107
 \everyMPshowfont=\toks21
-\MPscratchCnt=\count104
-\MPscratchDim=\dimen118
-\MPnumerator=\count105
-\makeMPintoPDFobject=\count106
+\MPscratchCnt=\count108
+\MPscratchDim=\dimen131
+\MPnumerator=\count109
+\makeMPintoPDFobject=\count110
 \everyMPtoPDFconversion=\toks22
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -233,302 +253,385 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
-LaTeX Font Info:    Try loading font information for U+msa on input line 33.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 34.
+LaTeX Font Info:    Try loading font information for U+msa on input line 34.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 33.
+LaTeX Font Info:    Try loading font information for U+msb on input line 34.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 33.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 34.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 34.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 33.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 34.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 34.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
  [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
 ]
-Underfull \hbox (badness 3954) in paragraph at lines 69--70
+Underfull \hbox (badness 3954) in paragraph at lines 70--71
 []\OT1/ptm/m/n/10 Non-compensatory rules are widely used in many
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 85.
 
-Underfull \hbox (badness 2103) in paragraph at lines 102--103
+Underfull \hbox (badness 2103) in paragraph at lines 103--104
 []\OT1/ptm/b/n/10 Neighborhood Fac-tor-iza-tion. \OT1/ptm/m/n/10 in tra-di-tion
 al mem-ory
  []
 
 [2]
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 147.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 148.
  [3]
-Overfull \hbox (26.02144pt too wide) detected at line 184
+Overfull \hbox (26.02144pt too wide) detected at line 185
 [] \OT1/cmr/m/n/10 = [] [][[] \OML/cmm/m/it/10 ^^R\OT1/cmr/bx/n/10 q[] \OT1/cmr
 /m/n/10 + [](\OT1/cmr/bx/n/10 q[] \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/bx/n/10 b[]\OT1
 /cmr/m/n/10 )]\OML/cmm/m/it/10 :
  []
 
 [4]
-Underfull \hbox (badness 1014) in paragraph at lines 233--234
+Underfull \hbox (badness 1014) in paragraph at lines 234--235
 \OT1/ptm/b/n/10 Data Sets \OT1/ptm/m/n/10 We use the stan-dard bench-mark-ing d
 atasets
  []
 
 
-Underfull \hbox (badness 1137) in paragraph at lines 233--234
+Underfull \hbox (badness 1137) in paragraph at lines 234--235
 \OT1/ptm/m/n/10 with user-item rat-ings. (1) Movie-lens[]: user-movie rat-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 253--254
+Underfull \hbox (badness 10000) in paragraph at lines 254--255
 []\OT1/ptm/b/n/10 Comparative Meth-ods\OT1/ptm/m/n/10 . We com-pare the non-
  []
 
 
-Underfull \hbox (badness 1845) in paragraph at lines 253--254
+Underfull \hbox (badness 1845) in paragraph at lines 254--255
 \OT1/ptm/m/n/10 compensatory im-proved ver-sions (with suf-fix ``-NCR'')
  []
 
 
-Underfull \hbox (badness 2941) in paragraph at lines 253--254
+Underfull \hbox (badness 2941) in paragraph at lines 254--255
 \OT1/ptm/m/n/10 pre-dic-tion meth-ods (1) MF ( Ko-ren, Bell, and Volin-
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 253--254
+Underfull \hbox (badness 1189) in paragraph at lines 254--255
 \OT1/ptm/m/n/10 fac-tor-iza-tion in Equ. 4[]. For all meth-ods in-clud-ing the
  []
 
 
-Overfull \hbox (5.92157pt too wide) in paragraph at lines 263--263
+Overfull \hbox (5.92157pt too wide) in paragraph at lines 264--264
  []|\OT1/ptm/m/n/6 Improve| 
  []
 
 
-Overfull \hbox (5.92157pt too wide) in paragraph at lines 263--263
+Overfull \hbox (5.92157pt too wide) in paragraph at lines 264--264
  []|\OT1/ptm/m/n/6 Improve| 
  []
 
 
-Overfull \hbox (5.92157pt too wide) in paragraph at lines 263--263
+Overfull \hbox (5.92157pt too wide) in paragraph at lines 264--264
  []|\OT1/ptm/m/n/6 Improve| 
  []
 
 
-Overfull \hbox (5.32487pt too wide) in paragraph at lines 264--264
- []|[]| 
- []
-
-
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 266--266
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 267--267
  []|\OT1/ptm/m/n/6 4.94$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 266--266
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 267--267
  []|\OT1/ptm/m/n/6 3.67$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 266--267
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 267--268
  []|\OT1/ptm/m/n/6 4.23$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 270--270
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 271--271
  []|\OT1/ptm/m/n/6 1.43$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 270--270
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 271--271
  []|\OT1/ptm/m/n/6 0.48$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 270--271
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 271--272
  []|\OT1/ptm/m/n/6 0.71$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 274--274
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 275--275
  []|\OT1/ptm/m/n/6 0.04$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 274--275
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 275--276
  []|\OT1/ptm/m/n/6 0.01$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.09071pt too wide) in paragraph at lines 276--276
- []|[]| 
- []
-
-
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 278--278
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 279--279
  []|\OT1/ptm/m/n/6 1.81$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 278--278
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 279--279
  []|\OT1/ptm/m/n/6 0.24$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 278--279
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 279--280
  []|\OT1/ptm/m/n/6 1.35$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 282--282
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 283--283
  []|\OT1/ptm/m/n/6 3.07$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 282--282
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 283--283
  []|\OT1/ptm/m/n/6 0.85$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 282--283
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 283--284
  []|\OT1/ptm/m/n/6 1.24$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 286--286
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 287--287
  []|\OT1/ptm/m/n/6 0.14$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 286--287
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 287--288
  []|\OT1/ptm/m/n/6 0.80$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (4.17297pt too wide) in paragraph at lines 288--288
- []|[]| 
- []
-
-
-Overfull \hbox (5.27356pt too wide) in paragraph at lines 290--290
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 291--291
  []|\OT1/ptm/m/n/6 17.45$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 290--290
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 291--291
  []|\OT1/ptm/m/n/6 5.77$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 290--291
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 291--292
  []|\OT1/ptm/m/n/6 6.43$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (5.27356pt too wide) in paragraph at lines 294--294
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 295--295
  []|\OT1/ptm/m/n/6 28.69$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (5.27356pt too wide) in paragraph at lines 294--294
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 295--295
  []|\OT1/ptm/m/n/6 12.05$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (5.27356pt too wide) in paragraph at lines 294--295
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 295--296
  []|\OT1/ptm/m/n/6 17.67$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 298--298
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 299--299
  []|\OT1/ptm/m/n/6 0.14$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (2.27356pt too wide) in paragraph at lines 298--299
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 299--300
  []|\OT1/ptm/m/n/6 0.43$\OT1/cmr/m/n/6 %$| 
  []
 
 
-Overfull \hbox (12.46501pt too wide) in paragraph at lines 261--301
+Overfull \hbox (12.46501pt too wide) in paragraph at lines 262--302
  [] 
- []
-
-
-Underfull \hbox (badness 1092) in paragraph at lines 305--306
-\OT1/ptm/m/n/10 on all three data sets in terms of higher AUC,NDCG
- []
-
-
-Underfull \hbox (badness 1158) in paragraph at lines 305--306
-\OT1/ptm/m/n/10 and MRR re-sults and lower RMSE and MAE re-sults.
- []
-
-
-Underfull \hbox (badness 1237) in paragraph at lines 305--306
-\OT1/ptm/m/n/10 while pre-serv-ing com-pa-ra-ble RMSE and MAE re-sults.
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 359--359
-[][]\OT1/ptm/m/n/9 https://ijcai-15.org/index.php/repeat-buyers-prediction-
+Overfull \hbox (3.76729pt too wide) in paragraph at lines 322--322
+[]|\OT1/ptm/m/n/6 Dataset| 
  []
 
-[6]
-Overfull \hbox (0.94836pt too wide) in paragraph at lines 383--411
+
+Overfull \hbox (5.92157pt too wide) in paragraph at lines 322--322
+[]|\OT1/ptm/m/n/6 Improve| 
+ []
+
+
+Overfull \hbox (5.92157pt too wide) in paragraph at lines 322--322
+[]|\OT1/ptm/m/n/6 Improve| 
+ []
+
+
+Overfull \hbox (1.34952pt too wide) in paragraph at lines 323--323
+[]|[]| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 324--324
+[]|\OT1/ptm/m/n/6 7.02$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 324--324
+[]|\OT1/ptm/m/n/6 10.27$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 326--326
+[]|\OT1/ptm/m/n/6 1.20$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 326--326
+[]|\OT1/ptm/m/n/6 1.71$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 328--328
+[]|\OT1/ptm/m/n/6 4.26$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 328--328
+[]|\OT1/ptm/m/n/6 6.28$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 332--332
+[]|\OT1/ptm/m/n/6 4.79$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 332--332
+[]|\OT1/ptm/m/n/6 7.00$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 334--334
+[]|\OT1/ptm/m/n/6 4.75$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 334--334
+[]|\OT1/ptm/m/n/6 6.91$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 336--336
+[]|\OT1/ptm/m/n/6 4.20$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (2.27356pt too wide) in paragraph at lines 336--336
+[]|\OT1/ptm/m/n/6 6.19$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 340--340
+[]|\OT1/ptm/m/n/6 11.99$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 340--340
+[]|\OT1/ptm/m/n/6 17.30$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 342--342
+[]|\OT1/ptm/m/n/6 21.28$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 342--342
+[]|\OT1/ptm/m/n/6 31.71$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 344--344
+[]|\OT1/ptm/m/n/6 12.72$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (5.27356pt too wide) in paragraph at lines 344--344
+[]|\OT1/ptm/m/n/6 18.73$\OT1/cmr/m/n/6 %$| 
+ []
+
+
+Overfull \hbox (7.99042pt too wide) in paragraph at lines 320--348
  [] 
  []
 
 
-Underfull \vbox (badness 4144) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 358--358
+[][]\OT1/ptm/m/n/9 https://ijcai-15.org/index.php/repeat-buyers-prediction-
+ []
 
- (./AAAI.bbl [7]) [8] (./AAAI.aux) ) 
+[6] (./AAAI.bbl
+Underfull \vbox (badness 2158) has occurred while \output is active []
+
+ [7]
+[8]) [9
+
+] (./AAAI.aux) ) 
 Here is how much of TeX's memory you used:
- 2488 strings out of 492646
- 34145 string characters out of 6129564
- 131848 words of memory out of 5000000
- 6306 multiletter control sequences out of 15000+600000
+ 2546 strings out of 492646
+ 34922 string characters out of 6129564
+ 150608 words of memory out of 5000000
+ 6360 multiletter control sequences out of 15000+600000
  26037 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,25p,1225b,255s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/e
-nc/dvips/base/8r.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cmextra/cmex7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr5.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6
-.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/tex
-live/2018/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/
-texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on AAAI.pdf (8 pages, 243522 bytes).
+ 41i,15n,25p,1225b,299s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc
+}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/
+texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
+live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
+/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2
+018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/201
+8/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/
+texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist
+/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/typ
+e1/urw/times/utmri8a.pfb>
+Output written on AAAI.pdf (9 pages, 245093 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 80 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
