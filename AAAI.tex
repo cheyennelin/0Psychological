@@ -82,6 +82,22 @@ The paper is organized as follows. We start with surveying the most commonly ado
 \section{Compensatory Recommendation Models}\label{sec:previousmodel}
 In this section, we show that existing latent factor models are based on compensatory rules. We summarize and categorize related work based on the forms of rating prediction formulas and loss functions. We restrict our discussions to latent factor models, i.e. models where a universe of $K$ factors is used to project  user preferences and item features. Hereafter, unless stated otherwise, we use lower-case letters for indices, upper-case letters for universal constants, lower-case bold-face letters for vectors and upper-case bold-face letters for matrices. Specifically, $\mathbf{X}\in \Real^{M\times N}$ denotes the rating matrix, $\hat{\mathbf{X}}\in \Real^{M\times N}$ denotes the predicted rating matrix,  $\mathbf{p},\mathbf{q}\in \Real^K$ denotes the item features, which are rows of item space $\mathbf{V}\in \Real^{N\times K}$, $\mathbf{u}\in \Real^K$ denotes the user preferences, which is a row of the user space $\mathbf{U}\in \Real^{M\times K}$.  $\mathbf{U},\mathbf{V}$ are components of the model parameters $\Theta=\{\mathbf{U},\mathbf{V} \}$.
 
+\begin{table*}[htp]
+\tiny
+\caption{Existing latent factor models in literature can be classified based on the loss functions and rating prediction formulas}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multirow{2}{*}{Loss Function} &\multicolumn{3} {|c|}{Rating Prediction Formula}\\\cline{2-4}
+& Matrix Factorization & Neighborhood Factorization & Local Low-rank Factorization \\\hline
+Point-wise Square Loss & MF ~\cite{Koren2009Matrix} & AMF ~\cite{Koren2008Factorization} & LLORMA~\cite{Lee2013Local}\\\hline
+Pair-wise Thurstone Ranking & BPR~\cite{Rendle2009BPR} & FSBPR~\cite{Zhao2018Factored} & LCR~\cite{Lee2014Local} \\\hline
+Pair-wise BT Ranking & BT~\cite{Hu2016Improved} & &  \\\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table*}%
+
 \subsection{Rating Prediction Formulas}
 One goal of recommendation research is to recover the rating matrix $\Rating$, by minimizing a loss function $\Loss(\Theta)$, which is usually defined as the regularized square loss between the predicted rating $\hat{\Rating}_{u,q}$ and the observed rating $\hat{\Rating}_{u,q}$ for each user $u$ who has rated item $q$. 
 
@@ -93,7 +109,6 @@ One goal of recommendation research is to recover the rating matrix $\Rating$, b
 We list some of the most successful rating prediction formulas for $\hat{\Rating}$.
 
 \textbf{Matrix Factorization.} In conventional Matrix Factorization (MF)~\cite{Koren2009Matrix}, the predicted rating can be computed as an inner product of user preferences and item features as follows.
-
 \begin{equation}\label{equ:MF}
  \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \mathbf{q}_k \mathbf{u}_k
 \end{equation}
@@ -108,7 +123,6 @@ For simplicity we ignore the user specific or item specific bias~\cite{Koren2009
 where  $R(u)$ is the set of rated items for $u$. AMF has been extended to SVD++~\cite{Koren2008Factorization} with implicit feedback. 
 
 \textbf{Local Low-Rank Matrix Approximation.} The third type of rating prediction formula is  Local Low-Rank Matrix Approximation (LLORMA)~\cite{Lee2013Local}. The intuition is that the entire rating matrix $\Rating$ is not low-rank but a sub-matrix restricted to a neighborhood of similar users and items is low-rank.  Therefore, the predicted rating is aggregated over $S$ sub-matrices  as follows:
-
 \begin{equation}\label{equ:LLORMA}
 \hat{\Rating}_{u,q} = \sum_{t=1}^{S} \sum_k \mathbf{u}_{t, k} \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \mathbf{q}_{t,k}
 \end{equation}
@@ -120,7 +134,6 @@ $\mathbf{u}_t, \mathbf{q}_t$ are the factorized user preferences and item featur
 Another goal of recommendation research is to reveal the observed rankings. We here consider pair-wise rankings $p\succ_u q$, where user $u$ prefers item $p$ over $q$. The pair-wise rankings can be generated from pre-processing  the ratings, i.e. $\Rating_{u,p}> \mu, \Rating_{u,q}<\mu$~\cite{Hu2017Decoupled}, or from explicit and implicit feedback, i.e. $\Rating_{u,p}\neq 0$ and $ \Rating_{u,q}$ doesn't exist~\cite{Rendle2009BPR}. 
 
 A large body of previous research has been presented by employing a ranking aware loss function  $\Loss(\Theta)$ on the observed pair-wise rankings. For example, the Bayesian posterior is expressed as:
-
 \begin{equation}
 \Loss(\Theta) = \sum_{u}\sum_{p,q} o(p\succ_u q) \log p(p\succ_u q) + \lambda(\|\mathbf{U}\| + \|\mathbf{V}\|).
 \end{equation}
@@ -131,31 +144,29 @@ To generate the probability of pair-wise rankings $p(p\succ_u q)$,  each user-it
 
 
 \textbf{Thurstone Model} The most frequently adopted ranking model in recommendation systems is the Thurstone model~\cite{Thurstone1927law} which uses a non-linear transformation of the predicted ratings. 
-
 \begin{equation}
 p(p\succ_u q) = \frac{1} {1+\exp[-(\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q})]}
 \end{equation}
 
 \textbf{Bradley-Terry Model.} The famous Bradley-Terry (BT) model~\cite{Hunter2004MM} is extensively studied in learning to rank scenarios. BT models the generation of ranking pairs by a division.
-
 \begin{equation}\label{equ:BT}
 p(p\succ_u q) = \frac{\exp{\hat{\Rating}_{u,p}}}{\exp{\hat{\Rating}_{u,p}}+ \exp{\hat{\Rating}_{u,q}}} 
 \end{equation}
 
 
-In either ranking model, the score $\hat{\Rating}$ can be approximated by different ranking prediction formulas. We categorize existing ranking aware methods based on the combination of rating prediction formulas and the ranking models. 
-\begin{itemize}
-\item BT model has been leveraged with MF prediction formula in~\cite{Hu2016Improved};
-\item Thurstone model with standard matrix factorization prediction formula is first presented as BPR~\cite{Rendle2009BPR}, which maximizes the Bayesian posterior with respect to Thurstonian modeling of standard matrix factorization predictions. Abundant research has been carried out to improve BPR-style systems by modifying the sampling methods in optimization, including BTR++~\cite{Lerche2014Using}, WARP~\cite{Weston2011Wsabie}, DNS~\cite{Zhang2013Optimizing}, RankMBPR~\cite{Yu2016RankMBPR} and so on.
-\item Thurstone model with  neighborhood factorized prediction formula AMF is first incorporated in a point-wise ranking framework In~\cite{Steck2015Gaussian},  FSBPR~\cite{Zhao2018Factored} implants AMF in a Thurstone model and maximizes its likelihood.
-\item Thurstone model with local low-rank factorization prediction formula is utilized in LCR~\cite{Lee2014Local}.
- \end{itemize}
+%In either ranking model, the score $\hat{\Rating}$ can be approximated by different ranking prediction formulas. We categorize existing ranking aware methods based on the combination of rating prediction formulas and the ranking models. 
+%\begin{itemize}
+%\item BT model has been leveraged with MF prediction formula in~\cite{Hu2016Improved};
+%\item Thurstone model with standard matrix factorization prediction formula is first presented as BPR~\cite{Rendle2009BPR}, which maximizes the Bayesian posterior with respect to Thurstonian modeling of standard matrix factorization predictions. Abundant research has been carried out to improve BPR-style systems by modifying the sampling methods in optimization, including BTR++~\cite{Lerche2014Using}, WARP~\cite{Weston2011Wsabie}, DNS~\cite{Zhang2013Optimizing}, RankMBPR~\cite{Yu2016RankMBPR} and so on.
+%\item Thurstone model with  neighborhood factorized prediction formula AMF is first incorporated in a point-wise ranking framework In~\cite{Steck2015Gaussian},  FSBPR~\cite{Zhao2018Factored} implants AMF in a Thurstone model and maximizes its likelihood.
+%\item Thurstone model with local low-rank factorization prediction formula is utilized in LCR~\cite{Lee2014Local}.
+% \end{itemize}
 
 
 
 The list is by no means exclusive. However, we believe that most of existing recommender systems are covered. It is worthy to point out that (1) we do not restrict the form of loss functions. For example, many ranking approaches consider Bayesian maximum posterior, cross entropy and other forms of loss functions. Nevertheless, the core ranking model is either BT or Thurstone.   (2) Although we only study pair-wise ranking , the conclusion is insightful for other ranking-aware systems, i.e. point-wise and list-wise approaches. The reason is that, as shown in ~\cite{Steck2015Gaussian},  point-wise and list-wise loss functions can be decomposed to components which are directly based on each score $\hat\Rating_{u,p}$ and components that are not related to $\hat\Rating$. Thus our proposed strategy in the next section is also applicable to point-wise and list-wise ranking models.  
 
-\section{Non-Compensatory Recommendation Models}\label{sec:NCRmodel}
+\section{Non-Compensatory Recommendation Models}\label{sec:Nmodel}
 We begin this section by reviewing the findings in consumer psychology study. We proceed to present a general framework for modeling the psychological assumptions about decision rules. We show the universality of the proposed framework by realizing it in different rating prediction formulas and ranking models.
 
 Ever since the dawn of consumption psychology study, psychologists have been studying how consumers adopt different heuristics to  facilitate brand (or other consumption  related) choices. Two distinct categories of decision rules are found ~\cite{Engel1986Consumer}: compensatory rules and non compensatory rules. The decision rules can be naturally explained in the latent factor models. For example, compensatory rules are adopted if a consumer determines  options in terms of each factor and computes a weighted  and/or summated  score for each item, then selects the item that  scores the highest among  the alternatives evaluated. It is clear that all related work that has been described in previous section is the application of compensatory rules.
@@ -171,31 +182,31 @@ For computational convenience, inspired by the psychological findings, we presen
 \subsection{Non-Compensatory Rating Prediction Formulas}
 Our goal here is to modify the rating prediction formulas as little as possible, while still preserving the most important properties of non-compensatory rules. Therefore, we follow the same notations for user preferences and item features. In each evaluation session, the hidden prominent aspect is sampled by $\frac{\exp \mathbf{u}_k}{\sum_{k'} \mathbf{u}_{k'}} $. We use a parameter $\theta$ to control the strength of prominent aspect, i.e. the evaluation on the prominent aspect is magnified by  $\exp \theta$. The threshold on aspect $k$ set by user $u$ is denoted as $\mathbf{b}_{u,k}$. When the aspect $k$ is chosen, the evaluation of user $u$ on $q$ is $\exp\theta \mathbf{q}_k  + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'})$. The prediction is generated across all possible hidden prominent aspects. This gives us the following non-compensatory versions of rating prediction formulas.
 
-\textbf{Matrix Factorization: MF-NCR} 
+\textbf{Matrix Factorization: MF-N} 
 
-\begin{equation}\label{equ:MF-NCR}
+\begin{equation}\label{equ:MF-N}
  \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'}) ].
 \end{equation}
 
 
-\textbf{Neighborhood Factorization: AMF-NCR} implements a similar scheme by setting $u_k =\sum_{p \in R(u)} \mathbf{p}_k/\sqrt{|R(u)|} $, 
+\textbf{Neighborhood Factorization: AMF-N} implements a similar scheme by setting $u_k =\sum_{p \in R(u)} \mathbf{p}_k/\sqrt{|R(u)|} $, 
 
-\begin{equation}\label{equ:AMF-NCR}
+\begin{equation}\label{equ:AMF-N}
  \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp (\sum_{p \in R(u)} \mathbf{p}_k )}{\sum_{k'} \exp  (\sum_{p \in R(u)} \mathbf{p}_{k'} ) } [ \exp\theta \mathbf{q}_k  + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'}) ].
 \end{equation}
 
-\textbf{LLORMA-NCR} uses the same decomposition for each sub-matrix.  
+\textbf{LLORMA-N} uses the same decomposition for each sub-matrix.  
 
-\begin{eqnarray}\label{equ:LLORMA-NCR}
+\begin{eqnarray}\label{equ:LLORMA-N}
 \hat{\Rating}_{u,q} = & \sum_{t=1}^{S} \sum_k  \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}}  \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \\\nonumber
 & [ \exp\theta \mathbf{q}_{t,k}  + \sum_{k'\neq k} (\mathbf{q}_{t,k'}-\mathbf{b}_{u,k'}) ]
 \end{eqnarray}
 
-We can see that all these NCR versions are combinations of lexicographic and conjunction rules, where  $\exp\theta \rightarrow \infty$ indicates that the user adopts lexicographical rules only. The threashold for a user on an aspect is static in the sense that $\mathbf{b}_{u,k}$ does not change by the nature of the items.
+We can see that all these N versions are combinations of lexicographic and conjunction rules, where  $\exp\theta \rightarrow \infty$ indicates that the user adopts lexicographical rules only. The threashold for a user on an aspect is static in the sense that $\mathbf{b}_{u,k}$ does not change by the nature of the items.
 
 \subsection{Non-Compensatory Ranking Models}
 
-\textbf{Thurston-NCR}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Rating_{u,q}$ which can be replaced by any NCR-version of rating prediction formulas. Note that the user-defined aspect specific threshold $\mathbf{b}_{u,k}$ cancels between $\hat\Rating_{u,p}$ and $\hat\Rating_{u,q}$.
+\textbf{Thurston-N}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Rating_{u,q}$ which can be replaced by any N-version of rating prediction formulas. Note that the user-defined aspect specific threshold $\mathbf{b}_{u,k}$ cancels between $\hat\Rating_{u,p}$ and $\hat\Rating_{u,q}$.
 
 Inference of Thurston models is easily extensible. For example, if we use the Bayesian maximum posterior estimator as in BPR~\cite{Rendle2009BPR}, the loss function is defined as:
 \begin{equation}
@@ -206,15 +217,15 @@ where  $\Theta$ is the set of all parameters. Thus the inference procedure is ac
 
 
 
-\textbf{BT-NCR.} Finally we propose the non-compensatory version of BT ranking model. In order to treat prominent and non-prominent aspects differently, we define the probability of any ranking pair $p\succ_u q$ as the product of results by factor-wise comparisons, based on a variant of BT model with ties~\cite{Hunter2004MM}. Again, in each evaluation session, a hidden prominent aspect $k$ is sampled by user preference $\mathbf{u}$. The overall prediction is aggregated over all possible hidden prominent aspect $k$. 
+\textbf{BT-N.} Finally we propose the non-compensatory version of BT ranking model. In order to treat prominent and non-prominent aspects differently, we define the probability of any ranking pair $p\succ_u q$ as the product of results by factor-wise comparisons, based on a variant of BT model with ties~\cite{Hunter2004MM}. Again, in each evaluation session, a hidden prominent aspect $k$ is sampled by user preference $\mathbf{u}$. The overall prediction is aggregated over all possible hidden prominent aspect $k$. 
 
-\begin{equation}\label{equ:BT-NCR}
+\begin{equation}\label{equ:BT-N}
 p(p\succ_u q)  =  \prod_{k=1}^{K} \mathbf{u}_k [ {\frac{\mathbf{p}_k}{\mathbf{p}_k+\theta \mathbf{q}_k}}\prod_{k'\neq k}{ \frac{\theta \mathbf{p}_{k'}}{\mathbf{q}_{k'}+\theta \mathbf{p}_{k'}}}].
 \end{equation}
 
-where $\mathbf{u}_k >0, \sum_k \mathbf{u}_k=1,\mathbf{p,q}>\mathbf{0}$ and $\theta>1$.  BT-NCR models the non-compensatory rules in a manner that (1) the evaluation is mainly based on the prominent aspect. The item $p$ is more likely to be preferred than $q$ by user $u$ if $p$ is significantly better than $q$ on the prominent aspect, i.e. $p_{k} > \theta q_{k}, \theta>1$. (2) The performance on other aspects are less  important. Because $p$ is considered to be as good as $q$, as long $\forall k'\neq k, \theta p_{k'} >  q_{k'}, \theta>1$.  BT-NCR is also a combination of lexicographic rules and conjunction rules. An interpretation is that we dynamically set a minimal acceptance value for $p_{k'}$ on factor $k'\neq k$ based on the compared alternative $q_{k'}$, where the minimal acceptance value is $q_{k'}/\theta$.  The parameter $\theta$ controls the tolerance range. When $\theta \rightarrow \infty$, the users adopt lexicographic rules only.
+where $\mathbf{u}_k >0, \sum_k \mathbf{u}_k=1,\mathbf{p,q}>\mathbf{0}$ and $\theta>1$.  BT-N models the non-compensatory rules in a manner that (1) the evaluation is mainly based on the prominent aspect. The item $p$ is more likely to be preferred than $q$ by user $u$ if $p$ is significantly better than $q$ on the prominent aspect, i.e. $p_{k} > \theta q_{k}, \theta>1$. (2) The performance on other aspects are less  important. Because $p$ is considered to be as good as $q$, as long $\forall k'\neq k, \theta p_{k'} >  q_{k'}, \theta>1$.  BT-N is also a combination of lexicographic rules and conjunction rules. An interpretation is that we dynamically set a minimal acceptance value for $p_{k'}$ on factor $k'\neq k$ based on the compared alternative $q_{k'}$, where the minimal acceptance value is $q_{k'}/\theta$.  The parameter $\theta$ controls the tolerance range. When $\theta \rightarrow \infty$, the users adopt lexicographic rules only.
 
-To infer the parameters of BT-NCR, we implement a stochastic expectation maximization (SEM) algorithm. In each E-step, we first draw the value of prominent aspect $k$ for each evaluation session by
+To infer the parameters of BT-N, we implement a stochastic expectation maximization (SEM) algorithm. In each E-step, we first draw the value of prominent aspect $k$ for each evaluation session by
  \begin{equation}
  k \sim u_k^{t} \frac{\mathbf{p}_{k}^t} {\mathbf{p}_{k}^t+\theta^t \mathbf{q}_{k}^t} \prod_{k'\neq k}  [\frac{\theta^t \mathbf{p}_{k'}^t} {\mathbf{q}_{k'}^t + \theta^t \mathbf{p}_{k'}^t}].
  \end{equation}
@@ -225,9 +236,9 @@ To infer the parameters of BT-NCR, we implement a stochastic expectation maximiz
 
 
 \section{Experiments}\label{sec:experiment}
-We conduct experiments to evaluate the performance of non-compensatory rules in recommendation models. We conduct three sets of experiments on real world datasets. The first set of experiments is conducted to examine whether the NCR versions of rating prediction models outperform the original versions on rating data sets. 
-The second set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
-The third set of experiments is conducted to examine whether NCR versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in NCR models for further insights.
+We conduct experiments to evaluate the performance of non-compensatory rules in recommendation models. We conduct three sets of experiments on real world datasets. The first set of experiments is conducted to examine whether the N versions of rating prediction models outperform the original versions on rating data sets. 
+The second set of experiments is conducted to examine whether N versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
+The third set of experiments is conducted to examine whether N versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights.
 
 \subsection{Comparative Results for Rating Prediction Models}
 
@@ -251,52 +262,52 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \end{table}%
  
 
-\textbf{Comparative Methods}. We compare the non-compensatory improved versions (with suffix ``-NCR'') with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization in Equ.~\ref{equ:MF};  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization in Equ.~\ref{equ:AMF}; (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization in Equ.~\ref{equ:LLORMA}. For all methods including the NCR versions, we set the number of aspects $K=10$. The regularization coefficients for MF and MF-NCR is $\lambda=0.01$. The number of local models for LLORMA and LLORMA-NCR is $S=10$. The learning rate is self adapted as in~\cite{Wilson2003general}.  We stop the learning process either when the improvement in training error is smaller than $1e^{-6}$ or when the algorithm reaches $1000$ iterations. To reduce the number of parameters, we set the user-defined aspect-specific threshold for the NCR models $\mathbf{b}_{u,k}=0$ for every $u,k$. 
+\textbf{Comparative Methods}. We compare the non-compensatory improved versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods (1) MF~\cite{Koren2009Matrix}: standard matrix factorization in Equ.~\ref{equ:MF};  (2) AMF~\cite{Koren2008Factorization}: neighborhood factorization in Equ.~\ref{equ:AMF}; (3) LLORMA~\cite{Lee2013Local}: local low-rank matrix factorization in Equ.~\ref{equ:LLORMA}. For all methods including the N versions, we set the number of aspects $K=10$. The regularization coefficients for MF and MF-N is $\lambda=0.01$. The number of local models for LLORMA and LLORMA-N is $S=10$. The learning rate is self adapted as in~\cite{Wilson2003general}.  We stop the learning process either when the improvement in training error is smaller than $1e^{-6}$ or when the algorithm reaches $1000$ iterations. To reduce the number of parameters, we set the user-defined aspect-specific threshold for the N models $\mathbf{b}_{u,k}=0$ for every $u,k$. 
 
-\textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve; (2) NDCG: another evaluation metric to measure the accuracy of item ranking by the predicted ratings v.s. the actual ranking;  (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. %;  (4) RMSE: a metric to evaluate how accurate the ratings are predicted. MAE computes the average square root of difference between predicted ratings and the actual ratings.
+\textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: first computes the area under precision-recall curve based on the predicted ratings for each user, then averaged over all users; (2) NDCG: another evaluation metric to measure the accuracy of item ranking per user by the predicted ratings v.s. the actual ranking, averaged over all users;  (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. %;  (4) RMSE: a metric to evaluate how accurate the ratings are predicted. MAE computes the average square root of difference between predicted ratings and the actual ratings.
 
 \begin{table}[htp]
 \tiny
 \caption{Comparative performance for compensatory and non-compensatory rating prediction models, `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
 \begin{center}
-\begin{tabular}{|p{0.7cm}<{\centering}|c|c|p{0.5cm}<{\centering}|c|p{0.5cm}<{\centering}|c|p{0.5cm}<{\centering}|}
+\begin{tabular}{p{0.4cm}<{\centering}|p{1.2cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
 Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve\\\hline
-\multirow{6}{*}{\shortstack{Movie\\lens}} &	MF	& 0.6661 	& &	0.6856 	&&	0.8391 	&\\
-\cline{2-8}
-	&MF-NCR	&0.6990 &	4.94$\%$	&0.7107 	&3.67$\%$	&0.8745 &	4.23$\%$	\\
-	\cline{2-8}
-	&AMF&	0.6043 	&&	0.5003 	&&	0.7506 &\\
-	\cline{2-8}
-	&AMF-NCR	&0.6129 	&1.43$\%$	&0.5027 &	0.48$\%$	&0.7559 	&0.71$\%$	\\
-	\cline{2-8}
-	&LLORMA		&&	&0.8990 	&&	0.5761&\\	
-	\cline{2-8}
-	&LLORMA-NCR	&&&		0.8994 	&0.04$\%$	&0.5761 	&0.01$\%$	\\
+\multirow{6}{*}{\shortstack{Movie\\lens}} &	MF	& $0.6661$ 	& &	$0.6856$ 	&&	$0.8391$ 	&\\
+%\cline{2-8}
+	&MF-N	&$0.6990$ &	$4.94\%$	&$0.7107 $	&$3.67\%$	&$0.8745$ &	$4.23\%$	\\
+%	\cline{2-8}
+	&AMF&	$0.6043$ 	&&	$0.5003$ 	&&	$0.7506$ &\\
+%	\cline{2-8}
+	&AMF-N	&$0.6129$ 	&$1.43\%$	&$0.5027$ &	$0.48\%$	&$0.7559$ 	&$0.71\%$	\\
+%	\cline{2-8}
+	&LLORMA		&$0.6453$&	&$0.8990$ 	&&	$0.5761$&\\	
+%	\cline{2-8}
+	&LLORMA-N	&$0.6516$	&$0.98\%$	&	$0.8994$ 	&$0.04\%$	&$0.5761$ 	&$0.01\%$	\\
 	\hline
-\multirow{6}{*}{\shortstack{Film\\trust}}	&MF	&0.6056 	&&	0.5240 &&		0.7522 	&	\\
-\cline{2-8}
-	&MF-NCR&	0.6166 	&1.81$\%$	&0.5252 	&0.24$\%$	&0.7624 	&1.35$\%$\\
-	\cline{2-8}
-	&AMF	&0.6244 	&&	0.5055 &&		0.7622 	&	\\
-	\cline{2-8}
-	&AMF-NCR	&0.6436 	&3.07$\%$	&0.5098 	&0.85$\%$	&0.7717 	&1.24$\%$	\\
-	\cline{2-8}
-	&LLORMA	&& &		0.8672 	&&	0.6481 	&	\\
-	\cline{2-8}
-	&LLORMA-NCR		&&&	0.8684 &	0.14$\%$	&0.6533 	&0.80$\%$	\\
+\multirow{6}{*}{\shortstack{Film\\trust}}	&MF	&$0.6056 $	&&	$0.5240$&&		$0.7522 $	&	\\
+%\cline{2-8}
+	&MF-N&	$0.6166$ 	&$1.81\%$	&$0.5252$ 	&$0.24\%$	&$0.7624$ 	&$1.35\%$\\
+%	\cline{2-8}
+	&AMF	&$0.6244 $	&&	$0.5055 $&&		$0.7622 $	&	\\
+%	\cline{2-8}
+	&AMF-N	&$0.6436$ 	&$3.07\%$	&$0.5098$ 	&$0.85\%$	&$0.7717$ 	&$1.24\%$	\\
+%	\cline{2-8}
+	&LLORMA	&$0.5336$& &		$0.8672$ 	&&	$0.6481$ 	&	\\
+%	\cline{2-8}
+	&LLORMA-N		&$0.5517$	&$3.39\%$ &	$0.8684$ &	$0.14\%$	&$0.6533$ 	&$0.80\%$	\\
 	\hline
-\multirow{6}{*}{\shortstack{Ciao\\DVD}}	&MF	&0.5915 	&&	0.6497 &	&	0.8427 &	\\
-\cline{2-8}
-	&MF-NCR	&0.6948 	&17.45$\%$	&0.6872 	&5.77$\%$	&0.8969 	&6.43$\%$	\\
-	\cline{2-8}
-	&AMF	&0.6211 	&&	0.5048 	&&	0.7607 	&	\\
-	\cline{2-8}
-	&AMF-NCR	&0.7993 &	28.69$\%$	&0.5657 	&12.05$\%$	&0.8950 	&17.67$\%$	\\
-	\cline{2-8}
-	&LLORMA		&&	&0.7827 		&&0.4883 		& 	\\
-	\cline{2-8}
-	&LLORMA-NCR	&& &		0.7838 	&0.14$\%$	&0.4904 	&0.43$\%$	\\
+\multirow{6}{*}{\shortstack{Ciao\\DVD}}	&MF	&$0.5915$ 	&&	$0.6497$&	&	$0.8427$ &	\\
+%\cline{2-8}
+	&MF-N	&$0.6948$ 	&$17.45\%$	&$0.6872$ 	&$5.77\%$	&$0.8969 $	&$6.43\%$	\\
+%	\cline{2-8}
+	&AMF	&$0.6211$ 	&&	$0.5048$ 	&&	$0.7607$ 	&	\\
+%	\cline{2-8}
+	&AMF-N	&$0.7993 $&	$28.69\%$	&$0.5657$ 	&$12.05\%$	&$0.8950$ 	&$17.67\%$	\\
+%	\cline{2-8}
+	&LLORMA		&$0.6986$&	&$0.7827 $		&&$0.4883$ 		& 	\\
+%	\cline{2-8}
+	&LLORMA-N	&$0.6998$	&$0.17\%$&	$0.7838$ 	&$0.14\%$	&$0.4904 $	&$0.43\%$	\\
 	\hline
 	\end{tabular}
 \end{center}
@@ -310,7 +321,7 @@ We can see from Table.~\ref{tab:ratingresult} that overall adopting non-compensa
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. We construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table.~\ref{tab:datasets}
 
-\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved};: the Bradley-Terry ranking model with MF rating prediction formula, (2) BPR~\cite{Rendle2009BPR}:  the Thurstonian ranking model with MF rating prediction formula, the optimization is through maximal Bayesian posterior, the regularization coefficient is $\lambda=0.01$, (3) FSBPR~\cite{Zhao2018Factored}: the Thurstonian ranking model with AMF rating prediction formula, the optimization is through maximal Bayesian posterior, (4) LCR~\cite{Lee2014Local}: the Thurstonian ranking model with local low-rank matrix factorization, the loss function for LLORMA and LLORMA-NCR is $log[M]$ which is the log-likelihood. The number of local models  is $S=10$.  For all methods including the NCR versions, we set the number of aspects $K=10$. 
+\textbf{Comparative Methods}. We compare the N improved versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved};: the Bradley-Terry ranking model with MF rating prediction formula, (2) BPR~\cite{Rendle2009BPR}:  the Thurstonian ranking model with MF rating prediction formula, the optimization is through maximal Bayesian posterior, the regularization coefficient is $\lambda=0.01$, (3) FSBPR~\cite{Zhao2018Factored}: the Thurstonian ranking model with AMF rating prediction formula, the optimization is through maximal Bayesian posterior, (4) LCR~\cite{Lee2014Local}: the Thurstonian ranking model with local low-rank matrix factorization, the loss function for LLORMA and LLORMA-N is $log[M]$ which is the log-likelihood. The number of local models  is $S=10$.  For all methods including the N versions, we set the number of aspects $K=10$. 
 
 \textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings for each user. Hence we adopt the same set of ranking evaluation metrics, including AUC, NDCG and MRR. 
 \begin{table}[htp]
@@ -321,41 +332,41 @@ We can see from Table.~\ref{tab:ratingresult} that overall adopting non-compensa
 \hline
 Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve\\\hline
 \multirow{8}{*}{\shortstack{Movie\\Lens}} 	& BT	& 0.6021 	& & 	0.5070 	& & 	0.7654 & 	\\\cline{2-8}
-	& BT-NCR	& 0.6434 	& 6.86$\%$	& 0.5425 	& 7.02$\%$ &	0.8440 &	10.27$\%$\\\cline{2-8}
+	& BT-N	& 0.6434 	& 6.86$\%$	& 0.5425 	& 7.02$\%$ &	0.8440 &	10.27$\%$\\\cline{2-8}
 	& BPR	& 0.7002 		& & 0.5443 & & 		0.8478 & 	\\\cline{2-8}
-	& BPR-NCR	& 0.7246 & 	3.48$\%$& 	0.5508 	& 1.20$\%$& 	0.8623 	& 1.71$\%$\\ \cline{2-8}
+	& BPR-N	& 0.7246 & 	3.48$\%$& 	0.5508 	& 1.20$\%$& 	0.8623 	& 1.71$\%$\\ \cline{2-8}
 	& FSBPR	& 0.5923 	& & 	0.4993 	& & 	0.7484 	& \\\cline{2-8}
-	& FSBPR-NCR	& 0.6512 & 	9.94$\%$& 	0.5205 	& 4.26$\%$& 	0.7954 	& 6.28$\%$\\\cline{2-8}
-	& LCR		&  & & & & & 				\\\cline{2-8}
-	& LCR-NCR		&&&&&&				\\\hline
+	& FSBPR-N	& 0.6512 & 	9.94$\%$& 	0.5205 	& 4.26$\%$& 	0.7954 	& 6.28$\%$\\\cline{2-8}
+	& LCR		&  0.6187 	&&	0.8317 	&&	0.6793 	 	&			\\\cline{2-8}
+	& LCR-N		&0.6197 &	0.16$\%$&	0.8359 	& 0.50$\%$ &	0.6862 &	1.02$\%$			\\\hline
 \multirow{8}{*}{\shortstack{Film\\Trust}}	& BT	& 0.6317 	& & 	0.5070 	& & 	0.7654 & \\\cline{2-8}
-	& BT-NCR	& 0.7269 & 	15.07$\%$& 	0.5312 	& 4.79$\%$& 	0.8190 	& 7.00$\%$\\\cline{2-8}
+	& BT-N	& 0.7269 & 	15.07$\%$& 	0.5312 	& 4.79$\%$& 	0.8190 	& 7.00$\%$\\\cline{2-8}
 	& BPR	& 0.7825 		& & 0.5147 	& & 	0.7825 & 	\\\cline{2-8}
-	& BPR-NCR	& 0.6728 	& -14.02$\%$& 	0.5392 	& 4.75$\%$& 	0.8365 	& 6.91$\%$\\\cline{2-8}
+	& BPR-N	& 0.6728 	& -14.02$\%$& 	0.5392 	& 4.75$\%$& 	0.8365 	& 6.91$\%$\\\cline{2-8}
 	& FSBPR	& 0.5970 		& & 0.4996 	& & 	0.7490 	& \\\cline{2-8}
-	& FSBPR-NCR		& 0.7165 	& 20.01$\%$	& 0.5205 	& 4.20$\%$	& 0.7954 	& 6.19$\%$\\\cline{2-8}
-	& LCR		 & & & & & & 				\\\cline{2-8}
-	& LCR-NCR	& & & & & & 			\\\hline		
+	& FSBPR-N		& 0.7165 	& 20.01$\%$	& 0.5205 	& 4.20$\%$	& 0.7954 	& 6.19$\%$\\\cline{2-8}
+	& LCR		 &0.6931 	&&	0.9480 &&		0.8122 	 &				\\\cline{2-8}
+	& LCR-N	& 0.7001 &	1.01$\%$	& 0.9503 &	0.24$\%$	& 0.8232 &	1.35$\%$ 			\\\hline		
 \multirow{8}{*}{\shortstack{Ciao\\DVD}}	& BT	& 0.6136 	& & 	0.5230 & & 		0.8008&  	\\\cline{2-8}
-	& BT-NCR	& 0.7892&  	28.62$\%$& 	0.5857 	& 11.99$\%$& 	0.9393 	& 17.30$\%$\\\cline{2-8}
+	& BT-N	& 0.7892&  	28.62$\%$& 	0.5857 	& 11.99$\%$& 	0.9393 	& 17.30$\%$\\\cline{2-8}
 	& BPR	& 0.6380 		& & 0.4883 		& & 0.7240 & 	\\\cline{2-8}
-	& BPR-NCR	& 0.8982 	& 40.78$\%$& 	0.5922 	& 21.28$\%$& 	0.9537 	& 31.71$\%$\\\cline{2-8}
+	& BPR-N	& 0.8982 	& 40.78$\%$& 	0.5922 	& 21.28$\%$& 	0.9537 	& 31.71$\%$\\\cline{2-8}
 	& FSBPR	& 0.6003 		& & 0.5001 & & 		0.7502 	& \\\cline{2-8}
-	& FSBPR-NCR	& 0.6589 	& 9.76$\%	$& 0.5637 	& 12.72$\%$& 	0.8908 	& 18.73$\%$\\\cline{2-8}
-	& LCR			 & & & & & & 		\\\cline{2-8}	
-	& LCR-NCR	& & & & & & 			\\\hline		
+	& FSBPR-N	& 0.6589 	& 9.76$\%	$& 0.5637 	& 12.72$\%$& 	0.8908 	& 18.73$\%$\\\cline{2-8}
+	& LCR			 &0.5211 &&		0.9044 	&&	0.7515 	&		\\\cline{2-8}	
+	& LCR-N	& 0.5252 	&0.79$\%$&	0.9050 	&0.07$\%$&	0.7527 	&0.16$\%$			\\\hline		
 \end{tabular}
 \end{center}
 \label{tab:rankingresult}
 \end{table}%
 
-A general observation in Table.~\ref{tab:rankingresult} is that embedding non-compensatory rules significantly improves existing ranking models. In terms of AUC, NDCG and MRR, the non-compensatory models outperform the compensatory models on all datasets, with the only exception of BPR-NCR in AUC on Filmtrust dataset. The results validate the adequacy of non-compensatory rules in ranking aware models. 
+A general observation in Table.~\ref{tab:rankingresult} is that embedding non-compensatory rules significantly improves existing ranking models. In terms of AUC, NDCG and MRR, the non-compensatory models outperform the compensatory models on all datasets, with the only exception of BPR-N in AUC on Filmtrust dataset. The results validate the adequacy of non-compensatory rules in ranking aware models. Furthermore, by comparing Table.~\ref{tab:rankingresult} and Table.~\ref{tab:ratingresult}, we observe that the non-compensatory rules generally make bigger improvements on ranking aware models  than on rating aware models. This observation indicates that it is possible that consumers adopt non-compensatory rules more often in ranking alternative products.
 
 \subsection{Ranking Performance for Graded Implicit Feedback}
+
+
 In most recommender systems, users not only give explicit ratings but also implicit feedback that can be graded. For example, a purchase and a click are both implicit feedback that indicates user preference. A reasonable grading is that a purchase is ``higher'' than a click, as a purchase is a stronger indicator of user preference. Therefore, we conduct experiments on datasets with graded implicit feedback.  
 
-
-\textbf{Data Sets}  We use three real world datasets, as shown in Table.~\ref{tab:idata}. Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase. We build two data sets based on Tmall. (1) Tmall-single: a set of pairwise rankings where an item $p$ purchased in $u$'s session is considered to be superrior than an item $q$ clicked in the same session. (2) Tmall-hybrid: the pairwise rankings are built by extracting purchased items in each session and all remaining items which are not purchased in the same session. Thus if an item $p$ is purchased in the session, and an item $q$ is either clicked, added to cart or added to favorite, we build $p\succ_u q$. (3) Yoochoose\footnote{http://2015.recsyschallenge.com}: a collection of user shopping sessions with clicked and purchased items. In this data set, user information is not provided. To avoid the cold-start user problem, we assume all sessions are from users with similar preferences.
 \begin{table}[htp]
 \tiny
 \caption{Statistics of Datasets with graded implicit feedback}
@@ -365,17 +376,20 @@ In most recommender systems, users not only give explicit ratings but also impli
 Dataset & \#users & \#items & \#pairs & \#sessions \\\hline
 Tmall-single &33,815 &176,231 &5,682,833 &364,844 \\\hline
 Tmall-hybrid &62,101 &198,344 &6,072,061 &475,503 \\\hline
-Yoochoose &- &30,852 &3,044,572 &341,396 \\\hline
+Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \end{tabular}
 \end{center}
 \label{tab:idata}
 \end{table}%
 
-\textbf{Comparative Methods}. We compare the NCR improved versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-NCR is different from previous sections.  In our model the prominent aspect is associate with each evaluation session. In the previous experiments, an evaluation session is a rating or a pair of rating. Here we the user interaction session information is available. Thus in BT-NCR, we sample the prominent aspect for each session instead of a pair of actions.  
+\textbf{Data Sets}  We use three real world datasets, as shown in Table.~\ref{tab:idata}. Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase. We build two data sets based on Tmall. (1) Tmall-single: a set of pairwise rankings where an item $p$ purchased in $u$'s session is considered to be superrior than an item $q$ clicked in the same session. (2) Tmall-hybrid: the pairwise rankings are built by extracting purchased items in each session and all remaining items which are not purchased in the same session. Thus if an item $p$ is purchased in the session, and an item $q$ is either clicked, added to cart or added to favorite, we build $p\succ_u q$. (3) Yoochoose\footnote{http://2015.recsyschallenge.com}: a collection of user shopping sessions with clicked and purchased items. In this data set, user information is not provided. In the experiments, we assume that each session is from a new user. %To avoid the cold-start user problem, we assume all sessions are from users with similar preferences.
 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings of activities precisely. Hence we evaluate different approaches based on the same set of metrics: AUC, NDCG and MRR.  MAP and Precision. MAP computes the mean average precision of the correctly ordered pairs. Precision is the concept borrowed from classifier evaluation metric which is based on the fraction of correctly ordered test pairs. To be specific, an item $p$ is predicted to be a winner in a pair of $p,q$ if the prediction favors $p$, i.e. $p(p\succ_u q)> p(q\succ_u p)$. Precision is the fraction with the number of correctly identified winners (i.e. $p$ is predicted to be superior than $q$ for user $u$ while the actual rating $\hat\Rating_{u,p}>\hat\Rating_{u,q}$) as numerator, and the number of evaluation sessions (i.e. the pair-wise rating rankings) as denominator.
 
-\begin{table*}[htp]
+\textbf{Comparative Methods}. We compare the N improved versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections.  In our model the prominent aspect is associate with each evaluation session. In the previous experiments, an evaluation session is a rating or a pair of rating. Here we the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions.  
+
+\textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics: AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we adopt two more evaluation metrics: MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. %To be specific, an item $p$ is predicted to be a winner in a pair of $p,q$ if the prediction favors $p$, i.e. $p(p\succ_u q)> p(q\succ_u p)$. Precision is the fraction with the number of correctly identified winners (i.e. $p$ is predicted to be superior than $q$ for user $u$ while the actual rating $\hat\Rating_{u,p}>\hat\Rating_{u,q}$) as numerator, and the number of evaluation sessions (i.e. the pair-wise rating rankings) as denominator.
+
+\begin{table*}[ht]
 \tiny
 \caption{Comparative performance for compensatory and non-compensatory models on ranking implicit feedback, `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
 \begin{center}
@@ -383,115 +397,124 @@ Yoochoose &- &30,852 &3,044,572 &341,396 \\\hline
 \hline
 Dataset	& Method	&AUC	&Improve	&NDCG	&Improve	&MRR	&Improve	&MAP	&Improve&	Prec&	Improve\\\hline
 \multirow{8}{*}{Tmall-single} &	BT	&0.7253 	&&	0.2814 	&&	0.4890 	&&	0.4348 	&&	0.2787 &\\\cline{2-12}	
-	&BT-NCR	&0.7308 	&0.76$\%$&	0.2853 	&1.36$\%$&	0.4973 &1.70$\%$	&0.4408 &	1.38$\%$&	0.2810 	&0.81$\%$\\\cline{2-12}
+	&BT-N	&0.7308 	&0.76$\%$&	0.2853 	&1.36$\%$&	0.4973 &1.70$\%$	&0.4408 &	1.38$\%$&	0.2810 	&0.81$\%$\\\cline{2-12}
 	&BPR	&0.7252 	&&	0.2826 &&		0.4932 		&&0.4359 	&&	0.2789 	&\\\cline{2-12}
-	&BPR-NCR	&0.7305 	&0.73$\%$&	0.2854 	&0.99$\%$&	0.4977 &	0.91$\%$&	0.4410 	&1.17$\%$&	0.2810 &	0.77$\%$\\\cline{2-12}
+	&BPR-N	&0.7305 	&0.73$\%$&	0.2854 	&0.99$\%$&	0.4977 &	0.91$\%$&	0.4410 	&1.17$\%$&	0.2810 &	0.77$\%$\\\cline{2-12}
 	&FSBPR	&0.7092 	&&	0.2732 	&&	0.4717 	&&	0.4163 	&&	0.2734 	&\\\cline{2-12}
-	&FSBPR-NCR&	0.7130 &	0.53$\%$&	0.2747 &	0.57$\%$&	0.4740 	&0.48$\%$&	0.4193 &	0.72$\%$&	0.2747 	&0.48$\%$\\\cline{2-12}
+	&FSBPR-N&	0.7130 &	0.53$\%$&	0.2747 &	0.57$\%$&	0.4740 	&0.48$\%$&	0.4193 &	0.72$\%$&	0.2747 	&0.48$\%$\\\cline{2-12}
 	&LCR	&&&&&&&&&&\\				\cline{2-12}					
-	&LCR-NCR	&&&&&&&&&&		\\\hline							
+	&LCR-N	&&&&&&&&&&		\\\hline							
 \multirow{8}{*}{Tmall-hybrid}	&BT	&0.7931 	&&	0.3056 	&&	0.5458 	&&	0.5015 	&&	0.2934 	&\\\cline{2-12}
-	&BT-NCR	&0.8249 	&4.01$\%$&	0.3305 	&8.15$\%$&	0.6063 	&11.09$\%$	&0.5592 	&11.50$\%$&	0.3044 	&3.75$\%$\\\cline{2-12}
+	&BT-N	&0.8249 	&4.01$\%$&	0.3305 	&8.15$\%$&	0.6063 	&11.09$\%$	&0.5592 	&11.50$\%$&	0.3044 	&3.75$\%$\\\cline{2-12}
 	&BPR	&0.8132 		&&0.3248 	&&	0.5950 	&&	0.5463 	&&	0.3006 	&\\\cline{2-12}
-	&BPR-NCR	&0.8267 &	1.66$\%$	&0.3324 	&2.33$\%$	&0.6112 &	2.72$\%$&	0.5635 &	3.15$\%$&	0.3050 	&1.45$\%$\\\cline{2-12}
+	&BPR-N	&0.8267 &	1.66$\%$	&0.3324 	&2.33$\%$	&0.6112 &	2.72$\%$&	0.5635 &	3.15$\%$&	0.3050 	&1.45$\%$\\\cline{2-12}
 	&FSBPR	&0.7431 	&&	0.2770 	&&	0.4817 	&&	0.4398 	&&	0.2768 	&\\\cline{2-12}
-	&FSBPR-NCR	&0.7624 	&2.60$\%$&	0.2865 	&3.44$\%$&	0.5007 &	3.95$\%$&	0.4597 	&4.53$\%$&	0.2831 &	2.24$\%$\\\cline{2-12}
+	&FSBPR-N	&0.7624 	&2.60$\%$&	0.2865 	&3.44$\%$&	0.5007 &	3.95$\%$&	0.4597 	&4.53$\%$&	0.2831 &	2.24$\%$\\\cline{2-12}
 	&LCR	&&&&&&&&&&						\\\cline{2-12}			
-	&LCR-NCR	&&&&&&&&&&							\\\hline		
+	&LCR-N	&&&&&&&&&&							\\\hline		
 \multirow{8}{*}{Yoochoose} &	BT	&0.8732 &&		0.4742 	&&	0.7156 	&&	0.6368 	&&	0.4569 	&\\\cline{2-12}
-	&BT-NCR	&0.8966 &	2.67$\%$	&0.5166 	&8.94$\%$&	0.7882 	&10.14$\%$&	0.7112 	&11.69$\%$	&0.4786 &	4.76$\%$\\\cline{2-12}
+	&BT-N	&0.8966 &	2.67$\%$	&0.5166 	&8.94$\%$&	0.7882 	&10.14$\%$&	0.7112 	&11.69$\%$	&0.4786 &	4.76$\%$\\\cline{2-12}
 	&BPR	&0.8934 	&&	0.5019 	&&	0.7639 	&&	0.6821 	&&	0.4711 	&\\\cline{2-12}
-	&BPR-NCR	&0.9034 &	1.12$\%$&	0.5149 	&2.59$\%$&	0.7854 &	2.82$\%$&	0.7057 &	3.46$\%$&	0.4777 	&1.39$\%$\\\cline{2-12}
+	&BPR-N	&0.9034 &	1.12$\%$&	0.5149 	&2.59$\%$&	0.7854 &	2.82$\%$&	0.7057 &	3.46$\%$&	0.4777 	&1.39$\%$\\\cline{2-12}
 	&FSBPR	&0.8405 	&&	0.4379 	&&	0.6541 	&&	0.5685 	&&	0.4374 	&\\\cline{2-12}
-	&FSBPR-NCR&	0.8839 &	5.15$\%$&	0.5445 	&24.34$\%$&	0.7987 &	22.11$\%$&	0.6825 	&20.06$\%$&	0.5362 &22.59$\%$\\\cline{2-12}
+	&FSBPR-N&	0.8839 &	5.15$\%$&	0.5445 	&24.34$\%$&	0.7987 &	22.11$\%$&	0.6825 	&20.06$\%$&	0.5362 &22.59$\%$\\\cline{2-12}
 	&LCR	&&&&&&&&&&		\\		\cline{2-12}					
-	&LCR-NCR	&&&&&&&&&&	\\\hline															
+	&LCR-N	&&&&&&&&&&	\\\hline															
 \end{tabular}
 \end{center}
 \label{tab:gradedresult}
 \end{table*}%
 
-As shown in Table.~\ref{tab:gradedresult}. 
+As shown in Table.~\ref{tab:gradedresult}, the non-compensatory models outperform the original models in terms of all evaluation metrics on all data sets. Thus it is safe to conclude that consumers also conduct non-compensatory rules in the process of giving implicit feedback. Comparing among all models, the improvement is particularly notable for BT model, which suggests that fixing the prominent aspect in a whole session is beneficial. Finally, we observe that FSBPR performs poorly on Yoochoose, possibly because FSBPR connects each user directly to its neighbors, thus FSBPR is not suitable for datasets with sparse user feedback. However, the improvement brought by non-compensatory rules to FSBPR is the most significant, showing its potential in handling cold-start users with a neighborhood factorization framework. 
 
-The improvement of is particularly notable for very sparse datasets such as 
+\subsection{Analysis of Inferred Parameters}
 
-\subsection{Strength of Non-compensatory Rules}
+Finally, we analyze the values of inferred parameters $\theta,\mathbf{b}$ in N models to gain some insights about the non-compensatory rules. 
+%We first present the performance of  the non-compensatory model based on conventional matrix factorization with $\theta,\mathbf{b}$  automatically learnt from the training data (denoted as MF-N-b).  We compare the performance of MF-N-b with non-compensatory models with $\mathbf{b}_{u,k}=0$ fixed for all users and aspects (denoted as MF-N). For a fair comparison, we also provide the performance of Matrix Factorization with user and item biases (denoted as MF-b~\cite{Koren2009Matrix}), i.e. $\hat{\Rating}_{u,q}=\mathbf{u}^T\mathbf{q} + b_u + b_q$.  
+%
+%\begin{table}[htp]
+%\tiny
+%\caption{Comparative performance of models with biases, `Improve' indicates the improvements of $MF-N-b$  relative to $MF-b$.}
+%\begin{center}
+%\begin{tabular}{|p{0.5cm}|c|c|c|c|c|c|c|}
+%\hline
+%Dataset & Method & AUC & Improve & NDCG & Improve  & MRR & Improve \\\hline
+%\multirow{3}{*}{\shortstack{Movie\\lens}} & MF-b &  0.6605 	&&	0.6829 	&&	0.8387 &		 
+% \\\cline{2-8}
+% &MF-N	&0.6990 &	 	&0.7107 	& 	&0.8745 &	 	\\
+%	\cline{2-8}
+% & MF-N-b & 0.7042 	& 6.61$\%$&	0.7118 &	4.23$\%$ &	0.8728 & 	4.07$\%$ 
+% \\\hline
+%\multirow{2}{*}{\shortstack{Film\\trust}} & MF-b & 	 0.5904 	&&	0.5175 	&&	0.7371 	&
+% \\\cline{2-8}
+% &MF-N&	0.6166 	& 	&0.5252 	& 	&0.7624 	& \\
+%	\cline{2-8}
+% & MF-N-b & 0.6151 &	4.18$\%$ &	0.5265 	& 1.73$\%$&	0.7607 &	3.20$\%$ 	 
+%\\\hline
+% \multirow{2}{*}{\shortstack{Ciao\\DVD}} & MF-b &0.5444 	&&	0.6315 	&&	0.8179 &	\\\cline{2-8}
+% &MF-N	&0.6948 	& 	&0.6872 	& 	&0.8969 	& 	\\
+%	\cline{2-8}
+% & MF-N-b & 0.7109 &	30.57$\%$&	0.6919 &	9.57$\%$&	0.9008 	&10.13$\%$
+% \\\hline
+%\end{tabular}
+%\end{center}
+%\label{tab:biasresult}
+%\end{table}%
+As the user-defined aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly splitting the data sets to $5$ folds. We present in Table.~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
 
-We next study how the two types of non-compensatory rules are combined. The parameter $\theta$ controls the strength of lexicographical rules. We report the values of $\theta$ in Table.~\ref{tab:theta}. We have the following observations. (1) The obtained value $\theta>0$ for all models on all datasets. Since $\exp\theta>1$, the prominent aspect is more important than non-prominent aspect in user evaluations. This is consistent to our assumptions that lexicographical rules will evaluate item perforamance first on the most important aspect. (2) The optimal value of $\theta$ differs among models and data sets. In general, BT-NCR model relies more on the prominent aspect. (3) We observe positive association between rating model and ranking models with the same type of rating prediction formula. For example, MF-NCR and BPR-NCR adopt the same conventional matrix factorization prediction formula, and they generally derive a smaller $\theta$, compared with AMF-NCR and FSBPR-NCR, which share the same form of neighborhood factorization prediction formula.  
 
- 
+\textbf{Strength of Non-compensatory Rules}
+We have the following observations. (1) The obtained value $\theta>0$ on all datasets. Since $\exp\theta>1$, the prominent aspect is more important than non-prominent aspect in user evaluations. This is consistent to our assumptions that lexicographical rules will evaluate item performance first on the most important aspect. (2)  The optimal value of $\theta$ is  moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
+%
+% 
+%
+%\begin{table}[htp]
+%\tiny
+%\caption{Scale of strength parameter $\theta$}
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%Method & Movielens & FilmTrust & CiaoDVD \\\hline
+%MF-N & & & \\\hline
+%AMF-N & & & \\\hline
+%LLORMA-N & & & \\\hline
+%BT-N & & & \\\hline
+%BPR-N & & & \\\hline
+%FSBPR-N & & & \\\hline
+%LCR-N & & & \\\hline
+%Method & Tmall-single & Tmall-hybrid & Yoochoose \\\hline
+%BT-N & & & \\\hline
+%BPR-N & & & \\\hline
+%FSBPR-N & & & \\\hline
+%LCR-N & & & \\\hline
+%\end{tabular}
+%\end{center}
+%\label{tab:theta}
+%\end{table}%
+
+
+\textbf{Effect of User-defined Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user defined threshold for each aspect is significant different. The experimental result is consistent with our assumption of employing aspect-specific threshold in non-compensatory rules. 
+
 
 \begin{table}[htp]
 \tiny
-\caption{Scale of strength parameter $\theta$}
+\caption{Scale of the strength of lexicographical rule $\theta$ and user-defined aspect-specific threshold $\mathbf{b}_{u,k}$.}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Method & Movielens & FilmTrust & CiaoDVD \\\hline
-MF-NCR & & & \\\hline
-AMF-NCR & & & \\\hline
-LLORMA-NCR & & & \\\hline
-BT-NCR & & & \\\hline
-BPR-NCR & & & \\\hline
-FSBPR-NCR & & & \\\hline
-LCR-NCR & & & \\\hline
-Method & Tmall-single & Tmall-hybrid & Yoochoose \\\hline
-BT-NCR & & & \\\hline
-BPR-NCR & & & \\\hline
-FSBPR-NCR & & & \\\hline
-LCR-NCR & & & \\\hline
+Dataset & Movielens & FilmTrust & CiaoDVD \\\hline
+$\theta$ & $0.608\pm 0.105$ & $0.667\pm 0.016$ &	$0.773\pm 0.051$\\\hline
+$\sigma(\mathbf{b}_{u})$ & $0.131\pm 0.007$ &	$0.863\pm 0.072$	& $0.058\pm 0.001$  \\\hline
 \end{tabular}
 \end{center}
-\label{tab:theta}
-\end{table}%
-
-
-\subsection{Effect of User-defined Aspect-specific Threshold}
-
-Finally, we study the effect of user-defined aspect-specific threshold $\mathbf{b}_{u,k}$. In the previous experiment on rating performance, we set $\mathbf{b}_{u,k}=0$ for all users and aspects. Here we allow $\mathbf{b}_{u,k}$ to be infered. For a fair comparison, we compare the $MF-NCR-b$ with MF with user and item biases.  
-
-\begin{table}[htp]
-\tiny
-\caption{Comparative rating prediction performance}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
-Dataset & Method & AUC & NDCG & RMSE & MAE & MRR \\\hline
-\multirow{2}{*}{Movielens} & MF-biased &  & 	 &	 &	 &	 
- \\\cline{2-7}
- & MF-NCR-b & & 	 &	 &	 &	 
- \\\hline
-\multirow{2}{*}{Filmtrust} & MF-biased & &	 &	 	&  &	 
- \\\cline{2-7}
- & MF-NCR-b &  & 	 &	 & 	 & 	 
-\\\hline
- \multirow{2}{*}{CiaoDVD} & MF-biased & & 	 &	 & 	 	 &  
-\\\cline{2-7}
- & MF-NCR-b & & 	 &	 &	 	&  
- \\\hline
-\end{tabular}
-\end{center}
-\label{tab:biasresult}
-\end{table}%
-
-
-\begin{table}[htp]
-\caption{Scale of user-defined aspect-specific threshold $\mathbf{b}_{u,k}$}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-Method & Movielens & FilmTrust & CiaoDVD \\\hline
-$std(\mathbf{b}_{u,k})$ & & & \\\hline
-\end{tabular}
-\end{center}
-\label{tab:bias}
+\label{tab:parameters}
 \end{table}%
 
 
 %\section{Related Work}\label{sec:relatedwork}
 
 \section{Conclusion}\label{sec:conclusion}
-
+Psychology study has shown that consumers adopt compensatory and non-compensatory rules in the decision making process. However, all existing latent factor models in recommendation systems are essentially based on compensatory rules. In this contribution, we present for the first time in the literature of recommendation systems how non-compensatory rules can be embedded in latent factor models. We show that applying non-compensatory rules can universally boost recommendation performance for a variety of rating prediction and ranking aware models. 
 
 \bibliography{/Users/linchen/Documents/GitHub/MyRef/reference.bib}
 \bibliographystyle{aaai}
