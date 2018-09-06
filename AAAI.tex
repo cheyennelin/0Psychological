@@ -397,7 +397,7 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \label{tab:idata}
 \end{table}%
 
-\textbf{Data Sets}  We use three real world datasets, as shown in Table~\ref{tab:idata}. Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase. We build two data sets based on Tmall. (1) Tmall-single: a set of pairwise rankings where an item $p$ purchased in $u$'s session is considered to be superior than an item $q$ clicked in the same session. (2) Tmall-hybrid: the pairwise rankings are built by extracting purchased items in each session and all remaining items which are not purchased in the same session. Thus if an item $p$ is purchased in the session, and an item $q$ is either clicked, added to cart or added to favorite, we build $p\succ_u q$. (3) Yoochoose\footnote{http://2015.recsyschallenge.com}: a collection of user shopping sessions with clicked and purchased items. In this data set, user information is not provided. In the experiments, we assume that each session is from a new user. 
+\textbf{Data Sets}. We use three real world datasets, as shown in Table~\ref{tab:idata}. Tmall\footnote{https://ijcai-15.org/index.php/repeat-buyers-prediction-competition} is a collection of user shopping sessions, where in each session the user has four types of activities: click, add to cart, add to favorite and purchase. We build two data sets based on Tmall. (1) Tmall-single: a set of pairwise rankings where an item $p$ purchased in $u$'s session is considered to be superior than an item $q$ clicked in the same session. (2) Tmall-hybrid: the pairwise rankings are built by extracting purchased items in each session and all remaining items which are not purchased in the same session. Thus if an item $p$ is purchased in the session, and an item $q$ is either clicked, added to cart or added to favorite, we build $p\succ_u q$. (3) Yoochoose\footnote{http://2015.recsyschallenge.com}: a collection of user shopping sessions with clicked and purchased items. In this data set, user information is not provided. In the experiments, we assume that each session is from a new user. 
 
 
 
@@ -405,10 +405,10 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \tiny
 \caption{Comparative performance for ranking aware models on implicit feedback.  All non-compensatory models outperform the original models.}% `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
 \begin{center}
-\begin{tabular}{p{0.4cm}<{\centering}|p{1.2cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}|p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
+\begin{tabular}{p{1.2cm}<{\centering}|p{1.2cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}|p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
 Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Prec	&Improve\\\hline
-\multirow{6}{*}{\shortstack{Tmall-\\single}} &	BT	& $0.7253 $&  &$0.2814$& &$0.4890$&   &$0.4348$& 	& $0.2787$ 	&\\
+\multirow{6}{*}{Tmall-single} &	BT	& $0.7253 $&  &$0.2814$& &$0.4890$&   &$0.4348$& 	& $0.2787$ 	&\\
 %\cline{2-8}
 	&BT-N	&$0.7308$ &	$0.76\%$	&$0.2853 $	&$1.36\%$	&$0.4973$ &	$1.70\%$	&$0.4408$ &	$1.38\%$	&$0.2810 $	&$0.81\%$\\
 %	\cline{2-8}
@@ -425,7 +425,7 @@ Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Pr
 	&LCR-N	&$0.5263 $	&$0.61\%$	&	$0.8141$ 	&$0.31\%$	&$0.4126$ 	&$0.81\%$ &$0.3436$ &	$0.85\%$	&$0.2462 $	&$1.32\%$\\
 
 	\hline
-\multirow{6}{*}{\shortstack{Tmall-\\hybrid}}	&	BT	& $0.7931 $&  &$0.3056$& &$0.5458$&   &$0.5015$& 	& $0.2934$ 	&\\
+\multirow{6}{*}{Tmall-hybrid}	&	BT	& $0.7931 $&  &$0.3056$& &$0.5458$&   &$0.5015$& 	& $0.2934$ 	&\\
 %\cline{2-8}
 	&BT-N	&$0.8249$ &	$4.01\%$	&$0.3305 $	&$8.15\%$	&$0.6063$ &	$11.09\%$	&$0.5592$ &	$11.50\%$	&$0.3044 $	&$3.75\%$\\
 %	\cline{2-8}
@@ -442,7 +442,7 @@ Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Pr
 	&LCR-N	&$0.5636$	&$4.47\%$	&	$0.6933$ 	&$2.29\%$	&$0.5140$ 	&$6.51\%$ &$0.4242$ &	$6.72\%$	&$0.2858 $	&$5.19\%$\\
 
 	\hline
-\multirow{6}{*}{\shortstack{Yooch\\oose}}	&BT	& $0.8732 $&  &$0.4742$& &$0.7156$&   &$0.6368$& 	& $0.4569$ 	&\\
+\multirow{6}{*}{Yoochoose}	&BT	& $0.8732 $&  &$0.4742$& &$0.7156$&   &$0.6368$& 	& $0.4569$ 	&\\
 %\cline{2-8}
 	&BT-N	&$0.8966$ &	$2.67\%$	&$0.5166 $	&$8.94\%$	&$0.7882$ &	$10.14\%$	&$0.7112$ &	$11.69\%$	&$0.4786 $	&$4.76\%$\\
 %	\cline{2-8}
@@ -506,8 +506,7 @@ Finally, we analyze the values of inferred parameters $\theta,\mathbf{b}$ in non
 As the user-defined aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly splitting the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
 
 
-\textbf{Strength of Non-compensatory Rules}
-We have the following observations. (1) The obtained value $\theta>0$ on all datasets. Since $\exp\theta>1$, the prominent aspect is more important than non-prominent aspect in user evaluations. This is consistent to our assumptions that lexicographical rules will evaluate item performance on the most important aspect. (2)  The optimal value of $\theta$ is  moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
+\textbf{Strength of Non-compensatory Rules}. We have the following observations. (1) The obtained value $\theta>0$ on all datasets. Since $\exp\theta>1$, the prominent aspect is more important than non-prominent aspect in user evaluations. This is consistent to our assumptions that lexicographical rules will evaluate item performance on the most important aspect. (2)  The optimal value of $\theta$ is  moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
 
 \textbf{Effect of User-defined Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user defined threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is neccessary to employ aspect-specific threshold in non-compensatory rules. 
 \begin{table}[htp]
