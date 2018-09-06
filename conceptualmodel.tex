@@ -1,0 +1,95 @@
+%% Copyright 2009 Ivan Griffin
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Ivan Griffin
+%
+% This work consists of the files tcp_state_machine.tex
+
+%Description
+%-----------
+%tcp_state_machine.tex - an example file illustrating the TCP (RFC 793)
+%                        state machine
+
+%Created 2009-11-20 by Ivan Griffin.  Last updated: 2009-11-20
+%-------------------------------------------------------------
+
+
+
+\documentclass{article}
+
+\usepackage{tikz}
+%%%<
+\usepackage{verbatim}
+%%%>
+
+
+\usetikzlibrary{calc,backgrounds}
+\usepackage[active,tightpage]{preview}
+
+
+\begin{preview}
+\begin{tikzpicture}
+
+  %
+  % Styles for states, and state edges
+  %
+  \tikzstyle{state} = [draw, very thick, fill=white, rectangle, minimum height=3em, minimum width=7em, node distance=8em, font={\sffamily\bfseries}]
+  \tikzstyle{stateEdgePortion} = [black,thick];
+  \tikzstyle{stateEdge} = [stateEdgePortion,->];
+  \tikzstyle{edgeLabel} = [pos=0.5, text centered, font={\sffamily\small}];
+
+  %
+  % Position States
+  %
+  \node[state, name=user] {User};
+  \node[state, name=aspect, below of=user] {Prominent Aspect};
+  \node[state, name=evaluation1, below of=aspect, right of=aspect, xshift=8em] {Evaluation on Non-prominent Aspects};
+  \node[state, name=evaluationp, below of=aspect, left of=aspect, xshift=-8em] {Evaluation on Prominent Aspect};
+  \node[state, name=overall, below of=aspect, node distance=14em] {Overall Evaluation};
+
+  %
+  % Connect States via edges
+  %
+  \draw ($(user.south) + (-0.5em,0)$) 
+      edge[stateEdge] node[edgeLabel, xshift=-3em]{\emph{Preference $\mathbf{u}$}} 
+      ($(aspect.north) + (-.5em,0)$); 
+ 
+
+  \draw ($(aspect.south) + (-1em,0)$) 
+      edge[stateEdge, bend left=22.5] node[edgeLabel, xshift=-2em, yshift=1em]{} 
+      ($(evaluationp.east) + (0,1em)$);
+  \draw ($(aspect.south) + (1em,0)$) 
+      edge[stateEdge, bend right=22.5] node[edgeLabel, xshift=1em, yshift=1em]{}
+      ($(evaluation1.west) + (0,1em)$);
+
+  \draw  ($(user.west) + (0,-.5em)$)
+      edge[stateEdge, bend left=-45] node[edgeLabel,xshift=-4em]{\emph{Strength $\theta$}} 
+     ($(evaluationp.north) + (.5em,0)$) ;
+
+
+  \draw ($(user.east) + (0,-.5em)$) 
+      edge[stateEdge, bend left=45] node[edgeLabel,xshift=1em]{\emph{User-defined Threshold $\mathbf{b}_u$}} 
+      ($(evaluation1.north) + (-.5em,0)$);
+
+  \draw ($(evaluationp.east) + (0,-1em)$) 
+      edge[stateEdge, bend left=22.5] node[edgeLabel, xshift=-1em, yshift=-1em]{} 
+      ($(overall.north) + (-1em,0)$);
+  \draw ($(evaluation1.west) + (0,-1em)$) 
+      edge[stateEdge, bend right=22.5] node[edgeLabel, xshift=3em, yshift=-1em]{} 
+      ($(overall.north) + (1em,0)$);
+
+\end{tikzpicture}
+\end{preview}
+
+
+
+\end{document}
