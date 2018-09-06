@@ -55,7 +55,7 @@ However, in the study of human choice behavior, it is well regarded that consume
 
 Non-compensatory rules do not allow the shortcomings of a product to be balanced out by its attractive features. The literature has proposed different non-compensatory rules, among which  \emph{lexicographic rule} and \emph{conjunctive rule} are the most common. For example, in a survey interviewing consumption decisions about beer brands and fast-food outlets~\cite{Laroche2003Which}, conjunctive rule has a success rate of $62.0\%$ in predicting brand consideration and lexicographic rule has a success rate of $34.6\%$ which is the second highest non-compensatory rule. We next illustrate  \emph{lexicographic rule} and \emph{conjunctive rule}  by the cellphone example in Table~\ref{tab:example}. 
 
-\textbf{Example.}  \emph{Lexicographic rule} assumes that aspects of products can be ordered in terms of importance and alternative brands are evaluated sequentially from most prominent to least prominent aspects.  If Alice's priority is long-lasting battery, then she will adopt lexicographic rule to rank phones first based on battery life. In this case Honor and iPhone will be ranked higher than Galaxy. The other benefits offered by Galaxy  do not outweigh her desire for a long-life battery. \emph{Conjunctive rule} establishes a minimally acceptable threshold for each aspect. Evaluation is made on the basis of whether or not the products satisfy the threshold. If Alice wants the phone to be cheap and with plenty of storage space, then she will adopt conjunctive rule to set thresholds (e.g. $600\$$ and $64GB$ on the corresponding aspects). In this case, iPhone fails to meet the cut-off point, thus it will not outrank Honor. In either case, adopting a compensatory rule based recommendation model is problematic. 
+\textbf{Example.} Lexicographic rule assumes that aspects of products can be ordered in terms of importance and alternative brands are evaluated sequentially from most prominent to least prominent aspects.  If Alice's priority is long-lasting battery, then she will adopt lexicographic rule to rank phones first based on battery life. In this case Honor and iPhone will be ranked higher than Galaxy. The other benefits offered by Galaxy  do not outweigh her desire for a long-life battery. Conjunctive rule establishes a minimally acceptable threshold for each aspect. Evaluation is made on the basis of whether or not the products satisfy the threshold. If Alice wants the phone to be cheap and with plenty of storage space, then she will adopt conjunctive rule to set thresholds (e.g. $600\$$ and $64GB$ on the corresponding aspects). In this case, iPhone fails to meet the cut-off point, thus it will not outrank Honor. In either case, adopting a compensatory rule based recommendation model is problematic. 
 
 \begin{table}[htp]\label{tab:rules}
 \caption{The cellphone example to illustrate non-compensatory rules.}
@@ -80,7 +80,7 @@ Our primary contribution is to give a conceptual model of how users adopt non-co
 
 Our second contribution is to realize the conceptual model in a wide range of recommendation frameworks, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and local low-rank matrix approximation (LLORMA~\cite{Lee2013Local}), and pairwise ranking reconstruction models such as the Bradley-Terry model (BT~\cite{Hu2016Improved}) and Thurstone model (BPR~\cite{Rendle2009BPR}). 
 
-We conduct comprehensive experiments on a variety of real world data sets. We experimentally show that embedding non-compensatory rules universally improve recommendation performances of different existing models. 
+We conduct comprehensive experiments on a variety of real world data sets. We experimentally show that \emph{ the proposed non-compensatory framework universally improves recommendation performances of different existing models}. 
 
 The paper is organized as follows. We start with surveying the most commonly adopted latent factor models. We show that previous research work is based on compensatory rules. Next, we present a conceptual model based on non-compensatory rules and realize it in different existing models. Then, we experimentally show that the non-compensatory modifications outperform the original versions of existing models on a variety of real-world data sets. Finally we conclude our work.
 
@@ -89,7 +89,7 @@ In this section, we show that existing latent factor models can be categorized b
 
 \begin{table*}[htp]
 \tiny
-\caption{Existing latent factor models in literature can be classified based on the loss functions and rating prediction formulas}
+\caption{Existing latent factor models in literature can be classified based on the loss functions and rating prediction formulas.}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -166,7 +166,7 @@ For computational convenience, inspired by the psychological findings, we presen
 
  \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{conceptualmodel.pdf}
+\includegraphics[width=0.4\textwidth]{conceptualmodel.pdf}
 \caption{Conceptual model of the user evaluation process}
 \label{fig:model}
 \end{center}
@@ -224,11 +224,11 @@ To infer the parameters of BT-N, we implement a stochastic expectation maximizat
 \section{Experiments}\label{sec:experiment}
 We conduct experiments to evaluate the performance of non-compensatory rules in recommendation models. We conduct three sets of experiments on real world datasets. The first set of experiments is conducted to examine whether the non-compensatory versions of rating prediction models outperform the original versions on rating data sets. 
 The second set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
-The third set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights.
+The third set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights. Source code will be made available upon acceptance of the manuscript.
 
 \subsection{Comparative Results for Rating Prediction Models}
 
-\textbf{Data Sets} We use the standard benchmarks with user-item ratings. (1) Movielens\footnote{http://www.grouplens.org}: user-movie rating for movies collected from the MovieLens web site. (2) FilmTrust~\cite{Guo2013Novel}: user-movie ratings crawled from the entire FilmTrust website. (3) CiaoDVD~\cite{Guo2014ETAF}: user-movie ratings crawled from the entire category of DVDs from the UK Ciao website. Statistics of the datasets are described in Table~\ref{tab:datasets}. 
+\textbf{Data Sets} We use the standard benchmarks with user-item ratings. (1) Movielens: user-movie rating for movies collected from the MovieLens web site. (2) FilmTrust~\cite{Guo2013Novel}: user-movie ratings crawled from the entire FilmTrust website. (3) CiaoDVD~\cite{Guo2014ETAF}: user-movie ratings crawled from the entire category of DVDs from the UK Ciao website. Statistics of the datasets are described in Table~\ref{tab:datasets}. 
 
 For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training set and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation, 
 
@@ -254,7 +254,7 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 
 \begin{table}[htp]
 \tiny
-\caption{Comparative performance for compensatory and non-compensatory rating prediction models, `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
+\caption{Comparative performance for compensatory and non-compensatory rating prediction models, `Improve' indicates the percentage of improvements of non-compensatory versions relative to the original models. Non-compensatory models universally outperform the original models.}
 \begin{center}
 \begin{tabular}{p{0.4cm}<{\centering}|p{1.2cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
@@ -310,10 +310,10 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved}: the Bradley-Terry ranking model with MF rating prediction formula, (2) BPR~\cite{Rendle2009BPR}:  the Thurstonian ranking model with MF rating prediction formula, the optimization is through maximal Bayesian posterior, the regularization coefficient is $\lambda=0.01$, (3) FSBPR~\cite{Zhao2018Factored}: the Thurstonian ranking model with AMF rating prediction formula, the optimization is through maximal Bayesian posterior, (4) LCR~\cite{Lee2014Local}: the Thurstonian ranking model with local low-rank matrix factorization, the loss function for LLORMA and LLORMA-N is $log[M]$ which is the log-likelihood. The number of local models  is $S=10$.  For all methods, we set the number of aspects $K=10$. 
 
-\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings for each user. Hence we adopt the same set of ranking evaluation metrics, including AUC, NDCG and MRR. 
+\textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings for each user. We adopt the same set of ranking evaluation metrics, including AUC, NDCG and MRR. 
 \begin{table}[htp]
 \tiny
-\caption{Comparative performance for compensatory and non-compensatory ranking aware models, `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
+\caption{Comparative performance for ranking aware models.  Non-compensatory models generally outperform the original models.}% `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
 \begin{center}
 \begin{tabular}{p{0.4cm}<{\centering}|p{1.4cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
@@ -403,7 +403,7 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 
 \begin{table*}[ht]
 \tiny
-\caption{Comparative performance for compensatory and non-compensatory models on ranking implicit feedback, `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
+\caption{Comparative performance for ranking aware models on implicit feedback.  All non-compensatory models outperform the original models.}% `Improve' indicates the improvements of non-compensatory versions relative to the original models.}
 \begin{center}
 \begin{tabular}{p{0.4cm}<{\centering}|p{1.2cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}|p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
@@ -466,7 +466,7 @@ Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Pr
 
 \textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections.  In our model the prominent aspect is associated with each evaluation session. In the previous experiments, an evaluation session is a rating or a pair of rating. Here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions.  
 
-\textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics, i.e. AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we adopt two more evaluation metrics, namely MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. 
+\textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics, i.e.AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we also adopt  MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. 
 
 As shown in Table~\ref{tab:gradedresult}, the non-compensatory models outperform the original models in terms of all evaluation metrics on all data sets. Thus it is safe to conclude that consumers also conduct non-compensatory rules in the process of giving implicit feedback. The improvement is particularly notable for BT model on less sparse data sets, such as Tmall-hybrid and Yoochoose. This is because a session of multiple ranking pairs is more informative, thus fixing the prominent aspect in a whole session is beneficial. %Finally, we observe that FSBPR performs poorly on Yoochoose, possibly because FSBPR connects each user directly to its neighbors, thus FSBPR is not suitable for datasets with sparse user feedback. However, the improvement brought by non-compensatory rules to FSBPR is the most significant, showing its potential in handling cold-start users with a neighborhood factorization framework. 
 

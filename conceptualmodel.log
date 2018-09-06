@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  5 SEP 2018 15:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.7.7)  5 SEP 2018 22:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -369,15 +369,13 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 
 
-LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <9> not available
+LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <14.4> not available
 (Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 64.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 64.
+(Font)              <14.4> on input line 64.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 64.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 64.
+(Font)              <7> on input line 64.
 Missing character: There is no . in font nullfont!
 Missing character: There is no 5 in font nullfont!
 Missing character: There is no . in font nullfont!
@@ -387,7 +385,7 @@ Missing character: There is no 5 in font nullfont!
 Missing character: There is no . in font nullfont!
 Missing character: There is no 5 in font nullfont!
 
-Overfull \hbox (144.73381pt too wide) in paragraph at lines 90--91
+Overfull \hbox (80.57489pt too wide) in paragraph at lines 90--91
 [][] 
  []
 
@@ -399,19 +397,20 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 10893 strings out of 492646
- 228003 string characters out of 6129564
- 266824 words of memory out of 5000000
- 14604 multiletter control sequences out of 15000+600000
- 7654 words of font info for 27 fonts, out of 8000000 for 9000
+ 10886 strings out of 492646
+ 227960 string characters out of 6129564
+ 266842 words of memory out of 5000000
+ 14601 multiletter control sequences out of 15000+600000
+ 7037 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,9n,61p,417b,838s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></us
-r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb>
-Output written on conceptualmodel.pdf (1 page, 43568 bytes).
+ 55i,9n,61p,417b,824s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb>
+
+Output written on conceptualmodel.pdf (1 page, 43617 bytes).
 PDF statistics:
  31 PDF objects out of 1000 (max. 8388607)
  19 compressed objects within 1 object stream
