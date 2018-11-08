@@ -1,50 +1,36 @@
-\def\year{2019}\relax
-%File: formatting-instruction.tex
-\documentclass[letterpaper]{article} %DO NOT CHANGE THIS
-
-%%proofreading
-%\usepackage{setspace}
-%\doublespacing
-
-\usepackage{multirow}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{booktabs}
-\usepackage{array}
-\newcommand{\Ep}{\mathbb{E}}
-\newcommand{\Real}{\mathcal{R}}
-\newcommand{\Rating}{\mathbf{X}}
-\newcommand{\Loss}{\mathcal{L}}
-\usepackage{aaai19} %Required
-\usepackage{times} %Required
-\usepackage{helvet} %Required
-\usepackage{courier} %Required
-\usepackage{url} %Required
-\usepackage{graphicx} %Required
-\frenchspacing %Required
-\setlength{\pdfpagewidth}{8.5in} %Required
-\setlength{\pdfpageheight}{11in} %Required
-%PDF Info Is Required:
+\documentclass[letterpaper]{article}
+\usepackage{aaai19}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{url}
+\usepackage{graphicx}
+\frenchspacing
 \pdfinfo{
-/Title ()
-/Author (AAAI Press Staff)}
-\setcounter{secnumdepth}{0}
-\begin{document}
-% The file aaai.sty is the style file for AAAI Press
-% proceedings, working notes, and technical reports.
+/Title (Non-Compensatory Psychological Models for Recommender Systems)
+/Author (Chen Lin, Xiaolin Shen, Si Chen, Muhua Zhu, Yanghua Xiao)
+/Keywords (Non-Compensatory, Recommendation System, Decision Rules, Consumer Psychology)
+}
+%
+% Title and Author Information Must Immediately Follow
+% the pdfinfo within the preamble
 %
 \title{Non-Compensatory Psychological Models for Recommender Systems}
-\author{ID: 335
-}
+\author{Chen Lin \\
+Department of Computer Science\\
+Xiamen University}\\
+\begin{document}
 \maketitle
-
 \begin{abstract}
 The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. the consumer evaluates an item over multiple aspects and computes a weighted or/and summated score which is further used to derive the rating or ranking of an item. However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules. Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models. 
 
 Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen as the prominent aspect according to user preference. (2) Evaluations over prominent and non-prominent aspects are non-compensatory. Evaluation is mainly based on item performance on the prominent aspect. For non-prominent aspects the user sets a minimal acceptable threshold. We give a conceptual model for these general assumptions and show how this model can be realized to a wide range of existing recommender systems, including  point-wise rating prediction models and pair-wise ranking prediction models.  We experimentally show that adopting non-compensatory rules constantly improve recommendation performance of different existing models on a variety of real-world data sets.
 \end{abstract}
 
-
+\newcommand{\Ep}{\mathbb{E}}
+\newcommand{\Real}{\mathcal{R}}
+\newcommand{\Rating}{\mathbf{X}}
+\newcommand{\Loss}{\mathcal{L}}
 
 \section{Introduction}\label{sec:introduction}
 The majority of state-of-the-art recommendation models are based on latent factor models. Generally, latent factor models transform both user preferences and item features into the same hidden feature spaces with $K$ aspects. To recover the observations (i.e. ratings or rankings) in any recommender system, they adopt the inner products of the user preferences and the item features. There are fruitful successful applications of latent factor models in  rating predictions~\cite{Koren2009Matrix,Koren2010Factor,Lee2014Local} and ranking reconstructions~\cite{Rendle2009BPR,Steck2015Gaussian,Zhao2018Factored,Shi2010List}.   
@@ -394,7 +380,6 @@ Tmall-hybrid &62,101 &198,344 &6,072,061 &475,503 \\\hline
 Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \end{tabular}
 \end{center}
-\vspace*{-10pt}
 \label{tab:idata}
 \end{table}%
 
@@ -461,7 +446,6 @@ Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Pr
 	\hline
 	\end{tabular}
 \end{center}
-\vspace*{-10pt}
 \label{tab:gradedresult}
 \end{table*}%
 
@@ -469,41 +453,12 @@ Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Pr
 
 \textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics, i.e.AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we also adopt  MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. 
 
-As shown in Table~\ref{tab:gradedresult}, the non-compensatory models outperform the original models in terms of all evaluation metrics on all data sets. Thus it is safe to conclude that consumers also conduct non-compensatory rules in the process of giving implicit feedback. The improvement is particularly notable for BT model on less sparse data sets, such as Tmall-hybrid and Yoochoose. This is because a session of multiple ranking pairs is more informative, thus fixing the prominent aspect in a whole session is beneficial. %Finally, we observe that FSBPR performs poorly on Yoochoose, possibly because FSBPR connects each user directly to its neighbors, thus FSBPR is not suitable for datasets with sparse user feedback. However, the improvement brought by non-compensatory rules to FSBPR is the most significant, showing its potential in handling cold-start users with a neighborhood factorization framework. 
+As shown in Table~\ref{tab:gradedresult}, the non-compensatory models outperform the original models in terms of all evaluation metrics on all data sets. Thus it is safe to conclude that consumers also conduct non-compensatory rules in the process of giving implicit feedback. The improvement is particularly notable for BT model on less sparse data sets, such as Tmall-hybrid and Yoochoose. This is because a session of multiple ranking pairs is more informative, thus fixing the prominent aspect in a whole session is beneficial.
 
 \subsection{Analysis of Inferred Parameters}
 
 Finally, we analyze the values of inferred parameters $\theta,\mathbf{b}$ in non-compensatory models to gain some insights about the non-compensatory rules. 
-%We first present the performance of  the non-compensatory model based on conventional matrix factorization with $\theta,\mathbf{b}$  automatically learnt from the training data (denoted as MF-N-b).  We compare the performance of MF-N-b with non-compensatory models with $\mathbf{b}_{u,k}=0$ fixed for all users and aspects (denoted as MF-N). For a fair comparison, we also provide the performance of Matrix Factorization with user and item biases (denoted as MF-b~\cite{Koren2009Matrix}), i.e. $\hat{\Rating}_{u,q}=\mathbf{u}^T\mathbf{q} + b_u + b_q$.  
-%
-%\begin{table}[htp]
-%\tiny
-%\caption{Comparative performance of models with biases, `Improve' indicates the improvements of $MF-N-b$  relative to $MF-b$.}
-%\begin{center}
-%\begin{tabular}{|p{0.5cm}|c|c|c|c|c|c|c|}
-%\hline
-%Dataset & Method & AUC & Improve & NDCG & Improve  & MRR & Improve \\\hline
-%\multirow{3}{*}{\shortstack{Movie\\lens}} & MF-b &  0.6605 	&&	0.6829 	&&	0.8387 &		 
-% \\\cline{2-8}
-% &MF-N	&0.6990 &	 	&0.7107 	& 	&0.8745 &	 	\\
-%	\cline{2-8}
-% & MF-N-b & 0.7042 	& 6.61$\%$&	0.7118 &	4.23$\%$ &	0.8728 & 	4.07$\%$ 
-% \\\hline
-%\multirow{2}{*}{\shortstack{Film\\trust}} & MF-b & 	 0.5904 	&&	0.5175 	&&	0.7371 	&
-% \\\cline{2-8}
-% &MF-N&	0.6166 	& 	&0.5252 	& 	&0.7624 	& \\
-%	\cline{2-8}
-% & MF-N-b & 0.6151 &	4.18$\%$ &	0.5265 	& 1.73$\%$&	0.7607 &	3.20$\%$ 	 
-%\\\hline
-% \multirow{2}{*}{\shortstack{Ciao\\DVD}} & MF-b &0.5444 	&&	0.6315 	&&	0.8179 &	\\\cline{2-8}
-% &MF-N	&0.6948 	& 	&0.6872 	& 	&0.8969 	& 	\\
-%	\cline{2-8}
-% & MF-N-b & 0.7109 &	30.57$\%$&	0.6919 &	9.57$\%$&	0.9008 	&10.13$\%$
-% \\\hline
-%\end{tabular}
-%\end{center}
-%\label{tab:biasresult}
-%\end{table}%
+
 As the user-defined aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly splitting the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
 
 
