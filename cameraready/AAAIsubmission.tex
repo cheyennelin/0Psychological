@@ -36,9 +36,9 @@ School of Computer Science, Fudan University
 }
 \maketitle
 \begin{abstract}
-The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. the consumer evaluates an item over multiple aspects and computes a weighted or/and summated score which is further used to derive the rating or ranking of an item. However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules. Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models. 
+The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. they evaluate an item over multiple aspects and compute a weighted or/and summated score which is to further derive the rating or ranking of an item. However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules. Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models. 
 
-Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen as the prominent aspect according to user preference. (2) Evaluations over prominent and non-prominent aspects are non-compensatory. Evaluation is mainly based on item performance on the prominent aspect. For non-prominent aspects the user sets a minimal acceptable threshold. We give a conceptual model for these general assumptions and show how this model can be realized to a wide range of existing recommender systems, including  point-wise rating prediction models and pair-wise ranking prediction models.  We experimentally show that adopting non-compensatory rules constantly improve recommendation performance of different existing models on a variety of real-world data sets.
+Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen as the prominent aspect according to user preference. (2) Evaluations over prominent and non-prominent aspects are non-compensatory. Evaluation is mainly based on item performance on the prominent aspect. For non-prominent aspects the user sets a minimal acceptable threshold. We give a conceptual model for these general assumptions. We show how this conceptual model can be realized to both point-wise rating prediction models and pair-wise ranking prediction models. Experiments on real-world data sets validate that adopting non-compensatory rules improve recommendation performance for both rating and ranking models.
 \end{abstract}
 
 
@@ -54,7 +54,8 @@ Non-compensatory rules do not allow the shortcomings of a product to be balanced
 
 \textbf{Example.} Lexicographic rule assumes that aspects of products can be ordered in terms of importance and alternative brands are evaluated sequentially from most prominent to least prominent aspects.  If Alice's priority is long-lasting battery, then she will adopt lexicographic rule to rank phones first based on battery life. In this case Honor and iPhone will be ranked higher than Galaxy. The other benefits offered by Galaxy  do not outweigh her desire for a long-life battery. Conjunctive rule establishes a minimally acceptable threshold for each aspect. Evaluation is made on the basis of whether or not the products satisfy the threshold. If Alice wants the phone to be cheap and with plenty of storage space, then she will adopt conjunctive rule to set thresholds (e.g. $600\$$ and $64GB$ on the corresponding aspects). In this case, iPhone fails to meet the cut-off point, thus it will not outrank Honor. In either case, adopting a compensatory rule based recommendation model is problematic. 
 
-\begin{table}[htp]\label{tab:rules}
+\begin{table}[htp]
+\tiny
 \caption{The cellphone example to illustrate non-compensatory rules.}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -67,13 +68,13 @@ Honor 10 & 24 hours& 589$\$$ & 128GB \\\hline
 \end{tabular}
 \end{center}
 \label{tab:example}
-\end{table}%
+\end{table}
 
 Current computer support for non-compensatory rules is to manually control the rules in decision support systems~\cite{Lee2009Transforming}, e.g. consumers are asked to specify the threshold for an aspect of interest. Such manual approaches are labor costly and difficult to set up and maintain. On the contrary, learning models such as latent factor models~\cite{Koren2009Matrix} have the advantage of scalability, simplicity and flexibility. Unfortunately, to the best of our knowledge, no previous effort has been devoted to building learning to recommend models based on non-compensatory rules. 
 
 Our goal in this paper is to study this unexplored area of how learning models can benefit from non-compensatory rules. Two challenges need to be addressed. (1) How to embed symbolic non-compensatory rules in a data-driven learning framework? (2) How to present a general framework based on non-compensatory rules in a manner that complies with a variety of existing recommendation models, including rating prediction and ranking aware models?  
 
-Our primary contribution is to give a conceptual model of how users adopt non-compensatory rules in recommender systems. Our assumptions are based on the lexicographic and conjunction rules. We assume that, (1) there are $K-$ hidden aspects which  user preferences and item features are transformed into, (2) in each evaluation session, the user picks a prominent aspect according to his/her preference, (3) the user adopts different evaluation strategies on prominent and non-prominent aspects. The evaluation is mainly based on item performance on the prominent aspect. The evaluation is less influenced by item performance with respect to user-defined minimal acceptance values on non-prominent aspects.
+Our primary contribution is to give a conceptual model of how users adopt non-compensatory rules in recommender systems. Our assumptions are based on the lexicographic and conjunction rules. We assume that, (1) there are $K-$ hidden aspects which  user preferences and item features are transformed into, (2) in each evaluation session, the user picks a prominent aspect according to his/her preference, (3) the user adopts different evaluation strategies on prominent and non-prominent aspects. The evaluation is mainly based on item performance on the prominent aspect. The evaluation is less influenced by item performance with respect to non-prominent aspects.
 
 Our second contribution is to realize the conceptual model in a wide range of recommendation frameworks, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and local low-rank matrix approximation (LLORMA~\cite{Lee2013Local}), and pairwise ranking reconstruction models such as the Bradley-Terry model (BT~\cite{Hu2016Improved}) and Thurstone model (BPR~\cite{Rendle2009BPR}). 
 
@@ -171,7 +172,7 @@ For computational convenience, inspired by the psychological findings, we presen
 
 
 \subsection{Non-Compensatory Rating Prediction Formulas}
-Given user preference vector $\mathbf{u}$, in each evaluation session, the hidden prominent aspect is sampled by $k\sim \frac{\exp \mathbf{u}_k}{\sum_{k'} \mathbf{u}_{k'}} $. Evaluation on the prominent aspect is magnified by  $\exp \theta$. Evaluation on a non-prominent aspect is denoted as $q_k-\mathbf{b}_{u,k}$. Thus, when the aspect $k$ is chosen, the evaluation of user $u$ on $q$ is $\mathbf{q}_k \exp\theta  + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'})$. The prediction is generated across all possible hidden prominent aspects. This gives us the following non-compensatory versions of rating prediction formulas.
+Given user preference vector $\mathbf{u}$, in each evaluation session, the hidden prominent aspect is sampled by $k\sim \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} $. Evaluation on the prominent aspect is magnified by  $\exp \theta$. Evaluation on a non-prominent aspect is denoted as $q_k-\mathbf{b}_{u,k}$. Thus, when the aspect $k$ is chosen, the evaluation of user $u$ on $q$ is $\mathbf{q}_k \exp\theta  + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'})$. The prediction is generated across all possible hidden prominent aspects. This gives us the following non-compensatory versions of rating prediction formulas.
 
 \textbf{Non-compensatory Matrix Factorization: MF-N} 
 \begin{equation}\label{equ:MF-N}
@@ -202,7 +203,7 @@ Inference of Thurston models is also easily extensible. For example, to derive B
 
 \textbf{Non-compensatory Bradley-Terry Model.} Finally we propose BT-N, the non-compensatory version of BT~\cite{Hu2016Improved}. In order to treat prominent and non-prominent aspects differently, we define the probability of any ranking pair $p\succ_u q$ as the product of results by factor-wise comparisons. Intuitively $p$ outranks $q$ suggests that $p$ is significantly better on the prominent aspect, and not too bad on non-prominent aspects. Inspired by a variant of BT model with ties~\cite{Hunter2004MM}, given a hidden prominent aspect $k\sim u_k$ sampled for the evaluation session, we define the factor-wise ranking probability on prominent aspect $k$ as ${\frac{\mathbf{p}_k}{\mathbf{p}_k+\theta \mathbf{q}_k}}$, and ranking probability on non-prominent aspect $k'$ as $ \frac{\theta \mathbf{p}_{k'}}{\mathbf{q}_{k'}+\theta \mathbf{p}_{k'}}$. The overall prediction is aggregated over all possible hidden prominent aspect $k$:
 \begin{equation}\label{equ:BT-N}
-p(p\succ_u q)  =  \prod_{k=1}^{K} \mathbf{u}_k [ {\frac{\mathbf{p}_k}{\mathbf{p}_k+\theta \mathbf{q}_k}}\prod_{k'\neq k}{ \frac{\theta \mathbf{p}_{k'}}{\mathbf{q}_{k'}+\theta \mathbf{p}_{k'}}}],
+p(p\succ_u q)  =  \sum_{k=1}^{K} \mathbf{u}_k [ {\frac{\mathbf{p}_k}{\mathbf{p}_k+\theta \mathbf{q}_k}}\prod_{k'\neq k}{ \frac{\theta \mathbf{p}_{k'}}{\mathbf{q}_{k'}+\theta \mathbf{p}_{k'}}}],
 \end{equation}
 where $\mathbf{u}_k >0, \sum_k \mathbf{u}_k=1,\mathbf{p,q}>\mathbf{0}$ and $\theta>1$.  
 
@@ -494,7 +495,7 @@ Psychology study has shown that consumers adopt compensatory and non-compensator
 
 \section{ Acknowledgments}
 Chen Lin is supported by Natural Science Foundation under grant No.61472335. 
-\bibliography{/Users/linchen/Documents/GitHub/MyRef/reference.bib}
+\bibliography{reference}
 \bibliographystyle{aaai}
 \end{document}
  
