@@ -29,10 +29,19 @@
 \author{Chen Lin \and Xiaolin Shen \and Si Chen\\
 Department of Computer Science\\
 Xiamen University\\
+Xiamen, Fujian, China\\
+chenlin@xmu.edu.cn
 \And
-Muhua Zhu \and Yanghua Xiao \\
+Muhua Zhu \\ 
 Alibaba Group \\
-School of Computer Science, Fudan University 
+Hangzhou, Zhejiang, China
+\And 
+Yanghua Xiao \\
+School of Computer Science\\
+Fudan University \\
+Shanghai, China \\
+Alibaba Group \\
+Hangzhou, Zhejiang, China
 }
 \maketitle
 \begin{abstract}
@@ -149,7 +158,7 @@ Thurstone model with standard matrix factorization prediction formula is first p
 
 \textbf{Bradley-Terry Model.} Another extensively studied model in learning to rank scenarios is the Bradley-Terry model~\cite{Hunter2004MM}, which generates ranking pairs by a division:
 \begin{equation}\label{equ:BT}
-p(p\succ_u q) = \frac{\exp{\hat{\Rating}_{u,p}}}{\exp{\hat{\Rating}_{u,p}}+ \exp{\hat{\Rating}_{u,q}}}.
+p(p\succ_u q) = \frac{{\hat{\Rating}_{u,p}}}{{\hat{\Rating}_{u,p}}+ {\hat{\Rating}_{u,q}}}.
 \end{equation}
 BT model in~\cite{Hu2016Improved} leverages the MF prediction formula  in $\hat{\Rating}_{u,p}$. 
 
@@ -222,7 +231,7 @@ To infer the parameters of BT-N, we implement a stochastic expectation maximizat
 \section{Experiments}\label{sec:experiment}
 We conduct experiments to evaluate the performance of non-compensatory rules in recommendation models. We conduct three sets of experiments on real world datasets. The first set of experiments is conducted to examine whether the non-compensatory versions of rating prediction models outperform the original versions on rating data sets. 
 The second set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
-The third set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights. Source code will be made available upon acceptance of the manuscript.
+The third set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights. The source codes are available at%.
 
 \subsection{Comparative Results for Rating Prediction Models}
 
@@ -237,7 +246,7 @@ For each dataset, we reserve users with at least $5$ ratings and randomly split 
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Dataset & \#users & \#items & \#ratings & \#pairs \\\hline
-Movielens &942 &1,650 &80,000 &4,641,262 \\\hline
+Movielens &942 &1,650 &80,000 &  \\\hline
 FilmTrust &1,235 &2,062 &35,497 &623,516 \\\hline
 CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \end{tabular}
@@ -258,39 +267,24 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \hline
 Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve\\\hline
 \multirow{6}{*}{\shortstack{Movie\\lens}} &	MF	& $0.6661$ 	& &	$0.6856$ 	&&	$0.8391$ 	&\\
-%\cline{2-8}
 	&MF-N	&$0.6990$ &	$4.94\%$	&$0.7107 $	&$3.67\%$	&$0.8745$ &	$4.23\%$	\\
-%	\cline{2-8}
 	&AMF&	$0.6043$ 	&&	$0.5003$ 	&&	$0.7506$ &\\
-%	\cline{2-8}
 	&AMF-N	&$0.6129$ 	&$1.43\%$	&$0.5027$ &	$0.48\%$	&$0.7559$ 	&$0.71\%$	\\
-%	\cline{2-8}
 	&LLORMA		&$0.6453$&	&$0.8734$ 	&&	$0.7015$&\\	
-%	\cline{2-8}
 	&LLORMA-N	&$0.6518$	&$1.01\%$	&	$0.8999$ 	&$3.03\%$	&$0.7187$ 	&$2.45\%$	\\
 	\hline
 \multirow{6}{*}{\shortstack{Film\\trust}}	&MF	&$0.6056 $	&&	$0.5240$&&		$0.7522 $	&	\\
-%\cline{2-8}
 	&MF-N&	$0.6166$ 	&$1.81\%$	&$0.5252$ 	&$0.24\%$	&$0.7624$ 	&$1.35\%$\\
-%	\cline{2-8}
 	&AMF	&$0.6244 $	&&	$0.5055 $&&		$0.7622 $	&	\\
-%	\cline{2-8}
 	&AMF-N	&$0.6436$ 	&$3.07\%$	&$0.5098$ 	&$0.85\%$	&$0.7717$ 	&$1.24\%$	\\
-%	\cline{2-8}
 	&LLORMA	&$0.5336$& &		$0.8596$ 	&&	$0.7857$ 	&	\\
-%	\cline{2-8}
 	&LLORMA-N		&$0.5517$	&$3.39\%$ &	$0.8684$ &	$1.02\%$	&$0.8068$ 	&$2.69\%$	\\
 	\hline
 \multirow{6}{*}{\shortstack{Ciao\\DVD}}	&MF	&$0.5915$ 	&&	$0.6497$&	&	$0.8427$ &	\\
-%\cline{2-8}
 	&MF-N	&$0.6948$ 	&$17.45\%$	&$0.6872$ 	&$5.77\%$	&$0.8969 $	&$6.43\%$	\\
-%	\cline{2-8}
 	&AMF	&$0.6211$ 	&&	$0.5048$ 	&&	$0.7607$ 	&	\\
-%	\cline{2-8}
 	&AMF-N	&$0.7993 $&	$28.69\%$	&$0.5657$ 	&$12.05\%$	&$0.8950$ 	&$17.67\%$	\\
-%	\cline{2-8}
 	&LLORMA		&$0.6986$&	&$0.7827 $		&&$0.8267$ 		& 	\\
-%	\cline{2-8}
 	&LLORMA-N	&$0.7064$	&$1.12\%$&	$0.7984$ 	&$2.00\%$	&$0.8384 $	&$1.42\%$	\\
 	\hline
 	\end{tabular}
