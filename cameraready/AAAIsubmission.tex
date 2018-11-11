@@ -101,7 +101,7 @@ Pair-wise BT Ranking & BT~\cite{Hu2016Improved} & - & -  \\\hline
 \subsection{Rating Prediction Formulas}
 One goal of recommendation research is to recover the rating matrix $\Rating$, by minimizing a rating aware loss function $\Loss(\Theta)$, which is usually defined as the regularized square loss between the predicted rating $\hat{\Rating}_{u,q}$ and the observed rating $\Rating_{u,q}$ for each user $u$ who has rated item $q$. 
 \begin{equation}\label{equ:ratingloss}
-\Loss(\Theta)=\sum_{u,q}(\Rating_{u,q}-\hat\Rating_{u,q})^2 + \lambda (\|\mathbf{U}\|^2_2+\|\mathbf{V}\|^2_2)
+\Loss(\Theta)=\sum_{u,q}(\Rating_{u,q}-\hat\Rating_{u,q})^2 + \lambda_U\|\mathbf{U}\|^2_2+\lambda_V\|\mathbf{V}\|^2_2
 \end{equation}
 We list some of the most successful rating prediction formulas for $\hat{\Rating}$.
 
@@ -136,9 +136,9 @@ Pr(p\succ_u q) = \frac{1} {1+\exp[-(\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q})]}
 Thurstone models in the community of recommendation systems aim to reconstruct Bayesian Personalized Ranking (BPR~\cite{Rendle2009BPR}) by minimizing a negative Bayesian posterior function  $\Loss(\Theta)$ on the observed pair-wise rankings. 
 \begin{eqnarray}\label{equ:BPRloss}
 \Loss(\Theta) =& -\sum_{u}\sum_{p,q} I(p\succ_u q) \log Pr(p\succ_u q)\\\nonumber
-& + \lambda(\|\mathbf{U}\|^2_2+\|\mathbf{V}\|^2_2),
+& + \lambda_U\|\mathbf{U}\|^2_2+\lambda_V\|\mathbf{V}\|^2_2,
 \end{eqnarray}
-where $I(p\succ_u q)$ is an indicator function of whether or not the preference is observed.% The overwhelming number of negative observations could be a problem. Abundant research has been carried out to improve BPR-style systems by modifying the sampling methods in optimization, including BTR++~\cite{Lerche2014Using}, WARP~\cite{Weston2011Wsabie}, DNS~\cite{Zhang2013Optimizing}, RankMBPR~\cite{Yu2016RankMBPR} and so on.
+where $I(p\succ_u q)$ is an indicator function of whether or not the preference is observed.
 
 \textbf{Bradley-Terry Model.} Another extensively studied model for learning to rank is Bradley-Terry model~\cite{Hunter2004MM}, which generates ranking pairs by a division:
 \begin{equation}\label{equ:BT}
@@ -197,7 +197,7 @@ The model parameters, including $\mathbf{U},\mathbf{V},\theta,\mathbf{b}$ are le
 
 \textbf{Non-compensatory Thurston Model}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Rating_{u,q}$ which can be replaced by any N-version of rating prediction formulas. Note that the user-defined aspect specific threshold $\mathbf{b}_{u,k}$ cancels between $\hat\Rating_{u,p}$ and $\hat\Rating_{u,q}$. Thus the model parameters consist only $\Theta=\{\mathbf{U},\mathbf{V},\theta\}$.
 
-The inference of BPR-N is straightforward. The stochastic gradient descent (SGD) in inference is expressed as $\frac{\partial \Loss}{\partial \Theta}=  \sum_u \sum_{p\succ_u q} \frac{\partial \Loss}{\partial \Delta\hat{\Rating}_{u,p,q} } \frac{\partial \Delta\hat{\Rating}_{u,p,q}  }{\partial \Theta}$, where $\Delta\hat{\Rating}_{u,p,q} =\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q}$. The same procedure is applied to infer parameters in the non-compensatory versions of FSBPR~\cite{Zhao2018Factored} and LCR~\cite{Lee2014Local}.
+The inference of BPR-N is straightforward. As the loss function $\Loss(\Theta)$ consists of a term for the log-likelihood which is denoted by $\Loss'$, and a penalty term $\lambda_\Theta \|\Theta\|_2^2$, the stochastic gradient descent (SGD) in inference can also be expressed by two terms $\frac{\partial \Loss'}{\partial \Theta}$ and $\lambda_\Theta \Theta$. Furthermore, $\frac{\partial \Loss'}{\partial \Theta}=  \sum_u \sum_{p\succ_u q} \frac{\partial \Loss'}{\partial \Delta\hat{\Rating}_{u,p,q} } \frac{\partial \Delta\hat{\Rating}_{u,p,q}  }{\partial \Theta}$, where $\Delta\hat{\Rating}_{u,p,q} =\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q}$. The same procedure is applied to infer parameters in the non-compensatory versions of FSBPR~\cite{Zhao2018Factored} and LCR~\cite{Lee2014Local}.
 
 
 \textbf{Non-compensatory Bradley-Terry Model.} Finally we propose BT-N, the non-compensatory version of BT~\cite{Hu2016Improved}. In order to treat prominent and non-prominent aspects differently, we define the probability of preference $p\succ_u q$ as the product of factor-wise comparisons. Intuitively $p$ outranking $q$ suggests that $p$ is significantly better on the prominent aspect, and not too bad on non-prominent aspects. Inspired by a variant of BT model with ties~\cite{Hunter2004MM}, given a hidden prominent aspect $k\sim u_k$ sampled for the evaluation session, we define the factor-wise ranking probability on prominent aspect $k$ as ${\frac{\mathbf{p}_k}{\mathbf{p}_k+\theta \mathbf{q}_k}}$, and ranking probability on non-prominent aspect $k'$ as $ \frac{\theta \mathbf{p}_{k'}}{\mathbf{q}_{k'}+\theta \mathbf{p}_{k'}}$. The overall prediction is aggregated over all possible hidden prominent aspect $k$:
@@ -219,8 +219,8 @@ To infer the parameters $\mathbf{U},\mathbf{V},\theta$ of BT-N, we implement a s
 
 \section{Experiments}\label{sec:experiment}
 We conduct experiments to evaluate the performance of non-compensatory rules in recommendation models. We conduct three sets of experiments on real world datasets. The first set of experiments is conducted to examine whether the non-compensatory versions of rating prediction models outperform the original versions on rating data sets. 
-The second set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with explicit rating feedback.
-The third set of experiments is conducted to examine whether non-compensatory versions of ranking aware models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights. The source codes are available at%.
+The second set of experiments is conducted to examine whether non-compensatory versions of ranking models outperform the original versions on data sets with explicit rating feedback.
+The third set of experiments is conducted to examine whether non-compensatory versions of ranking models outperform the original versions on data sets with graded implicit feedback. We also analyze the inferred parameters $\theta,\mathbf{b}$ in non-compensatory rules for further insights. The source codes are publicly available\footnote{https://github.com/XMUDM/Non-Compensatory}.
 
 \subsection{Comparative Results for Rating Prediction Models}
 
@@ -242,42 +242,40 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \end{center}
 \label{tab:datasets}
 \end{table}
-\textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}; (3) LLORMA~\cite{Lee2013Local} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The non-compensatory and original versions adopt the same values for hyper-parameters. The model parameters to learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $1000$ iterations.
+\textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}, both without regularization terms; (3) LLORMA~\cite{Lee2013Local} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The non-compensatory and original versions adopt the same values for hyper-parameters. The model parameters to learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $MaxIter$ iterations. The same values of hyper-parameters are set for compensatory and non-compensatory models: for MF and MF-N $K=10, \lambda_U=\lambda_V=0.01,MaxIter=1000$, for AMF and AMF-N $K=5,MaxIter=100$, for LLORMA and LLORMA-N $K=5,S=10,\lambda_U=\lambda_V=0.001,MaxIter=100$.
 
 \textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: first computes the area under precision-recall curve based on the predicted ratings for each user, then averaged over all users; (2) NDCG: measures the accuracy of item ranking per user by the predicted ratings v.s. the actual ranking, averaged over all users;  (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user, averaged over all users. 
 
-\begin{table*}[htp]
+\begin{table}[htp]
 \tiny
-\caption{Comparative performance on rating predictions. `Improve' is the percentage of improvements of non-compensatory versions relative to the original models. Non-compensatory rules universally improve rating prediction models.}
+\caption{Comparative rating prediction performances, `Improve' is the percentage of improvements of non-compensatory versions relative to the original models. Non-compensatory rules universally improve rating models.}
 \begin{center}
 \begin{tabular}{p{0.4cm}<{\centering}|p{1.2cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
 Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve\\\hline
-\multirow{6}{*}{\shortstack{Movie\\lens}} &	MF	& $0.6661$ 	& &	$0.6856$ 	&&	$0.8391$ 	&\\
-	&MF-N	&$0.6990$ &	$4.94\%$	&$0.7107 $	&$3.67\%$	&$0.8745$ &	$4.23\%$	\\
-	&AMF&	$0.6043$ 	&&	$0.5003$ 	&&	$0.7506$ &\\
-	&AMF-N	&$0.6129$ 	&$1.43\%$	&$0.5027$ &	$0.48\%$	&$0.7559$ 	&$0.71\%$	\\
-	&LLORMA		&$0.6453$&	&$0.8734$ 	&&	$0.7015$&\\	
-	&LLORMA-N	&$0.6518$	&$1.01\%$	&	$0.8999$ 	&$3.03\%$	&$0.7187$ 	&$2.45\%$	\\
-	\hline
-\multirow{6}{*}{\shortstack{Film\\trust}}	&MF	&$0.6056 $	&&	$0.5240$&&		$0.7522 $	&	\\
-	&MF-N&	$0.6166$ 	&$1.81\%$	&$0.5252$ 	&$0.24\%$	&$0.7624$ 	&$1.35\%$\\
-	&AMF	&$0.6244 $	&&	$0.5055 $&&		$0.7622 $	&	\\
-	&AMF-N	&$0.6436$ 	&$3.07\%$	&$0.5098$ 	&$0.85\%$	&$0.7717$ 	&$1.24\%$	\\
-	&LLORMA	&$0.5336$& &		$0.8596$ 	&&	$0.7857$ 	&	\\
-	&LLORMA-N		&$0.5517$	&$3.39\%$ &	$0.8684$ &	$1.02\%$	&$0.8068$ 	&$2.69\%$	\\
-	\hline
-\multirow{6}{*}{\shortstack{Ciao\\DVD}}	&MF	&$0.5915$ 	&&	$0.6497$&	&	$0.8427$ &	\\
-	&MF-N	&$0.6948$ 	&$17.45\%$	&$0.6872$ 	&$5.77\%$	&$0.8969 $	&$6.43\%$	\\
-	&AMF	&$0.6211$ 	&&	$0.5048$ 	&&	$0.7607$ 	&	\\
-	&AMF-N	&$0.7993 $&	$28.69\%$	&$0.5657$ 	&$12.05\%$	&$0.8950$ 	&$17.67\%$	\\
-	&LLORMA		&$0.6986$&	&$0.7827 $		&&$0.8267$ 		& 	\\
-	&LLORMA-N	&$0.7064$	&$1.12\%$&	$0.7984$ 	&$2.00\%$	&$0.8384 $	&$1.42\%$	\\
+\multirow{6}{*}{\shortstack{Movie\\lens}}&MF&$0.6729 $&&$0.6925 $&&$0.8300 $&\\
+&MF-N&$0.7108 $&$5.62\%$&$0.7166 $&$3.48\%$&$0.8633 $&$4.01\%$\\
+&AMF&$0.6901 $&&$0.7107 $&&$0.8747 $& \\
+&AMF-N&$0.7017 $&$1.68\%$&$0.7143 $&$0.50\%$&$0.8769 $&$0.26\%$\\
+&LLORMA&$0.7265 $&&$0.8734 $&&$0.7015 $&\\
+&LLORMA-N&$0.7299 $&$0.47\%$&$0.8999 $&$3.03\%$&$0.7187 $&$2.45\%$\\\hline
+\multirow{6}{*}{{\shortstack{Film\\trust}}}&MF&$0.6507 $&&$0.5229 $&&$0.7011 $&\\
+&MF-N&$0.6710 $&$3.12\%$&$0.5241 $&$0.23\%$&$0.7071 $&$0.86\%$\\
+&AMF&$0.5971 $&&$0.5137 $&&$0.7411 $&\\
+&AMF-N&$0.6159 $&$3.15\%$&$0.5260 $&$2.40\%$&$0.7649 $&$3.22\%$\\
+&LLORMA&$0.6240 $&&$0.8596 $&&$0.7857 $&\\
+&LLORMA-N&$0.6345 $&$1.68\%$&$0.8684 $&$1.02\%$&$0.8068 $&$2.69\%$\\\hline
+\multirow{6}{*}{{\shortstack{Ciao\\DVD}}}&MF&$0.7431 $&&$0.7949 $&&$0.8910 $&\\
+&MF-N&$0.7903 $&$6.34\%$&$0.8127 $&$2.25\%$&$0.9154 $&$2.74\%$\\
+&AMF&$0.6489 $&&$0.6612 $&&$0.8741 $& \\
+&AMF-N&$0.7017 $&$8.14\%$&$0.6892 $&$4.24\%$&$0.8996 $&$2.91\%$\\
+&LLORMA&$0.6752 $&&$0.7827 $&&$0.8267 $&\\
+&LLORMA-N&$0.6845 $&$1.38\%$&$0.7984 $&$2.00\%$&$0.8384 $&$1.42\%$\\
 	\hline
 	\end{tabular}
 \end{center}
 \label{tab:ratingresult}
-\end{table*}
+\end{table}
 We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensatory rules can improve model performance. We observe that for ``simpler'' models, i.e. MF and AMF,  the improvement is in general more significant. For complicated models such as LLORMA, the improvement is less significant. The reason is that LLORMA approximates the observations by several low-rank factorizations in different local neighborhoods.  Thus LLORMA implements several layers of compensatory rules. While compensatory rule in its nature is addictive and can be calculated in a layered computation, non-compensatory rules may not fit perfectly in the layered framework. However, increasing the model complexity also leads to increased computation time and poor interpretability. Thus utilizing non-compensatory rules in simpler models, such as MF and AMF, generates recommendations with higher accuracy, efficiency and interpretability. 
 
 
@@ -285,49 +283,48 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. As Movielens is more dense, we generate pairwise rankings as follows. A rating above $3$ is ordered before a rating below $3$, i.e.  $\Rating_{u,p}> \&\& \Rating_{u,q}<, \rightarrow p\succ_u q$. For Filmtrust and CiaoDVD, we construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table~\ref{tab:datasets}.
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. 
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.2$, for LCR and LCR-N $S=10$.
 
 \textbf{Evaluation Metrics}.  The goal is to reconstruct the observed rankings for each user. We adopt the same set of ranking evaluation metrics, including AUC, NDCG and MRR. 
-\begin{table*}[htp]
+\begin{table}[htp]
 \tiny
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
 \begin{center}
-\begin{tabular}{p{0.4cm}<{\centering}|p{1.4cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}|c}
+\begin{tabular}{p{0.4cm}<{\centering}|p{1.4cm}<{\centering} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm} |p{0.5cm} p{0.6cm}}
 \hline
-Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve & Parameters\\\hline
-\multirow{6}{*}{\shortstack{Movie\\lens}} &	BT	& $0.6021$ 	& &	$0.5070$ 	&&	$0.7654$ 	& &\\
-	&BT-N	&$0.6434$ &	$6.86\%$	&$0.5425 $	&$7.02\%$	&$0.8440$ &	$10.27\%$ &	\\
-	&BPR&	$0.7002$ 	&&	$0.5443$ 	&&	$0.8478$ &&\\
-	&BPR-N	&$0.7246$ 	&$3.48\%$	&$0.5508$ &	$1.20\%$	&$0.8623$ 	&$1.71\%$	&\\
-	&FSBPR		&$0.5923$&	&$0.4990$ 	&&	$0.7484$&&\\	
-	&FSBPR-N	&$0.6512$	&$9.94\%$	&	$0.5205$ 	&$4.26\%$	&$0.7954$ 	&$6.28\%$&	\\
-	&LCR		&$0.6103$&	&$0.8278$ 	&&	$0.6793$&&\\	
-	&LCR-N	&$0.6212$	&$1.79\%$	&	$0.8365$ 	&$1.05\%$	&$0.6862$ 	&$1.02\%$& \\
+Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve \\\hline
+\multirow{6}{*}{\shortstack{Movie\\lens}} &	BT&	$0.6453 $&	&	$0.5329 $&	&	$0.8227 $&	\\
+&BT-N&	$0.8511 $&	$31.89\%$&	$0.5795 $&	$8.74\%$&	$0.9256 $&	$12.51\%$\\
+&BPR&	$0.8318 $&	&	$0.5751 $&	&	$0.9159 $&	\\
+&BPR-N&	$0.8412 $&	$1.13\%$&	$0.5772 $&	$0.37\%$&	$0.9206 $&	$0.51\%$\\
+	&FSBPR		&$0.5923$&	&$0.4990$ 	&&	$0.7484$&\\	
+	&FSBPR-N	&$0.6512$	&$9.94\%$	&	$0.5205$ 	&$4.26\%$	&$0.7954$ 	&$6.28\%$	\\
+	&LCR		&$0.6103$&	&$0.8278$ 	&&	$0.6793$&\\	
+	&LCR-N	&$0.6212$	&$1.79\%$	&	$0.8365$ 	&$1.05\%$	&$0.6862$ 	&$1.02\%$ \\
+	\hline
+\multirow{6}{*}{\shortstack{Film\\trust}}	&BT&	$0.5405 $&	&	$0.5092 $&	&	$0.7702 $&	\\
+&BT-N &	$0.6969 $&	$28.94\%$&	$0.5446 $&	$6.95\%$&	$0.8485 $&	$10.15\%$\\
+&BPR&	$0.6412 $&	&	$0.5319 $&	&	$0.8206 $&	\\
+&BPR-N&	$0.6726 $&	$4.90\%$&	$0.5391 $&	$1.34\%$&	$0.8363 $&	$1.91\%$\\
+	&FSBPR		&$0.5970$&	&$0.4996$ 	&&	$0.7490$&\\	
+	&FSBPR-N	&$0.7165$	&$20.01\%$	&	$0.5205$ 	&$4.20\%$	&$0.7954$ 	&$6.19\%$	\\
+	&LCR		&$0.5207$&	&$0.9020$ 	&&	$0.7336$&\\	
+	&LCR-N	&$0.5262$	&$1.06\%$	&	$0.9056$ 	&$0.40\%$	&$0.7533$ 	&$2.69\%$ \\
 
 	\hline
-\multirow{6}{*}{\shortstack{Film\\trust}}	&	BT	& $0.6317 $ 	& &	$0.5070$ 	&&	$0.7654$ &	&\\
-	&BT-N	&$0.7269$ &	$15.07\%$	&$0.5312 $	&$4.79\%$	&$0.8190$ &	$7.00\%$&\\
-	&BPR&	$0.7825$ 	&&	$0.5147$ 	&&	$0.7825$ &&\\
-	&BPR-N	&$0.6728$ 	&$-14.02\%$	&$0.5392$ &	$4.75\%$	&$0.8365$ 	&$6.91\%$	&\\
-	&FSBPR		&$0.5970$&	&$0.4996$ 	&&	$0.7490$&&\\	
-	&FSBPR-N	&$0.7165$	&$20.01\%$	&	$0.5205$ 	&$4.20\%$	&$0.7954$ 	&$6.19\%$	&\\
-	&LCR		&$0.5207$&	&$0.9020$ 	&&	$0.7336$&&\\	
-	&LCR-N	&$0.5262$	&$1.06\%$	&	$0.9056$ 	&$0.40\%$	&$0.7533$ 	&$2.69\%$& \\
-
-	\hline
-\multirow{6}{*}{\shortstack{Ciao\\DVD}}	&	BT	& $0.6136$ 	& &	$0.5203$ 	&&	$0.8008$ 	&&\\
-	&BT-N	&$0.7892$ &	$28.62\%$	&$0.5857 $	&$11.99\%$	&$0.9393$ &	$17.30\%$	&\\
-	&BPR&	$0.6380$ 	&&	$0.4883$ 	&&	$0.7240$ &&\\
-	&BPR-N	&$0.8982$ 	&$40.78\%$	&$0.5922$ &	$21.28\%$	&$0.9537$ 	&$31.71\%$	&\\
-	&FSBPR		&$0.6003$&	&$0.5001$ 	&&	$0.7502$&&\\	
-	&FSBPR-N	&$0.6589$	&$9.76\%$	&	$0.5637$ 	&$12.72\%$	&$0.8908$ 	&$18.73\%$	&\\
-	&LCR		&$0.6931$&	&$0.9380$ 	&&	$0.8122$&&\\	
-	&LCR-N	&$0.7001$	&$1.01\%$	&	$0.9513$ 	&$1.42\%$	&$0.8248$ 	&$1.55\%$ &\\
+\multirow{6}{*}{\shortstack{Ciao\\DVD}}	&BT&	$0.6063 $&	&	$0.5240 $&	&	$0.8031 $&	\\
+&BT-N&	$0.9334 $&	$53.95\%$&	$0.5981 $&	$14.1\%$&	$0.9666 $&	$20.36\%$\\
+&BPR&	$0.7668 $&	&	$0.5604 $&	&	$0.8834 $&	\\
+&BPR-N&	$0.9048 $&	$18.01\%$&	$0.5916 $&	$5.58\%$&	$0.9524 $&	$7.81\%$\\
+	&FSBPR		&$0.6003$&	&$0.5001$ 	&&	$0.7502$&\\	
+	&FSBPR-N	&$0.6589$	&$9.76\%$	&	$0.5637$ 	&$12.72\%$	&$0.8908$ 	&$18.73\%$	\\
+	&LCR		&$0.6931$&	&$0.9380$ 	&&	$0.8122$&\\	
+	&LCR-N	&$0.7001$	&$1.01\%$	&	$0.9513$ 	&$1.42\%$	&$0.8248$ 	&$1.55\%$ \\
 	\hline
 	\end{tabular}
 \end{center}
 \label{tab:rankingresult}
-\end{table*}
+\end{table}
 
 A general observation from Table~\ref{tab:rankingresult} is that non-compensatory rules significantly improve ranking models. In terms of AUC, NDCG and MRR, the non-compensatory models outperform the compensatory models on all datasets. The results validate the adequacy of non-compensatory rules in ranking  models. Furthermore, by comparing Table~\ref{tab:rankingresult} and Table~\ref{tab:ratingresult}, we observe that the non-compensatory rules generally make bigger improvements on ranking models than on rating models. This observation indicates that it is possible that consumers adopt non-compensatory rules more often in ranking alternative products.
 
@@ -427,8 +424,9 @@ As shown in Table~\ref{tab:gradedresult}, the non-compensatory models outperform
 
 Finally, we analyze the values of inferred parameters $\theta,\mathbf{b}$ in non-compensatory models to gain some insights about the non-compensatory rules. 
 
-As the user-defined aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly splitting the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
+As the user-defined aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly split the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
 
+\textbf{Strength of Non-compensatory Rules}. We have the following observations. (1) The obtained value $\theta>0$ on all datasets. Since $\exp\theta>1$, the prominent aspect is more important than non-prominent aspect in user evaluations. This is consistent to our assumptions that lexicographical rules will evaluate item performance on the most important aspect. (2)  The optimal value of $\theta$ is  moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
 
 \textbf{Effect of User-defined Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user defined threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is neccessary to employ aspect-specific threshold in non-compensatory rules. 
 \begin{table}[htp]
@@ -449,7 +447,7 @@ $\sigma(\mathbf{b}_{u})$ & $0.131\pm 0.007$ &	$0.863\pm 0.072$	& $0.058\pm 0.001
 Psychology study has shown that consumers adopt compensatory and non-compensatory rules in the decision making process. However, all existing latent factor models in recommendation systems are essentially based on compensatory rules. In this contribution, we present for the first time in the literature of recommendation systems how non-compensatory rules can be embedded in latent factor models. We show that applying non-compensatory rules universally boosts recommendation performance for a variety of rating prediction and ranking models. 
 
 \section{ Acknowledgments}
-Chen Lin is supported by Natural Science Foundation under grant No.61472335. 
+Chen Lin is supported by Natural Science Foundation under grant No.61472335. Yanghua Xiao is supported by National Key R\&D Program of China under No.2017YFC0803700 and No.2017YFC1201200, by the National NSFC (No.61732004, No.61472085, No.U1509213, No.U1636207), by Shanghai Municipal Science and Technology project (No.16511102102, No.16JC1420401), Shanghai STCSMs R\&D Program under Grant (No.16JC1420400).
 \bibliography{reference}
 \bibliographystyle{aaai}
 \end{document}
