@@ -5,9 +5,7 @@
 Devooght, R.; Kourtellis, N.; and Mantrach, A.
 \newblock 2015.
 \newblock Dynamic matrix factorization with priors on unknown values.
-\newblock In {\em Proceedings of the 21th ACM SIGKDD International Conference
-  on Knowledge Discovery and Data Mining}, KDD '15,  189--198.
-\newblock New York, NY, USA: ACM.
+\newblock In {\em Proceedings of ACM SIGKDD Conference},  189--198.
 
 \bibitem[\protect\citeauthoryear{Engel, Blackwell, and
   Miniard}{1986}]{Engel1986Consumer}
@@ -21,16 +19,14 @@ Engel, J.~F.; Blackwell, R.~D.; and Miniard, P.~W.
 Guo, G.; Zhang, J.; Thalmann, D.; and Yorke-Smith, N.
 \newblock 2014.
 \newblock Etaf: An extended trust antecedents framework for trust prediction.
-\newblock In {\em Proceedings of the 6th International Conference on Advances
-  in Social Networks Analysis and Mining (ASONAM)},  540--547.
+\newblock In {\em Proceedings of ASONAM Conference},  540--547.
 
 \bibitem[\protect\citeauthoryear{Guo, Zhang, and
   Yorke-Smith}{2013}]{Guo2013Novel}
 Guo, G.; Zhang, J.; and Yorke-Smith, N.
 \newblock 2013.
 \newblock A novel bayesian similarity measure for recommender systems.
-\newblock In {\em Proceedings of the 23rd International Joint Conference on
-  Artificial Intelligence},  2619--2625.
+\newblock In {\em Proceedings of IJCAI Conference},  2619--2625.
 
 \bibitem[\protect\citeauthoryear{Hauser, Ding, and
   Gaskin}{2009}]{Hauser2009Non}
@@ -44,17 +40,14 @@ Hauser, J.~R.; Ding, M.; and Gaskin, S.~P.
 Hu, J., and Li, P.
 \newblock 2016.
 \newblock Improved and scalable bradley-terry model for collaborative ranking.
-\newblock In {\em Proceedings of the IEEE 16th International Conference on Data
-  Mining (ICDM)},  949--954.
+\newblock In {\em Proceedings of IEEE ICDM conference},  949--954.
 
 \bibitem[\protect\citeauthoryear{Hu and Li}{2017}]{Hu2017Decoupled}
 Hu, J., and Li, P.
 \newblock 2017.
 \newblock Decoupled collaborative ranking.
 \newblock In {\em Proceedings of the 26th International Conference on World
-  Wide Web}, WWW '17,  1321--1329.
-\newblock Republic and Canton of Geneva, Switzerland: International World Wide
-  Web Conferences Steering Committee.
+  Wide Web},  1321--1329.
 
 \bibitem[\protect\citeauthoryear{Hunter}{2004}]{Hunter2004MM}
 Hunter, D.~R.
@@ -74,8 +67,7 @@ Koren, Y.
 \newblock 2008.
 \newblock Factorization meets the neighborhood: a multifaceted collaborative
   filtering model.
-\newblock In {\em Proceeding of the 14th ACM SIGKDD international conference on
-  Knowledge discovery and data mining},  426--434.
+\newblock In {\em Proceeding of the 14th ACM SIGKDD conference},  426--434.
 \newblock ACM.
 
 \bibitem[\protect\citeauthoryear{Koren}{2010}]{Koren2010Factor}
@@ -106,8 +98,7 @@ Lee, J.; Bengio, S.; Kim, S.; Lebanon, G.; and Singer, Y.
 \newblock 2014.
 \newblock Local collaborative ranking.
 \newblock In {\em Proceedings of the 23rd International Conference on World
-  Wide Web}, WWW '14,  85--96.
-\newblock New York, NY, USA: ACM.
+  Wide Web},  85--96.
 
 \bibitem[\protect\citeauthoryear{Lee}{2009}]{Lee2009Transforming}
 Lee, I.
@@ -123,8 +114,7 @@ Pil\'{a}szy, I.; Zibriczky, D.; and Tikk, D.
 \newblock Fast als-based matrix factorization for explicit and implicit
   feedback datasets.
 \newblock In {\em Proceedings of the 4th ACM conference on Recommender
-  systems}, RecSys '10,  71--78.
-\newblock New York, NY, USA: ACM.
+  systems},  71--78.
 
 \bibitem[\protect\citeauthoryear{Rendle \bgroup et al\mbox.\egroup
   }{2009}]{Rendle2009BPR}
@@ -132,8 +122,7 @@ Rendle, S.; Freudenthaler, C.; Gantner, Z.; and Schmidt-Thieme, L.
 \newblock 2009.
 \newblock Bpr: Bayesian personalized ranking from implicit feedback.
 \newblock In {\em Proceedings of the 25th Conference on Uncertainty in
-  Artificial Intelligence}, UAI '09,  452--461.
-\newblock Arlington, Virginia, United States: AUAI Press.
+  Artificial Intelligence},  452--461.
 
 \bibitem[\protect\citeauthoryear{Salakhutdinov and
   Mnih}{2008}]{salakhutdinov2008probabilistic}
@@ -149,16 +138,14 @@ Shi, Y.; Larson, M.; and Hanjalic, A.
 \newblock List-wise learning to rank with matrix factorization for
   collaborative filtering.
 \newblock In {\em Proceedings of the 4th ACM Conference on Recommender
-  Systems}, RecSys '10,  269--272.
-\newblock New York, NY, USA: ACM.
+  Systems},  269--272.
 
 \bibitem[\protect\citeauthoryear{Steck}{2015}]{Steck2015Gaussian}
 Steck, H.
 \newblock 2015.
 \newblock Gaussian ranking by matrix factorization.
 \newblock In {\em Proceedings of the 9th ACM Conference on Recommender
-  Systems}, RecSys '15,  115--122.
-\newblock New York, NY, USA: ACM.
+  Systems},  115--122.
 
 \bibitem[\protect\citeauthoryear{Thurstone}{1927}]{Thurstone1927law}
 Thurstone, L.~L.
