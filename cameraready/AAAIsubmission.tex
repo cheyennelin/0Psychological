@@ -155,7 +155,7 @@ We begin this section by reviewing the findings in consumer psychology study. We
 
 We can see that non-compensatory rules differ from compensatory rules in two key points. (1) \textit{Distinguished factors}. In compensatory rules, different factors are essentially equivalent, while in non-compensatory rules factors are not interchangeable. (2) \textit{Distinguished evaluation metrics on each factor}. In compensatory rules, the evaluations on each factor follow the same framework (i.e. a product of user preference and item feature on the specific factor), while in non-compensatory rules, the evaluations on each factor are dissimilar.  
 
-For computational convenience, inspired by the psychological findings, we present the conceptual model in Fig.~\ref{fig:model} based on lexicographic and conjunction rules. We assume that in each evaluation session (i.e. either a true user interaction session with multiple actions, or a pseudo session which contains one rating action), there is a prominent aspect. The choice of the prominent aspect is dependent on the user preferences. Two types of evaluation strategies are adopted, one for the prominent aspect and the other for other non-prominent aspects. Evaluation on the prominent aspect is enhanced by strength coefficient $\theta$. Evaluations on non-prominent aspects are based on item performance, compared with the user-defined aspect-specific threshold $\mathbf{b}_u$. The overall evaluation, which could be either a rating or a ranking, aggregates over prominent and non-prominent aspects. 
+For computational convenience, inspired by the psychological findings, we present the conceptual model in Fig.~\ref{fig:model} based on lexicographic and conjunction rules. We assume that in each evaluation session (i.e. either a true user interaction session with multiple actions, or a pseudo session which contains one rating action), there is a prominent aspect. The choice of the prominent aspect is dependent on the user preferences. Two types of evaluation strategies are adopted, one for the prominent aspect and the other for other non-prominent aspects. Evaluation on the prominent aspect is enhanced by strength coefficient $\theta$. Evaluations on non-prominent aspects are based on item performance, compared with the user-specific aspect-specific threshold $\mathbf{b}_u$. The overall evaluation, which could be either a rating or a ranking, aggregates over prominent and non-prominent aspects. 
 
 \begin{figure}[htbp]
 \begin{center}
@@ -193,7 +193,7 @@ The model parameters, including $\mathbf{U},\mathbf{V},\theta,\mathbf{b}$ are le
 
 \subsection{Non-Compensatory Ranking Models}
 
-\textbf{Non-compensatory Thurston Model}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Rating_{u,q}$ which can be replaced by any N-version of rating prediction formulas. Note that the user-defined aspect specific threshold $\mathbf{b}_{u,k}$ cancels between $\hat\Rating_{u,p}$ and $\hat\Rating_{u,q}$. Thus the model parameters consist only $\Theta=\{\mathbf{U},\mathbf{V},\theta\}$.
+\textbf{Non-compensatory Thurston Model}. The modification of Thurston model is straightforward, as the ranking probability involves a subtraction component of $\hat\Rating_{u,q}$ which can be replaced by any N-version of rating prediction formulas. Note that the user-specific aspect specific threshold $\mathbf{b}_{u,k}$ cancels between $\hat\Rating_{u,p}$ and $\hat\Rating_{u,q}$. Thus the model parameters consist only $\Theta=\{\mathbf{U},\mathbf{V},\theta\}$.
 
 The inference of BPR-N is straightforward. As the loss function $\Loss(\Theta)$ consists of a term for the log-likelihood which is denoted by $\Loss'$, and a penalty term $\lambda_U\|U\|^2_2+\lambda_V \|V\|^2_2$, the stochastic gradient descent (SGD) in inference can also be expressed by two terms $\frac{\partial \Loss'}{\partial \Theta}$ and $\lambda_U U + \lambda_V V$. Furthermore, $\frac{\partial \Loss'}{\partial \Theta}=  \sum_u \sum_{p\succ_u q} \frac{\partial \Loss'}{\partial \Delta\hat{\Rating}_{u,p,q} } \frac{\partial \Delta\hat{\Rating}_{u,p,q}  }{\partial \Theta}$, where $\Delta\hat{\Rating}_{u,p,q} =\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q}$. The same procedure is applied to infer parameters in the non-compensatory versions of FSBPR~\cite{Zhao2018Factored} and LCR~\cite{Lee2014Local}.
 
@@ -248,32 +248,33 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \begin{tabular}{c cc |cc |cc}
 \hline
 Method & AUC & Imp.& NDCG& Imp.& MRR &Imp.\\\hline
-Movielens\\\hline
-MF&0.6729 &&0.6925 &&0.8300 &\\
-MF-N&0.7108 &5.62&0.7166 &3.48&0.8633 &4.01\\
-AMF&0.6901 &&0.7107 &&0.8747 & \\
-AMF-N&0.7017 &1.68&0.7143 &0.50&0.8769 &0.26\\
-LLORMA&0.7265 &&0.8734 &&0.7015 &\\
-LLORMA-N&0.7299 &0.47&0.8999 &3.03&0.7187 &2.45\\\hline
-Filmtrust\\\hline
-MF&0.6507 &&0.5229 &&0.7011 &\\
-MF-N&0.6710 &3.12&0.5241 &0.23&0.7071 &0.86\\
-AMF&0.5971 &&0.5137 &&0.7411 &\\
-AMF-N&0.6159 &3.15&0.5260 &2.40&0.7649 &3.22\\
-LLORMA&0.6240 &&0.8596 &&0.7857 &\\
-LLORMA-N&0.6345 &1.68&0.8684 &1.02&0.8068 &2.69\\\hline
-CiaoDVD\\\hline
-MF&0.7431 &&0.7949 &&0.8910 &\\
-MF-N&0.7903 &6.34&0.8127 &2.25&0.9154 &2.74\\
-AMF&0.6489 &&0.6612 &&0.8741 & \\
-AMF-N&0.7017 &8.14&0.6892 &4.24&0.8996 &2.91\\
-LLORMA&0.6752 &&0.7827 &&0.8267 &\\
-LLORMA-N&0.6845 &1.38&0.7984 &2.00&0.8384 &1.42\\
+Movielens& & $\%$ & & $\%$ & & $\%$\\\hline
+MF&	0.6729 &	&	0.6925 &	&	0.8300 &	\\
+MF-N&	0.7108 &	5.62&	0.7166 &	3.48&	0.8633 &	4.01\\
+AMF&	0.6901 &	&	0.7107 &	&	0.8747 &	\\
+AMF-N&	0.7017 &	1.68&	0.7143 &	0.50&	0.8769 &	0.26\\
+LLORMA&	0.7265 &	&	0.8734 &	&	0.7015 &	\\
+LLORMA-N&	0.7299 &	0.47&	0.8999 &	3.03&	0.7187 &	2.45\\\hline
+Filmtrust& & $\%$ & & $\%$ & & $\%$\\\hline
+MF&	0.6507 &	&	0.5229 &	&	0.7011 &	\\
+MF-N&	0.6710 &	3.12&	0.5241 &	0.23&	0.7071 &	0.86\\
+AMF&	0.5971 &	&	0.5137 &	&	0.7411 &	\\
+AMF-N&	0.6159 &	3.15&	0.5260 &	2.40&	0.7649 &	3.22\\
+LLORMA&	0.6240 &	&	0.8596 &	&	0.7857 &	\\
+LLORMA-N&	0.6345 &	1.68&	0.8684 &	1.02&	0.8068 &	2.69\\\hline
+CiaoDVD& & $\%$ & & $\%$ & & $\%$\\\hline
+MF&	0.7431 &	&	0.7949 &	&	0.8910 &	\\
+MF-N&	0.7903 &	6.34&	0.8127 &	2.25&	0.9154 &	2.74\\
+AMF&	0.6489 &	&	0.6612 &	&	0.8741 &	\\
+AMF-N&	0.7017 &	8.14&	0.6892 &	4.24&	0.8996 &	2.91\\
+LLORMA&	0.6752 &	&	0.7827 &	&	0.8267 &	\\
+LLORMA-N&	0.6845 &	1.38&	0.7984 &	2.00&	0.8384 &	1.42\\
 \hline
 \end{tabular}
 \end{center}
 \label{tab:ratingresult}
 \end{table}
+
 
 We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensatory rules can improve model performance. We observe that for ``simpler'' models, i.e. MF and AMF,  the improvement is in general more significant. For complicated models such as LLORMA, the improvement is less significant. The reason is that LLORMA approximates the observations by several low-rank factorizations in different local neighborhoods.  Thus LLORMA implements several layers of compensatory rules. While compensatory rule in its nature is addictive and can be calculated in a layered computation, non-compensatory rules may not fit perfectly in the layered framework. However, increasing the model complexity also leads to increased computation time and poor interpretability. Thus utilizing non-compensatory rules in simpler models, such as MF and AMF, generates recommendations with higher accuracy, efficiency and interpretability. 
 
@@ -282,48 +283,50 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. For Movielens we use pre-processing step in~\cite{Hu2017Decoupled}, i.e.  $\Rating_{u,p}\geq 4 \&\& \Rating_{u,q}\leq 2 \rightarrow p\succ_u q$. For Filmtrust and CiaoDVD, as these data sets are more sparse, we construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table~\ref{tab:datasets}.
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.2$, for LCR and LCR-N $S=50$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.2$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
 \begin{table}[htp]
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
 \scriptsize
 \begin{center}
-\begin{tabular}{c cc |cc |cc}
+\begin{tabular}{ccc|cc|cc}
 \hline
  Method & AUC & Imp.& NDCG& Imp.& MRR &Imp. \\\hline
-Movielens\\\hline
-BT& 0.6453 & & 0.5329 & & 0.8227 & \\
+Movielens& & $\%$ & & $\%$ & & $\%$\\\hline
+BT&0.6453 & & 0.5329 & & 0.8227 & \\
 BT-N& 0.8511 & 31.89& 0.5795 & 8.74& 0.9256 & 12.51\\
 BPR& 0.8318 & & 0.5751 & & 0.9159 & \\
 BPR-N& 0.8412 & 1.13& 0.5772 & 0.37& 0.9206 & 0.51\\
-FSBPR &0.5923& &0.4990 && 0.7484&\\ 
-FSBPR-N &0.6512 &9.94 & 0.5205 &4.26 &0.7954 &6.28 \\
+FSBPR&0.5048 &	&	0.5011 &	&	0.7524 	&\\
+FSBPR-N&	0.8271 &	63.84&	0.5740 &	14.55&	0.9135 &	21.42\\
 LCR &0.6103& &0.8278 && 0.6793&\\ 
 LCR-N &0.6212 &1.79 & 0.8365 &1.05 &0.6862 &1.02 \\
 \hline
-FIlmtrust\\\hline
+FIlmtrust& & $\%$ & & $\%$ & & $\%$\\\hline
 BT& 0.5405 & & 0.5092 & & 0.7702 & \\
 BT-N & 0.6969 & 28.94& 0.5446 & 6.95& 0.8485 & 10.15\\
 BPR& 0.6412 & & 0.5319 & & 0.8206 & \\
 BPR-N& 0.6726 & 4.90& 0.5391 & 1.34& 0.8363 & 1.91\\
-FSBPR &0.5970& &0.4996 && 0.7490&\\ 
-FSBPR-N &0.7165 &20.01 & 0.5205 &4.20 &0.7954 &6.19 \\
+FSBPR	&0.4857 		&&0.4968 		&&0.7428& 	 \\
+FSBPR-N	&0.6718 &	38.33&	0.5389 &	8.48	&0.8359 	&12.53 \\
 LCR &0.5207& &0.9020 && 0.7336&\\ 
 LCR-N &0.5262 &1.06 & 0.9056 &0.40 &0.7533 &2.69 \\
 \hline
-CiaoDVD\\\hline
+CiaoDVD& & $\%$ & & $\%$ & & $\%$\\\hline
 BT& 0.6063 & & 0.5240 & & 0.8031 & \\
 BT-N& 0.9334 & 53.95& 0.5981 & 14.1& 0.9666 & 20.36\\
 BPR& 0.7668 & & 0.5604 & & 0.8834 & \\
 BPR-N& 0.9048 & 18.01& 0.5916 & 5.58& 0.9524 & 7.81\\
-FSBPR &0.6003& &0.5001 && 0.7502&\\ 
-FSBPR-N &0.6589 &9.76 & 0.5637 &12.72 &0.8908 &18.73 \\
+FSBPR 	&0.7537  	& 	&0.5574  	& 	&0.8769  	&\\
+FSBPR-N 	&0.8993  	&19.31 	&0.5904  	&5.91 	&0.9496  	&8.30\\
 LCR &0.6931& &0.9380 && 0.8122&\\ 
-LCR-N &0.7001 &1.01 & 0.9513 &1.42 &0.8248 &1.55 \\
+LCR-N &0.7001 &1.01& 0.9513 &1.42 &0.8248 &1.55 \\
 \hline
 \end{tabular}
 \end{center}
 \label{tab:rankingresult}
 \end{table}
+
+
 
 A general observation from Table~\ref{tab:rankingresult} is that non-compensatory rules significantly improve ranking models. In terms of AUC, NDCG and MRR, the non-compensatory models outperform the compensatory models on all datasets. The results validate the adequacy of non-compensatory rules in ranking  models. Furthermore, by comparing Table~\ref{tab:rankingresult} and Table~\ref{tab:ratingresult}, we observe that the non-compensatory rules generally make bigger improvements on ranking models than on rating models. This observation indicates that it is possible that consumers adopt non-compensatory rules more often in ranking alternative products.
 \subsection{Comparative Results for Ranking Models: Implicit Feedback}
@@ -352,31 +355,31 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \begin{center}
 \begin{tabular}{c|c |cc |cc |cc|cc|cc}
 \hline
-Dataset	& Method	& AUC	& Improve&	NDCG&	Improve&	MRR	&Improve &	MAP&	Improve&	Prec	&Improve\\\hline
-\multirow{6}{*}{Tmall-single} & BT & 0.7253 & &0.2814& &0.4890& &0.4348& & 0.2787 &\\
-&BT-N &0.7308 & 0.76 &0.2853  &1.36 &0.4973 & 1.70 &0.4408 & 1.38 &0.2810  &0.81\\
-&BPR& 0.7252 && 0.2826 && 0.4932 & &0.4359& & 0.2789 &\\
-&BPR-N &0.7305 &0.73 &0.2854 & 0.99 &0.4977 &0.91 &0.4410 & 1.17 &0.2810  &0.77 \\
-&FSBPR &0.7092& &0.2732 && 0.4717& &0.4163& & 0.2734 &\\ 
-&FSBPR-N &0.7130 &0.53 & 0.2747 &0.57 &0.4740 &0.48 &0.4193 & 0.72 &0.2747  &0.48 \\
+Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) &	MAP&	Improve($\%$)&	Prec	&Improve($\%$)\\\hline
+\multirow{6}{*}{Tmall-single} &BT	&0.5304 	&	&0.2804 	&	&0.4870 	&	&0.4327 	&	&0.2778 &\\
+&BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
+&BPR	&0.4955 	&	&0.2705 	&	&0.4638 	&	&0.4115 	&	&0.2719& \\
+&BPR-N	&0.5306 	&7.08	&0.2824 	&4.40	&0.4899 	&5.63	&0.4355 	&5.82	&0.2794 & 2.77 \\
+&FSBPR	&0.5265 	&	&0.2824 	&	&0.4913 	&	&0.4350 	&	&0.2794& \\
+&FSBPR-N	&0.5389 	&2.35	&0.2863 	&1.39	&0.4987 	&1.51	&0.4433 	&1.91	&0.2819 & 0.87 \\
 &LCR &0.5231 & &0.8116  && 0.4093 & &0.3407 & & 0.2430  &\\ 
 &LCR-N &0.5263  &0.61 & 0.8141 &0.31 &0.4126 &0.81 &0.3436 & 0.85 &0.2462  &1.32\\
 \hline
-\multirow{6}{*}{Tmall-hybrid} & BT & 0.7931 & &0.3056& &0.5458& &0.5015& & 0.2934 &\\
-&BT-N &0.8249 & 4.01 &0.3305  &8.15 &0.6063 & 11.09 &0.5592 & 11.50 &0.3044  &3.75\\
-&BPR& 0.8132 && 0.3248 && 0.5950 & &0.5463& & 0.3006 &\\
-&BPR-N &0.8267 &1.66 &0.3324 & 2.33 &0.6112 &2.72 &0.5635 & 3.15 &0.3050  &1.45 \\
-&FSBPR &0.7431& &0.2770 && 0.4817& &0.4398& & 0.2768 &\\ 
-&FSBPR-N &0.7624 &2.60 & 0.2865 &3.44 &0.5007 &3.95 &0.4597 & 4.53 &0.2831  &2.24 \\
+\multirow{6}{*}{Tmall-hybrid} & BT	&0.5867 	&	&0.3015 	&	&0.5373 	&	&0.4929 	&	&0.2904 & \\
+&BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
+&BPR	&0.5353 	&	&0.2839 	&	&0.4930 	&	&0.4555 	&	&0.2810& \\
+&BPR-N	&0.6380 	&19.20	&0.3227 	&13.68	&0.5855 	&18.75	&0.5411 	&18.80	&0.3012 &7.20 \\
+&FSBPR	&0.6334 	&	&0.3246 	&	&0.5916 	&	&0.5442 	&	&0.3026& \\
+&FSBPR-N	&0.6543 	&3.29	&0.3308 	&1.93	&0.6062 	&2.46	&0.5602 	&2.93	&0.3047&0.68 \\
 &LCR &0.5395& &0.6778 && 0.4826& &0.3975& & 0.2717 &\\ 
 &LCR-N &0.5636 &4.47 & 0.6933 &2.29 &0.5140 &6.51 &0.4242 & 6.72 &0.2858  &5.19\\
 \hline
-\multirow{6}{*}{Yoochoose} &BT & 0.8732 & &0.4742& &0.7156& &0.6368& & 0.4569 &\\
-&BT-N &0.8966 & 2.67 &0.5166  &8.94 &0.7882 & 10.14 &0.7112 & 11.69 &0.4786  &4.76\\
-&BPR& 0.8934 && 0.5019 && 0.7639 & &0.6821& & 0.4711 &\\
-&BPR-N &0.9034 &1.12 &0.5149 & 2.59 &0.7854 &2.82 &0.7057 & 3.46 &0.4777  &1.39 \\
-&FSBPR &0.8405& &0.4379 && 0.6541& &0.5685& & 0.4374 &\\ 
-&FSBPR-N &0.8839 &5.15 & 0.5445 &24.34 &0.7987 &22.11 &0.6825 & 20.06 &0.5362  &22.59 \\
+\multirow{6}{*}{Yoochoose} &BT	&0.6027 	&	&0.4734 	&	&0.7151 	&	&0.6361 	&	&0.4560 & \\
+&BT-N	&0.7000 	&16.15	&0.5160 	&8.99	&0.7869 	&10.04	&0.7084 	&11.37	&0.4785  &4.92\\
+&BPR	&0.6700 	&	&0.5065 	&	&0.7713 	&	&0.6895 	&	&0.4737 & \\
+&BPR-N	&0.6920 	&3.27	&0.5131 	&1.31	&0.7814 	&1.31	&0.7027 	&1.91	&0.4771&0.73 \\
+&FSBPR	&0.3272 	&	&0.3658 	&	&0.5062 	&	&0.4599 	&	&0.4006 &\\
+&FSBPR-N	&0.6212 	&89.86	&0.4827 	&31.95	&0.7176 	&41.77	&0.6457 	&40.41	&0.4652 &16.13\\
 &LCR &0.7933& &0.9748 && 0.8177& &0.8104& & 0.7834 &\\ 
 &LCR-N &0.8012 &1.00 & 0.9768 &0.21 &0.8334 &1.92 &0.8264 & 1.97 &0.7975  &1.80\\
 	\hline
@@ -395,13 +398,13 @@ As shown in Table~\ref{tab:gradedresult}, the non-compensatory models outperform
 
 Finally, we analyze the values of inferred parameters $\theta,\mathbf{b}$ in non-compensatory models to gain some insights about the non-compensatory rules. 
 
-As the user-defined aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly split the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
+As the user-specific aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly split the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
 
 \textbf{Strength of Non-compensatory Rules}. We can see that the optimal value of $\theta$ is moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
 
-\textbf{Effect of User-defined Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user defined threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is neccessary to employ aspect-specific threshold in non-compensatory rules. 
+\textbf{Effect of user-specific Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user-specific threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is neccessary to employ aspect-specific threshold in non-compensatory rules. 
 \begin{table}[htp]
-\caption{Scale of the strength of lexicographical rule $\theta$ and user-defined aspect-specific threshold $\mathbf{b}_{u,k}$.}
+\caption{Scale of the strength of lexicographical rule $\theta$ and user-specific aspect-specific threshold $\mathbf{b}_{u,k}$.}
 \scriptsize
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
