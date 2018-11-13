@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.8.4)  13 NOV 2018 17:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.8.4)  13 NOV 2018 17:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**conceptualmodel.tex
-(./conceptualmodel.tex
+**conceptualmodel-s.tex
+(./conceptualmodel-s.tex
 LaTeX2e <2018-04-01> patch level 5
 (c:/texlive/2018/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
@@ -320,72 +320,4 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks28
 \verbatim@in@stream=\read2
 )
-(c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
-brarycalc.code.tex
-File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
-)
-(c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
-brarybackgrounds.code.tex
-File: tikzlibrarybackgrounds.code.tex 2013/07/18 v3.0.1a (rcs-revision 1.3)
-\pgf@layerbox@background=\box37
-\pgf@layerboxsaved@background=\box38
-)
-(c:/texlive/2018/texmf-dist/tex/latex/preview/preview.sty
-Package: preview 2017/04/24 11.91 (AUCTeX/preview-latex)
-
-(c:/texlive/2018/texmf-dist/tex/generic/luatex85/luatex85.sty
-Package: luatex85 2016/06/15 v1.4 pdftex aliases for luatex
-)
-(c:/texlive/2018/texmf-dist/tex/latex/preview/prtightpage.def
-\PreviewBorder=\dimen151
-)
-\pr@snippet=\count107
-\pr@box=\box39
-\pr@output=\toks29
-)
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 64.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 64.
-Missing character: There is no . in font nullfont!
-Missing character: There is no 5 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no 5 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no 5 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no 5 in font nullfont!
-
-Overfull \hbox (80.61665pt too wide) in paragraph at lines 90--91
-[][] 
- []
-
-Preview: Tightpage -32891 -32891 32891 32891
-[1{c:/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./conceptualmodel.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
-Here is how much of TeX's memory you used:
- 10882 strings out of 492642
- 226482 string characters out of 6133163
- 266945 words of memory out of 5000000
- 14601 multiletter control sequences out of 15000+600000
- 6736 words of font info for 24 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 55i,9n,61p,417b,824s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/tex
-live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2018
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2018/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on conceptualmodel.pdf (1 page, 42843 bytes).
-PDF statistics:
- 27 PDF objects out of 1000 (max. 8388607)
- 16 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+(c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer

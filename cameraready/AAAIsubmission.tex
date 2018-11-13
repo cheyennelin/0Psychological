@@ -27,11 +27,11 @@
 
  \begin{document}
 \title{Non-Compensatory Psychological Models for Recommender Systems}
-\author{Chen Lin\textsuperscript{1,3}, Xiaolin Shen\textsuperscript{1}, Si Chen\textsuperscript{1}, Muhua Zhu\textsuperscript{3}, \and Yanghua Xiao\textsuperscript{2,3}\\
+\author{Chen Lin,\textsuperscript{1,3} Xiaolin Shen,\textsuperscript{1} Si Chen\textsuperscript{1}, Muhua Zhu\textsuperscript{3}, \and Yanghua Xiao\textsuperscript{2,3}\\
 \textsuperscript{1} Department of Computer Science, Xiamen University, Xiamen, Fujian, China\\
 \textsuperscript{2} School of Computer Science, Fudan University, Shanghai, China \\
-\textsuperscript{3} Alibaba Group, Hangzhou, Zhejiang, China
-}
+\textsuperscript{3} Alibaba Group, Hangzhou, Zhejiang, China\\
+chenlin@xmu.edu.cn, \{xlshen, sichen\}@stu.xmu.edu.cn, muhua.zmh@alibaba-inc.com, shawyh@fudan.edu.cn}
 \maketitle
 \begin{abstract}
 The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. they evaluate an item over multiple aspects and compute a weighted or/and summated score which is used to further derive the rating or ranking of the item. However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules. Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models. 
@@ -248,21 +248,21 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \begin{tabular}{c cc |cc |cc}
 \hline
 Method & AUC & Imp.& NDCG& Imp.& MRR &Imp.\\\hline
-Movielens& & $\%$ & & $\%$ & & $\%$\\\hline
+Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 MF&	0.6729 &	&	0.6925 &	&	0.8300 &	\\
 MF-N&	0.7108 &	5.62&	0.7166 &	3.48&	0.8633 &	4.01\\
 AMF&	0.6901 &	&	0.7107 &	&	0.8747 &	\\
 AMF-N&	0.7017 &	1.68&	0.7143 &	0.50&	0.8769 &	0.26\\
 LLORMA&	0.7265 &	&	0.8734 &	&	0.7015 &	\\
 LLORMA-N&	0.7299 &	0.47&	0.8999 &	3.03&	0.7187 &	2.45\\\hline
-Filmtrust& & $\%$ & & $\%$ & & $\%$\\\hline
+Filmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 MF&	0.6507 &	&	0.5229 &	&	0.7011 &	\\
 MF-N&	0.6710 &	3.12&	0.5241 &	0.23&	0.7071 &	0.86\\
 AMF&	0.5971 &	&	0.5137 &	&	0.7411 &	\\
 AMF-N&	0.6159 &	3.15&	0.5260 &	2.40&	0.7649 &	3.22\\
 LLORMA&	0.6240 &	&	0.8596 &	&	0.7857 &	\\
 LLORMA-N&	0.6345 &	1.68&	0.8684 &	1.02&	0.8068 &	2.69\\\hline
-CiaoDVD& & $\%$ & & $\%$ & & $\%$\\\hline
+CiaoDVD& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 MF&	0.7431 &	&	0.7949 &	&	0.8910 &	\\
 MF-N&	0.7903 &	6.34&	0.8127 &	2.25&	0.9154 &	2.74\\
 AMF&	0.6489 &	&	0.6612 &	&	0.8741 &	\\
@@ -283,7 +283,7 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. For Movielens we use pre-processing step in~\cite{Hu2017Decoupled}, i.e.  $\Rating_{u,p}\geq 4 \&\& \Rating_{u,q}\leq 2 \rightarrow p\succ_u q$. For Filmtrust and CiaoDVD, as these data sets are more sparse, we construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table~\ref{tab:datasets}.
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.2$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
 \begin{table}[htp]
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
 \scriptsize
@@ -291,31 +291,31 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 \begin{tabular}{ccc|cc|cc}
 \hline
  Method & AUC & Imp.& NDCG& Imp.& MRR &Imp. \\\hline
-Movielens& & $\%$ & & $\%$ & & $\%$\\\hline
+Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 BT&0.6453 & & 0.5329 & & 0.8227 & \\
 BT-N& 0.8511 & 31.89& 0.5795 & 8.74& 0.9256 & 12.51\\
-BPR& 0.8318 & & 0.5751 & & 0.9159 & \\
-BPR-N& 0.8412 & 1.13& 0.5772 & 0.37& 0.9206 & 0.51\\
+BPR	&0.7976	&&	0.5674	&&	0.8988	&\\
+BPR-N	&0.8361	&4.82&	0.5761&	1.53&0.9180	&2.14\\
 FSBPR&0.5048 &	&	0.5011 &	&	0.7524 	&\\
 FSBPR-N&	0.8271 &	63.84&	0.5740 &	14.55&	0.9135 &	21.42\\
 LCR &0.6103& &0.8278 && 0.6793&\\ 
 LCR-N &0.6212 &1.79 & 0.8365 &1.05 &0.6862 &1.02 \\
 \hline
-FIlmtrust& & $\%$ & & $\%$ & & $\%$\\\hline
+FIlmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 BT& 0.5405 & & 0.5092 & & 0.7702 & \\
 BT-N & 0.6969 & 28.94& 0.5446 & 6.95& 0.8485 & 10.15\\
-BPR& 0.6412 & & 0.5319 & & 0.8206 & \\
-BPR-N& 0.6726 & 4.90& 0.5391 & 1.34& 0.8363 & 1.91\\
+BPR&	0.6412	&&	0.5319	&&	0.8206&\\	
+BPR-N	&0.6729	&4.94&	0.5391	&1.35&	0.8364&	1.93\\
 FSBPR	&0.4857 		&&0.4968 		&&0.7428& 	 \\
 FSBPR-N	&0.6718 &	38.33&	0.5389 &	8.48	&0.8359 	&12.53 \\
 LCR &0.5207& &0.9020 && 0.7336&\\ 
 LCR-N &0.5262 &1.06 & 0.9056 &0.40 &0.7533 &2.69 \\
 \hline
-CiaoDVD& & $\%$ & & $\%$ & & $\%$\\\hline
+CiaoDVD& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 BT& 0.6063 & & 0.5240 & & 0.8031 & \\
 BT-N& 0.9334 & 53.95& 0.5981 & 14.1& 0.9666 & 20.36\\
-BPR& 0.7668 & & 0.5604 & & 0.8834 & \\
-BPR-N& 0.9048 & 18.01& 0.5916 & 5.58& 0.9524 & 7.81\\
+BPR	&0.6344	&&	0.5304&&		0.8172	&\\
+BPR-N	&0.8987	&41.66&0.5902&	11.28&	0.9493&	16.17\\
 FSBPR 	&0.7537  	& 	&0.5574  	& 	&0.8769  	&\\
 FSBPR-N 	&0.8993  	&19.31 	&0.5904  	&5.91 	&0.9496  	&8.30\\
 LCR &0.6931& &0.9380 && 0.8122&\\ 
@@ -358,8 +358,8 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) &	MAP&	Improve($\%$)&	Prec	&Improve($\%$)\\\hline
 \multirow{6}{*}{Tmall-single} &BT	&0.5304 	&	&0.2804 	&	&0.4870 	&	&0.4327 	&	&0.2778 &\\
 &BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
-&BPR	&0.4955 	&	&0.2705 	&	&0.4638 	&	&0.4115 	&	&0.2719& \\
-&BPR-N	&0.5306 	&7.08	&0.2824 	&4.40	&0.4899 	&5.63	&0.4355 	&5.82	&0.2794 & 2.77 \\
+&BPR&	0.5181	&&	0.2794	&&	0.4854	&&	0.4297	&&	0.2767&\\	
+&BPR-N	&0.5349&	3.24&	0.2848	&1.92&	0.4960	&2.18&	0.4401&	2.41&	0.2806	&1.41\\
 &FSBPR	&0.5265 	&	&0.2824 	&	&0.4913 	&	&0.4350 	&	&0.2794& \\
 &FSBPR-N	&0.5389 	&2.35	&0.2863 	&1.39	&0.4987 	&1.51	&0.4433 	&1.91	&0.2819 & 0.87 \\
 &LCR &0.5231 & &0.8116  && 0.4093 & &0.3407 & & 0.2430  &\\ 
@@ -367,8 +367,8 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 \hline
 \multirow{6}{*}{Tmall-hybrid} & BT	&0.5867 	&	&0.3015 	&	&0.5373 	&	&0.4929 	&	&0.2904 & \\
 &BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
-&BPR	&0.5353 	&	&0.2839 	&	&0.4930 	&	&0.4555 	&	&0.2810& \\
-&BPR-N	&0.6380 	&19.20	&0.3227 	&13.68	&0.5855 	&18.75	&0.5411 	&18.80	&0.3012 &7.20 \\
+&BPR	&0.6183&	&	0.3183&&		0.5792	&&	0.5318&&		0.2973&\\	
+&BPR-N	&0.6460	&4.48&	0.3276&	2.92&0.5990	&3.41&	0.5524&	3.87&	0.3030	&1.94\\
 &FSBPR	&0.6334 	&	&0.3246 	&	&0.5916 	&	&0.5442 	&	&0.3026& \\
 &FSBPR-N	&0.6543 	&3.29	&0.3308 	&1.93	&0.6062 	&2.46	&0.5602 	&2.93	&0.3047&0.68 \\
 &LCR &0.5395& &0.6778 && 0.4826& &0.3975& & 0.2717 &\\ 
@@ -376,8 +376,8 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 \hline
 \multirow{6}{*}{Yoochoose} &BT	&0.6027 	&	&0.4734 	&	&0.7151 	&	&0.6361 	&	&0.4560 & \\
 &BT-N	&0.7000 	&16.15	&0.5160 	&8.99	&0.7869 	&10.04	&0.7084 	&11.37	&0.4785  &4.92\\
-&BPR	&0.6700 	&	&0.5065 	&	&0.7713 	&	&0.6895 	&	&0.4737 & \\
-&BPR-N	&0.6920 	&3.27	&0.5131 	&1.31	&0.7814 	&1.31	&0.7027 	&1.91	&0.4771&0.73 \\
+&BPR&	0.6700	&&	0.5065	&&	0.7713&&		0.6895	&&	0.4737&\\	
+&BPR-N	&0.6920	&3.28&	0.5131	&1.31&	0.7812&	1.29&	0.7027	&1.91&	0.4771	&0.74\\
 &FSBPR	&0.3272 	&	&0.3658 	&	&0.5062 	&	&0.4599 	&	&0.4006 &\\
 &FSBPR-N	&0.6212 	&89.86	&0.4827 	&31.95	&0.7176 	&41.77	&0.6457 	&40.41	&0.4652 &16.13\\
 &LCR &0.7933& &0.9748 && 0.8177& &0.8104& & 0.7834 &\\ 
@@ -388,7 +388,7 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 \label{tab:gradedresult}
 \end{table*}%
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections.  In our model the prominent aspect is associated with each evaluation session. In the previous experiments, an evaluation session is a rating or a pair of rating. Here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.2$, for LCR and LCR-N $S=50$.  
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections. Unlike previous experiments, here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.05$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50$.  
 
 \textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics, i.e. AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we also adopt  MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. 
 
@@ -411,7 +411,7 @@ As the user-specific aspect-specific threshold $\mathbf{b}_{u,k}$ does not affec
 \hline
 Dataset & Movielens & FilmTrust & CiaoDVD \\\hline
 $\theta$ & $0.608\pm 0.105$ & $0.667\pm 0.016$ &	$0.773\pm 0.051$\\\hline
-$\sigma(\mathbf{b}_{u})$ & $0.131\pm 0.007$ &	$0.863\pm 0.072$	& $0.058\pm 0.001$  \\\hline
+$\sigma(\mathbf{b}_{u})$ & $0.0095\pm0.0024$ &	$0.0095\pm0.0023$	& $0.0093\pm0.0022$  \\\hline
 \end{tabular}
 \end{center}
 \label{tab:parameters}
