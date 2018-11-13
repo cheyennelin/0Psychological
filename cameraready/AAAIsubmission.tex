@@ -283,7 +283,7 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. For Movielens we use pre-processing step in~\cite{Hu2017Decoupled}, i.e.  $\Rating_{u,p}\geq 4 \&\& \Rating_{u,q}\leq 2 \rightarrow p\succ_u q$. For Filmtrust and CiaoDVD, as these data sets are more sparse, we construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table~\ref{tab:datasets}.
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50,\lambda_U=\lambda_V=10^{-8}$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
 \begin{table}[htp]
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
 \scriptsize
@@ -296,30 +296,30 @@ BT&0.6453 & & 0.5329 & & 0.8227 & \\
 BT-N& 0.8511 & 31.89& 0.5795 & 8.74& 0.9256 & 12.51\\
 BPR	&0.7976	&&	0.5674	&&	0.8988	&\\
 BPR-N	&0.8361	&4.82&	0.5761&	1.53&0.9180	&2.14\\
-FSBPR&0.5048 &	&	0.5011 &	&	0.7524 	&\\
-FSBPR-N&	0.8271 &	63.84&	0.5740 &	14.55&	0.9135 &	21.42\\
-LCR &0.6103& &0.8278 && 0.6793&\\ 
-LCR-N &0.6212 &1.79 & 0.8365 &1.05 &0.6862 &1.02 \\
+FSBPR	&0.5048 	&&	0.5011 	&&	0.7524 	&\\
+FSBPR-N&	0.8272 &63.86&	0.5740 &	14.56&	0.9136 &	21.42\\
+LCR&	0.7191&&		0.8555&&		0.9461	&\\
+LCR-N&	0.736	&2.35&	0.8605&	0.58&	0.9515&	0.57\\
 \hline
 FIlmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 BT& 0.5405 & & 0.5092 & & 0.7702 & \\
 BT-N & 0.6969 & 28.94& 0.5446 & 6.95& 0.8485 & 10.15\\
 BPR&	0.6412	&&	0.5319	&&	0.8206&\\	
 BPR-N	&0.6729	&4.94&	0.5391	&1.35&	0.8364&	1.93\\
-FSBPR	&0.4857 		&&0.4968 		&&0.7428& 	 \\
-FSBPR-N	&0.6718 &	38.33&	0.5389 &	8.48	&0.8359 	&12.53 \\
-LCR &0.5207& &0.9020 && 0.7336&\\ 
-LCR-N &0.5262 &1.06 & 0.9056 &0.40 &0.7533 &2.69 \\
+FSBPR	&0.4857 	&&	0.4968 &&		0.7428 	&\\
+FSBPR-N	&0.6717 &	38.29&	0.5388 &	8.47&	0.8358 &	12.52\\
+LCR	&0.5977&&		0.9034	&&	0.7511	&\\
+LCR-N&	0.6144&	2.79&	0.9063	&0.32&	0.7635	&1.65\\
 \hline
 CiaoDVD& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 BT& 0.6063 & & 0.5240 & & 0.8031 & \\
 BT-N& 0.9334 & 53.95& 0.5981 & 14.1& 0.9666 & 20.36\\
 BPR	&0.6344	&&	0.5304&&		0.8172	&\\
 BPR-N	&0.8987	&41.66&0.5902&	11.28&	0.9493&	16.17\\
-FSBPR 	&0.7537  	& 	&0.5574  	& 	&0.8769  	&\\
-FSBPR-N 	&0.8993  	&19.31 	&0.5904  	&5.91 	&0.9496  	&8.30\\
-LCR &0.6931& &0.9380 && 0.8122&\\ 
-LCR-N &0.7001 &1.01& 0.9513 &1.42 &0.8248 &1.55 \\
+FSBPR	&0.7537 	&&	0.5574 	&&	0.8769 	&\\
+FSBPR-N&	0.8992 &	19.30&	0.5903 &	5.91&	0.9496 &	8.30\\
+LCR&	0.626	&&	0.9408	&&	0.7889	&\\
+LCR-NCR	&0.6349&	1.42&	0.9451&	0.46&	0.7988&	1.25\\
 \hline
 \end{tabular}
 \end{center}
@@ -360,8 +360,8 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 &BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
 &BPR&	0.5181	&&	0.2794	&&	0.4854	&&	0.4297	&&	0.2767&\\	
 &BPR-N	&0.5349&	3.24&	0.2848	&1.92&	0.4960	&2.18&	0.4401&	2.41&	0.2806	&1.41\\
-&FSBPR	&0.5265 	&	&0.2824 	&	&0.4913 	&	&0.4350 	&	&0.2794& \\
-&FSBPR-N	&0.5389 	&2.35	&0.2863 	&1.39	&0.4987 	&1.51	&0.4433 	&1.91	&0.2819 & 0.87 \\
+&FSBPR	&0.5265 	&&	0.2824 	&&	0.4913 	&&	0.4350 	&&	0.2794 	&\\
+&FSBPR-N	&0.5389& 	2.35&	0.2863 	&1.39&	0.4988 &	1.53&	0.4432 &	1.90&	0.2818 &	0.87\\
 &LCR &0.5231 & &0.8116  && 0.4093 & &0.3407 & & 0.2430  &\\ 
 &LCR-N &0.5263  &0.61 & 0.8141 &0.31 &0.4126 &0.81 &0.3436 & 0.85 &0.2462  &1.32\\
 \hline
@@ -369,8 +369,8 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 &BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
 &BPR	&0.6183&	&	0.3183&&		0.5792	&&	0.5318&&		0.2973&\\	
 &BPR-N	&0.6460	&4.48&	0.3276&	2.92&0.5990	&3.41&	0.5524&	3.87&	0.3030	&1.94\\
-&FSBPR	&0.6334 	&	&0.3246 	&	&0.5916 	&	&0.5442 	&	&0.3026& \\
-&FSBPR-N	&0.6543 	&3.29	&0.3308 	&1.93	&0.6062 	&2.46	&0.5602 	&2.93	&0.3047&0.68 \\
+&FSBPR	&0.6334 	&&	0.3246 	&&	0.5916 &&		0.5442 	&&	0.3026 	&\\
+&FSBPR-N&	0.6544 &	3.31&	0.3309 &	1.94&	0.6062 &	2.48&	0.5603 &	2.95&	0.3047 &	0.69\\
 &LCR &0.5395& &0.6778 && 0.4826& &0.3975& & 0.2717 &\\ 
 &LCR-N &0.5636 &4.47 & 0.6933 &2.29 &0.5140 &6.51 &0.4242 & 6.72 &0.2858  &5.19\\
 \hline
@@ -378,8 +378,8 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 &BT-N	&0.7000 	&16.15	&0.5160 	&8.99	&0.7869 	&10.04	&0.7084 	&11.37	&0.4785  &4.92\\
 &BPR&	0.6700	&&	0.5065	&&	0.7713&&		0.6895	&&	0.4737&\\	
 &BPR-N	&0.6920	&3.28&	0.5131	&1.31&	0.7812&	1.29&	0.7027	&1.91&	0.4771	&0.74\\
-&FSBPR	&0.3272 	&	&0.3658 	&	&0.5062 	&	&0.4599 	&	&0.4006 &\\
-&FSBPR-N	&0.6212 	&89.86	&0.4827 	&31.95	&0.7176 	&41.77	&0.6457 	&40.41	&0.4652 &16.13\\
+&FSBPR	&0.3272 	&&	0.3658 	&&	0.5062 	&&	0.4599 	&&	0.4006 	&\\
+&FSBPR-NCR	&0.6198 &	89.45&	0.4822 &	31.83&	0.7169& 	41.62&	0.6448 &	40.22&	0.4650 &	16.08\\
 &LCR &0.7933& &0.9748 && 0.8177& &0.8104& & 0.7834 &\\ 
 &LCR-N &0.8012 &1.00 & 0.9768 &0.21 &0.8334 &1.92 &0.8264 & 1.97 &0.7975  &1.80\\
 	\hline
@@ -388,7 +388,7 @@ Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) 
 \label{tab:gradedresult}
 \end{table*}%
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections. Unlike previous experiments, here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.05$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50$.  
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections. Unlike previous experiments, here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.05$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50,\lambda_U=\lambda_V=10^{-6}$.  
 
 \textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics, i.e. AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we also adopt  MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. 
 
