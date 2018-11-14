@@ -254,21 +254,21 @@ Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 MF&	0.6729 &	&	0.6925 &	&	0.8300 &	\\
 MF-N&	0.7108 &	5.62&	0.7166 &	3.48&	0.8633 &	4.01\\
 AMF&	0.6901 &	&	0.7107 &	&	0.8747 &	\\
-AMF-N&	0.7017 &	1.68&	0.7143 &	0.50&	0.8769 &	0.26\\
+AMF-N &	0.7027 	&1.83&	0.7138 &	0.44&	0.8790 	&0.49\\
 LLORMA&	0.7265 &	&	0.8734 &	&	0.7015 &	\\
 LLORMA-N&	0.7299 &	0.47&	0.8999 &	3.03&	0.7187 &	2.45\\\hline
 Filmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 MF&	0.6507 &	&	0.5229 &	&	0.7011 &	\\
 MF-N&	0.6710 &	3.12&	0.5241 &	0.23&	0.7071 &	0.86\\
 AMF&	0.5971 &	&	0.5137 &	&	0.7411 &	\\
-AMF-N&	0.6159 &	3.15&	0.5260 &	2.40&	0.7649 &	3.22\\
+AMF-N&	0.6133 &	2.71&	0.5253 &	2.25&	0.7619 &	2.80\\
 LLORMA&	0.6240 &	&	0.8596 &	&	0.7857 &	\\
 LLORMA-N&	0.6345 &	1.68&	0.8684 &	1.02&	0.8068 &	2.69\\\hline
 CiaoDVD& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 MF&	0.7431 &	&	0.7949 &	&	0.8910 &	\\
 MF-N&	0.7903 &	6.34&	0.8127 &	2.25&	0.9154 &	2.74\\
 AMF&	0.6489 &	&	0.6612 &	&	0.8741 &	\\
-AMF-N&	0.7017 &	8.14&	0.6892 &	4.24&	0.8996 &	2.91\\
+AMF-N&	0.6993 &	7.77&	0.6878 &	4.02&	0.8967 &	2.58\\
 LLORMA&	0.6752 &	&	0.7827 &	&	0.8267 &	\\
 LLORMA-N&	0.6845 &	1.38&	0.7984 &	2.00&	0.8384 &	1.42\\
 \hline
@@ -284,7 +284,7 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. For Movielens we use pre-processing step in~\cite{Hu2017Decoupled}, i.e.  $\Rating_{u,p}\geq 4 \&\& \Rating_{u,q}\leq 2 \rightarrow p\succ_u q$. For Filmtrust and CiaoDVD, as these data sets are more sparse, we construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table~\ref{tab:datasets}.
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50, \lambda_U=\lambda_V=10^{-8}$. 
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=5, \lambda_U=\lambda_V=10^{-8}$. 
 
 \textbf{Evaluation Metrics}. The same set of measurements are used, including AUC, NDCG and MRR. 
 \begin{table}[htp]
@@ -303,7 +303,7 @@ BPR-N	&0.8361	&4.82&	0.5761&	1.53&0.9180	&2.14\\
 FSBPR	&0.5048 	&&	0.5011 	&&	0.7524 	&\\
 FSBPR-N&	0.8272 &63.86&	0.5740 &	14.56&	0.9136 &	21.42\\
 LCR&	0.7191&&		0.8555&&		0.9461	&\\
-LCR-N&	0.736	&2.35&	0.8605&	0.58&	0.9515&	0.57\\
+LCR-N&	0.7360	&2.35&	0.8605&	0.58&	0.9515&	0.57\\
 \hline
 FIlmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
 BT& 0.5405 & & 0.5092 & & 0.7702 & \\
@@ -322,7 +322,7 @@ BPR	&0.6344	&&	0.5304&&		0.8172	&\\
 BPR-N	&0.8987	&41.66&0.5902&	11.28&	0.9493&	16.17\\
 FSBPR	&0.7537 	&&	0.5574 	&&	0.8769 	&\\
 FSBPR-N&	0.8992 &	19.30&	0.5903 &	5.91&	0.9496 &	8.30\\
-LCR&	0.626	&&	0.9408	&&	0.7889	&\\
+LCR&	0.6260	&&	0.9408	&&	0.7889	&\\
 LCR-N	&0.6349&	1.42&	0.9451&	0.46&	0.7988&	1.25\\
 \hline
 \end{tabular}}
