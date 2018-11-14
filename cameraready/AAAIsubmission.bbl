@@ -6,7 +6,7 @@ Devooght, R.; Kourtellis, N.; and Mantrach, A.
 \newblock 2015.
 \newblock Dynamic matrix factorization with priors on unknown values.
 \newblock In {\em Proceedings of the 21th ACM SIGKDD International Conference
-  on Knowledge Discovery and Data Mining}, KDD '15,  189--198.
+  on Knowledge Discovery and Data Mining},  189--198.
 \newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Engel, Blackwell, and
@@ -22,7 +22,7 @@ Guo, G.; Zhang, J.; Thalmann, D.; and Yorke-Smith, N.
 \newblock 2014.
 \newblock Etaf: An extended trust antecedents framework for trust prediction.
 \newblock In {\em Proceedings of the 2014 IEEE/ACM International Conference on
-  Advances in Social Networks Analysis and Mining}, ASONAM '14,  540--547.
+  Advances in Social Networks Analysis and Mining},  540--547.
 \newblock Piscataway, NJ, USA: IEEE Press.
 
 \bibitem[\protect\citeauthoryear{Guo, Zhang, and
@@ -51,7 +51,7 @@ Hu, J., and Li, P.
 \newblock 2017.
 \newblock Decoupled collaborative ranking.
 \newblock In {\em Proceedings of the 26th International Conference on World
-  Wide Web}, WWW '17,  1321--1329.
+  Wide Web},  1321--1329.
 \newblock Republic and Canton of Geneva, Switzerland: International World Wide
   Web Conferences Steering Committee.
 
@@ -74,7 +74,7 @@ Koren, Y.
 \newblock Factorization meets the neighborhood: A multifaceted collaborative
   filtering model.
 \newblock In {\em Proceedings of the 14th ACM SIGKDD International Conference
-  on Knowledge Discovery and Data Mining}, KDD '08,  426--434.
+  on Knowledge Discovery and Data Mining},  426--434.
 \newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Koren}{2010}]{Koren2010Factor}
@@ -97,7 +97,7 @@ Lee, J.; Bengio, S.; Kim, S.; Lebanon, G.; and Singer, Y.
 \newblock 2014.
 \newblock Local collaborative ranking.
 \newblock In {\em Proceedings of the 23rd International Conference on World
-  Wide Web}, WWW '14,  85--96.
+  Wide Web},  85--96.
 \newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
@@ -145,7 +145,7 @@ Shi, Y.; Larson, M.; and Hanjalic, A.
 \newblock List-wise learning to rank with matrix factorization for
   collaborative filtering.
 \newblock In {\em Proceedings of the Fourth ACM Conference on Recommender
-  Systems}, RecSys '10,  269--272.
+  Systems},  269--272.
 \newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Steck}{2015}]{Steck2015Gaussian}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 NOV 2018 20:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 NOV 2018 22:00
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -374,7 +374,11 @@ Underfull \hbox (badness 4967) in paragraph at lines 406--407
 \OT1/ptm/m/n/10 compensatory ma-trix fac-tor-iza-tion (MF-N) model on
  []
 
-[7] (./AAAIsubmission.bbl
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7]
+(./AAAIsubmission.bbl
 Underfull \hbox (badness 1231) in paragraph at lines 431--1
 \OT1/ptm/m/n/10 Chen Lin is sup-ported by Nat-u-ral Sci-ence Foun-da-tion
  []
@@ -440,7 +444,7 @@ ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
 17/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/
 type1/urw/times/utmri8a.pfb>
-Output written on AAAIsubmission.pdf (8 pages, 310457 bytes).
+Output written on AAAIsubmission.pdf (8 pages, 310058 bytes).
 PDF statistics:
  147 PDF objects out of 1000 (max. 8388607)
  108 compressed objects within 2 object streams

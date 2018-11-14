@@ -222,7 +222,7 @@ We conduct experiments to evaluate the performance of non-compensatory rules in 
 
 \textbf{Data Sets}. We use the standard benchmarks with user-item ratings. (1) Movielens\footnote{https://grouplens.org/datasets/movielens/}; (2) FilmTrust~\cite{Guo2013Novel}; and (3) CiaoDVD~\cite{Guo2014ETAF}. Statistics of the datasets are described in Table~\ref{tab:datasets}. 
 
-For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training set and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation. 
+For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training set and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The reported results are averaged using 5-fold cross validation. 
 \begin{table}[htp]
 \caption{Statistics of Datasets with ratings}
 \small
@@ -240,7 +240,7 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 
 \textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}, both without regularization terms; (3) LLORMA~\cite{Lee2016LLORMA} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The model parameters to be learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference, because we want the prominent aspect to be more important than non-prominent aspects. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $MaxIter$ iterations. The same values of hyper-parameters are set for compensatory and non-compensatory models: for MF and MF-N $K=10, \lambda_U=\lambda_V=0.01, MaxIter=1000$, for AMF and AMF-N $K=5, MaxIter=100$, for LLORMA and LLORMA-N $K=5, S=50, \lambda_U=\lambda_V=0.001, MaxIter=100$.
 
-\textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: first computes the area under precision-recall curve based on the predicted ratings for each user; (2) NDCG: measures the accuracy of item ranking per user by the predicted ratings v.s. the actual ranking; (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user. Results are averaged over all users. 
+\textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: computes the area under precision-recall curve for a binary classification task.  The ground truth is: a rating above 3 is labeled positive and otherwise negative. (2) NDCG: measures the accuracy of item ranking per user by the predicted ratings v.s. the actual ranking; (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user. Results are averaged over all users. 
 
 \begin{table}[htp]
 \caption{Comparative rating prediction performances, `Imp.' is the percentage of improvements of non-compensatory versions relative to the original models. Non-compensatory rules universally improve rating models.}
@@ -286,7 +286,7 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50, \lambda_U=\lambda_V=10^{-8}$. 
 
-\textbf{Evaluation Metrics}. The same set of measurements are used as in previous sections, which includes AUC, NDCG and MRR. 
+\textbf{Evaluation Metrics}. The same set of measurements are used, including AUC, NDCG and MRR. 
 \begin{table}[htp]
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
 \small
@@ -410,7 +410,7 @@ As the user-specific aspect-specific threshold $\mathbf{b}_{u,k}$ does not affec
 \textbf{Strength of Non-compensatory Rules}. We also present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We can see that the optimal value of $\theta$ is moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
 
 \begin{table}[htp]
-\caption{AUC improvements with $b$ learnt for each user and each aspect, scale of the strength parameter $\theta$ and user-specific aspect-specific threshold parameter $\mathbf{b}_{u,k}$.}
+\caption{AUC improvements with $\mathbf{b}$ activated, scale of parameters $\mathbf{b}_{u,k}$ and $\theta$.}
 \small
 \centering
 \scalebox{0.9}{
