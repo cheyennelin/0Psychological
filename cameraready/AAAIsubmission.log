@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 NOV 2018 23:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  15 NOV 2018 01:29
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -374,38 +374,19 @@ Underfull \hbox (badness 4967) in paragraph at lines 405--406
 \OT1/ptm/m/n/10 compensatory ma-trix fac-tor-iza-tion (MF-N) model on
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7]
-(./AAAIsubmission.bbl
-Underfull \hbox (badness 1231) in paragraph at lines 430--1
-\OT1/ptm/m/n/10 Chen Lin is sup-ported by Nat-u-ral Sci-ence Foun-da-tion
+[7] (./AAAIsubmission.bbl
+Underfull \hbox (badness 4193) in paragraph at lines 430--1
+\OT1/ptm/m/n/10 Chen Lin is sup-ported by Nat-u-ral Sci-ence Foun-da-
  []
 
 
-Underfull \hbox (badness 1874) in paragraph at lines 430--1
-\OT1/ptm/m/n/10 of China un-der grant No.61472335. Yanghua Xiao is
+Underfull \hbox (badness 5203) in paragraph at lines 430--1
+\OT1/ptm/m/n/10 is sup-ported by NSFC (No.61732004, No.61472085,
  []
 
 
-Underfull \hbox (badness 3219) in paragraph at lines 430--1
-\OT1/ptm/m/n/10 sup-ported by Na-tional Key R&D Pro-gram of China
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--1
-\OT1/ptm/m/n/10 (No.2017YFC0803700, No.2017YFC1201200), by
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--1
-\OT1/ptm/m/n/10 NSFC (No.61732004, No.61472085, No.U1509213,
- []
-
-
-Underfull \hbox (badness 6542) in paragraph at lines 430--1
-\OT1/ptm/m/n/10 No.U1636207), by Shang-hai Mu-nic-i-pal Sci-ence and
+Underfull \hbox (badness 5302) in paragraph at lines 430--1
+\OT1/ptm/m/n/10 Shang-hai Mu-nic-i-pal Sci-ence and Tech-nol-ogy project
  []
 
 ) [8] (./AAAIsubmission.aux) ) 
@@ -416,7 +397,7 @@ Here is how much of TeX's memory you used:
  6038 multiletter control sequences out of 15000+600000
  31229 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,13n,25p,1434b,267s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,13n,25p,1436b,267s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvi
 ps/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
@@ -444,7 +425,7 @@ ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
 17/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/
 type1/urw/times/utmri8a.pfb>
-Output written on AAAIsubmission.pdf (8 pages, 310053 bytes).
+Output written on AAAIsubmission.pdf (8 pages, 309387 bytes).
 PDF statistics:
  147 PDF objects out of 1000 (max. 8388607)
  108 compressed objects within 2 object streams
