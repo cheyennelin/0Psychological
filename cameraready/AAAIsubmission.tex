@@ -31,8 +31,8 @@
 \author{Chen Lin,\textsuperscript{\rm 1,\rm 3} Xiaolin Shen,\textsuperscript{\rm 1} Si Chen,\textsuperscript{\rm 1} Muhua Zhu,\textsuperscript{\rm 3} Yanghua Xiao,\textsuperscript{\rm 2,3}\\
 \textsuperscript{\rm 1}Department of Computer Science, Xiamen University, Xiamen, Fujian, China\\
 \textsuperscript{\rm 2}School of Computer Science, Fudan University, Shanghai, China \\
-\textsuperscript{\rm 3}Alibaba Group, Hangzhou, Zhejiang, China\\}
-%chenlin@xmu.edu.cn, \{xlshen, sichen\}@stu.xmu.edu.cn, muhua.zmh@alibaba-inc.com, shawyh@fudan.edu.cn}
+\textsuperscript{\rm 3}Alibaba Group, Hangzhou, Zhejiang, China\\
+chenlin@xmu.edu.cn, \{xlshen, sichen\}@stu.xmu.edu.cn, muhua.zmh@alibaba-inc.com, shawyh@fudan.edu.cn}
 \setlength\titlebox{2.5in}
 
 \maketitle
@@ -127,7 +127,7 @@ where $\mathbf{u}_t, \mathbf{q}_t$ are the factorized user preferences and item 
 \subsection{Ranking Models}
 Another goal of recommendation research is to reveal the observed rankings. We here consider pair-wise rankings $p\succ_u q$, which indicates user $u$ prefers item $p$ over $q$. The pair-wise rankings can be generated from pre-processing  the ratings, i.e. $\Rating_{u,p}> \mu, \Rating_{u,q}<\mu$~\cite{Hu2017Decoupled}, or from explicit and implicit feedback, i.e. $\Rating_{u,p}\neq 0$ and $ \Rating_{u,q}$ doesn't exist~\cite{Rendle2009BPR}. 
 
-\textbf{Thurstone Model} The Thurstone model~\cite{Thurstone1927law} is widely used in recommendation systems. It uses a non-linear transformation of the predicted ratings $\hat\Rating$ to compute the probability of pair-wise rankings $Pr(p\succ_u q)$ . 
+\textbf{Thurstone Model.} The Thurstone model~\cite{Thurstone1927law} is widely used in recommendation systems. It uses a non-linear transformation of the predicted ratings $\hat\Rating$ to compute the probability of pair-wise rankings $Pr(p\succ_u q)$ . 
 \begin{equation}\label{equ:BPR}
 Pr(p\succ_u q) = \frac{1} {1+\exp[-(\hat{\Rating}_{u,p}-\hat{\Rating}_{u,q})]}
 \end{equation}
@@ -147,7 +147,7 @@ where $\hat{\Rating}_{u,p}$ is the predicted rating by MF. The objective of BT m
 \begin{equation}\label{equ:BTloss}
 \Loss(\Theta) = - \sum_{u}\sum_{p,q} I(p\succ_u q) \log Pr(p\succ_u q).
 \end{equation}
-There are other variants of loss functions. For example, penalty terms of the L2-norm of $U,V$, as well as the differences between $\hat\Rating$ and $\Rating$ are addeded in an improved BT model~\cite{Hu2016Improved}. 
+There are other variants of loss functions. For example, penalty terms of the L2-norm of $U,V$, as well as the differences between $\hat\Rating$ and $\Rating$ are added in an improved BT model~\cite{Hu2016Improved}. 
 
 The list is by no means exclusive. However, we believe that most of existing recommender systems are covered. It is worthy to point out that (1) we do not restrict the form of loss functions. For example, many ranking approaches consider Bayesian maximum posterior, cross entropy and other forms of loss functions. Nevertheless, the core ranking model is either BT or Thurstone. (2) Although we only study pair-wise ranking , the conclusion is insightful for other ranking-aware systems, i.e. point-wise and list-wise approaches. The reason is that, as shown in ~\cite{Steck2015Gaussian},  point-wise and list-wise loss functions can be decomposed into components which are directly based on each score $\hat\Rating_{u,q}$ and components that are not related to $\hat\Rating$. Thus our proposed strategy in the next section is also applicable to point-wise and list-wise ranking models. (3) As the key component $\hat\Rating_{u,q}$ is based on compensatory rules, all existing latent factor models are essentially compensatory. 
 
@@ -220,9 +220,9 @@ We conduct experiments to evaluate the performance of non-compensatory rules in 
 
 \subsection{Comparative Results for Rating Prediction Models}
 
-\textbf{Data Sets} We use the standard benchmarks with user-item ratings. (1) Movielens\footnote{https://grouplens.org/datasets/movielens/}; (2) FilmTrust~\cite{Guo2013Novel}; and (3) CiaoDVD~\cite{Guo2014ETAF}. Statistics of the datasets are described in Table~\ref{tab:datasets}. 
+\textbf{Data Sets}. We use the standard benchmarks with user-item ratings. (1) Movielens\footnote{https://grouplens.org/datasets/movielens/}; (2) FilmTrust~\cite{Guo2013Novel}; and (3) CiaoDVD~\cite{Guo2014ETAF}. Statistics of the datasets are described in Table~\ref{tab:datasets}. 
 
-For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training set and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation, 
+For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training set and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation. 
 \begin{table}[htp]
 \caption{Statistics of Datasets with ratings}
 \small
@@ -237,7 +237,8 @@ CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
 \end{tabular}}
 \label{tab:datasets}
 \end{table}
-\textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}, both without regularization terms; (3) LLORMA~\cite{Lee2016LLORMA} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The non-compensatory and original versions adopt the same values for hyper-parameters. The model parameters to learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $MaxIter$ iterations. The same values of hyper-parameters are set for compensatory and non-compensatory models: for MF and MF-N $K=10, \lambda_U=\lambda_V=0.01,MaxIter=1000$, for AMF and AMF-N $K=5,MaxIter=100$, for LLORMA and LLORMA-N $K=5,S=50,\lambda_U=\lambda_V=0.001,MaxIter=100$.
+
+\textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}, both without regularization terms; (3) LLORMA~\cite{Lee2016LLORMA} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The model parameters to be learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference, because we want the prominent aspect to be more important than non-prominent aspects. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $MaxIter$ iterations. The same values of hyper-parameters are set for compensatory and non-compensatory models: for MF and MF-N $K=10, \lambda_U=\lambda_V=0.01, MaxIter=1000$, for AMF and AMF-N $K=5, MaxIter=100$, for LLORMA and LLORMA-N $K=5, S=50, \lambda_U=\lambda_V=0.001, MaxIter=100$.
 
 \textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: first computes the area under precision-recall curve based on the predicted ratings for each user; (2) NDCG: measures the accuracy of item ranking per user by the predicted ratings v.s. the actual ranking; (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user. Results are averaged over all users. 
 
@@ -283,7 +284,9 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 
 \textbf{Data Sets}. Next we evaluate the performance of models that target to ranking reconstruction. The datasets used are again Movielens, Filmtrust and CiaoDVD. For Movielens we use pre-processing step in~\cite{Hu2017Decoupled}, i.e.  $\Rating_{u,p}\geq 4 \&\& \Rating_{u,q}\leq 2 \rightarrow p\succ_u q$. For Filmtrust and CiaoDVD, as these data sets are more sparse, we construct pair-wise ordering for each user between any higher rated item and lower rated item, i.e. $\Rating_{u,p}>\Rating_{u,q}\rightarrow p\succ_u q$. The number of ranking pairs on each dataset is shown in Table~\ref{tab:datasets}.
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50,\lambda_U=\lambda_V=10^{-8}$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50, \lambda_U=\lambda_V=10^{-8}$. 
+
+\textbf{Evaluation Metrics}. The same set of measurements are used as in previous sections, which includes AUC, NDCG and MRR. 
 \begin{table}[htp]
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
 \small
@@ -326,8 +329,6 @@ LCR-N	&0.6349&	1.42&	0.9451&	0.46&	0.7988&	1.25\\
 \label{tab:rankingresult}
 \end{table}
 
-
-
 A general observation from Table~\ref{tab:rankingresult} is that non-compensatory rules significantly improve ranking models. In terms of AUC, NDCG and MRR, the non-compensatory models outperform the compensatory models on all datasets. The results validate the adequacy of non-compensatory rules in ranking  models. Furthermore, by comparing Table~\ref{tab:rankingresult} and Table~\ref{tab:ratingresult}, we observe that the non-compensatory rules generally make bigger improvements on ranking models than on rating models. This observation indicates that it is possible that consumers adopt non-compensatory rules more often in ranking alternative products.
 \subsection{Comparative Results for Ranking Models: Implicit Feedback}
 In most recommender systems, users give not only explicit ratings but also implicit feedback that can be graded. For example, a purchase and a click are both implicit feedback that indicates user preference. A reasonable grading is that a purchase is ``higher'' than a click, as a purchase is a stronger indicator of user preference. Therefore, we conduct experiments on datasets with graded implicit feedback.  
@@ -336,6 +337,7 @@ In most recommender systems, users give not only explicit ratings but also impli
 \caption{Statistics of Datasets with graded implicit feedback}
 \small
 \centering
+\scalebox{0.9}{
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Dataset & \#users & \#items & \#pairs & \#sessions \\\hline
@@ -343,6 +345,7 @@ Tmall-single &33,815 &176,231 &5,682,833 &364,844 \\\hline
 Tmall-hybrid &62,101 &198,344 &6,072,061 &475,503 \\\hline
 Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \end{tabular}
+}
 \label{tab:idata}
 \end{table}%
 
@@ -355,9 +358,7 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \scalebox{0.9}{
 \begin{tabular}{c cc |cc |cc|cc|cc}
 \hline
-%Dataset	& 
 Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) &	MAP&	Improve($\%$)&	Prec	&Improve($\%$)\\\hline
-%\multirow{6}{*}{Tmall-single} &
 Tmall-single\\\hline
 BT	&0.5304 	&	&0.2804 	&	&0.4870 	&	&0.4327 	&	&0.2778 &\\
 BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
@@ -368,7 +369,6 @@ FSBPR-N	&0.5389& 	2.35&	0.2863 	&1.39&	0.4988 &	1.53&	0.4432 &	1.90&	0.2818 &	0.
 LCR &0.5231 & &0.8116  && 0.4093 & &0.3407 & & 0.2430  &\\ 
 LCR-N &0.5263  &0.61 & 0.8141 &0.31 &0.4126 &0.81 &0.3436 & 0.85 &0.2462  &1.32\\
 \hline
-%\multirow{6}{*}{Tmall-hybrid} & 
 Tmall-hybrid\\\hline
 BT	&0.5867 	&	&0.3015 	&	&0.5373 	&	&0.4929 	&	&0.2904 & \\
 BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
@@ -379,7 +379,6 @@ FSBPR-N&	0.6544 &	3.31&	0.3309 &	1.94&	0.6062 &	2.48&	0.5603 &	2.95&	0.3047 &	0.
 LCR &0.5395& &0.6778 && 0.4826& &0.3975& & 0.2717 &\\ 
 LCR-N &0.5636 &4.47 & 0.6933 &2.29 &0.5140 &6.51 &0.4242 & 6.72 &0.2858  &5.19\\
 \hline
-%\multirow{6}{*}{Yoochoose} &
 Yoochoose\\\hline
 BT	&0.6027 	&	&0.4734 	&	&0.7151 	&	&0.6361 	&	&0.4560 & \\
 BT-N	&0.7000 	&16.15	&0.5160 	&8.99	&0.7869 	&10.04	&0.7084 	&11.37	&0.4785  &4.92\\
@@ -392,9 +391,9 @@ LCR-N &0.8012 &1.00 & 0.9768 &0.21 &0.8334 &1.92 &0.8264 & 1.97 &0.7975  &1.80\\
 	\hline
 	\end{tabular}}
 \label{tab:gradedresult}
-\end{table*}%
+\end{table*}
 
-\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections. Unlike previous experiments, here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.05$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50,\lambda_U=\lambda_V=10^{-6}$.  
+\textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on the same four ranking models. It is worthy to note that implementation of BT-N is different from previous sections. Unlike previous experiments, here the user interaction session information is available. Thus in BT-N, we sample the prominent aspect for each session instead of a pair of actions. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.05$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50, \lambda_U=\lambda_V=10^{-6}$.  
 
 \textbf{Evaluation Metrics}.  In addition to the aforementioned  ranking evaluation metrics, i.e. AUC, NDCG and MRR, in order to evaluate the sessional ranking performance, we also adopt  MAP and Precision. MAP first computes the mean precision at each position of the predicted ranking per session, then averages it over all sessions. Precision first computes the fraction of correctly ordered test pairs in each session, then averages it over all sessions. 
 
@@ -404,22 +403,23 @@ As shown in Table~\ref{tab:gradedresult}, the non-compensatory models outperform
 
 Finally, we analyze the values of inferred parameters $\theta,\mathbf{b}$ in non-compensatory models to gain some insights about the non-compensatory rules. 
 
-As the user-specific aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking aware models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. We let $\theta,\mathbf{b}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly split the data sets to $5$ folds. We present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We also present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. 
+As the user-specific aspect-specific threshold $\mathbf{b}_{u,k}$ does not affect ranking models, we implement the non-compensatory matrix factorization (MF-N) model on three rating datasets, including Movielens, Filmtrust and CiaoDVD. The parameters $\mathbf{b}_{u,k}$ are activated, i.e. $\theta,\mathbf{b}_{u,k}$ to be automatically learnt from the training data. We run 5-fold validations for $10$ times, where each time we randomly split the data sets to $5$ folds. The hyper-parameters are also set to be $K=10, \lambda_U=\lambda_V=0.01$.
 
-\textbf{Strength of Non-compensatory Rules}. We can see that the optimal value of $\theta$ is moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
+\textbf{Effect of User-specific Aspect-specific Threshold}. The first column of Table~\ref{tab:parameters} reports the AUC improvement of MF-N with $\mathbf{b}_{u,k}$ activated over MF-N without $\mathbf{b}_{u,k}$ activated on different data sets. We then present the mean and standard deviation of the standard deviation of $\mathbf{b}$ inferred on each dataset. That is, we first compute the standard deviation of $\sigma(\mathbf{b}_u)=\sqrt {[\sum_{k=1}^{K} (\mathbf{b}_{u,k}-\bar{\mathbf{b}_u})^2 /K]} $ for each user, where $\bar{\mathbf{b}_u}=\sum_{k=1}^K \mathbf{b}_{u,k} /K$ is the average threshold for user $u$ over all aspects. Then we report the mean and standard deviation of $\sigma_u$ over all users. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user-specific threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is necessary to employ aspect-specific threshold in non-compensatory rules. 
 
-\textbf{Effect of user-specific Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user-specific threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is neccessary to employ aspect-specific threshold in non-compensatory rules. 
+\textbf{Strength of Non-compensatory Rules}. We also present in Table~\ref{tab:parameters} the mean and standard deviation of $\theta$ inferred on each dataset. We can see that the optimal value of $\theta$ is moderate, indicating the users adopt a combination of lexicographical rules and conjunctive rules.  
+
 \begin{table}[htp]
-\caption{Scale of the strength of lexicographical rule $\theta$ and user-specific aspect-specific threshold $\mathbf{b}_{u,k}$.}
+\caption{AUC improvements with $b$ learnt for each user and each aspect, scale of the strength parameter $\theta$ and user-specific aspect-specific threshold parameter $\mathbf{b}_{u,k}$.}
 \small
 \centering
 \scalebox{0.9}{
-\begin{tabular}{c|c |c}
+\begin{tabular}{c|c|c |c}
 \hline
-Dataset   &$\theta$ & $\sigma(\mathbf{b}_{u})$\\\hline
-Movielens & $0.608\pm 0.105$ & $0.0095\pm0.0024$ \\
-FilmTrust & $0.667\pm 0.016$ & $0.0095\pm0.0023$ \\
-CiaoDVD &	$0.773\pm 0.051$ & $0.0093\pm0.0022$  \\\hline
+Dataset   &Improve($\%$)& $\sigma(\mathbf{b}_{u})$& $\theta$ \\\hline
+Movielens & 5.37 & $0.0095\pm0.0024$ & $0.608\pm 0.105$  \\
+FilmTrust & 2.21 & $0.0095\pm0.0023$ & $0.667\pm 0.016$\\
+CiaoDVD & 28.97 & $0.0093\pm0.0022$  &$0.773\pm 0.051$\\\hline
 \end{tabular}
 }
 \label{tab:parameters}
@@ -428,7 +428,7 @@ CiaoDVD &	$0.773\pm 0.051$ & $0.0093\pm0.0022$  \\\hline
 Psychology study has shown that consumers adopt compensatory and non-compensatory rules in the decision making process. However, all existing latent factor models in recommendation systems are essentially based on compensatory rules. In this contribution, we present for the first time in the literature of recommendation systems how non-compensatory rules can be embedded in latent factor models. We show that applying non-compensatory rules universally boosts recommendation performance for a variety of rating prediction and ranking models. 
 
 \section{ Acknowledgments}
-Chen Lin is supported by Natural Science Foundation under grant No.61472335. Yanghua Xiao is supported by National Key R\&D Program of China under No.2017YFC0803700 and No.2017YFC1201200, by the National NSFC (No.61732004, No.61472085, No.U1509213, No.U1636207), by Shanghai Municipal Science and Technology project (No.16511102102, No.16JC1420401), Shanghai STCSMs R\&D Program under Grant (No.16JC1420400).
+Chen Lin is supported by Natural Science Foundation of China under grant No.61472335. Yanghua Xiao is supported by National Key R\&D Program of China (No.2017YFC0803700, No.2017YFC1201200), by NSFC (No.61732004, No.61472085, No.U1509213, No.U1636207), by Shanghai Municipal Science and Technology project (No.16511102102, No.16JC1420401), Shanghai STCSMs R\&D Program (No.16JC1420400).
 \bibliographystyle{aaai}
 \bibliography{reference}
 \end{document}
