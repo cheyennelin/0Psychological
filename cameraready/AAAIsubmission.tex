@@ -11,6 +11,7 @@
 \usepackage{multirow}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\frenchspacing
 %\usepackage{booktabs}
 \usepackage{array}
 \newcommand{\Ep}{\mathbb{E}}
@@ -27,14 +28,16 @@
 
  \begin{document}
 \title{Non-Compensatory Psychological Models for Recommender Systems}
-\author{Chen Lin,\textsuperscript{1,3} Xiaolin Shen,\textsuperscript{1} Si Chen\textsuperscript{1}, Muhua Zhu\textsuperscript{3}, \and Yanghua Xiao\textsuperscript{2,3}\\
-\textsuperscript{1} Department of Computer Science, Xiamen University, Xiamen, Fujian, China\\
-\textsuperscript{2} School of Computer Science, Fudan University, Shanghai, China \\
-\textsuperscript{3} Alibaba Group, Hangzhou, Zhejiang, China\\
-chenlin@xmu.edu.cn, \{xlshen, sichen\}@stu.xmu.edu.cn, muhua.zmh@alibaba-inc.com, shawyh@fudan.edu.cn}
+\author{Chen Lin,\textsuperscript{\rm 1,\rm 3} Xiaolin Shen,\textsuperscript{\rm 1} Si Chen,\textsuperscript{\rm 1} Muhua Zhu,\textsuperscript{\rm 3} Yanghua Xiao,\textsuperscript{\rm 2,3}\\
+\textsuperscript{\rm 1}Department of Computer Science, Xiamen University, Xiamen, Fujian, China\\
+\textsuperscript{\rm 2}School of Computer Science, Fudan University, Shanghai, China \\
+\textsuperscript{\rm 3}Alibaba Group, Hangzhou, Zhejiang, China\\}
+%chenlin@xmu.edu.cn, \{xlshen, sichen\}@stu.xmu.edu.cn, muhua.zmh@alibaba-inc.com, shawyh@fudan.edu.cn}
+\setlength\titlebox{2.5in}
+
 \maketitle
 \begin{abstract}
-The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. they evaluate an item over multiple aspects and compute a weighted or/and summated score which is used to further derive the rating or ranking of the item. However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules. Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models. 
+The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules. Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules, i.e. they evaluate an item over multiple aspects and compute a weighted or/and summated score which is used to derive the rating or ranking of the item. However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules. Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models. 
 
 Our general assumptions are (1) there are $K$ universal hidden aspects. In each evaluation session, only one aspect is chosen as the prominent aspect according to user preference. (2) Evaluations over prominent and non-prominent aspects are non-compensatory. Evaluation is mainly based on item performance on the prominent aspect. For non-prominent aspects the user sets a minimal acceptable threshold. We give a conceptual model for these general assumptions. We show how this conceptual model can be realized in both point-wise rating prediction models and pair-wise ranking prediction models. Experiments on real-world data sets validate that adopting non-compensatory rules improves recommendation performance for both rating and ranking models.
 \end{abstract}
@@ -54,8 +57,8 @@ Non-compensatory rules do not allow the shortcomings of a product to be balanced
 
 \begin{table}[htp]
 \caption{A cellphone example to illustrate non-compensatory rules.}
-\scriptsize
-\begin{center}
+\small
+\centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 Item & Prominent aspect & \multicolumn{2}{|c|}{Non-prominent aspects}\\\hline
@@ -64,7 +67,6 @@ iPhone SE &  13 hours & 700$\$$ & 64GB  \\\hline
 Galaxy S8 & 9 hours& 500$\$$  & 128GB \\\hline
 Honor 10 & 24 hours& 589$\$$ & 128GB \\\hline
 \end{tabular}
-\end{center}
 \label{tab:example}
 \end{table}
 Current computer support for non-compensatory rules is to manually control the rules in decision support systems~\cite{Lee2009Transforming}, e.g. consumers are asked to specify the threshold for an aspect of interest. Such manual approaches are labor costly and difficult to set up and maintain. On the contrary, learning models such as latent factor models~\cite{Koren2009Matrix} have the advantage of scalability, simplicity and flexibility. Unfortunately, to the best of our knowledge, no previous effort has been devoted to building learning to recommend models based on non-compensatory rules. 
@@ -73,7 +75,7 @@ Our goal in this paper is to study this unexplored area of how learning models c
 
 Our primary contribution is to propose a conceptual model of how users adopt non-compensatory rules in recommender systems. Our assumptions are based on the lexicographic and conjunction rules. We assume that, (1) there are $K-$ hidden aspects which  user preferences and item features are transformed into, (2) in each evaluation session, the user picks a prominent aspect according to his/her preference, (3) the user adopts different evaluation strategies on prominent and non-prominent aspects. The evaluation is mainly based on item performance on the prominent aspect. The evaluation is less influenced by item performance with respect to non-prominent aspects.
 
-Our second contribution is to realize the conceptual model in a wide range of recommendation frameworks, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and local low-rank matrix approximation (LLORMA~\cite{Lee2013Local}), and pairwise ranking reconstruction models such as the Bradley-Terry model (BT~\cite{Hu2016Improved}) and Thurstone model (BPR~\cite{Rendle2009BPR}). 
+Our second contribution is to realize the conceptual model in a wide range of recommendation frameworks, including point-wise rating prediction models such as the conventional Matrix Factorization (MF~\cite{Koren2009Matrix}), Matrix Factorization with neighborhood collaborative filtering (AMF~\cite{Koren2008Factorization}), and local low-rank matrix approximation (LLORMA~\cite{Lee2016LLORMA}), and pairwise ranking reconstruction models such as the Bradley-Terry model (BT~\cite{Hu2016Improved}) and Thurstone model (BPR~\cite{Rendle2009BPR}). 
 
 We conduct comprehensive experiments on a variety of real world data sets. We experimentally show that \emph{ the proposed non-compensatory framework universally improves recommendation performances of different existing models}. 
 
@@ -84,17 +86,16 @@ In this section, we show that existing latent factor models can be categorized b
 
 \begin{table*}[htp]
 \caption{Existing latent factor models in literature can be classified based on the loss functions and rating prediction formulas.}
-\scriptsize
-\begin{center}
+\small
+\centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 \multirow{2}{*}{Loss Function} &\multicolumn{3} {|c|}{Rating Prediction Formula}\\\cline{2-4}
 & Matrix Factorization & Neighborhood Factorization & Local Low-rank Factorization \\\hline
-Square Loss & MF ~\cite{Koren2009Matrix} & AMF ~\cite{Koren2008Factorization} & LLORMA~\cite{Lee2013Local}\\\hline
+Square Loss & MF ~\cite{Koren2009Matrix} & AMF ~\cite{Koren2008Factorization} & LLORMA~\cite{Lee2016LLORMA}\\\hline
 Thurstone Ranking & BPR~\cite{Rendle2009BPR} & FSBPR~\cite{Zhao2018Factored} & LCR~\cite{Lee2014Local} \\\hline
 BT Ranking & BT~\cite{Hu2016Improved} & - & -  \\\hline
 \end{tabular}
-\end{center}
 \label{tab:summary}
 \end{table*}
 
@@ -118,7 +119,7 @@ For simplicity we ignore the user specific or item specific bias~\cite{Koren2009
 \end{equation}
 where  $R(u)$ is the set of rated items for $u$. AMF has been extended to SVD++~\cite{Koren2008Factorization} with implicit feedback. 
 
-\textbf{Local Low-Rank Matrix Approximation.} The third type of rating prediction formula is  Local Low-Rank Matrix Approximation (LLORMA)~\cite{Lee2013Local}. Instead of assuming the entire rating matrix $\Rating$ is low-rank, the intuition of LLORMA is that only a sub-matrix is low-rank. The sub-matrix is restricted to a neighborhood. Therefore, the predicted rating is aggregated over $S$ sub-matrices:
+\textbf{Local Low-Rank Matrix Approximation.} The third type of rating prediction formula is  Local Low-Rank Matrix Approximation (LLORMA)~\cite{Lee2016LLORMA}. Instead of assuming the entire rating matrix $\Rating$ is low-rank, the intuition of LLORMA is that only a sub-matrix is low-rank. The sub-matrix is restricted to a neighborhood. Therefore, the predicted rating is aggregated over $S$ sub-matrices:
 \begin{equation}\label{equ:LLORMA}
 \hat{\Rating}_{u,q} = \sum_{t=1}^{S} \sum_{k=1}^K \mathbf{u}_{t, k} \frac{K((\mathbf{u}_t,\mathbf{i}_t),(\mathbf{u},\mathbf{q}))}{\sum_{s=1}^{S} K((\mathbf{u}_s,\mathbf{i}_s),(\mathbf{u},\mathbf{q}))} \mathbf{q}_{t,k},
 \end{equation}
@@ -158,11 +159,10 @@ We can see that non-compensatory rules differ from compensatory rules in two key
 For computational convenience, inspired by the psychological findings, we present the conceptual model in Fig.~\ref{fig:model} based on lexicographic and conjunction rules. We assume that in each evaluation session (i.e. either a true user interaction session with multiple actions, or a pseudo session which contains one rating action), there is a prominent aspect. The choice of the prominent aspect is dependent on the user preferences. Two types of evaluation strategies are adopted, one for the prominent aspect and the other for other non-prominent aspects. Evaluation on the prominent aspect is enhanced by strength coefficient $\theta$. Evaluations on non-prominent aspects are based on item performance, compared with the user-specific aspect-specific threshold $\mathbf{b}_u$. The overall evaluation, which could be either a rating or a ranking, aggregates over prominent and non-prominent aspects. 
 
 \begin{figure}[htbp]
-\begin{center}
+\centering
 \includegraphics[width=0.4\textwidth]{conceptualmodel.pdf}
 \caption{Conceptual model for the user evaluation process}
 \label{fig:model}
-\end{center}
 \end{figure}
 
 
@@ -225,27 +225,28 @@ We conduct experiments to evaluate the performance of non-compensatory rules in 
 For each dataset, we reserve users with at least $5$ ratings and randomly split $80\%$ of the ratings as training set and $20\%$ as test set. We avoid cold-start users and items. We consider each rating as an individual evaluation session. The ratings are normalized to the range of $[0,1]$. The reported results are averaged using 5-fold cross validation, 
 \begin{table}[htp]
 \caption{Statistics of Datasets with ratings}
-\scriptsize
-\begin{center}
+\small
+\centering
+\scalebox{0.9}{
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Dataset & \#users & \#items & \#ratings & \#pairs \\\hline
 Movielens &942 &1,650 &80,000 & 1,072,237 \\\hline
 FilmTrust &1,235 &2,062 &35,497 &623,516 \\\hline
 CiaoDVD &2,665 &14,280 &72,665 &2,478,836 \\\hline
-\end{tabular}
-\end{center}
+\end{tabular}}
 \label{tab:datasets}
 \end{table}
-\textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}, both without regularization terms; (3) LLORMA~\cite{Lee2013Local} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The non-compensatory and original versions adopt the same values for hyper-parameters. The model parameters to learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $MaxIter$ iterations. The same values of hyper-parameters are set for compensatory and non-compensatory models: for MF and MF-N $K=10, \lambda_U=\lambda_V=0.01,MaxIter=1000$, for AMF and AMF-N $K=5,MaxIter=100$, for LLORMA and LLORMA-N $K=5,S=50,\lambda_U=\lambda_V=0.001,MaxIter=100$.
+\textbf{Comparative Methods}. We compare the non-compensatory versions (with suffix ``-N'') with the original versions on three widely adopted rating prediction methods. (1) MF~\cite{Koren2009Matrix} in Equ.~\ref{equ:MF} v.s. MF-N in Equ.~\ref{equ:MF-N};  (2) AMF~\cite{Koren2008Factorization} in Equ.~\ref{equ:AMF} v.s. AMF in Equ.~\ref{equ:AMF-N}, both without regularization terms; (3) LLORMA~\cite{Lee2016LLORMA} in Equ.~\ref{equ:LLORMA} v.s. LLORMA-N in Equ.~\ref{equ:LLORMA-N}. The non-compensatory and original versions adopt the same values for hyper-parameters. The model parameters to learnt are $\mathbf{U},\mathbf{V}$ for compensatory models, and  $\mathbf{U},\mathbf{V},\theta$ for non-compensatory models. In this section, we do not activate parameters $\mathbf{b}$ for computational efficiency, which is equivalent as setting $\mathbf{b}_{u,k}=0$ for every $u,k$. We pose non-negative constraint on $\theta>0$ in the inference. We stop the learning process either when the convergence is achieved (i.e. $\|\mathbf{U}^{t+1}-\mathbf{U}^t\|\leq 0.0001$) or when the algorithm reaches $MaxIter$ iterations. The same values of hyper-parameters are set for compensatory and non-compensatory models: for MF and MF-N $K=10, \lambda_U=\lambda_V=0.01,MaxIter=1000$, for AMF and AMF-N $K=5,MaxIter=100$, for LLORMA and LLORMA-N $K=5,S=50,\lambda_U=\lambda_V=0.001,MaxIter=100$.
 
 \textbf{Evaluation Metrics}.  We evaluate different approaches based on the following metrics. (1) AUC: first computes the area under precision-recall curve based on the predicted ratings for each user; (2) NDCG: measures the accuracy of item ranking per user by the predicted ratings v.s. the actual ranking; (3)  MRR: computes the reciprocal of the position of the item with the largest observed rating in the predicted ranking for each user. Results are averaged over all users. 
 
 \begin{table}[htp]
 \caption{Comparative rating prediction performances, `Imp.' is the percentage of improvements of non-compensatory versions relative to the original models. Non-compensatory rules universally improve rating models.}
-\scriptsize
-\begin{center}
-\begin{tabular}{c cc |cc |cc}
+\small 
+\centering
+\scalebox{0.9}{
+\begin{tabular}{c| cc |cc |cc}
 \hline
 Method & AUC & Imp.& NDCG& Imp.& MRR &Imp.\\\hline
 Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
@@ -270,8 +271,7 @@ AMF-N&	0.7017 &	8.14&	0.6892 &	4.24&	0.8996 &	2.91\\
 LLORMA&	0.6752 &	&	0.7827 &	&	0.8267 &	\\
 LLORMA-N&	0.6845 &	1.38&	0.7984 &	2.00&	0.8384 &	1.42\\
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}}
 \label{tab:ratingresult}
 \end{table}
 
@@ -286,9 +286,10 @@ We can see from Table~\ref{tab:ratingresult} that overall adopting non-compensat
 \textbf{Comparative Methods}. We compare the non-compensatory versions with the original versions on four widely adopted ranking methods. (1) BT~\cite{Hu2016Improved} which minimizes Equ~\ref{equ:BTloss} v.s. BT-N in Equ.~\ref{equ:BT-N}, (2) BPR~\cite{Rendle2009BPR} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF} v.s. BPR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:MF-N}, (3) FSBPR~\cite{Zhao2018Factored} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF} v.s. FSBPR-N which minimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:AMF-N}, (4) LCR~\cite{Lee2014Local} which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA} v.s. LCR-N which optimizes Equ.~\ref{equ:BPRloss} with $\hat\Rating$ predicted by Equ.~\ref{equ:LLORMA-N}. The hyper-parameters are, $K=5, MaxIter=100$ for all models, for BPR and BPR-N $\lambda_U=\lambda_V=0.3$, for FSBPR and FSBPR-N $\lambda_U=\lambda_V=0.01$, for LCR and LCR-N $S=50,\lambda_U=\lambda_V=10^{-8}$. \textbf{Evaluation Metrics} include AUC, NDCG and MRR. 
 \begin{table}[htp]
 \caption{Non-compensatory rules generally improve ranking models on explicit feedback.}
-\scriptsize
-\begin{center}
-\begin{tabular}{ccc|cc|cc}
+\small
+\centering
+\scalebox{0.9}{
+\begin{tabular}{c |cc|cc|cc}
 \hline
  Method & AUC & Imp.& NDCG& Imp.& MRR &Imp. \\\hline
 Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
@@ -319,10 +320,9 @@ BPR-N	&0.8987	&41.66&0.5902&	11.28&	0.9493&	16.17\\
 FSBPR	&0.7537 	&&	0.5574 	&&	0.8769 	&\\
 FSBPR-N&	0.8992 &	19.30&	0.5903 &	5.91&	0.9496 &	8.30\\
 LCR&	0.626	&&	0.9408	&&	0.7889	&\\
-LCR-NCR	&0.6349&	1.42&	0.9451&	0.46&	0.7988&	1.25\\
+LCR-N	&0.6349&	1.42&	0.9451&	0.46&	0.7988&	1.25\\
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}}
 \label{tab:rankingresult}
 \end{table}
 
@@ -334,8 +334,8 @@ In most recommender systems, users give not only explicit ratings but also impli
 
 \begin{table}[htp]
 \caption{Statistics of Datasets with graded implicit feedback}
-\scriptsize
-\begin{center}
+\small
+\centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Dataset & \#users & \#items & \#pairs & \#sessions \\\hline
@@ -343,7 +343,6 @@ Tmall-single &33,815 &176,231 &5,682,833 &364,844 \\\hline
 Tmall-hybrid &62,101 &198,344 &6,072,061 &475,503 \\\hline
 Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 \end{tabular}
-\end{center}
 \label{tab:idata}
 \end{table}%
 
@@ -351,40 +350,47 @@ Yoochoose &341,396 &30,852 &3,044,572 &341,396 \\\hline
 
 \begin{table*}[ht]
 \caption{Non-compensatory rules generally improve ranking performance on implicit feedback.}
-\scriptsize
-\begin{center}
-\begin{tabular}{c|c |cc |cc |cc|cc|cc}
+\small
+\centering
+\scalebox{0.9}{
+\begin{tabular}{c cc |cc |cc|cc|cc}
 \hline
-Dataset	& Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) &	MAP&	Improve($\%$)&	Prec	&Improve($\%$)\\\hline
-\multirow{6}{*}{Tmall-single} &BT	&0.5304 	&	&0.2804 	&	&0.4870 	&	&0.4327 	&	&0.2778 &\\
-&BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
-&BPR&	0.5181	&&	0.2794	&&	0.4854	&&	0.4297	&&	0.2767&\\	
-&BPR-N	&0.5349&	3.24&	0.2848	&1.92&	0.4960	&2.18&	0.4401&	2.41&	0.2806	&1.41\\
-&FSBPR	&0.5265 	&&	0.2824 	&&	0.4913 	&&	0.4350 	&&	0.2794 	&\\
-&FSBPR-N	&0.5389& 	2.35&	0.2863 	&1.39&	0.4988 &	1.53&	0.4432 &	1.90&	0.2818 &	0.87\\
-&LCR &0.5231 & &0.8116  && 0.4093 & &0.3407 & & 0.2430  &\\ 
-&LCR-N &0.5263  &0.61 & 0.8141 &0.31 &0.4126 &0.81 &0.3436 & 0.85 &0.2462  &1.32\\
+%Dataset	& 
+Method	& AUC	& Improve($\%$)&	NDCG&	Improve($\%$)&	MRR	&Improve($\%$) &	MAP&	Improve($\%$)&	Prec	&Improve($\%$)\\\hline
+%\multirow{6}{*}{Tmall-single} &
+Tmall-single\\\hline
+BT	&0.5304 	&	&0.2804 	&	&0.4870 	&	&0.4327 	&	&0.2778 &\\
+BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
+BPR&	0.5181	&&	0.2794	&&	0.4854	&&	0.4297	&&	0.2767&\\	
+BPR-N	&0.5349&	3.24&	0.2848	&1.92&	0.4960	&2.18&	0.4401&	2.41&	0.2806	&1.41\\
+FSBPR	&0.5265 	&&	0.2824 	&&	0.4913 	&&	0.4350 	&&	0.2794 	&\\
+FSBPR-N	&0.5389& 	2.35&	0.2863 	&1.39&	0.4988 &	1.53&	0.4432 &	1.90&	0.2818 &	0.87\\
+LCR &0.5231 & &0.8116  && 0.4093 & &0.3407 & & 0.2430  &\\ 
+LCR-N &0.5263  &0.61 & 0.8141 &0.31 &0.4126 &0.81 &0.3436 & 0.85 &0.2462  &1.32\\
 \hline
-\multirow{6}{*}{Tmall-hybrid} & BT	&0.5867 	&	&0.3015 	&	&0.5373 	&	&0.4929 	&	&0.2904 & \\
-&BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
-&BPR	&0.6183&	&	0.3183&&		0.5792	&&	0.5318&&		0.2973&\\	
-&BPR-N	&0.6460	&4.48&	0.3276&	2.92&0.5990	&3.41&	0.5524&	3.87&	0.3030	&1.94\\
-&FSBPR	&0.6334 	&&	0.3246 	&&	0.5916 &&		0.5442 	&&	0.3026 	&\\
-&FSBPR-N&	0.6544 &	3.31&	0.3309 &	1.94&	0.6062 &	2.48&	0.5603 &	2.95&	0.3047 &	0.69\\
-&LCR &0.5395& &0.6778 && 0.4826& &0.3975& & 0.2717 &\\ 
-&LCR-N &0.5636 &4.47 & 0.6933 &2.29 &0.5140 &6.51 &0.4242 & 6.72 &0.2858  &5.19\\
+%\multirow{6}{*}{Tmall-hybrid} & 
+Tmall-hybrid\\\hline
+BT	&0.5867 	&	&0.3015 	&	&0.5373 	&	&0.4929 	&	&0.2904 & \\
+BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
+BPR	&0.6183&	&	0.3183&&		0.5792	&&	0.5318&&		0.2973&\\	
+BPR-N	&0.6460	&4.48&	0.3276&	2.92&0.5990	&3.41&	0.5524&	3.87&	0.3030	&1.94\\
+FSBPR	&0.6334 	&&	0.3246 	&&	0.5916 &&		0.5442 	&&	0.3026 	&\\
+FSBPR-N&	0.6544 &	3.31&	0.3309 &	1.94&	0.6062 &	2.48&	0.5603 &	2.95&	0.3047 &	0.69\\
+LCR &0.5395& &0.6778 && 0.4826& &0.3975& & 0.2717 &\\ 
+LCR-N &0.5636 &4.47 & 0.6933 &2.29 &0.5140 &6.51 &0.4242 & 6.72 &0.2858  &5.19\\
 \hline
-\multirow{6}{*}{Yoochoose} &BT	&0.6027 	&	&0.4734 	&	&0.7151 	&	&0.6361 	&	&0.4560 & \\
-&BT-N	&0.7000 	&16.15	&0.5160 	&8.99	&0.7869 	&10.04	&0.7084 	&11.37	&0.4785  &4.92\\
-&BPR&	0.6700	&&	0.5065	&&	0.7713&&		0.6895	&&	0.4737&\\	
-&BPR-N	&0.6920	&3.28&	0.5131	&1.31&	0.7812&	1.29&	0.7027	&1.91&	0.4771	&0.74\\
-&FSBPR	&0.3272 	&&	0.3658 	&&	0.5062 	&&	0.4599 	&&	0.4006 	&\\
-&FSBPR-NCR	&0.6198 &	89.45&	0.4822 &	31.83&	0.7169& 	41.62&	0.6448 &	40.22&	0.4650 &	16.08\\
-&LCR &0.7933& &0.9748 && 0.8177& &0.8104& & 0.7834 &\\ 
-&LCR-N &0.8012 &1.00 & 0.9768 &0.21 &0.8334 &1.92 &0.8264 & 1.97 &0.7975  &1.80\\
+%\multirow{6}{*}{Yoochoose} &
+Yoochoose\\\hline
+BT	&0.6027 	&	&0.4734 	&	&0.7151 	&	&0.6361 	&	&0.4560 & \\
+BT-N	&0.7000 	&16.15	&0.5160 	&8.99	&0.7869 	&10.04	&0.7084 	&11.37	&0.4785  &4.92\\
+BPR&	0.6700	&&	0.5065	&&	0.7713&&		0.6895	&&	0.4737&\\	
+BPR-N	&0.6920	&3.28&	0.5131	&1.31&	0.7812&	1.29&	0.7027	&1.91&	0.4771	&0.74\\
+FSBPR	&0.3272 	&&	0.3658 	&&	0.5062 	&&	0.4599 	&&	0.4006 	&\\
+FSBPR-NCR	&0.6198 &	89.45&	0.4822 &	31.83&	0.7169& 	41.62&	0.6448 &	40.22&	0.4650 &	16.08\\
+LCR &0.7933& &0.9748 && 0.8177& &0.8104& & 0.7834 &\\ 
+LCR-N &0.8012 &1.00 & 0.9768 &0.21 &0.8334 &1.92 &0.8264 & 1.97 &0.7975  &1.80\\
 	\hline
-	\end{tabular}
-\end{center}
+	\end{tabular}}
 \label{tab:gradedresult}
 \end{table*}%
 
@@ -405,23 +411,25 @@ As the user-specific aspect-specific threshold $\mathbf{b}_{u,k}$ does not affec
 \textbf{Effect of user-specific Aspect-specific Threshold}. We can see that the standard deviation is positive $\sigma(\mathbf{b}_{u})>0$, suggesting that the user-specific threshold for each aspect is significant different. Note that conventional matrix factorization links the same user-bias to all aspects. Our experimental result demonstrates that it is neccessary to employ aspect-specific threshold in non-compensatory rules. 
 \begin{table}[htp]
 \caption{Scale of the strength of lexicographical rule $\theta$ and user-specific aspect-specific threshold $\mathbf{b}_{u,k}$.}
-\scriptsize
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
+\small
+\centering
+\scalebox{0.9}{
+\begin{tabular}{c|c |c}
 \hline
-Dataset & Movielens & FilmTrust & CiaoDVD \\\hline
-$\theta$ & $0.608\pm 0.105$ & $0.667\pm 0.016$ &	$0.773\pm 0.051$\\\hline
-$\sigma(\mathbf{b}_{u})$ & $0.0095\pm0.0024$ &	$0.0095\pm0.0023$	& $0.0093\pm0.0022$  \\\hline
+Dataset   &$\theta$ & $\sigma(\mathbf{b}_{u})$\\\hline
+Movielens & $0.608\pm 0.105$ & $0.0095\pm0.0024$ \\
+FilmTrust & $0.667\pm 0.016$ & $0.0095\pm0.0023$ \\
+CiaoDVD &	$0.773\pm 0.051$ & $0.0093\pm0.0022$  \\\hline
 \end{tabular}
-\end{center}
+}
 \label{tab:parameters}
-\end{table}%
+\end{table}
 \section{Conclusion}\label{sec:conclusion}
 Psychology study has shown that consumers adopt compensatory and non-compensatory rules in the decision making process. However, all existing latent factor models in recommendation systems are essentially based on compensatory rules. In this contribution, we present for the first time in the literature of recommendation systems how non-compensatory rules can be embedded in latent factor models. We show that applying non-compensatory rules universally boosts recommendation performance for a variety of rating prediction and ranking models. 
 
 \section{ Acknowledgments}
 Chen Lin is supported by Natural Science Foundation under grant No.61472335. Yanghua Xiao is supported by National Key R\&D Program of China under No.2017YFC0803700 and No.2017YFC1201200, by the National NSFC (No.61732004, No.61472085, No.U1509213, No.U1636207), by Shanghai Municipal Science and Technology project (No.16511102102, No.16JC1420401), Shanghai STCSMs R\&D Program under Grant (No.16JC1420400).
-\bibliography{reference}
 \bibliographystyle{aaai}
+\bibliography{reference}
 \end{document}
  

@@ -28,9 +28,12 @@
 
 \usepackage{tikz}
 %%%<
-\usepackage{verbatim}
+%\usepackage{verbatim}
 %%%>
 
+\usepackage{times}  %Required
+\usepackage{helvet}  %Required
+\usepackage{courier}  %Required
 
 \usetikzlibrary{calc,backgrounds}
 \usepackage[active,tightpage]{preview}
@@ -42,7 +45,7 @@
   %
   % Styles for states, and state edges
   %
-  \tikzstyle{state} = [draw, very thick, fill=white, rectangle, minimum height=3em, minimum width=7em, node distance=8em, font={LARGE}]
+  \tikzstyle{state} = [draw, very thick, fill=white, rectangle, minimum height=3em, minimum width=7em, node distance=8em, font={\LARGE}]
   \tikzstyle{stateEdgePortion} = [black,thick];
   \tikzstyle{stateEdge} = [stateEdgePortion,->];
   \tikzstyle{edgeLabel} = [pos=0.5, text centered, font={\LARGE}];

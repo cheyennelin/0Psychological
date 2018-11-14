@@ -5,7 +5,9 @@
 Devooght, R.; Kourtellis, N.; and Mantrach, A.
 \newblock 2015.
 \newblock Dynamic matrix factorization with priors on unknown values.
-\newblock In {\em Proceedings of ACM SIGKDD Conference},  189--198.
+\newblock In {\em Proceedings of the 21th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '15,  189--198.
+\newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Engel, Blackwell, and
   Miniard}{1986}]{Engel1986Consumer}
@@ -19,7 +21,9 @@ Engel, J.~F.; Blackwell, R.~D.; and Miniard, P.~W.
 Guo, G.; Zhang, J.; Thalmann, D.; and Yorke-Smith, N.
 \newblock 2014.
 \newblock Etaf: An extended trust antecedents framework for trust prediction.
-\newblock In {\em Proceedings of ASONAM Conference},  540--547.
+\newblock In {\em Proceedings of the 2014 IEEE/ACM International Conference on
+  Advances in Social Networks Analysis and Mining}, ASONAM '14,  540--547.
+\newblock Piscataway, NJ, USA: IEEE Press.
 
 \bibitem[\protect\citeauthoryear{Guo, Zhang, and
   Yorke-Smith}{2013}]{Guo2013Novel}
@@ -47,7 +51,9 @@ Hu, J., and Li, P.
 \newblock 2017.
 \newblock Decoupled collaborative ranking.
 \newblock In {\em Proceedings of the 26th International Conference on World
-  Wide Web},  1321--1329.
+  Wide Web}, WWW '17,  1321--1329.
+\newblock Republic and Canton of Geneva, Switzerland: International World Wide
+  Web Conferences Steering Committee.
 
 \bibitem[\protect\citeauthoryear{Hunter}{2004}]{Hunter2004MM}
 Hunter, D.~R.
@@ -65,10 +71,11 @@ Koren, Y.; Bell, R.; and Volinsky, C.
 \bibitem[\protect\citeauthoryear{Koren}{2008}]{Koren2008Factorization}
 Koren, Y.
 \newblock 2008.
-\newblock Factorization meets the neighborhood: a multifaceted collaborative
+\newblock Factorization meets the neighborhood: A multifaceted collaborative
   filtering model.
-\newblock In {\em Proceeding of the 14th ACM SIGKDD conference},  426--434.
-\newblock ACM.
+\newblock In {\em Proceedings of the 14th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '08,  426--434.
+\newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Koren}{2010}]{Koren2010Factor}
 Koren, Y.
@@ -85,20 +92,20 @@ Laroche, M.; Kim, C.; and Matsui, T.
 \newblock {\em Journal of Consumer Marketing} 20(3):192--209.
 
 \bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
-  }{2013}]{Lee2013Local}
-Lee, J.; Kim, S.; Lebanon, G.; and Singer, Y.
-\newblock 2013.
-\newblock Local low-rank matrix approximation.
-\newblock In {\em Proceedings of the 30th International Conference on Machine
-  Learning},  82--90.
-
-\bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
   }{2014}]{Lee2014Local}
 Lee, J.; Bengio, S.; Kim, S.; Lebanon, G.; and Singer, Y.
 \newblock 2014.
 \newblock Local collaborative ranking.
 \newblock In {\em Proceedings of the 23rd International Conference on World
-  Wide Web},  85--96.
+  Wide Web}, WWW '14,  85--96.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
+  }{2016}]{Lee2016LLORMA}
+Lee, J.; Kim, S.; Lebanon, G.; Singer, Y.; and Bengio, S.
+\newblock 2016.
+\newblock Llorma: Local low-rank matrix approximation.
+\newblock {\em J. Mach. Learn. Res.} 17(1):442--465.
 
 \bibitem[\protect\citeauthoryear{Lee}{2009}]{Lee2009Transforming}
 Lee, I.
@@ -137,8 +144,9 @@ Shi, Y.; Larson, M.; and Hanjalic, A.
 \newblock 2010.
 \newblock List-wise learning to rank with matrix factorization for
   collaborative filtering.
-\newblock In {\em Proceedings of the 4th ACM Conference on Recommender
-  Systems},  269--272.
+\newblock In {\em Proceedings of the Fourth ACM Conference on Recommender
+  Systems}, RecSys '10,  269--272.
+\newblock New York, NY, USA: ACM.
 
 \bibitem[\protect\citeauthoryear{Steck}{2015}]{Steck2015Gaussian}
 Steck, H.
@@ -159,6 +167,6 @@ Zhao, Q.; Zhang, Y.; Ma, J.; and Duan, Q.
 \newblock 2018.
 \newblock Factored item similarity and bayesian personalized ranking for
   recommendation with implicit feedback.
-\newblock {\em Arabian Journal for Science and Engineering}.
+\newblock {\em Arabian Journal for Science and Engineering} 2018:1--11.
 
 \end{thebibliography}
