@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 NOV 2018 22:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 NOV 2018 23:40
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -70,16 +70,9 @@ Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/multirow/multirow.sty
-Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
-\multirow@colwidth=\skip44
-\multirow@cntb=\count88
-\multirow@dima=\skip45
-\bigstrutjot=\dimen105
-)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/11/05 v2.16a AMS math features
-\@mathmargin=\skip46
+\@mathmargin=\skip44
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -88,49 +81,49 @@ Package: amstext 2000/06/29 v2.01 AMS text
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks15
-\ex@=\dimen106
+\ex@=\dimen105
 ))
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen107
+\pmbraise@=\dimen106
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count89
+\inf@bad=\count88
 LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count90
-\leftroot@=\count91
+\uproot@=\count89
+\leftroot@=\count90
 LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count92
-\DOTSCASE@=\count93
+\classnum@=\count91
+\DOTSCASE@=\count92
 LaTeX Info: Redefining \ldots on input line 472.
 LaTeX Info: Redefining \dots on input line 475.
 LaTeX Info: Redefining \cdots on input line 596.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
-\big@size=\dimen108
+\big@size=\dimen107
 LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count94
-\c@MaxMatrixCols=\count95
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
 \dotsspace@=\muskip11
-\c@parentequation=\count96
-\dspbrk@lvl=\count97
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
 \tag@help=\toks16
-\row@=\count98
-\column@=\count99
-\maxfields@=\count100
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
 \andhelp@=\toks17
-\eqnshift@=\dimen109
-\alignsep@=\dimen110
-\tagshift@=\dimen111
-\tagwidth@=\dimen112
-\totwidth@=\dimen113
-\lineht@=\dimen114
+\eqnshift@=\dimen108
+\alignsep@=\dimen109
+\tagshift@=\dimen110
+\tagwidth@=\dimen111
+\totwidth@=\dimen112
+\lineht@=\dimen113
 \@envbody=\toks18
-\multlinegap=\skip47
-\multlinetaggap=\skip48
+\multlinegap=\skip45
+\multlinetaggap=\skip46
 \mathdisplay@stack=\toks19
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
@@ -141,6 +134,13 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip47
+\multirow@cntb=\count100
+\multirow@dima=\skip48
+\bigstrutjot=\dimen114
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty
 Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
@@ -153,19 +153,19 @@ Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 (./AAAIsubmission.aux)
 \openout1 = `AAAIsubmission.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 28.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -233,32 +233,32 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
-LaTeX Font Info:    Try loading font information for U+msa on input line 38.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 37.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 38.
+LaTeX Font Info:    Try loading font information for U+msb on input line 37.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 38.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 37.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 38.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 37.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 38.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 37.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 39.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
 
 Underfull \vbox (badness 2478) has occurred while \output is active []
 
@@ -267,26 +267,26 @@ Underfull \vbox (badness 2478) has occurred while \output is active []
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 59--59
+Underfull \hbox (badness 10000) in paragraph at lines 58--58
 []\OT1/ptm/m/n/10 Table 1: A cell-phone ex-am-ple to il-lus-trate non-
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 102.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 101.
 
-Underfull \hbox (badness 1902) in paragraph at lines 116--117
+Underfull \hbox (badness 1902) in paragraph at lines 115--116
 []\OT1/ptm/b/n/10 Neighborhood Fac-tor-iza-tion\OT1/ptm/m/n/10 . In tra-di-tion
 al mem-ory
  []
 
 [2]
-Underfull \hbox (badness 1314) in paragraph at lines 130--131
+Underfull \hbox (badness 1314) in paragraph at lines 129--130
 []\OT1/ptm/b/n/10 Thurstone Model. \OT1/ptm/m/n/10 The Thur-stone model ( Thur-
 stone
  []
 
 
-Underfull \hbox (badness 4713) in paragraph at lines 142--143
+Underfull \hbox (badness 4713) in paragraph at lines 141--142
 []\OT1/ptm/b/n/10 Bradley-Terry Model. \OT1/ptm/m/n/10 An-other ex-ten-sively s
 tud-ied
  []
@@ -295,15 +295,15 @@ tud-ied
 File: conceptualmodel.pdf Graphic file (type pdf)
 
 <use conceptualmodel.pdf>
-Package pdftex.def Info: conceptualmodel.pdf used on input line 163.
+Package pdftex.def Info: conceptualmodel.pdf used on input line 162.
 (pdftex.def)             Requested size: 202.3529pt x 117.67781pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 []\OT1/ptm/b/n/10 Non-compensatory Neigh-bor-hood Fac-tor-iza-tion:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 \OT1/ptm/b/n/10 AMF-N \OT1/ptm/m/n/10 im-ple-ments a sim-i-lar scheme by set-ti
 ng
  []
@@ -324,53 +324,53 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./conceptualmodel.pdf): PDF
 inclusion: invalid other resource which is no dict (key 'ExtGState', type <null
 >); ignored.
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 241--242
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
 []\OT1/ptm/b/n/10 Comparative Meth-ods\OT1/ptm/m/n/10 . We com-pare the non-
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 286--287
 []\OT1/ptm/b/n/10 Comparative Meth-ods\OT1/ptm/m/n/10 . We com-pare the non-
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 287--288
+Underfull \hbox (badness 4013) in paragraph at lines 286--287
 \OT1/ptm/m/n/10 compensatory ver-sions with the orig-i-nal ver-sions on
  []
 
 
-Underfull \hbox (badness 3679) in paragraph at lines 332--333
+Underfull \hbox (badness 3679) in paragraph at lines 331--332
 []\OT1/ptm/m/n/10 A gen-eral ob-ser-va-tion from Ta-ble 5[] is that non-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--352
+Underfull \hbox (badness 10000) in paragraph at lines 351--351
 [][]\OT1/ptm/m/n/9 https://ijcai-15.org/index.php/repeat-buyers-prediction-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
+Underfull \hbox (badness 10000) in paragraph at lines 395--396
 []\OT1/ptm/b/n/10 Comparative Meth-ods\OT1/ptm/m/n/10 . We com-pare the non-
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 396--397
+Underfull \hbox (badness 4013) in paragraph at lines 395--396
 \OT1/ptm/m/n/10 compensatory ver-sions with the orig-i-nal ver-sions on
  []
 
 
-Underfull \hbox (badness 1661) in paragraph at lines 396--397
+Underfull \hbox (badness 1661) in paragraph at lines 395--396
 \OT1/ptm/m/n/10 Un-like pre-vi-ous ex-per-i-ments, here the user in-ter-ac-tion
 
  []
 
 [6]
-Underfull \hbox (badness 5388) in paragraph at lines 406--407
+Underfull \hbox (badness 5388) in paragraph at lines 405--406
 \OT1/ptm/m/n/10 not af-fect rank-ing mod-els, we im-ple-ment the non-
  []
 
 
-Underfull \hbox (badness 4967) in paragraph at lines 406--407
+Underfull \hbox (badness 4967) in paragraph at lines 405--406
 \OT1/ptm/m/n/10 compensatory ma-trix fac-tor-iza-tion (MF-N) model on
  []
 
@@ -379,32 +379,32 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
 (./AAAIsubmission.bbl
-Underfull \hbox (badness 1231) in paragraph at lines 431--1
+Underfull \hbox (badness 1231) in paragraph at lines 430--1
 \OT1/ptm/m/n/10 Chen Lin is sup-ported by Nat-u-ral Sci-ence Foun-da-tion
  []
 
 
-Underfull \hbox (badness 1874) in paragraph at lines 431--1
+Underfull \hbox (badness 1874) in paragraph at lines 430--1
 \OT1/ptm/m/n/10 of China un-der grant No.61472335. Yanghua Xiao is
  []
 
 
-Underfull \hbox (badness 3219) in paragraph at lines 431--1
+Underfull \hbox (badness 3219) in paragraph at lines 430--1
 \OT1/ptm/m/n/10 sup-ported by Na-tional Key R&D Pro-gram of China
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 431--1
+Underfull \hbox (badness 10000) in paragraph at lines 430--1
 \OT1/ptm/m/n/10 (No.2017YFC0803700, No.2017YFC1201200), by
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 431--1
+Underfull \hbox (badness 10000) in paragraph at lines 430--1
 \OT1/ptm/m/n/10 NSFC (No.61732004, No.61472085, No.U1509213,
  []
 
 
-Underfull \hbox (badness 6542) in paragraph at lines 431--1
+Underfull \hbox (badness 6542) in paragraph at lines 430--1
 \OT1/ptm/m/n/10 No.U1636207), by Shang-hai Mu-nic-i-pal Sci-ence and
  []
 
