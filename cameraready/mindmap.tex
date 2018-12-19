@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usepackage[active,tightpage]{preview}
+ \PreviewEnvironment{tikzpicture}
+\begin{document}
+\pagestyle{empty}
+\begin{tikzpicture}
+  \path[mindmap,concept color=black,text=white]
+    node[concept] {Compensatory Models}
+    [clockwise from=0]
+child[concept color=purple] {
+node[concept] {Collaborative Filtering}
+[clockwise from=-270]
+child { node[concept, color=purple!50!white,text=white] {UserKNN\\ItemKNN} }
+}
+    child[concept color=green!50!black] {
+      node[concept] {Rating Models}
+      [clockwise from=60]
+      child { node[concept, color=black!50!green!50!yellow,text=white] {MF\\@Computer\\'09} }
+      child { node[concept, color=black!50!green!50!yellow,text=white]  {PMF\\@NIPS\\'08} }
+      child { node[concept, color=black!50!green!50!yellow,text=white]  {AMF\\SVD++\\@KDD\\'08} }
+      child { node[concept, color=black!50!green!50!yellow,text=white]  {LLORMA\\@JMLR\\'16} }
+    }  
+    child[concept color=blue] {
+      node[concept] {Pairwise Ranking Models}
+      [clockwise from=-60]
+      child { node[concept, color=blue!50!white,text=white]  {BPR\\@UAI\\'09} }
+      child { node[concept, color=blue!50!white,text=white]  {FSBPR\\@AJSE\\'18} }
+child { node[concept, color=blue!50!white,text=white]  {LCR\\@WWW\\'14} }
+child { node[concept, color=blue!50!white,text=white]  {BT\\@ICDM\\'16} }
+    }
+child[concept color=red] {
+node[concept] {ListWise Ranking Models}
+[clockwise from=90]
+child { node[concept, color=red!50!white,text=white] {Gaussian\\Ranking\\@Recsys\\'15} }
+}
+child[concept color=orange] {
+node[concept] {DeepModels}
+[clockwise from=0]
+child { node[concept, color=orange!50!yellow,text=white] {Decoupled\\CF\\@Recsys\\'17} }
+}
+;
+  
+\end{tikzpicture}\end{document}

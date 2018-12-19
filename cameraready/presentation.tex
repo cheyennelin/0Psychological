@@ -1,0 +1,67 @@
+% Author : Alain Matthes
+% Source : http://altermundus.com/pages/examples.html
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[upright]{fourier}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+\usepackage[active,tightpage]{preview}
+ \PreviewEnvironment{tikzpicture}
+% l' unite
+\newcommand{\myunit}{1 cm}
+\tikzset{
+    node style sp/.style={draw,circle,minimum size=\myunit},
+    node style ge/.style={circle,minimum size=\myunit},
+    arrow style mul/.style={draw,sloped,midway,fill=white},
+    arrow style plus/.style={midway,sloped,fill=white},
+}
+\begin{document}
+%\begin{preview}
+\begin{tikzpicture}
+% les matrices
+\matrix (U) [matrix of math nodes,%
+             nodes = {node style ge},%
+             left delimiter  = (,%
+             right delimiter = )] at (0,0)
+{%
+\node(u1) {\mathbf{u}_{1}};%
+&\ldots
+         & \node(uk){\mathbf{u}_{k}};%
+                  & \ldots%
+                           & \node(uK) {\mathbf{u}_{K}}; \\
+};
+\node [draw,below=10pt] (labelu) at (U.south) 
+    { $U$ : user preference vector};
+
+\matrix (V) [matrix of math nodes,%
+             nodes = {node style ge},%
+             left delimiter  = (,%
+             right delimiter =)] at (6*\myunit,6*\myunit)
+{%
+  \node(v1){\mathbf{q}_{1}} ;\\
+\vdots \\
+   \node(vk) {\mathbf{q}_{k}};  \\
+ \vdots\\
+                 \node(vK) {\mathbf{q}_{K}} ; \\
+};
+\node [draw,above=10pt] at (V.north) 
+    { $V$ : item feature vector};
+
+\node (C) at (6*\myunit,0) {$\mathbf{R}_{u,q}$} ;
+
+\draw[<->,red](u1) to[in=180,out=90]
+	node[arrow style mul] (x) {$\mathbf{u}_{1}\times \mathbf{q}_{1}$} (v1);
+\draw[<->,red](uk) to[in=180,out=90]
+	node[arrow style mul] (y) {$\mathbf{u}_{k}\times \mathbf{q}_{k}$} (vk);
+\draw[<->,red](uK) to[in=180,out=90]
+	node[arrow style mul] (z) {$\mathbf{u}_{K}\times \mathbf{q}_{K}$} (vK);
+
+\draw[red,->] (x) to node[arrow style plus] {$+\raisebox{.5ex}{\ldots}+$} (y)%
+                  to node[arrow style plus] {$+\raisebox{.5ex}{\ldots}+$} (z)%
+                  to (C.north west);
+\node [draw,below=20pt] at (C.south) 
+    { $R$: weighted summation};
+\end{tikzpicture}
+%\end{preview}
+\end{document}

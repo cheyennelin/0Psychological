@@ -1,0 +1,11 @@
+\beamer@sectionintoc {1}{Compensatory Models}{4}{0}{1}
+\beamer@subsectionintoc {1}{1}{Background}{5}{0}{1}
+\beamer@subsectionintoc {1}{2}{Decision Process}{7}{0}{1}
+\beamer@sectionintoc {2}{Non-Compensatory Models}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{Motivation}{10}{0}{2}
+\beamer@subsectionintoc {2}{2}{Rating Models}{12}{0}{2}
+\beamer@subsectionintoc {2}{3}{Ranking Models}{15}{0}{2}
+\beamer@sectionintoc {3}{Experimental Analysis}{19}{0}{3}
+\beamer@subsectionintoc {3}{1}{Rating Prediction}{20}{0}{3}
+\beamer@subsectionintoc {3}{2}{Ranking for Explicit Feedbacks}{22}{0}{3}
+\beamer@subsectionintoc {3}{3}{Ranking for Implicit Feedbacks}{23}{0}{3}
