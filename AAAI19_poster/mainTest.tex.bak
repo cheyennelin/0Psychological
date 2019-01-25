@@ -1,0 +1,312 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NIWeek 2014 Poster by T. Reveyrand
+% www.microwave.fr
+% http://www.microwave.fr/LaTeX.html
+% ---------------------------------------
+%
+% Original template created by:
+% Brian Amberg (baposter@brian-amberg.de)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a0paper,portrait]{baposter}
+
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{relsize} % Used for making text smaller in some places
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % Math packages
+\usepackage{eqparbox}
+
+%============
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{MnSymbol}
+\usepackage{stmaryrd}
+\usepackage{colortbl}
+\usepackage{caption}
+\usepackage{comment}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{soul}
+\usepackage[normalem]{ulem}
+
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+
+\newcommand{\Ep}{\mathbb{E}}
+\newcommand{\Real}{\mathcal{R}}
+\newcommand{\Rating}{\mathbf{X}}
+\newcommand{\Loss}{\mathcal{L}}
+
+\usepackage{pgf}
+%\usepackage{etex}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+%\usetikzlibrary{tikzmark}
+
+%============
+\usepackage{textcomp}
+
+\graphicspath{{figures/}} % Directory in which figures are stored
+
+ \definecolor{bordercol}{RGB}{40,40,40} % Border color of content boxes
+ \definecolor{headercol1}{RGB}{186,215,230} % Background color for the header in the content boxes (left side)
+ \definecolor{headercol2}{RGB}{120,120,120} % Background color for the header in the content boxes (right side)
+ \definecolor{headerfontcol}{RGB}{0,0,0} % Text color for the header text in the content boxes
+ \definecolor{boxcolor}{RGB}{210,235,250} % Background color for the content in the content boxes
+
+
+\begin{document}
+
+\background{ % Set the background to an image (background.pdf)
+\begin{tikzpicture}[remember picture,overlay]
+\draw (current page.north west)+(-2em,2em) node[anchor=north west]
+{\includegraphics[height=1.1\textheight]{background}};
+\end{tikzpicture}
+}
+
+\begin{poster}{
+grid=false,
+borderColor=bordercol, % Border color of content boxes
+headerColorOne=headercol1, % Background color for the header in the content boxes (left side)
+headerColorTwo=headercol2, % Background color for the header in the content boxes (right side)
+headerFontColor=headerfontcol, % Text color for the header text in the content boxes
+boxColorOne=boxcolor, % Background color for the content in the content boxes
+headershape=roundedright, % Specify the rounded corner in the content box headers
+headerfont=\Large\sf\bf, % Font modifiers for the text in the content box headers
+textborder=rectangle,
+background=user,
+headerborder=open, % Change to closed for a line under the content box headers
+boxshade=plain
+}
+{\includegraphics[scale=0.8]{AAAI19.png}}
+%
+%----------------------------------------------------------------------------------------
+%	TITLE AND AUTHOR NAME
+%----------------------------------------------------------------------------------------
+%
+{ \bf  \huge {Non-Compensatory Psychological Models for Recommender Systems} } % Poster title
+{\vspace{0.3em} \smaller Chen Lin$^1$, Xiaolin Shen$^1$, Si Chen$^1$, Muhua Zhu$^2$, Yanghua Xiao$^2$   \\  % Author names
+
+\smaller $^1$\it {Department of Computer Science, Xiamen University, Xiamen, Fujian, China} \\ $^2$\it{Alibaba Group, Hangzhou, Zhejiang, China} } % Author email addresses
+{\includegraphics[scale=0.8]{XMUAli.jpg}}
+%{\includegraphics[scale=0.09]{Alibaba_logo.jpg}} % University/lab logo
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+\headerbox{Introduction}{name=introduction,column=0,row=0, span=3}{
+\begin{itemize}
+\item The study of consumer psychology reveals two categories of consumption decision procedures: compensatory rules and non-compensatory rules.
+\vspace{-0.2cm}
+\item Existing recommendation models which are based on latent factor models assume the consumers follow the compensatory rules.
+\vspace{-0.2cm}
+\item  However, it has been shown in the literature of consumer behavior that, consumers adopt non-compensatory rules more often than compensatory rules.
+\vspace{-0.2cm}
+\item Our main contribution in this paper is to study the unexplored area of utilizing non-compensatory rules in recommendation models.
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	CALIBRATION
+%----------------------------------------------------------------------------------------
+\headerbox{Compensatory Decision Rule}{name=Compensatory,column=0,below=introduction}{
+\begin{itemize}
+\item The decision rule is compensatory because a good performance on one aspect compensates for bad performances on other aspects.
+\begin{center}
+\includegraphics[width=0.5\linewidth]{presentation-eps-converted-to.pdf}
+\end{center}
+\item Compensatory Models -- Rating Models
+MF: %\begin{equation*}\label{equ:MF}
+\begin{equation*}
+ \hat{\mathbf{\Rating}}_{u,q}=\sum_{k=1}^{K} \mathbf{q}_k \mathbf{u}_k
+\end{equation*}
+\end{itemize}
+}
+%----------------------------------------------------------------------------------------
+%	OTHER INSTRUMENTATION
+%----------------------------------------------------------------------------------------
+\headerbox{Non-Compensatory Decision Rules}{name=NCRules,span=1,column=1,row=1, below=Compensatory}{ % To reduce this block to 1 column width, remove 'span=2'
+\begin{itemize}
+    \item Lexicographic Rules: order aspects in terms of importance, evaluate items sequentially based on performances.
+    \item Conjunctive Rules: items must satisfy a cut-off point on each aspect.
+    \item Disjunctive Rules: eliminate items that do not satisfy requirement on an important aspect.
+\end{itemize}
+}
+%----------------------------------------------------------------------------------------
+%	MIXER vs. SAMPLERS
+%----------------------------------------------------------------------------------------
+%\headerbox{Non-Compensatory Models}{name=NCRModels,span=2,column=1,row=1, below=NCRules}{
+%\begin{itemize}
+%\item MF-N
+%\begin{equation*}\label{equ:MF-N}
+% \hat{\mathbf{X}}_{u,q}=\sum_{k=1}^{K} \frac{\exp \mathbf{u}_k}{\sum_{k'} \exp \mathbf{u}_{k'}} [ \mathbf{q}_k  \exp\theta  + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'}) ]
+%\end{equation*}
+%\item AMF-N
+% \begin{eqnarray*}\label{equ:AMF-N}
+% \hat{\mathbf{X}}_{u,q}=&\sum_{k=1}^{K} \frac{\exp (\sum_{\mathbf{p} \in R(u)} \mathbf{p}_k )}{\sum_{k'} \exp  (\sum_{p \in R(u)} \mathbf{p}_{k'} ) } \\\nonumber
+%& [  \mathbf{q}_k \exp\theta + \sum_{k'\neq k} (\mathbf{q}_{k'}-\mathbf{b}_{u,k'}) ].
+%\end{eqnarray*}
+%\end{itemize}
+%}
+
+\headerbox{Experiment Results1}{name=Results1,span=2,column=1,below=introduction}
+\resizebox{0.9\textwidth}{!}{\begin{minipage}{\textwidth}
+\begin{tabular}{l l l l l l l}
+\toprule
+%\textbf{Method} & \textbf{AUC} & \textbf{Imp.$(\%)$} & \textbf{NDCG} & \textbf{Imp.$(\%)$} & \textbf{MRR} & \textbf{Imp.$(\%)$} & \textbf{MAP} & \textbf{Imp.$(\%)$}  & \textbf{Prec} & \textbf{Imp.$(\%)$}\\
+\textbf{Method} & \textbf{AUC} & \textbf{Imp} & \textbf{NDCG} & \textbf{Imp} & \textbf{MRR} & \textbf{Imp} \\
+\midrule
+Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
+MF&	0.6729 &	&	0.6925 &	&	0.8300 &	\\
+MF-N&	0.7108 &	5.62&	0.7166 &	3.48&	0.8633 &	4.01\\
+AMF&	0.6901 &	&	0.7107 &	&	0.8747 &	\\
+AMF-N &	0.7027 	&1.83&	0.7138 &	0.44&	0.8790 	&0.49\\
+LLORMA&	0.7265 &	&	0.8734 &	&	0.7015 &	\\
+LLORMA-N&	0.7299 &	0.47&	0.8999 &	3.03&	0.7187 &	2.45\\\hline
+Filmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
+MF&	0.6507 &	&	0.5229 &	&	0.7011 &	\\
+MF-N&	0.6710 &	3.12&	0.5241 &	0.23&	0.7071 &	0.86\\
+AMF&	0.5971 &	&	0.5137 &	&	0.7411 &	\\
+AMF-N&	0.6133 &	2.71&	0.5253 &	2.25&	0.7619 &	2.80\\
+LLORMA&	0.6240 &	&	0.8596 &	&	0.7857 &	\\
+LLORMA-N&	0.6345 &	1.68&	0.8684 &	1.02&	0.8068 &	2.69\\ %\hline
+%CiaoDVD& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
+%MF&	0.7431 &	&	0.7949 &	&	0.8910 &	\\
+%MF-N&	0.7903 &	6.34&	0.8127 &	2.25&	0.9154 &	2.74\\
+%AMF&	0.6489 &	&	0.6612 &	&	0.8741 &	\\
+%AMF-N&	0.6993 &	7.77&	0.6878 &	4.02&	0.8967 &	2.58\\
+%LLORMA&	0.6752 &	&	0.7827 &	&	0.8267 &	\\
+%LLORMA-N&	0.6845 &	1.38&	0.7984 &	2.00&	0.8384 &	1.42\\
+\bottomrule
+\end{tabular}
+\end{minipage}}
+
+
+\resizebox{0.9\textwidth}{!}{\begin{minipage}{\textwidth}
+\begin{tabular}{l l l l l l l}
+\toprule
+\textbf{Method} & \textbf{AUC} & \textbf{Imp} & \textbf{NDCG} & \textbf{Imp} & \textbf{MRR} & \textbf{Imp}\\
+\midrule
+Movielens& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
+BT&0.6453 & & 0.5329 & & 0.8227 & \\
+BT-N& 0.8511 & 31.89& 0.5795 & 8.74& 0.9256 & 12.51\\
+BPR	&0.7976	&&	0.5674	&&	0.8988	&\\
+BPR-N	&0.8361	&4.82&	0.5761&	1.53&0.9180	&2.14\\
+FSBPR	&0.5048 	&&	0.5011 	&&	0.7524 	&\\
+FSBPR-N&	0.8272 &63.86&	0.5740 &	14.56&	0.9136 &	21.42\\
+LCR&	0.7191&&		0.8555&&		0.9461	&\\
+LCR-N&	0.7360	&2.35&	0.8605&	0.58&	0.9515&	0.57\\
+\hline
+FIlmtrust& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
+BT& 0.5405 & & 0.5092 & & 0.7702 & \\
+BT-N & 0.6969 & 28.94& 0.5446 & 6.95& 0.8485 & 10.15\\
+BPR&	0.6412	&&	0.5319	&&	0.8206&\\	
+BPR-N	&0.6729	&4.94&	0.5391	&1.35&	0.8364&	1.93\\
+FSBPR	&0.4857 	&&	0.4968 &&		0.7428 	&\\
+FSBPR-N	&0.6717 &	38.29&	0.5388 &	8.47&	0.8358 &	12.52\\
+LCR	&0.5977&&		0.9034	&&	0.7511	&\\
+LCR-N&	0.6144&	2.79&	0.9063	&0.32&	0.7635	&1.65\\
+%\hline
+%CiaoDVD& & $(\%)$ & & $(\%)$ & & $(\%)$\\\hline
+%BT& 0.6063 & & 0.5240 & & 0.8031 & \\
+%BT-N& 0.9334 & 53.95& 0.5981 & 14.1& 0.9666 & 20.36\\
+%BPR	&0.6344	&&	0.5304&&		0.8172	&\\
+%BPR-N	&0.8987	&41.66&0.5902&	11.28&	0.9493&	16.17\\
+%FSBPR	&0.7537 	&&	0.5574 	&&	0.8769 	&\\
+%FSBPR-N&	0.8992 &	19.30&	0.5903 &	5.91&	0.9496 &	8.30\\
+%LCR&	0.6260	&&	0.9408	&&	0.7889	&\\
+%LCR-N	&0.6349&	1.42&	0.9451&	0.46&	0.7988&	1.25\\
+
+\bottomrule
+\end{tabular}
+\end{minipage}}
+}
+
+%----------------------------------------------------------------------------------------
+%	MEASUREMENT SETUP
+%----------------------------------------------------------------------------------------
+%\headerbox{Experiment Results2 }{name=ExperimentResults,span=2,column=1,below=Results1}{
+%%\begin{center}
+%
+%%\end{center}
+%}
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+\headerbox{Experiment Results2}{name=Results2,column=0,below=Results1,span=3}{
+\begin{center}
+\resizebox{0.9\textwidth}{!}{\begin{minipage}{\textwidth}
+\begin{tabular}{l l l l l l l l l l l}
+\toprule
+\textbf{Method} & \textbf{AUC} & \textbf{Imp.$(\%)$} & \textbf{NDCG} & \textbf{Imp.$(\%)$} & \textbf{MRR} & \textbf{Imp.$(\%)$}  & \textbf{MAP} & \textbf{Imp.$(\%)$}  & \textbf{Prec} & \textbf{Imp.$(\%)$}\\
+\midrule
+Tmall-single\\\hline
+BT	&0.5304 	&	&0.2804 	&	&0.4870 	&	&0.4327 	&	&0.2778 &\\
+BT-N	&0.5400 	&1.82	&0.2840 	&1.28	&0.4948 	&1.61	&0.4386 	&1.34	&0.2801 & 0.84\\
+BPR&	0.5181	&&	0.2794	&&	0.4854	&&	0.4297	&&	0.2767&\\	
+BPR-N	&0.5349&	3.24&	0.2848	&1.92&	0.4960	&2.18&	0.4401&	2.41&	0.2806	&1.41\\
+FSBPR	&0.5265 	&&	0.2824 	&&	0.4913 	&&	0.4350 	&&	0.2794 	&\\
+FSBPR-N	&0.5389& 	2.35&	0.2863 	&1.39&	0.4988 &	1.53&	0.4432 &	1.90&	0.2818 &	0.87\\
+LCR&	0.5200 	&&	0.8190 	&&	0.4277 	&&	0.3568 	&&	0.2534 	&\\
+LCR-N&	0.5290 &	1.73&	0.8213 &	0.28&	0.4360 	&1.94&	0.3648 	&2.24&	0.2586 &	2.05\\
+\hline
+Tmall-hybrid\\\hline
+BT	&0.5867 	&	&0.3015 	&	&0.5373 	&	&0.4929 	&	&0.2904 & \\
+BT-N	&0.6568 	&11.94	&0.3279 	&8.75	&0.5990 	&11.48	&0.5527 	&12.13	&0.3036 &4.53 \\
+BPR	&0.6183&	&	0.3183&&		0.5792	&&	0.5318&&		0.2973&\\	
+BPR-N	&0.6460	&4.48&	0.3276&	2.92&0.5990	&3.41&	0.5524&	3.87&	0.3030	&1.94\\
+FSBPR	&0.6334 	&&	0.3246 	&&	0.5916 &&		0.5442 	&&	0.3026 	&\\
+FSBPR-N&	0.6544 &	3.31&	0.3309 &	1.94&	0.6062 &	2.48&	0.5603 &	2.95&	0.3047 &	0.69\\
+LCR	&0.5398 	&&	0.6644 	&&	0.4519 	&&	0.3745 	&&	0.2597 	&\\
+LCR-N&	0.5649 &	4.65&	0.6790 &	2.20&	0.4809 &	6.42&	0.3988 &	6.49&	0.2720 &	4.74\\
+
+\bottomrule
+\end{tabular}
+\end{minipage}}
+\end{center}
+}
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+\headerbox{Conclusion}{name=conclusion,column=0,below=Results2,span=3}{
+ In this contribution,
+\vspace{-0.2cm}
+\begin{itemize}
+\item we present for the first time in the literature of recommendation systems how non-compensatory rules can be embedded in latent factor models.
+\vspace{-0.2cm}
+\item  We show that applying non-compensatory rules universally boosts recommendation performance for a variety of rating prediction and ranking models.
+\end{itemize}
+}
+
+%\headerbox{Acknowledgments}{name=Acknowledgments,column=1,below=conclusion,span=2}{
+%Chen Lin is supported by Natural Science Foundation of China under grant No.61472335. Yanghua Xiao is supported by NSFC (No.61732004, No.61472085, No.U1509213, No.U1636207), National Key R\&D Program of China (No.2017YFC0803700, No.2017YFC1201200), Shanghai Municipal Science and Technology project (No.16511102102, No.16JC1420401), Shanghai STCSMs R\&D Program (No.16JC1420400).
+%}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+%\headerbox{Acknowledgements}{name=acknowledgements,column=0,below=conclusion, above=bottom,span=3}{
+%\smaller
+%This work is funded by National Instruments (Dr. Truchard) through a charitable donation. We would like to acknowledge DARPA (Dr. Greene) and ONR (Dr. Maki) for funding the initial part of this work under grant N00014-11-1-0931. \hfill \tiny \textit{Poster downloaded from} \textbf{www.microwave.fr}
+%}
+\end{poster}
+
+\end{document}
