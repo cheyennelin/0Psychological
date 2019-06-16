@@ -1,0 +1,172 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Devooght, Kourtellis, and
+  Mantrach}{2015}]{Devooght2015Dynamic}
+Devooght, R.; Kourtellis, N.; and Mantrach, A.
+\newblock 2015.
+\newblock Dynamic matrix factorization with priors on unknown values.
+\newblock In {\em Proceedings of the 21th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining},  189--198.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Engel, Blackwell, and
+  Miniard}{1986}]{Engel1986Consumer}
+Engel, J.~F.; Blackwell, R.~D.; and Miniard, P.~W.
+\newblock 1986.
+\newblock {\em Consumer Behavior}.
+\newblock The Dryden Press.
+
+\bibitem[\protect\citeauthoryear{Guo \bgroup et al\mbox.\egroup
+  }{2014}]{Guo2014ETAF}
+Guo, G.; Zhang, J.; Thalmann, D.; and Yorke-Smith, N.
+\newblock 2014.
+\newblock Etaf: An extended trust antecedents framework for trust prediction.
+\newblock In {\em Proceedings of the 2014 IEEE/ACM International Conference on
+  Advances in Social Networks Analysis and Mining},  540--547.
+\newblock Piscataway, NJ, USA: IEEE Press.
+
+\bibitem[\protect\citeauthoryear{Guo, Zhang, and
+  Yorke-Smith}{2013}]{Guo2013Novel}
+Guo, G.; Zhang, J.; and Yorke-Smith, N.
+\newblock 2013.
+\newblock A novel bayesian similarity measure for recommender systems.
+\newblock In {\em Proceedings of IJCAI Conference},  2619--2625.
+
+\bibitem[\protect\citeauthoryear{Hauser, Ding, and
+  Gaskin}{2009}]{Hauser2009Non}
+Hauser, J.~R.; Ding, M.; and Gaskin, S.~P.
+\newblock 2009.
+\newblock A critical review of non-compensatory and compensatory models of
+  consideration-set decisions.
+\newblock In {\em Proceedings of the Sawtooth Software Conference},  207--232.
+
+\bibitem[\protect\citeauthoryear{Hu and Li}{2016}]{Hu2016Improved}
+Hu, J., and Li, P.
+\newblock 2016.
+\newblock Improved and scalable bradley-terry model for collaborative ranking.
+\newblock In {\em Proceedings of IEEE ICDM conference},  949--954.
+
+\bibitem[\protect\citeauthoryear{Hu and Li}{2017}]{Hu2017Decoupled}
+Hu, J., and Li, P.
+\newblock 2017.
+\newblock Decoupled collaborative ranking.
+\newblock In {\em Proceedings of the 26th International Conference on World
+  Wide Web},  1321--1329.
+\newblock Republic and Canton of Geneva, Switzerland: International World Wide
+  Web Conferences Steering Committee.
+
+\bibitem[\protect\citeauthoryear{Hunter}{2004}]{Hunter2004MM}
+Hunter, D.~R.
+\newblock 2004.
+\newblock Mm algorithms for generalized bradley-terry models.
+\newblock {\em The Annals of Statistics} 32(1):384--406.
+
+\bibitem[\protect\citeauthoryear{Koren, Bell, and
+  Volinsky}{2009}]{Koren2009Matrix}
+Koren, Y.; Bell, R.; and Volinsky, C.
+\newblock 2009.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer} 42(8):30--37.
+
+\bibitem[\protect\citeauthoryear{Koren}{2008}]{Koren2008Factorization}
+Koren, Y.
+\newblock 2008.
+\newblock Factorization meets the neighborhood: A multifaceted collaborative
+  filtering model.
+\newblock In {\em Proceedings of the 14th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining},  426--434.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Koren}{2010}]{Koren2010Factor}
+Koren, Y.
+\newblock 2010.
+\newblock Factor in the neighbors: Scalable and accurate collaborative
+  filtering.
+\newblock {\em ACM Transactions on Knowledge Discovery from Data.} 4:1:1--1:24.
+
+\bibitem[\protect\citeauthoryear{Laroche, Kim, and
+  Matsui}{2003}]{Laroche2003Which}
+Laroche, M.; Kim, C.; and Matsui, T.
+\newblock 2003.
+\newblock Which decision heuristics are used in consideration set formation?
+\newblock {\em Journal of Consumer Marketing} 20(3):192--209.
+
+\bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
+  }{2014}]{Lee2014Local}
+Lee, J.; Bengio, S.; Kim, S.; Lebanon, G.; and Singer, Y.
+\newblock 2014.
+\newblock Local collaborative ranking.
+\newblock In {\em Proceedings of the 23rd International Conference on World
+  Wide Web},  85--96.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Lee \bgroup et al\mbox.\egroup
+  }{2016}]{Lee2016LLORMA}
+Lee, J.; Kim, S.; Lebanon, G.; Singer, Y.; and Bengio, S.
+\newblock 2016.
+\newblock Llorma: Local low-rank matrix approximation.
+\newblock {\em J. Mach. Learn. Res.} 17(1):442--465.
+
+\bibitem[\protect\citeauthoryear{Lee}{2009}]{Lee2009Transforming}
+Lee, I.
+\newblock 2009.
+\newblock {\em Transforming E-Business Practices and Applications: Emerging
+  Technologies and Concepts: Emerging Technologies and Concepts}.
+\newblock IGI Global.
+
+\bibitem[\protect\citeauthoryear{Pil\'{a}szy, Zibriczky, and
+  Tikk}{2010}]{Pil'aszy2010Fast}
+Pil\'{a}szy, I.; Zibriczky, D.; and Tikk, D.
+\newblock 2010.
+\newblock Fast als-based matrix factorization for explicit and implicit
+  feedback datasets.
+\newblock In {\em Proceedings of the 4th ACM conference on Recommender
+  systems},  71--78.
+
+\bibitem[\protect\citeauthoryear{Rendle \bgroup et al\mbox.\egroup
+  }{2009}]{Rendle2009BPR}
+Rendle, S.; Freudenthaler, C.; Gantner, Z.; and Schmidt-Thieme, L.
+\newblock 2009.
+\newblock Bpr: Bayesian personalized ranking from implicit feedback.
+\newblock In {\em Proceedings of the 25th Conference on Uncertainty in
+  Artificial Intelligence},  452--461.
+
+\bibitem[\protect\citeauthoryear{Salakhutdinov and
+  Mnih}{2008}]{salakhutdinov2008probabilistic}
+Salakhutdinov, R., and Mnih, A.
+\newblock 2008.
+\newblock Probabilistic matrix factorization.
+\newblock {\em Advances in neural information processing systems}
+  20:1257--1264.
+
+\bibitem[\protect\citeauthoryear{Shi, Larson, and Hanjalic}{2010}]{Shi2010List}
+Shi, Y.; Larson, M.; and Hanjalic, A.
+\newblock 2010.
+\newblock List-wise learning to rank with matrix factorization for
+  collaborative filtering.
+\newblock In {\em Proceedings of the Fourth ACM Conference on Recommender
+  Systems},  269--272.
+\newblock New York, NY, USA: ACM.
+
+\bibitem[\protect\citeauthoryear{Steck}{2015}]{Steck2015Gaussian}
+Steck, H.
+\newblock 2015.
+\newblock Gaussian ranking by matrix factorization.
+\newblock In {\em Proceedings of the 9th ACM Conference on Recommender
+  Systems},  115--122.
+
+\bibitem[\protect\citeauthoryear{Thurstone}{1927}]{Thurstone1927law}
+Thurstone, L.~L.
+\newblock 1927.
+\newblock A law of comparative judgment.
+\newblock {\em Psychological review} 34(4):273.
+
+\bibitem[\protect\citeauthoryear{Zhao \bgroup et al\mbox.\egroup
+  }{2018}]{Zhao2018Factored}
+Zhao, Q.; Zhang, Y.; Ma, J.; and Duan, Q.
+\newblock 2018.
+\newblock Factored item similarity and bayesian personalized ranking for
+  recommendation with implicit feedback.
+\newblock {\em Arabian Journal for Science and Engineering} 2018:1--11.
+
+\end{thebibliography}
